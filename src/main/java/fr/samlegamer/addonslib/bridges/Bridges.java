@@ -24,7 +24,7 @@ public class Bridges
 {
 	private static final List<RegistryObject<Block>> BRIDGE_BLOCKS = new ArrayList<>();
 
-	/*
+	/**
 	 * Init all Wood Variants of Macaw's Bridges
 	 */
 	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
@@ -67,7 +67,7 @@ public class Bridges
 			}
 	}
 	
-	/*
+	/**
 	 * Init all Stone Variants of Macaw's Bridges
 	 */
 	public static void setRegistrationRock(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
@@ -107,7 +107,7 @@ public class Bridges
 		return BRIDGE_BLOCKS;
 	}
 	
-	/*
+	/**
 	 * Use this to set Render Bridges
 	 */
 	public static void setupClient(final FMLClientSetupEvent event) {

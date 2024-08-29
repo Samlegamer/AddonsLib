@@ -23,7 +23,7 @@ public class Fences
 {
 	private static final List<RegistryObject<Block>> FENCE_BLOCKS = new ArrayList<>();
 
-	/*
+	/**
 	 * Init all Wood Variants of Macaw's Fences
 	 */
 	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
@@ -63,7 +63,7 @@ public class Fences
 			}
 	}
 	
-	/*
+	/**
 	 * Init all Hedges Variants of Macaw's Fences
 	 */
 	public static void setRegistrationHedges(List<String> leaves, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
@@ -76,7 +76,7 @@ public class Fences
 				
 				if (ModList.get().isLoaded("mcwfences"))
 	        	{
-	                hedge = createBlock(i + "_hedge", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES), block, item, tab);
+	                hedge = createBlock(i + "_hedge", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES, new FenceBlock(HEDGES)), block, item, tab);
 
 	            } else {
 	                hedge = createBlock(i + "_hedge", () -> new FenceBlock(HEDGES), block, item, tab);
@@ -86,7 +86,7 @@ public class Fences
 			}
 	}
 	
-	/*
+	/**
 	 * Init all Stone Variants of Macaw's Fences
 	 */
 	public static void setRegistrationRock(List<String> rock, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
@@ -102,7 +102,7 @@ public class Fences
 					railing_wall = createBlockStone("railing_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab);
 					railing_gate = createBlockStone(i+"_railing_gate", () -> new FenceGateBlock(STONE), block, item, tab);
 					pillar_wall = createBlockStone(i+"_pillar_wall", () -> new FenceBlock(STONE), block, item, tab);
-	                grass_topped_wall = createBlock(i + "_grass_topped_wall", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", STONE), block, item, tab);
+	                grass_topped_wall = createBlock(i + "_grass_topped_wall", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", STONE, new FenceBlock(STONE)), block, item, tab);
 
 	            } else {
 					modern_wall = createBlockStone("modern_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab);
@@ -124,7 +124,7 @@ public class Fences
 		return FENCE_BLOCKS;
 	}
 	
-	/*
+	/**
 	 * Use this to set Render Fences
 	 */
 	public static void setupClient(final FMLClientSetupEvent event) {

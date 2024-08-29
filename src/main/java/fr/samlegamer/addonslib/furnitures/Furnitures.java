@@ -22,7 +22,7 @@ public class Furnitures
 {
 	private static final List<RegistryObject<Block>> FURNITURE_BLOCKS = new ArrayList<>();
 
-	/*
+	/**
 	 * Init all Wood Variants of Macaw's Furnitures
 	 */
 	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
@@ -291,7 +291,7 @@ public class Furnitures
 		return FURNITURE_BLOCKS;
 	}
 	
-	/*
+	/**
 	 * Use this to set Render Furnitures
 	 */
 	public static void setupClient(final FMLClientSetupEvent event) {

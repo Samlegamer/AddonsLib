@@ -12,12 +12,12 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-/*
+/**
  * Used for easy registries
  */
 public class Registration
 {
-	/*
+	/**
 	 * block
 	 */
 	public static DeferredRegister<Block> blocks(String MODID)
@@ -25,7 +25,7 @@ public class Registration
 		return DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 	}
 	
-	/*
+	/**
 	 * Item
 	 */
 	public static DeferredRegister<Item> items(String MODID)
@@ -33,7 +33,7 @@ public class Registration
 		return DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 	}
 	
-	/*
+	/**
 	 * register
 	 */
 	public static void init(DeferredRegister<Block> b, DeferredRegister<Item> i)
@@ -46,7 +46,7 @@ public class Registration
 	public static Block getBlocksField(String path, AbstractBlock.Properties WOOD, Block transform)
 	{
         Class<?> classBase;
-        Block block;
+        Block block = transform;
         Constructor<?> constuctorBase;
 
 		try {

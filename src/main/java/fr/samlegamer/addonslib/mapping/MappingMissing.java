@@ -1,46 +1,37 @@
 package fr.samlegamer.addonslib.mapping;
 
 import java.util.List;
+
+import fr.samlegamer.addonslib.AddonsLib;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 
-/*
+/**
  * Converts your old block compat with the new registry
  * First used with McwBridgesAbnormals
  * Warning for convert long compatibility use changeOldModid
  */
 public class MappingMissing
-{
-	protected static String oldModid;
-	protected static String newModid;
-	protected static List<String> mats;
-	protected static List<String> mat_rockable;
-	protected static List<String> leaves;
-	protected static boolean Hedges = false;
-	
-	public MappingMissing(String oldModid, String newModid, List<String> mats)
-	{
-		MappingMissing.oldModid = oldModid;
-		MappingMissing.newModid = newModid;
-		MappingMissing.mats = mats;
-	}
-	
-	public MappingMissing(String oldModid, String newModid, List<String> mats_wooden, List<String> mat_rockable)
-	{
-		this(oldModid, newModid, mats_wooden);
-		MappingMissing.mat_rockable  = mat_rockable;
-	}
-	
+{	
 	public static class Furnitures implements IMappings
 	{
+		protected String oldModid;
+		protected String newModid;
+		protected List<String> mats;
+
+		public Furnitures(String oldModid, String newModid, List<String> mats)
+		{
+			this.oldModid = oldModid;
+			this.newModid = newModid;
+			this.mats = mats;
+		}
+		
 		public void missingnoWoodBlock(RegistryEvent.MissingMappings<Block> event)
 		{
-			for(String i : mats)
+			for(String i : this.mats)
 			{
 				addMissingBlock(event, oldModid, newModid, i+"_wardrobe", i+"_wardrobe");
 				addMissingBlock(event, oldModid, newModid, i+"_modern_wardrobe", i+"_modern_wardrobe");
@@ -108,7 +99,7 @@ public class MappingMissing
 		
 		public void missingnoWoodItem(RegistryEvent.MissingMappings<Item> event)
 		{
-			for(String i : mats)
+			for(String i : this.mats)
 			{
 				addMissingItem(event, oldModid, newModid, i+"_wardrobe", i+"_wardrobe");
 				addMissingItem(event, oldModid, newModid, i+"_modern_wardrobe", i+"_modern_wardrobe");
@@ -181,9 +172,28 @@ public class MappingMissing
 	
 	public static class Roofs implements IMappings
 	{
+		protected String oldModid;
+		protected String newModid;
+		protected List<String> mats;
+		protected List<String> mat_rockable;
+		protected List<String> leaves;
+
+		public Roofs(String oldModid, String newModid, List<String> mats)
+		{
+			this.oldModid = oldModid;
+			this.newModid = newModid;
+			this.mats = mats;
+		}
+		
+		public Roofs(String oldModid, String newModid, List<String> mats_wooden, List<String> mat_rockable)
+		{
+			this(oldModid, newModid, mats_wooden);
+			this.mat_rockable  = mat_rockable;
+		}
+		
 		public void missingnoWoodBlock(RegistryEvent.MissingMappings<Block> event)
 		{
-			for(String i : mats)
+			for(String i : this.mats)
 			{
 				addMissingBlock(event, oldModid, newModid, i+"_roof", i+"_roof");
 				addMissingBlock(event, oldModid, newModid, i+"_attic_roof", i+"_attic_roof");
@@ -205,7 +215,7 @@ public class MappingMissing
 		
 		public void missingnoWoodItem(RegistryEvent.MissingMappings<Item> event)
 		{
-			for(String i : mats)
+			for(String i : this.mats)
 			{
 				addMissingItem(event, oldModid, newModid, i+"_roof", i+"_roof");
 				addMissingItem(event, oldModid, newModid, i+"_attic_roof", i+"_attic_roof");
@@ -232,9 +242,38 @@ public class MappingMissing
 
 	public static class Fences implements IMappings
 	{
+		protected String oldModid;
+		protected String newModid;
+		protected List<String> mats;
+		protected List<String> mat_rockable;
+		protected List<String> leaves;
+		protected boolean Hedges = false;
+
+		public Fences(String oldModid, String newModid, List<String> mats)
+		{
+			this.oldModid = oldModid;
+			this.newModid = newModid;
+			this.mats = mats;
+		}
+		
+		public Fences(String oldModid, String newModid, List<String> mats_wooden, List<String> mat_rockable)
+		{
+			this(oldModid, newModid, mats_wooden);
+			this.mat_rockable  = mat_rockable;
+		}
+		
+		/**
+		 * Activate Leaves to Mapping Wood
+		 */
+		public void leavesAdding(List<String> leaves)
+		{
+			this.Hedges = true;
+			this.leaves  = leaves;
+		}
+
 		public void missingnoWoodBlock(RegistryEvent.MissingMappings<Block> event)
 		{		
-			for(String i : mats)
+			for(String i : this.mats)
 			{
 				addMissingBlock(event, oldModid, newModid, i+"_picket_fence", i+"_picket_fence");
 				addMissingBlock(event, oldModid, newModid, i+"_stockade_fence", i+"_stockade_fence");
@@ -243,9 +282,9 @@ public class MappingMissing
 				addMissingBlock(event, oldModid, newModid, i+"_highley_gate", i+"_highley_gate");
 				addMissingBlock(event, oldModid, newModid, i+"_pyramid_gate", i+"_pyramid_gate");
 			}
-			if(Hedges)
+			if(this.Hedges)
 			{
-				for(String i : leaves)
+				for(String i : this.leaves)
 				{
 					addMissingBlock(event, oldModid, newModid, i+"_hedge", i+"_hedge");
 				}
@@ -254,7 +293,7 @@ public class MappingMissing
 		
 		public void missingnoWoodItem(RegistryEvent.MissingMappings<Item> event)
 		{
-			for(String i : mats)
+			for(String i : this.mats)
 			{
 				addMissingItem(event, oldModid, newModid, i+"_picket_fence", i+"_picket_fence");
 				addMissingItem(event, oldModid, newModid, i+"_stockade_fence", i+"_stockade_fence");
@@ -263,9 +302,9 @@ public class MappingMissing
 				addMissingItem(event, oldModid, newModid, i+"_highley_gate", i+"_highley_gate");
 				addMissingItem(event, oldModid, newModid, i+"_pyramid_gate", i+"_pyramid_gate");
 			}
-			if(Hedges)
+			if(this.Hedges)
 			{
-				for(String i : leaves)
+				for(String i : this.leaves)
 				{
 					addMissingItem(event, oldModid, newModid, i+"_hedge", i+"_hedge");
 				}
@@ -274,7 +313,7 @@ public class MappingMissing
 		
 		public void missingnoStoneBlock(RegistryEvent.MissingMappings<Block> event)
 		{		
-			for(String i : mat_rockable)
+			for(String i : this.mat_rockable)
 			{
 				addMissingBlock(event, oldModid, newModid, "modern_"+i+"_wall", "modern_"+i+"_wall");
 				addMissingBlock(event, oldModid, newModid, "railing_"+i+"_wall", "railing_"+i+"_wall");
@@ -286,7 +325,7 @@ public class MappingMissing
 		
 		public void missingnoStoneItem(RegistryEvent.MissingMappings<Item> event)
 		{
-			for(String i : mat_rockable)
+			for(String i : this.mat_rockable)
 			{
 				addMissingItem(event, oldModid, newModid, "modern_"+i+"_wall", "modern_"+i+"_wall");
 				addMissingItem(event, oldModid, newModid, "railing_"+i+"_wall", "railing_"+i+"_wall");
@@ -299,9 +338,27 @@ public class MappingMissing
 	
 	public static class Bridges implements IMappings
 	{
+		protected String oldModid;
+		protected String newModid;
+		protected List<String> mats;
+		protected List<String> mat_rockable;
+
+		public Bridges(String oldModid, String newModid, List<String> mats)
+		{
+			this.oldModid = oldModid;
+			this.newModid = newModid;
+			this.mats = mats;
+		}
+		
+		public Bridges(String oldModid, String newModid, List<String> mats_wooden, List<String> mat_rockable)
+		{
+			this(oldModid, newModid, mats_wooden);
+			this.mat_rockable  = mat_rockable;
+		}
+		
 		public void missingnoWoodBlock(RegistryEvent.MissingMappings<Block> event)
 		{		
-			for(String i : mats)
+			for(String i : this.mats)
 			{
 				addMissingBlock(event, oldModid, newModid, i+"_log_bridge_middle", i+"_log_bridge_middle");
 				addMissingBlock(event, oldModid, newModid, "rope_"+i+"_bridge", "rope_"+i+"_bridge");
@@ -314,7 +371,7 @@ public class MappingMissing
 		
 		public void missingnoWoodItem(RegistryEvent.MissingMappings<Item> event)
 		{
-			for(String i : mats)
+			for(String i : this.mats)
 			{
 				addMissingItem(event, oldModid, newModid, i+"_log_bridge_middle", i+"_log_bridge_middle");
 				addMissingItem(event, oldModid, newModid, "rope_"+i+"_bridge", "rope_"+i+"_bridge");
@@ -327,7 +384,7 @@ public class MappingMissing
 		
 		public void missingnoStoneBlock(RegistryEvent.MissingMappings<Block> event)
 		{		
-			for(String i : mat_rockable)
+			for(String i : this.mat_rockable)
 			{
 				addMissingBlock(event, oldModid, newModid, i+"_bridge", i+"_bridge");
 				addMissingBlock(event, oldModid, newModid, i+"_bridge_pier", i+"_bridge_pier");
@@ -338,7 +395,7 @@ public class MappingMissing
 		
 		public void missingnoStoneItem(RegistryEvent.MissingMappings<Item> event)
 		{
-			for(String i : mat_rockable)
+			for(String i : this.mat_rockable)
 			{
 				addMissingItem(event, oldModid, newModid, i+"_bridge", i+"_bridge");
 				addMissingItem(event, oldModid, newModid, i+"_bridge_pier", i+"_bridge_pier");
@@ -348,76 +405,46 @@ public class MappingMissing
 		}
 	}
 	
-	/*
-	 * Activate Leaves to Mapping Wood
-	 */
-	public void leavesAdding(List<String> leaves)
-	{
-		Hedges = true;
-		MappingMissing.leaves  = leaves;
-	}
-	/*
-	 * For convert new compatibilities
-	 * ex:macawsbridgesbop is converted
-	 * changeOldModid("mcwfencesbop)
-	 * mcwfencesbop is converted
-	 */
-	public void changeOldModid(String newOldModid)
-	{
-		MappingMissing.oldModid = newOldModid;
-	}
-	
-	/*
-	 * Is For Wood Only
-	 */
-	public void initWood(IMappings map)
-	{
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(map::missingnoWoodBlock);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(map::missingnoWoodItem);
-	}
-	
-	/*
-	 * Is For Stone Only
-	 */
-	public void initStone(IMappings map)
-	{
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(map::missingnoStoneBlock);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(map::missingnoStoneItem);
-	}
-	
-	/*
-	 * Warning your 
-	 */
-	public void initAll(IMappings map)
-	{
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(map::missingnoWoodBlock);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(map::missingnoWoodItem);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(map::missingnoStoneBlock);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(map::missingnoStoneItem);
-	}
-	
 	protected static void addMissingBlock(RegistryEvent.MissingMappings<Block> event, String oldModid, String newModid, String nameMissing, String nameNew)
 	{
-		RegistryObject<Block> remapped = RegistryObject.of(new ResourceLocation(newModid, nameNew), ForgeRegistries.BLOCKS);
-		for(RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings())
-		{
-			if(entry.key.toString().equals(oldModid + ":" + nameMissing))
+		Block remapped = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(newModid, nameNew));
+
+        if (remapped != null)
+        {
+			for(RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings())
 			{
-				entry.remap(remapped.get());
+				if(entry.key.toString().equals(oldModid + ":" + nameMissing))
+				{
+					entry.remap(remapped);
+					AddonsLib.LOGGER.info("Remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
+				}
 			}
-		}
+        }
+        else
+        {
+			AddonsLib.LOGGER.info("Failed remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
+        }
 	}
 	
 	protected static void addMissingItem(RegistryEvent.MissingMappings<Item> event, String oldModid, String newModid, String nameMissing, String nameNew)
 	{
-		RegistryObject<Item> remapped = RegistryObject.of(new ResourceLocation(newModid, nameNew), ForgeRegistries.ITEMS);
-		for(RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings())
-		{
-			if(entry.key.toString().equals(oldModid + ":" + nameMissing))
+		Item remapped = ForgeRegistries.ITEMS.getValue(new ResourceLocation(newModid, nameNew));
+		
+		if (remapped != null)
+        {
+			for(RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings())
 			{
-				entry.remap(remapped.get());
+				if(entry.key.toString().equals(oldModid + ":" + nameMissing))
+				{
+					entry.remap(remapped);
+					AddonsLib.LOGGER.info("Remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
+				}
 			}
-		}
+        }
+        else
+        {
+			AddonsLib.LOGGER.info("Failed remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
+        }
 	}
 
 }

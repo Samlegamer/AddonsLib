@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.RegistryObject;
 
-/*
+/**
  * For randomize icon item
  */
 public class IconRandom
@@ -20,7 +20,7 @@ public class IconRandom
 		private RegistryObject<Item> roofsIcon, fencesIcon, furnituresIcon, bridgesIcon;
 		private int depedencies = 0;
 
-		/*
+		/**
 		 * Is For Wood Compat ex:Macaw's BOP
 		 * Parameter : (roofsIcon, fencesIcon, furnituresIcon, bridgesIcon)
 		 */
@@ -32,7 +32,7 @@ public class IconRandom
 			this.bridgesIcon = bridgesIcon;
 		}
 		
-		/*
+		/**
 		 * Is For Stone Compat ex:Macaw's Quark
 		 * Parameter : (roofsIcon, fencesIcon, bridgesIcon)
 		 */

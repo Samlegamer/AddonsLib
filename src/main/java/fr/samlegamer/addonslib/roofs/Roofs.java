@@ -23,7 +23,7 @@ public class Roofs
 {
 	private static final List<RegistryObject<Block>> ROOF_BLOCKS = new ArrayList<>();
 
-	/*
+	/**
 	 * Init all Wood Variants of Macaw's Roofs
 	 */
 	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
@@ -106,7 +106,7 @@ public class Roofs
 			}
 	}
 	
-	/*
+	/**
 	 * Init all Stone Variants of Macaw's Roofs
 	 */
 	public static void setRegistrationRock(List<String> rock, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
@@ -162,7 +162,7 @@ public class Roofs
 		return ROOF_BLOCKS;
 	}
 	
-	/*
+	/**
 	 * Use this to set Render Roofs
 	 */
 	public static void setupClient(final FMLClientSetupEvent event) {
