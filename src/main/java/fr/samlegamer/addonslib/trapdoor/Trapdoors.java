@@ -70,7 +70,7 @@ public class Trapdoors
 	}
 	
 	/**
-	 * Use this to set Render Bridges
+	 * Use this to set Render Trapdoors
 	 */
 	public static void setupClient(final FMLClientSetupEvent event) {
 	    event.enqueueWork(() -> {
@@ -92,6 +92,5 @@ public class Trapdoors
             ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
         }
         return block;
-
     }
 }
