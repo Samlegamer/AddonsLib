@@ -18,7 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class Registration
 {
 	/**
-	 * block
+	 * Block
 	 */
 	public static DeferredRegister<Block> blocks(String MODID)
 	{
@@ -94,5 +94,4 @@ public class Registration
 		}
         return block;
 	}
-
 }

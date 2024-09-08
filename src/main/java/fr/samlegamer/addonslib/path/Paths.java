@@ -50,6 +50,33 @@ public class Paths
 	}
 	
 	/**
+	 * Init all Wood Variants of Macaw's Paths with if Mod Loaded
+	 */
+	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, String modLoaded)
+	{
+			final AbstractBlock.Properties WOOD = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
+
+			for(String i : set)
+			{
+				RegistryObject<Block> planks_path;
+				  
+				try {
+				    if (ModList.get().isLoaded("mcwpaths"))
+				    {
+				    	planks_path = createBlock(i+"_planks_path", () -> Registration.getBlocksField("com.mcwpaths.kikoz.objects.FacingPathBlock", WOOD), block, item, tab, modLoaded);
+				    }
+				    else
+				    {
+				    	planks_path = createBlock(i+"_planks_path", () -> new Block(WOOD), block, item, tab, modLoaded);
+				    }
+				    PATH_BLOCKS.add(planks_path);
+				} catch (Exception e) {
+				    e.printStackTrace();
+				}
+			}
+	}
+	
+	/**
 	 * Use this to set Render Paths
 	 */
 	public static void setupClient(final FMLClientSetupEvent event) {
@@ -64,6 +91,21 @@ public class Paths
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
         if(ModList.get().isLoaded("mcwpaths"))
+        {
+            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
+        }
+        else
+        {
+            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
+        }
+        return block;
+
+    }
+	
+	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
+    {
+        RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
+        if(ModList.get().isLoaded("mcwpaths") && ModList.get().isLoaded(modLoaded))
         {
             ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
         }
