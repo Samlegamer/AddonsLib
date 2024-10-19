@@ -382,26 +382,46 @@ public class MappingMissing
 			}
 		}
 		
-		public void missingnoStoneBlock(RegistryEvent.MissingMappings<Block> event)
+		public void missingnoStoneBlock(RegistryEvent.MissingMappings<Block> event, boolean balustrade)
 		{		
 			for(String i : this.mat_rockable)
 			{
 				addMissingBlock(event, oldModid, newModid, i+"_bridge", i+"_bridge");
 				addMissingBlock(event, oldModid, newModid, i+"_bridge_pier", i+"_bridge_pier");
 				addMissingBlock(event, oldModid, newModid, i+"_bridge_stair", i+"_bridge_stair");
-				addMissingBlock(event, oldModid, newModid, "balustrade_"+i+"_bridge", "balustrade_"+i+"_bridge");
+				if(balustrade)
+				{
+					addMissingBlock(event, oldModid, newModid, "balustrade_"+i+"_bridge", "balustrade_"+i+"_bridge");
+				}
 			}
 		}
 		
-		public void missingnoStoneItem(RegistryEvent.MissingMappings<Item> event)
+		/*use missingnoStoneBlock(RegistryEvent.MissingMappings<Block> event, boolean balustrade)*/
+		@Deprecated
+		public void missingnoStoneBlock(RegistryEvent.MissingMappings<Block> event)
+		{
+			missingnoStoneBlock(event, false);
+		}
+		
+		public void missingnoStoneItem(RegistryEvent.MissingMappings<Item> event, boolean balustrade)
 		{
 			for(String i : this.mat_rockable)
 			{
 				addMissingItem(event, oldModid, newModid, i+"_bridge", i+"_bridge");
 				addMissingItem(event, oldModid, newModid, i+"_bridge_pier", i+"_bridge_pier");
 				addMissingItem(event, oldModid, newModid, i+"_bridge_stair", i+"_bridge_stair");
-				addMissingItem(event, oldModid, newModid, "balustrade_"+i+"_bridge", "balustrade_"+i+"_bridge");
+				if(balustrade)
+				{
+					addMissingItem(event, oldModid, newModid, "balustrade_"+i+"_bridge", "balustrade_"+i+"_bridge");
+				}
 			}
+		}
+		
+		/*use missingnoStoneItem(RegistryEvent.MissingMappings<Item> event, boolean balustrade)*/
+		@Deprecated
+		public void missingnoStoneItem(RegistryEvent.MissingMappings<Item> event)
+		{
+			missingnoStoneItem(event, false);
 		}
 	}
 	

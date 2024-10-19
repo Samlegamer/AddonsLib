@@ -124,11 +124,13 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:macaws-bridges-351725:5465206")
     runtimeOnly fg.deobf("curse.maven:macaws-roofs-352039:5554945")
     runtimeOnly fg.deobf("curse.maven:macaws-furniture-359540:5589858")
+    runtimeOnly fg.deobf("curse.maven:macaws-stairs-1119394:5802521")
     
     compileOnly fg.deobf("curse.maven:macaws-fences-and-walls-453925:5442205")
     compileOnly fg.deobf("curse.maven:macaws-bridges-351725:5465206")
     compileOnly fg.deobf("curse.maven:macaws-roofs-352039:5554945")
     compileOnly fg.deobf("curse.maven:macaws-furniture-359540:5589858")
+	compileOnly fg.deobf("curse.maven:macaws-stairs-1119394:5802521")
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency

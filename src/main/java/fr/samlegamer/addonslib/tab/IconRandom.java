@@ -8,7 +8,9 @@ import net.minecraftforge.fml.RegistryObject;
 
 /**
  * For randomize icon item
+ * @Deprecated use NewIconRandom
  */
+@Deprecated
 public class IconRandom
 {
 	public static class Properties

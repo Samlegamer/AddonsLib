@@ -3,8 +3,9 @@ package fr.samlegamer.addonslib.bridges;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
-
+import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
+import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -15,29 +16,34 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class Bridges
 {
 	private static final List<RegistryObject<Block>> BRIDGE_BLOCKS = new ArrayList<>();
-
+	private static AbstractBlock.Properties wood = AbstractBlock.Properties.of(Material.WOOD).harvestTool(ToolType.AXE).strength(0.5F, 2.5F).sound(SoundType.WOOD);
+	private static AbstractBlock.Properties stone = AbstractBlock.Properties.of(Material.STONE).harvestTool(ToolType.PICKAXE).strength(3.0F, 5.0F).sound(SoundType.STONE);
+	
+	public static final String modid = "mcwbridges";
+	
 	/**
 	 * Init all Wood Variants of Macaw's Bridges
 	 */
 	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
 	{
-			final AbstractBlock.Properties WOOD = AbstractBlock.Properties.of(Material.WOOD).harvestTool(ToolType.AXE).strength(0.5F, 2.5F).sound(SoundType.WOOD);
-			final AbstractBlock.Properties RAILS = AbstractBlock.Properties.of(Material.WOOD).harvestTool(ToolType.AXE).strength(0.5F, 2.5F).noOcclusion().sound(SoundType.WOOD);
+			final AbstractBlock.Properties WOOD = wood;
+			final AbstractBlock.Properties RAILS = wood.noOcclusion();
+			RegistryObject<Block> log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
 
 			for(String i : set)
 			{
-				RegistryObject<Block> log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
-				
 				try {
-				    if (ModList.get().isLoaded("mcwbridges"))
+				    if (ModList.get().isLoaded(modid))
 				    {
 				    	log_bridge_middle = createBlock(i+"_log_bridge_middle", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Log_Bridge", WOOD), block, item, tab);
 						rope_bridge = createBlock("rope_"+i+"_bridge", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block_Rope", WOOD), block, item, tab);
@@ -65,6 +71,7 @@ public class Bridges
 				    e.printStackTrace();
 				}
 			}
+			wood = AbstractBlock.Properties.of(Material.WOOD).harvestTool(ToolType.AXE).strength(0.5F, 2.5F).sound(SoundType.WOOD);
 	}
 	
 	/**
@@ -72,14 +79,13 @@ public class Bridges
 	 */
 	public static void setRegistrationRock(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
 	{
-		 final AbstractBlock.Properties STONE = AbstractBlock.Properties.of(Material.STONE).harvestTool(ToolType.PICKAXE).strength(3.0F, 5.0F).sound(SoundType.STONE);
+		 	final AbstractBlock.Properties STONE = stone;
+			RegistryObject<Block> cryptic_stone_bridge, cryptic_stone_bridge_pier, cryptic_stone_bridge_stair, balustrade_cryptic_stone_bridge;
 
 			for(String i : set)
 			{
-				RegistryObject<Block> cryptic_stone_bridge, cryptic_stone_bridge_pier, cryptic_stone_bridge_stair, balustrade_cryptic_stone_bridge;
-				
 				try {
-				    if (ModList.get().isLoaded("mcwbridges"))
+				    if (ModList.get().isLoaded(modid))
 				    {
 				    	cryptic_stone_bridge = createBlockStone(i+"_bridge", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block", STONE), block, item, tab);
 						cryptic_stone_bridge_pier = createBlockStone(i+"_bridge_pier", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Support", STONE), block, item, tab);
@@ -101,21 +107,21 @@ public class Bridges
 				    e.printStackTrace();
 				}
 			}
+			stone = AbstractBlock.Properties.of(Material.STONE).harvestTool(ToolType.PICKAXE).strength(3.0F, 5.0F).sound(SoundType.STONE);
 	}
 	
 	/**
 	 * Init all Stone Variants of Macaw's Bridges with if Mod Loaded
 	 */
-	public static void setRegistrationRockModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, String modLoaded)
+	public static void setRegistrationRockModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, String modLoaded, AbstractBlock.Properties prop)
 	{
-		 final AbstractBlock.Properties STONE = AbstractBlock.Properties.of(Material.STONE).harvestTool(ToolType.PICKAXE).strength(3.0F, 5.0F).sound(SoundType.STONE);
+		 final AbstractBlock.Properties STONE = prop;
+			RegistryObject<Block> cryptic_stone_bridge, cryptic_stone_bridge_pier, cryptic_stone_bridge_stair, balustrade_cryptic_stone_bridge;
 
 			for(String i : set)
 			{
-				RegistryObject<Block> cryptic_stone_bridge, cryptic_stone_bridge_pier, cryptic_stone_bridge_stair, balustrade_cryptic_stone_bridge;
-				
 				try {
-				    if (ModList.get().isLoaded("mcwbridges"))
+				    if (ModList.get().isLoaded(modid))
 				    {
 				    	cryptic_stone_bridge = createBlockStone(i+"_bridge", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block", STONE), block, item, tab, modLoaded);
 						cryptic_stone_bridge_pier = createBlockStone(i+"_bridge_pier", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Support", STONE), block, item, tab, modLoaded);
@@ -142,17 +148,16 @@ public class Bridges
 	/**
 	 * Init all Wood Variants of Macaw's Bridges with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, String modLoaded)
+	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, String modLoaded, AbstractBlock.Properties prop)
 	{
-			final AbstractBlock.Properties WOOD = AbstractBlock.Properties.of(Material.WOOD).harvestTool(ToolType.AXE).strength(0.5F, 2.5F).sound(SoundType.WOOD);
-			final AbstractBlock.Properties RAILS = AbstractBlock.Properties.of(Material.WOOD).harvestTool(ToolType.AXE).strength(0.5F, 2.5F).noOcclusion().sound(SoundType.WOOD);
+			final AbstractBlock.Properties WOOD = prop;
+			final AbstractBlock.Properties RAILS = prop.noOcclusion();
+			RegistryObject<Block> log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
 
 			for(String i : set)
 			{
-				RegistryObject<Block> log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
-				
 				try {
-				    if (ModList.get().isLoaded("mcwbridges"))
+				    if (ModList.get().isLoaded(modid))
 				    {
 				    	log_bridge_middle = createBlock(i+"_log_bridge_middle", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Log_Bridge", WOOD), block, item, tab, modLoaded);
 						rope_bridge = createBlock("rope_"+i+"_bridge", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block_Rope", WOOD), block, item, tab, modLoaded);
@@ -187,8 +192,9 @@ public class Bridges
 	}
 	
 	/**
-	 * Use this to set Render Bridges
+	 * Don't work
 	 */
+	@Deprecated
 	public static void setupClient(final FMLClientSetupEvent event) {
 	    event.enqueueWork(() -> {
 	        for (RegistryObject<Block> block : BRIDGE_BLOCKS) {
@@ -197,55 +203,89 @@ public class Bridges
 	    });
 	}
 	
-	/*Add Logo Item for Used*/
-	@Deprecated
-	public static Block getTabIcon()
+	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
 	{
-		return BRIDGE_BLOCKS.get(0).get();
+		Block log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
+		
+		for (String i : WOOD)
+		{				    	
+			log_bridge_middle = Finder.findBlock(MODID, i+"_log_bridge_middle");
+			rope_bridge = Finder.findBlock(MODID, "rope_"+i+"_bridge");
+			bridge_pier = Finder.findBlock(MODID, i+"_bridge_pier");
+			log_bridge_stair = Finder.findBlock(MODID, i+"_log_bridge_stair");
+			rope_bridge_stair = Finder.findBlock(MODID, i+"_rope_bridge_stair");
+			rail_bridge = Finder.findBlock(MODID, i+"_rail_bridge");
+			
+        	RenderTypeLookup.setRenderLayer(log_bridge_middle, renderSet);
+        	RenderTypeLookup.setRenderLayer(rope_bridge, renderSet);
+        	RenderTypeLookup.setRenderLayer(bridge_pier, renderSet);
+        	RenderTypeLookup.setRenderLayer(log_bridge_stair, renderSet);
+        	RenderTypeLookup.setRenderLayer(rope_bridge_stair, renderSet);
+        	RenderTypeLookup.setRenderLayer(rail_bridge, renderSet);
+        }
+	}
+	
+	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD)
+	{
+		clientWood(event, MODID, WOOD, RenderType.cutout());
+	}
+	
+	public static void clientStone(final FMLClientSetupEvent event, String MODID, List<String> STONE, RenderType renderSet)
+	{
+		Block stone_bridge, stone_bridge_pier, stone_bridge_stair, balustrade_stone_bridge;
+		
+		for (String i : STONE)
+		{
+			stone_bridge = Finder.findBlock(MODID, i+"_bridge");
+			stone_bridge_pier = Finder.findBlock(MODID, i+"_bridge_pier");
+			stone_bridge_stair = Finder.findBlock(MODID, i+"_bridge_stair");
+			balustrade_stone_bridge = Finder.findBlock(MODID, "balustrade_"+i+"_bridge");
+			
+        	RenderTypeLookup.setRenderLayer(stone_bridge, renderSet);
+        	RenderTypeLookup.setRenderLayer(stone_bridge_pier, renderSet);
+        	RenderTypeLookup.setRenderLayer(stone_bridge_stair, renderSet);
+        	RenderTypeLookup.setRenderLayer(balustrade_stone_bridge, renderSet);
+        }
+	}
+
+	public static void clientStone(final FMLClientSetupEvent event, String MODID, List<String> STONE)
+	{
+		clientStone(event, MODID, STONE, RenderType.cutout());
 	}
 	
 	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		if(ModList.get().isLoaded("mcwbridges") && ModList.get().isLoaded(modLoaded))
+		if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
 		{
 	        if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
 	            ITEMS_REGISTRY.register(name, () -> new com.mcwbridges.kikoz.util.FuelBlockItemWithInfo(block.get(), new Item.Properties().tab(tab)));
 	        }
 	        else {
-	            ITEMS_REGISTRY.register(name, () -> new com.mcwbridges.kikoz.util.FuelItemBlock(block.get(), new Item.Properties().tab(tab)));
+	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
 	        }
 		}
 		else
 		{
-            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
 		}
         return block;
     }
 	
 	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab)
     {
-        RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		if(ModList.get().isLoaded("mcwbridges"))
-		{
-	        if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
-	            ITEMS_REGISTRY.register(name, () -> new com.mcwbridges.kikoz.util.FuelBlockItemWithInfo(block.get(), new Item.Properties().tab(tab)));
-	        }
-	        else {
-	            ITEMS_REGISTRY.register(name, () -> new com.mcwbridges.kikoz.util.FuelItemBlock(block.get(), new Item.Properties().tab(tab)));
-	        }
-		}
-		else
-		{
-            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-		}
-        return block;
+        return createBlock(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
+    }
+	
+	protected static RegistryObject<Block> createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab)
+    {
+        return createBlock(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
     }
 	
 	protected static RegistryObject<Block> createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded("mcwbridges") && ModList.get().isLoaded(modLoaded))
+        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
         {
             ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
         }
@@ -256,17 +296,110 @@ public class Bridges
         return block;
     }
 	
-	protected static RegistryObject<Block> createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab)
+	//Start of new registration system
+	
+	public static void registryWood(final RegistryEvent.Register<Block> event, List<String> WOODS, ItemGroup tab)
+	{
+		final AbstractBlock.Properties WOOD = wood;
+		final AbstractBlock.Properties RAILS = wood.noOcclusion();
+
+		for(String i : WOODS)
+		{
+			Block log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
+			
+			try {
+			    if (ModList.get().isLoaded(modid))
+			    {
+			    	log_bridge_middle = createBlockWoodOpti(i+"_log_bridge_middle", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Log_Bridge", WOOD), tab);
+					rope_bridge = createBlockWoodOpti("rope_"+i+"_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block_Rope", WOOD), tab);
+					bridge_pier = createBlockWoodOpti(i+"_bridge_pier", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Support", WOOD), tab);
+					log_bridge_stair = createBlockWoodOpti(i+"_log_bridge_stair", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", WOOD), tab);
+					rope_bridge_stair = createBlockWoodOpti(i+"_rope_bridge_stair", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", WOOD), tab);
+					rail_bridge = createBlockWoodOpti(i+"_rail_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Rail_Bridge", WOOD), tab);
+			    }
+			    else
+			    {
+					log_bridge_middle = createBlockWoodOpti(i+"_log_bridge_middle", new Block(WOOD), tab);
+					rope_bridge = createBlockWoodOpti("rope_"+i+"_bridge", new Block(WOOD), tab);
+					bridge_pier = createBlockWoodOpti(i+"_bridge_pier", new Block(WOOD), tab);
+					log_bridge_stair = createBlockWoodOpti(i+"_log_bridge_stair", new Block(WOOD), tab);
+					rope_bridge_stair = createBlockWoodOpti(i+"_rope_bridge_stair", new Block(WOOD), tab);
+					rail_bridge = createBlockWoodOpti(i+"_rail_bridge", new Block(RAILS), tab);
+			    }
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}
+		wood = AbstractBlock.Properties.of(Material.WOOD).harvestTool(ToolType.AXE).strength(0.5F, 2.5F).sound(SoundType.WOOD);
+	}
+	
+	public static void registryStone(final RegistryEvent.Register<Block> event, List<String> STONES, ItemGroup tab)
+	{
+		final AbstractBlock.Properties STONE = stone;
+
+		for(String i : STONES)
+		{
+			Block cryptic_stone_bridge, cryptic_stone_bridge_pier, cryptic_stone_bridge_stair, balustrade_cryptic_stone_bridge;
+			try {
+			    if (ModList.get().isLoaded(modid))
+			    {
+			    	cryptic_stone_bridge = createBlockStoneOpti(i+"_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block", STONE), tab);
+					cryptic_stone_bridge_pier = createBlockStoneOpti(i+"_bridge_pier", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Support", STONE), tab);
+					cryptic_stone_bridge_stair = createBlockStoneOpti(i+"_bridge_stair", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", STONE), tab);
+					balustrade_cryptic_stone_bridge = createBlockStoneOpti("balustrade_"+i+"_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block", STONE), tab);
+			    }
+			    else
+			    {
+					cryptic_stone_bridge = createBlockStoneOpti(i+"_bridge", new Block(STONE), tab);
+					cryptic_stone_bridge_pier = createBlockStoneOpti(i+"_bridge_pier", new Block(STONE), tab);
+					cryptic_stone_bridge_stair = createBlockStoneOpti(i+"_bridge_stair", new Block(STONE), tab);
+					balustrade_cryptic_stone_bridge = createBlockStoneOpti("balustrade_"+i+"_bridge", new Block(STONE), tab);
+			    }
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}
+		stone = AbstractBlock.Properties.of(Material.STONE).harvestTool(ToolType.PICKAXE).strength(3.0F, 5.0F).sound(SoundType.STONE);
+	}
+
+	protected static Block createBlockWoodOpti(String name, Block block, ItemGroup tab)
     {
-        RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded("mcwbridges"))
+		BlockItem itemBlock;        
+        if(ModList.get().isLoaded(modid))
+		{
+	        if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
+	        	itemBlock = new com.mcwbridges.kikoz.util.FuelBlockItemWithInfo(block, new Item.Properties().tab(tab));
+	        }
+	        else {
+	        	itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
+	        }
+		}
+		else
+		{
+			itemBlock = new BlockItemFuel(block, new Item.Properties());
+		}
+        block.setRegistryName(name);
+        itemBlock.setRegistryName(name);
+        ForgeRegistries.BLOCKS.register(block);
+        ForgeRegistries.ITEMS.register(itemBlock);
+        return block;
+    }
+
+	protected static Block createBlockStoneOpti(String name, Block block, ItemGroup tab)
+    {
+		BlockItem itemBlock;
+        if(ModList.get().isLoaded(modid))
         {
-            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
+        	itemBlock = new BlockItem(block, new Item.Properties().tab(tab));
         }
 		else
 		{
-            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+			itemBlock = new BlockItem(block, new Item.Properties());
 		}
+        block.setRegistryName(name);
+        itemBlock.setRegistryName(name);
+        ForgeRegistries.BLOCKS.register(block);
+        ForgeRegistries.ITEMS.register(itemBlock);
         return block;
     }
 }

@@ -3,6 +3,8 @@ package fr.samlegamer.addonslib.door;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+
+import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.block.AbstractBlock;
@@ -23,22 +25,23 @@ import net.minecraftforge.registries.DeferredRegister;
 public class Doors
 {
 	private static final List<RegistryObject<Block>> DOOR_BLOCKS = new ArrayList<>();
-
+	
+	public static final String modid = "mcwdoors";
 	/**
-	 * Init all Wood Variants of Macaw's Bridges
+	 * Init all Wood Variants of Macaw's Doors
 	 */
 	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
 	{
 			final AbstractBlock.Properties JAPAN = AbstractBlock.Properties.of(Material.WOOD).noOcclusion().strength(1.5F, 1.0F).sound(SoundType.WOOD);
 			final AbstractBlock.Properties DOOR_WOOD = AbstractBlock.Properties.copy(Blocks.ACACIA_DOOR);
-
+			
+			RegistryObject<Block> japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door, 
+			tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
+			
 			for(String i : set)
 			{
-				RegistryObject<Block> japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door, 
-				tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
-				
 				try {
-				    if (ModList.get().isLoaded("mcwdoors"))
+				    if (ModList.get().isLoaded(modid))
 				    {
 				    	japanese_door = createBlock(i+"_japanese_door", () -> Registration.getBlocksField("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN), block, item, tab);
 				    	japanese2_door = createBlock(i+"_japanese2_door", () -> Registration.getBlocksField("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN), block, item, tab);
@@ -115,20 +118,20 @@ public class Doors
 	}
 	
 	/**
-	 * Init all Wood Variants of Macaw's Bridges with if Mod Loaded
+	 * Init all Wood Variants of Macaw's Doors with if Mod Loaded
 	 */
 	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, String modLoaded)
 	{
 			final AbstractBlock.Properties JAPAN = AbstractBlock.Properties.of(Material.WOOD).noOcclusion().strength(1.5F, 1.0F).sound(SoundType.WOOD);
 			final AbstractBlock.Properties DOOR_WOOD = AbstractBlock.Properties.copy(Blocks.ACACIA_DOOR);
 
+			RegistryObject<Block> japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door, 
+			tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
+			
 			for(String i : set)
 			{
-				RegistryObject<Block> japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door, 
-				tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
-				
 				try {
-				    if (ModList.get().isLoaded("mcwdoors"))
+				    if (ModList.get().isLoaded(modid))
 				    {
 				    	japanese_door = createBlock(i+"_japanese_door", () -> Registration.getBlocksField("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN), block, item, tab, modLoaded);
 				    	japanese2_door = createBlock(i+"_japanese2_door", () -> Registration.getBlocksField("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN), block, item, tab, modLoaded);
@@ -205,8 +208,9 @@ public class Doors
 	}
 
 	/**
-	 * Use this to set Render Bridges
+	 * Dont work
 	 */
+	@Deprecated
 	public static void setupClient(final FMLClientSetupEvent event) {
 	    event.enqueueWork(() -> {
 	        for (RegistryObject<Block> block : DOOR_BLOCKS) {
@@ -215,24 +219,73 @@ public class Doors
 	    });
 	}
 	
+	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD)
+	{
+		clientWood(event, MODID, WOOD, RenderType.cutout());
+	}
+	
+	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
+	{
+		Block japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door,
+		tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
+		
+		for (String i : WOOD)
+		{
+			japanese_door = Finder.findBlock(MODID, i + "_japanese_door");
+			japanese2_door = Finder.findBlock(MODID, i + "_japanese2_door");
+			barn_door = Finder.findBlock(MODID, i + "_barn_door");
+			barn_glass_door = Finder.findBlock(MODID, i + "_barn_glass_door");
+			modern_door = Finder.findBlock(MODID, i + "_modern_door");
+			cottage_door = Finder.findBlock(MODID, i + "_cottage_door");
+			classic_door = Finder.findBlock(MODID, i + "_classic_door");
+			beach_door = Finder.findBlock(MODID, i + "_beach_door");
+			paper_door = Finder.findBlock(MODID, i + "_paper_door");
+			four_panel_door = Finder.findBlock(MODID, i + "_four_panel_door");
+			tropical_door = Finder.findBlock(MODID, i + "_tropical_door");
+			glass_door = Finder.findBlock(MODID, i + "_glass_door");
+			stable_door = Finder.findBlock(MODID, i + "_stable_door");
+			stable_head_door = Finder.findBlock(MODID, i + "_stable_head_door");
+			western_door = Finder.findBlock(MODID, i + "_western_door");
+			mystic_door = Finder.findBlock(MODID, i + "_mystic_door");
+			nether_door = Finder.findBlock(MODID, i + "_nether_door");
+			swamp_door = Finder.findBlock(MODID, i + "_swamp_door");
+			bamboo_door = Finder.findBlock(MODID, i + "_bamboo_door");
+			bark_glass_door = Finder.findBlock(MODID, i + "_bark_glass_door");
+			waffle_door = Finder.findBlock(MODID, i + "_waffle_door");
+			
+			RenderTypeLookup.setRenderLayer(japanese_door, renderSet);
+			RenderTypeLookup.setRenderLayer(japanese2_door, renderSet);
+			RenderTypeLookup.setRenderLayer(barn_door, renderSet);
+			RenderTypeLookup.setRenderLayer(barn_glass_door, renderSet);
+			RenderTypeLookup.setRenderLayer(modern_door, renderSet);
+			RenderTypeLookup.setRenderLayer(cottage_door, renderSet);
+			RenderTypeLookup.setRenderLayer(classic_door, renderSet);
+			RenderTypeLookup.setRenderLayer(beach_door, renderSet);
+			RenderTypeLookup.setRenderLayer(paper_door, renderSet);
+			RenderTypeLookup.setRenderLayer(four_panel_door, renderSet);
+			RenderTypeLookup.setRenderLayer(tropical_door, renderSet);
+			RenderTypeLookup.setRenderLayer(glass_door, renderSet);
+			RenderTypeLookup.setRenderLayer(stable_door, renderSet);
+			RenderTypeLookup.setRenderLayer(stable_head_door, renderSet);
+			RenderTypeLookup.setRenderLayer(western_door, renderSet);
+			RenderTypeLookup.setRenderLayer(mystic_door, renderSet);
+			RenderTypeLookup.setRenderLayer(nether_door, renderSet);
+			RenderTypeLookup.setRenderLayer(swamp_door, renderSet);
+			RenderTypeLookup.setRenderLayer(bamboo_door, renderSet);
+			RenderTypeLookup.setRenderLayer(bark_glass_door, renderSet);
+			RenderTypeLookup.setRenderLayer(waffle_door, renderSet);
+        }
+	}
+
 	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab)
     {
-        RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded("mcwdoors"))
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
-        }
-        else
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-        }
-        return block;
+        return createBlock(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
     }
 	
 	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded("mcwdoors") && ModList.get().isLoaded(modLoaded))
+        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
         {
             ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
         }

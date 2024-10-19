@@ -3,6 +3,8 @@ package fr.samlegamer.addonslib.windows;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+
+import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.block.AbstractBlock;
@@ -21,7 +23,7 @@ import net.minecraftforge.registries.DeferredRegister;
 public class Windows
 {
 	private static final List<RegistryObject<Block>> WINDOW_BLOCKS = new ArrayList<>();
-
+	private static final String modid = "mcwwindows";
 	/**
 	 * Init all Wood Variants of Macaw's Windows
 	 */
@@ -32,14 +34,13 @@ public class Windows
 			final AbstractBlock.Properties BLINDS = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.3F, 1.0F);
 			final AbstractBlock.Properties SHUTTER = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.5F, 2.0F);
 			final AbstractBlock.Properties ROD = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.3F, 0.7F);
-			
+			RegistryObject<Block> window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2, plank_four_window, 
+			log_parapet, plank_parapet, blinds, shutter, louvered_shutter, pane_window, strippedpane_window, plank_pane_window, curtain_rod;
+			  
 			for(String i : set)
 			{
-				RegistryObject<Block> window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2, plank_four_window, 
-				log_parapet, plank_parapet, blinds, shutter, louvered_shutter, pane_window, strippedpane_window, plank_pane_window, curtain_rod;
-				  
 				try {
-				    if (ModList.get().isLoaded("mcwwindows"))
+				    if (ModList.get().isLoaded(modid))
 				    {
 				    	window = createBlock(i+"_window", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.ConnectedWindow", WOOD), block, item, tab);
 				    	window2 = createBlock(i+"_window2", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), block, item, tab);
@@ -115,14 +116,13 @@ public class Windows
 			final AbstractBlock.Properties BLINDS = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.3F, 1.0F);
 			final AbstractBlock.Properties SHUTTER = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.5F, 2.0F);
 			final AbstractBlock.Properties ROD = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.3F, 0.7F);
-			
+			RegistryObject<Block> window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2, plank_four_window, 
+			log_parapet, plank_parapet, blinds, shutter, louvered_shutter, pane_window, strippedpane_window, plank_pane_window, curtain_rod;
+			  
 			for(String i : set)
 			{
-				RegistryObject<Block> window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2, plank_four_window, 
-				log_parapet, plank_parapet, blinds, shutter, louvered_shutter, pane_window, strippedpane_window, plank_pane_window, curtain_rod;
-				  
 				try {
-				    if (ModList.get().isLoaded("mcwwindows"))
+				    if (ModList.get().isLoaded(modid))
 				    {
 				    	window = createBlock(i+"_window", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.ConnectedWindow", WOOD), block, item, tab, modLoaded);
 				    	window2 = createBlock(i+"_window2", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), block, item, tab, modLoaded);
@@ -189,8 +189,9 @@ public class Windows
 	}
 
 	/**
-	 * Use this to set Render Windows
+	 * Don't work
 	 */
+	@Deprecated
 	public static void setupClient(final FMLClientSetupEvent event) {
 	    event.enqueueWork(() -> {
 	        for (RegistryObject<Block> block : WINDOW_BLOCKS) {
@@ -199,24 +200,68 @@ public class Windows
 	    });
 	}
 	
+	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
+	{
+		Block window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2,
+		plank_four_window, log_parapet, plank_parapet, blinds, shutter, louvered_shutter, pane_window, strippedpane_window, plank_pane_window,
+		curtain_rod;
+
+		for (String i : WOOD)
+		{
+	    	window = Finder.findBlock(MODID, i+"_window");
+	    	window2 = Finder.findBlock(MODID, i+"_window2");
+	    	four_window = Finder.findBlock(MODID, i+"_four_window");
+	    	strippedlog_window = Finder.findBlock(MODID, "stripped_"+i+"_log_window");
+	    	strippedlog_window2 = Finder.findBlock(MODID, "stripped_"+i+"_log_window2");
+	    	strippedlog_four_window = Finder.findBlock(MODID, "stripped_"+i+"_log_four_window");
+	    	plank_window = Finder.findBlock(MODID, i+"_plank_window");
+	    	plank_window2 = Finder.findBlock(MODID, i+"_plank_window2");
+	    	plank_four_window = Finder.findBlock(MODID, i+"_plank_four_window");
+	    	log_parapet = Finder.findBlock(MODID, i+"_log_parapet");
+	    	plank_parapet = Finder.findBlock(MODID, i+"_plank_parapet");
+	    	blinds = Finder.findBlock(MODID, i+"_blinds");
+	    	shutter = Finder.findBlock(MODID, i+"_shutter");
+	    	louvered_shutter = Finder.findBlock(MODID, i+"_louvered_shutter");
+	    	pane_window = Finder.findBlock(MODID, i+"_pane_window");
+	    	strippedpane_window = Finder.findBlock(MODID, "stripped_"+i+"_pane_window");
+	    	plank_pane_window = Finder.findBlock(MODID, i+"_plank_pane_window");
+	    	curtain_rod = Finder.findBlock(MODID, i+"_curtain_rod");
+
+        	RenderTypeLookup.setRenderLayer(window, renderSet);
+        	RenderTypeLookup.setRenderLayer(window2, renderSet);
+        	RenderTypeLookup.setRenderLayer(four_window, renderSet);
+        	RenderTypeLookup.setRenderLayer(strippedlog_window, renderSet);
+        	RenderTypeLookup.setRenderLayer(strippedlog_window2, renderSet);
+        	RenderTypeLookup.setRenderLayer(strippedlog_four_window, renderSet);
+        	RenderTypeLookup.setRenderLayer(plank_window, renderSet);
+        	RenderTypeLookup.setRenderLayer(plank_window2, renderSet);
+        	RenderTypeLookup.setRenderLayer(plank_four_window, renderSet);
+        	RenderTypeLookup.setRenderLayer(log_parapet, renderSet);
+        	RenderTypeLookup.setRenderLayer(plank_parapet, renderSet);
+        	RenderTypeLookup.setRenderLayer(blinds, renderSet);
+        	RenderTypeLookup.setRenderLayer(shutter, renderSet);
+        	RenderTypeLookup.setRenderLayer(louvered_shutter, renderSet);
+        	RenderTypeLookup.setRenderLayer(pane_window, renderSet);
+        	RenderTypeLookup.setRenderLayer(strippedpane_window, renderSet);
+        	RenderTypeLookup.setRenderLayer(plank_pane_window, renderSet);
+        	RenderTypeLookup.setRenderLayer(curtain_rod, renderSet);
+        }
+	}
+	
+	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD)
+	{
+		clientWood(event, MODID, WOOD, RenderType.cutout());
+	}
+	
 	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab)
     {
-        RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded("mcwwindows"))
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
-        }
-        else
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-        }
-        return block;
+        return createBlock(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
     }
 	
 	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded("mcwwindows") && ModList.get().isLoaded(modLoaded))
+        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
         {
             ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
         }
