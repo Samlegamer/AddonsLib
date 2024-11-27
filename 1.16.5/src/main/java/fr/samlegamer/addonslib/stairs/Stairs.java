@@ -5,6 +5,8 @@ import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
+import fr.samlegamer.addonslib.item.BlockItemFuelInfo;
+import fr.samlegamer.addonslib.item.BlockItemInfo;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -28,74 +30,14 @@ public class Stairs
 	
 	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
 	{
-			final AbstractBlock.Properties WOOD = AbstractBlock.Properties.of(Material.WOOD).strength(2.0F, 2.3F).sound(SoundType.WOOD).harvestTool(ToolType.AXE);
-			RegistryObject<Block> ACACIA_TERRACE_STAIRS, ACACIA_SKYLINE_STAIRS, ACACIA_COMPACT_STAIRS, ACACIA_BULK_STAIRS, ACACIA_LOFT_STAIRS, ACACIA_RAILING, ACACIA_BALCONY, ACACIA_PLATFORM;
-
-			for(String i : set)
-			{
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-						ACACIA_TERRACE_STAIRS = createBlock(i+"_terrace_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", WOOD), block, item, tab);
-						ACACIA_SKYLINE_STAIRS = createBlock(i+"_skyline_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", WOOD), block, item, tab);
-						ACACIA_COMPACT_STAIRS = createBlock(i+"_compact_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", WOOD), block, item, tab);
-						ACACIA_BULK_STAIRS = createBlock(i+"_bulk_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", WOOD), block, item, tab);
-						ACACIA_LOFT_STAIRS = createBlock(i+"_loft_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", WOOD), block, item, tab);
-						ACACIA_RAILING = createBlock(i+"_railing", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", WOOD), block, item, tab);
-						ACACIA_BALCONY = createBlock(i+"_balcony", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", WOOD), block, item, tab);
-						ACACIA_PLATFORM = createBlock(i+"_platform", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", WOOD), block, item, tab);
-				    }
-				    else
-				    {
-						ACACIA_TERRACE_STAIRS = createBlock(i+"_terrace_stairs", () -> new Block(WOOD), block, item, tab);
-						ACACIA_SKYLINE_STAIRS = createBlock(i+"_skyline_stairs", () -> new Block(WOOD), block, item, tab);
-						ACACIA_COMPACT_STAIRS = createBlock(i+"_compact_stairs", () -> new Block(WOOD), block, item, tab);
-						ACACIA_BULK_STAIRS = createBlock(i+"_bulk_stairs", () -> new Block(WOOD), block, item, tab);
-						ACACIA_LOFT_STAIRS = createBlock(i+"_loft_stairs", () -> new Block(WOOD), block, item, tab);
-						ACACIA_RAILING = createBlock(i+"_railing", () -> new Block(WOOD), block, item, tab);
-						ACACIA_BALCONY = createBlock(i+"_balcony", () -> new Block(WOOD), block, item, tab);
-						ACACIA_PLATFORM = createBlock(i+"_platform", () -> new Block(WOOD), block, item, tab);
-				    }
-				} catch (Exception e) {
-				    e.printStackTrace();
-				}
-			}
+		final AbstractBlock.Properties WOOD = AbstractBlock.Properties.of(Material.WOOD).strength(2.0F, 2.3F).sound(SoundType.WOOD).harvestTool(ToolType.AXE);
+		setRegistrationWoodModLoaded(set, block, item, tab, "minecraft", WOOD);
 	}
 
 	public static void setRegistrationRock(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
 	{
-		 	final AbstractBlock.Properties STONE = AbstractBlock.Properties.of(Material.STONE).strength(2.0F, 2.3F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops();
-			RegistryObject<Block> ACACIA_TERRACE_STAIRS, ACACIA_SKYLINE_STAIRS, ACACIA_COMPACT_STAIRS, ACACIA_BULK_STAIRS, ACACIA_LOFT_STAIRS, ACACIA_RAILING, ACACIA_BALCONY, ACACIA_PLATFORM;
-
-			for(String i : set)
-			{
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-						ACACIA_TERRACE_STAIRS = createBlockStone(i+"_terrace_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", STONE), block, item, tab);
-						ACACIA_SKYLINE_STAIRS = createBlockStone(i+"_skyline_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", STONE), block, item, tab);
-						ACACIA_COMPACT_STAIRS = createBlockStone(i+"_compact_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", STONE), block, item, tab);
-						ACACIA_BULK_STAIRS = createBlockStone(i+"_bulk_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", STONE), block, item, tab);
-						ACACIA_LOFT_STAIRS = createBlockStone(i+"_loft_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", STONE), block, item, tab);
-						ACACIA_RAILING = createBlockStone(i+"_railing", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", STONE), block, item, tab);
-						ACACIA_BALCONY = createBlockStone(i+"_balcony", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", STONE), block, item, tab);
-						ACACIA_PLATFORM = createBlockStone(i+"_platform", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", STONE), block, item, tab);
-				    }
-				    else
-				    {
-						ACACIA_TERRACE_STAIRS = createBlock(i+"_terrace_stairs", () -> new Block(STONE), block, item, tab);
-						ACACIA_SKYLINE_STAIRS = createBlock(i+"_skyline_stairs", () -> new Block(STONE), block, item, tab);
-						ACACIA_COMPACT_STAIRS = createBlock(i+"_compact_stairs", () -> new Block(STONE), block, item, tab);
-						ACACIA_BULK_STAIRS = createBlock(i+"_bulk_stairs", () -> new Block(STONE), block, item, tab);
-						ACACIA_LOFT_STAIRS = createBlock(i+"_loft_stairs", () -> new Block(STONE), block, item, tab);
-						ACACIA_RAILING = createBlock(i+"_railing", () -> new Block(STONE), block, item, tab);
-						ACACIA_BALCONY = createBlock(i+"_balcony", () -> new Block(STONE), block, item, tab);
-						ACACIA_PLATFORM = createBlock(i+"_platform", () -> new Block(STONE), block, item, tab);
-				    }
-				} catch (Exception e) {
-				    e.printStackTrace();
-				}
-			}
+		final AbstractBlock.Properties STONE = AbstractBlock.Properties.of(Material.STONE).strength(2.0F, 2.3F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops();
+		setRegistrationRockModLoaded(set, block, item, tab, "minecraft", STONE);
 	}
 	
 	public static void setRegistrationRockModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, String modLoaded, AbstractBlock.Properties prop)
@@ -240,16 +182,16 @@ public class Stairs
 	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
+        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
 		{
 	        if(name.contains("railing")) {
-	            ITEMS_REGISTRY.register(name, () -> new com.mcwstairs.kikoz.util.wooden.RailingItemWooden(block.get(), new Item.Properties().tab(tab)));
+	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.railing.desc"));
 	        }
 	        else if(name.contains("balcony")) {
-	            ITEMS_REGISTRY.register(name, () -> new com.mcwstairs.kikoz.util.wooden.BalconyItemWooden(block.get(), new Item.Properties().tab(tab)));
+	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.balcony.desc"));
 	        }
 	        else if(name.contains("platform")) {
-	            ITEMS_REGISTRY.register(name, () -> new com.mcwstairs.kikoz.util.wooden.PlatformItemWooden(block.get(), new Item.Properties().tab(tab)));
+	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.platform.desc"));
 	        }
 	        else {
 	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
@@ -273,13 +215,13 @@ public class Stairs
 		if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
 		{
 	        if(name.contains("railing")) {
-	            ITEMS_REGISTRY.register(name, () -> new com.mcwstairs.kikoz.util.stone.RailingItemStone(block.get(), new Item.Properties().tab(tab)));
+	            ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.railing.desc"));
 	        }
 	        else if(name.contains("balcony")) {
-	            ITEMS_REGISTRY.register(name, () -> new com.mcwstairs.kikoz.util.stone.BalconyItemStone(block.get(), new Item.Properties().tab(tab)));
+	            ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.balcony.desc"));
 	        }
 	        else if(name.contains("platform")) {
-	            ITEMS_REGISTRY.register(name, () -> new com.mcwstairs.kikoz.util.stone.PlatformItemStone(block.get(), new Item.Properties().tab(tab)));
+	            ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.platform.desc"));
 	        }
 	        else {
 	            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
@@ -401,22 +343,22 @@ public class Stairs
 		if(ModList.get().isLoaded(modid))
 		{
 	        if(name.contains("railing")) {
-	        	itemBlock = new com.mcwstairs.kikoz.util.stone.RailingItemStone(block, new Item.Properties().tab(tab));
+	        	itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.railing.desc");
 	        }
 	        else if(name.contains("balcony")) {
-	        	itemBlock = new com.mcwstairs.kikoz.util.stone.BalconyItemStone(block, new Item.Properties().tab(tab));
+	        	itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.balcony.desc");
 	        }
 	        else if(name.contains("platform")) {
-	        	itemBlock = new com.mcwstairs.kikoz.util.stone.PlatformItemStone(block, new Item.Properties().tab(tab));
+	        	itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.platform.desc");
 	        }
 	        else {
-	        	itemBlock = new BlockItem(block, new Item.Properties().tab(tab));
+	        	itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
 	        }
 		}
 		else
 		{
-			itemBlock = new BlockItem(block, new Item.Properties());
-		}
+			itemBlock = new BlockItemFuel(block, new Item.Properties());
+		}	
         block.setRegistryName(name);
         itemBlock.setRegistryName(name);
         ForgeRegistries.BLOCKS.register(block);

@@ -1,11 +1,11 @@
 package fr.samlegamer.addonslib.bridges;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
+import fr.samlegamer.addonslib.item.BlockItemFuelInfo;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.BlockItem;
@@ -24,53 +24,17 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class Bridges
 {
-	private static final List<RegistryObject<Block>> BRIDGE_BLOCKS = new ArrayList<>();
 	private static BlockBehaviour.Properties wood = BlockBehaviour.Properties.of(Material.WOOD).strength(0.5F, 2.5F).sound(SoundType.WOOD);
 	private static BlockBehaviour.Properties stone = BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 5.0F).sound(SoundType.STONE);
 	
 	public static final String modid = "mcwbridges";
-	
+	private static final String desc = "mcwbridges.bridges.desc";
 	/**
 	 * Init all Wood Variants of Macaw's Bridges
 	 */
 	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab)
 	{
-			final BlockBehaviour.Properties WOOD = wood;
-			final BlockBehaviour.Properties RAILS = wood.noOcclusion();
-			RegistryObject<Block> log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
-
-			for(String i : set)
-			{
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-				    	log_bridge_middle = createBlock(i+"_log_bridge_middle", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Log_Bridge", WOOD), block, item, tab);
-						rope_bridge = createBlock("rope_"+i+"_bridge", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block_Rope", WOOD), block, item, tab);
-						bridge_pier = createBlock(i+"_bridge_pier", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Support", WOOD), block, item, tab);
-						log_bridge_stair = createBlock(i+"_log_bridge_stair", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", WOOD), block, item, tab);
-						rope_bridge_stair = createBlock(i+"_rope_bridge_stair", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", WOOD), block, item, tab);
-						rail_bridge = createBlock(i+"_rail_bridge", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Rail_Bridge", WOOD), block, item, tab);
-				    }
-				    else
-				    {
-						log_bridge_middle = createBlock(i+"_log_bridge_middle", () -> new Block(WOOD), block, item, tab);
-						rope_bridge = createBlock("rope_"+i+"_bridge", () -> new Block(WOOD), block, item, tab);
-						bridge_pier = createBlock(i+"_bridge_pier", () -> new Block(WOOD), block, item, tab);
-						log_bridge_stair = createBlock(i+"_log_bridge_stair", () -> new Block(WOOD), block, item, tab);
-						rope_bridge_stair = createBlock(i+"_rope_bridge_stair", () -> new Block(WOOD), block, item, tab);
-						rail_bridge = createBlock(i+"_rail_bridge", () -> new Block(RAILS), block, item, tab);
-				    }
-			        BRIDGE_BLOCKS.add(log_bridge_middle);
-			        BRIDGE_BLOCKS.add(rope_bridge);
-			        BRIDGE_BLOCKS.add(bridge_pier);
-			        BRIDGE_BLOCKS.add(log_bridge_stair);
-			        BRIDGE_BLOCKS.add(rope_bridge_stair);
-			        BRIDGE_BLOCKS.add(rail_bridge);
-				} catch (Exception e) {
-				    e.printStackTrace();
-				}
-			}
-			wood = BlockBehaviour.Properties.of(Material.WOOD).strength(0.5F, 2.5F).sound(SoundType.WOOD);
+			setRegistrationWoodModLoaded(set, block, item, tab, "minecraft", wood);
 	}
 	
 	/**
@@ -78,35 +42,7 @@ public class Bridges
 	 */
 	public static void setRegistrationRock(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab)
 	{
-		 	final BlockBehaviour.Properties STONE = stone;
-			RegistryObject<Block> cryptic_stone_bridge, cryptic_stone_bridge_pier, cryptic_stone_bridge_stair, balustrade_cryptic_stone_bridge;
-
-			for(String i : set)
-			{
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-				    	cryptic_stone_bridge = createBlockStone(i+"_bridge", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block", STONE), block, item, tab);
-						cryptic_stone_bridge_pier = createBlockStone(i+"_bridge_pier", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Support", STONE), block, item, tab);
-						cryptic_stone_bridge_stair = createBlockStone(i+"_bridge_stair", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", STONE), block, item, tab);
-						balustrade_cryptic_stone_bridge = createBlockStone("balustrade_"+i+"_bridge", () -> Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block", STONE), block, item, tab);
-				    }
-				    else
-				    {
-						cryptic_stone_bridge = createBlockStone(i+"_bridge", () -> new Block(STONE), block, item, tab);
-						cryptic_stone_bridge_pier = createBlockStone(i+"_bridge_pier", () -> new Block(STONE), block, item, tab);
-						cryptic_stone_bridge_stair = createBlockStone(i+"_bridge_stair", () -> new Block(STONE), block, item, tab);
-						balustrade_cryptic_stone_bridge = createBlockStone("balustrade_"+i+"_bridge", () -> new Block(STONE), block, item, tab);
-				    }
-			        BRIDGE_BLOCKS.add(cryptic_stone_bridge);
-			        BRIDGE_BLOCKS.add(cryptic_stone_bridge_pier);
-			        BRIDGE_BLOCKS.add(cryptic_stone_bridge_stair);
-			        BRIDGE_BLOCKS.add(balustrade_cryptic_stone_bridge);
-				} catch (Exception e) {
-				    e.printStackTrace();
-				}
-			}
-			stone = BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 5.0F).sound(SoundType.STONE);
+			setRegistrationRockModLoaded(set, block, item, tab, "minecraft", stone);
 	}
 	
 	/**
@@ -115,7 +51,7 @@ public class Bridges
 	public static void setRegistrationRockModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab, String modLoaded, BlockBehaviour.Properties prop)
 	{
 		 final BlockBehaviour.Properties STONE = prop;
-			RegistryObject<Block> cryptic_stone_bridge, cryptic_stone_bridge_pier, cryptic_stone_bridge_stair, balustrade_cryptic_stone_bridge;
+		 RegistryObject<Block> cryptic_stone_bridge, cryptic_stone_bridge_pier, cryptic_stone_bridge_stair, balustrade_cryptic_stone_bridge;
 
 			for(String i : set)
 			{
@@ -134,10 +70,6 @@ public class Bridges
 						cryptic_stone_bridge_stair = createBlockStone(i+"_bridge_stair", () -> new Block(STONE), block, item, tab, modLoaded);
 						balustrade_cryptic_stone_bridge = createBlockStone("balustrade_"+i+"_bridge", () -> new Block(STONE), block, item, tab, modLoaded);
 				    }
-			        BRIDGE_BLOCKS.add(cryptic_stone_bridge);
-			        BRIDGE_BLOCKS.add(cryptic_stone_bridge_pier);
-			        BRIDGE_BLOCKS.add(cryptic_stone_bridge_stair);
-			        BRIDGE_BLOCKS.add(balustrade_cryptic_stone_bridge);
 				} catch (Exception e) {
 				    e.printStackTrace();
 				}
@@ -174,22 +106,12 @@ public class Bridges
 						rope_bridge_stair = createBlock(i+"_rope_bridge_stair", () -> new Block(WOOD), block, item, tab, modLoaded);
 						rail_bridge = createBlock(i+"_rail_bridge", () -> new Block(RAILS), block, item, tab, modLoaded);
 				    }
-			        BRIDGE_BLOCKS.add(log_bridge_middle);
-			        BRIDGE_BLOCKS.add(rope_bridge);
-			        BRIDGE_BLOCKS.add(bridge_pier);
-			        BRIDGE_BLOCKS.add(log_bridge_stair);
-			        BRIDGE_BLOCKS.add(rope_bridge_stair);
-			        BRIDGE_BLOCKS.add(rail_bridge);
 				} catch (Exception e) {
 				    e.printStackTrace();
 				}
 			}
 	}
-	
-	public static List<RegistryObject<Block>> getBridgeBlocks() {
-		return BRIDGE_BLOCKS;
-	}
-	
+		
 	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
 	{
 		Block log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
@@ -246,7 +168,7 @@ public class Bridges
 		if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
 		{
 	        if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
-	            ITEMS_REGISTRY.register(name, () -> new com.mcwbridges.kikoz.util.FuelBlockItemWithInfo(block.get(), new Item.Properties().tab(tab)));
+	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties().tab(tab), desc));
 	        }
 	        else {
 	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
@@ -317,7 +239,6 @@ public class Bridges
 			    e.printStackTrace();
 			}
 		}
-		wood = BlockBehaviour.Properties.of(Material.WOOD).strength(0.5F, 2.5F).sound(SoundType.WOOD);
 	}
 	
 	public static void registryStone(final RegistryEvent.Register<Block> event, List<String> STONES, CreativeModeTab tab)
@@ -346,7 +267,6 @@ public class Bridges
 			    e.printStackTrace();
 			}
 		}
-		stone = BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 5.0F).sound(SoundType.STONE);
 	}
 
 	protected static Block createBlockWoodOpti(String name, Block block, CreativeModeTab tab)
@@ -355,7 +275,7 @@ public class Bridges
         if(ModList.get().isLoaded(modid))
 		{
 	        if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
-	        	itemBlock = new com.mcwbridges.kikoz.util.FuelBlockItemWithInfo(block, new Item.Properties().tab(tab));
+	        	itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), desc);
 	        }
 	        else {
 	        	itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));

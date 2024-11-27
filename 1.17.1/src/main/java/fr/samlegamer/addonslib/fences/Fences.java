@@ -26,7 +26,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class Fences
 {
-	private static final List<RegistryObject<Block>> FENCE_BLOCKS = new ArrayList<>();
 	private static BlockBehaviour.Properties wood = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
 	private static BlockBehaviour.Properties leaves = BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES);
 	private static BlockBehaviour.Properties stone = BlockBehaviour.Properties.copy(Blocks.CUT_SANDSTONE);
@@ -38,39 +37,7 @@ public class Fences
 	 */
 	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab)
 	{
-			final BlockBehaviour.Properties WOOD = wood;
-
-			RegistryObject<Block> picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
-
-			for(String i : set)
-			{
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-				        picket_fence = createBlock(i + "_picket_fence", () -> new FenceBlock(WOOD), block, item, tab);
-				        stockade_fence = createBlock(i + "_stockade_fence", () -> new FenceBlock(WOOD), block, item, tab);
-				        horse_fence = createBlock(i + "_horse_fence", () -> new FenceBlock(WOOD), block, item, tab);
-			            wired_fence = createBlock(i + "_wired_fence", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.WiredFence", WOOD, new FenceBlock(WOOD)), block, item, tab);
-				        highley_gate = createBlock(i + "_highley_gate", () -> new FenceGateBlock(WOOD), block, item, tab);
-				        pyramid_gate = createBlock(i + "_pyramid_gate", () -> new FenceGateBlock(WOOD), block, item, tab);
-				    } else {
-				        picket_fence = createBlock(i + "_picket_fence", () -> new FenceBlock(WOOD), block, item, tab);
-				        stockade_fence = createBlock(i + "_stockade_fence", () -> new FenceBlock(WOOD), block, item, tab);
-				        horse_fence = createBlock(i + "_horse_fence", () -> new FenceBlock(WOOD), block, item, tab);
-				        wired_fence = createBlock(i + "_wired_fence", () -> new FenceBlock(WOOD), block, item, tab);
-				        highley_gate = createBlock(i + "_highley_gate", () -> new FenceGateBlock(WOOD), block, item, tab);
-				        pyramid_gate = createBlock(i + "_pyramid_gate", () -> new FenceGateBlock(WOOD), block, item, tab);
-				    }
-					FENCE_BLOCKS.add(picket_fence);
-			        FENCE_BLOCKS.add(stockade_fence);
-			        FENCE_BLOCKS.add(horse_fence);
-			        FENCE_BLOCKS.add(wired_fence);
-			        FENCE_BLOCKS.add(highley_gate);
-			        FENCE_BLOCKS.add(pyramid_gate);
-				} catch (Exception e) {
-				    e.printStackTrace();
-				}
-			}
+		setRegistrationWoodModLoaded(set, block, item, tab, "minecraft", wood);
 	}
 	
 	/**
@@ -78,22 +45,7 @@ public class Fences
 	 */
 	public static void setRegistrationHedges(List<String> leaves, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab)
 	{
-			final BlockBehaviour.Properties HEDGES = Fences.leaves;
-
-			RegistryObject<Block> hedge;
-
-			for(String i : leaves)
-			{
-				if (ModList.get().isLoaded(modid))
-	        	{
-	                hedge = createBlock(i + "_hedge", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES, new FenceBlock(HEDGES)), block, item, tab);
-
-	            } else {
-	                hedge = createBlock(i + "_hedge", () -> new FenceBlock(HEDGES), block, item, tab);
-	            }
-				
-				FENCE_BLOCKS.add(hedge);
-			}
+		setRegistrationHedgesModLoaded(leaves, block, item, tab, "minecraft", Fences.leaves);
 	}
 	
 	/**
@@ -101,33 +53,7 @@ public class Fences
 	 */
 	public static void setRegistrationRock(List<String> rock, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab)
 	{
-			final BlockBehaviour.Properties STONE = stone;
-
-			RegistryObject<Block> modern_wall, railing_wall, railing_gate, pillar_wall, grass_topped_wall;
-
-			for(String i : rock)
-			{		       
-				if (ModList.get().isLoaded(modid)) {
-					modern_wall = createBlockStone("modern_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab);
-					railing_wall = createBlockStone("railing_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab);
-					railing_gate = createBlockStone(i+"_railing_gate", () -> new FenceGateBlock(STONE), block, item, tab);
-					pillar_wall = createBlockStone(i+"_pillar_wall", () -> new FenceBlock(STONE), block, item, tab);
-	                grass_topped_wall = createBlock(i + "_grass_topped_wall", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", STONE, new FenceBlock(STONE)), block, item, tab);
-
-	            } else {
-					modern_wall = createBlockStone("modern_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab);
-					railing_wall = createBlockStone("railing_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab);
-					railing_gate = createBlockStone(i+"_railing_gate", () -> new FenceGateBlock(STONE), block, item, tab);
-					pillar_wall = createBlockStone(i+"_pillar_wall", () -> new FenceBlock(STONE), block, item, tab);
-					grass_topped_wall = createBlockStone(i+"_grass_topped_wall", () -> new FenceBlock(STONE), block, item, tab);
-	            }
-				
-				FENCE_BLOCKS.add(modern_wall);
-		        FENCE_BLOCKS.add(railing_wall);
-		        FENCE_BLOCKS.add(railing_gate);
-		        FENCE_BLOCKS.add(pillar_wall);
-		        FENCE_BLOCKS.add(grass_topped_wall);
-			}
+		setRegistrationRockModLoaded(rock, block, item, tab, "minecraft", stone);
 	}
 	
 	/**
@@ -158,12 +84,6 @@ public class Fences
 				        highley_gate = createBlock(i + "_highley_gate", () -> new FenceGateBlock(WOOD), block, item, tab, modLoaded);
 				        pyramid_gate = createBlock(i + "_pyramid_gate", () -> new FenceGateBlock(WOOD), block, item, tab, modLoaded);
 				    }
-					FENCE_BLOCKS.add(picket_fence);
-			        FENCE_BLOCKS.add(stockade_fence);
-			        FENCE_BLOCKS.add(horse_fence);
-			        FENCE_BLOCKS.add(wired_fence);
-			        FENCE_BLOCKS.add(highley_gate);
-			        FENCE_BLOCKS.add(pyramid_gate);
 				} catch (Exception e) {
 				    e.printStackTrace();
 				}
@@ -188,8 +108,6 @@ public class Fences
 	            } else {
 	                hedge = createBlock(i + "_hedge", () -> new FenceBlock(HEDGES), block, item, tab, modLoaded);
 	            }
-				
-				FENCE_BLOCKS.add(hedge);
 			}
 	}
 	
@@ -218,19 +136,9 @@ public class Fences
 					pillar_wall = createBlockStone(i+"_pillar_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
 					grass_topped_wall = createBlockStone(i+"_grass_topped_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
 	            }
-				
-				FENCE_BLOCKS.add(modern_wall);
-		        FENCE_BLOCKS.add(railing_wall);
-		        FENCE_BLOCKS.add(railing_gate);
-		        FENCE_BLOCKS.add(pillar_wall);
-		        FENCE_BLOCKS.add(grass_topped_wall);
 			}
 	}
 	
-	public static List<RegistryObject<Block>> getFenceBlocks() {
-		return FENCE_BLOCKS;
-	}
-
 	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, CreativeModeTab tab)
     {
         return createBlock(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");

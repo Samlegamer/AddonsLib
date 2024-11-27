@@ -1,6 +1,5 @@
 package fr.samlegamer.addonslib.path;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
@@ -20,7 +19,6 @@ import net.minecraftforge.registries.DeferredRegister;
 
 public class Paths
 {
-	private static final List<RegistryObject<Block>> PATH_BLOCKS = new ArrayList<>();
 	public static final String modid = "mcwpaths";
 	
 	/**
@@ -28,25 +26,7 @@ public class Paths
 	 */
 	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab)
 	{
-			final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
-			RegistryObject<Block> planks_path;
-
-			for(String i : set)
-			{
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-				    	planks_path = createBlock(i+"_planks_path", () -> Registration.getBlocksField("com.mcwpaths.kikoz.objects.FacingPathBlock", WOOD), block, item, tab);
-				    }
-				    else
-				    {
-				    	planks_path = createBlock(i+"_planks_path", () -> new Block(WOOD), block, item, tab);
-				    }
-				    PATH_BLOCKS.add(planks_path);
-				} catch (Exception e) {
-				    e.printStackTrace();
-				}
-			}
+		setRegistrationWoodModLoaded(set, block, item, tab, "minecraft");
 	}
 	
 	/**
@@ -69,7 +49,6 @@ public class Paths
 				    {
 				    	planks_path = createBlock(i+"_planks_path", () -> new Block(WOOD), block, item, tab, modLoaded);
 				    }
-				    PATH_BLOCKS.add(planks_path);
 				} catch (Exception e) {
 				    e.printStackTrace();
 				}
