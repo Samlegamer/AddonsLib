@@ -22,7 +22,7 @@ public class Stairs
 {
 	public static final String modid = "mcwstairs";
 	
-	private static Block registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
 	{
     	Registry.register(Registry.BLOCK, new Identifier(MODID, name), b);
     	if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
@@ -45,8 +45,6 @@ public class Stairs
     	else {
             Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
         }
-    	
-    	return b;
 	}
 
 	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab)
@@ -67,29 +65,37 @@ public class Stairs
 
 			for(String i : set)
 			{
-				Block ACACIA_TERRACE_STAIRS, ACACIA_SKYLINE_STAIRS, ACACIA_COMPACT_STAIRS, ACACIA_BULK_STAIRS, ACACIA_LOFT_STAIRS, ACACIA_RAILING, ACACIA_BALCONY, ACACIA_PLATFORM;
 				try {
 				    if (AddonsLib.isLoaded(modid))
 				    {
-						ACACIA_TERRACE_STAIRS = registryEntry(MODID, i+"_terrace_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", STONE), tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = registryEntry(MODID, i+"_skyline_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", STONE), tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = registryEntry(MODID, i+"_compact_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", STONE), tab, modLoaded);
-						ACACIA_BULK_STAIRS = registryEntry(MODID, i+"_bulk_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", STONE), tab, modLoaded);
-						ACACIA_LOFT_STAIRS = registryEntry(MODID, i+"_loft_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", STONE), tab, modLoaded);
-						ACACIA_RAILING = registryEntry(MODID, i+"_railing", Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", STONE), tab, modLoaded);
-						ACACIA_BALCONY = registryEntry(MODID, i+"_balcony", Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", STONE), tab, modLoaded);
-						ACACIA_PLATFORM = registryEntry(MODID, i+"_platform", Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", STONE), tab, modLoaded);
+				    	final Block ACACIA_TERRACE_STAIRS = Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", STONE);
+				    	final Block ACACIA_SKYLINE_STAIRS = Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", STONE);
+				    	final Block ACACIA_COMPACT_STAIRS = Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", STONE);
+				    	final Block ACACIA_BULK_STAIRS = Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", STONE);
+				    	final Block ACACIA_LOFT_STAIRS = Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", STONE);
+				    	final Block ACACIA_RAILING = Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", STONE);
+				    	final Block ACACIA_BALCONY = Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", STONE);
+				    	final Block ACACIA_PLATFORM = Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", STONE);
+				    	
+						registryEntry(MODID, i+"_terrace_stairs", ACACIA_TERRACE_STAIRS, tab, modLoaded);
+						registryEntry(MODID, i+"_skyline_stairs", ACACIA_SKYLINE_STAIRS, tab, modLoaded);
+						registryEntry(MODID, i+"_compact_stairs", ACACIA_COMPACT_STAIRS, tab, modLoaded);
+						registryEntry(MODID, i+"_bulk_stairs", ACACIA_BULK_STAIRS, tab, modLoaded);
+						registryEntry(MODID, i+"_loft_stairs", ACACIA_LOFT_STAIRS, tab, modLoaded);
+						registryEntry(MODID, i+"_railing", ACACIA_RAILING, tab, modLoaded);
+						registryEntry(MODID, i+"_balcony", ACACIA_BALCONY, tab, modLoaded);
+						registryEntry(MODID, i+"_platform", ACACIA_PLATFORM, tab, modLoaded);
 				    }
 				    else
 				    {
-						ACACIA_TERRACE_STAIRS = registryEntry(MODID, i+"_terrace_stairs", new Block(STONE), tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = registryEntry(MODID, i+"_skyline_stairs", new Block(STONE), tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = registryEntry(MODID, i+"_compact_stairs", new Block(STONE), tab, modLoaded);
-						ACACIA_BULK_STAIRS = registryEntry(MODID, i+"_bulk_stairs", new Block(STONE), tab, modLoaded);
-						ACACIA_LOFT_STAIRS = registryEntry(MODID, i+"_loft_stairs", new Block(STONE), tab, modLoaded);
-						ACACIA_RAILING = registryEntry(MODID, i+"_railing", new Block(STONE), tab, modLoaded);
-						ACACIA_BALCONY = registryEntry(MODID, i+"_balcony", new Block(STONE), tab, modLoaded);
-						ACACIA_PLATFORM = registryEntry(MODID, i+"_platform", new Block(STONE), tab, modLoaded);
+						registryEntry(MODID, i+"_terrace_stairs", new Block(STONE), tab, modLoaded);
+						registryEntry(MODID, i+"_skyline_stairs", new Block(STONE), tab, modLoaded);
+						registryEntry(MODID, i+"_compact_stairs", new Block(STONE), tab, modLoaded);
+						registryEntry(MODID, i+"_bulk_stairs", new Block(STONE), tab, modLoaded);
+						registryEntry(MODID, i+"_loft_stairs", new Block(STONE), tab, modLoaded);
+						registryEntry(MODID, i+"_railing", new Block(STONE), tab, modLoaded);
+						registryEntry(MODID, i+"_balcony", new Block(STONE), tab, modLoaded);
+						registryEntry(MODID, i+"_platform", new Block(STONE), tab, modLoaded);
 				    }
 				} catch (Exception e) {
 				    e.printStackTrace();
@@ -103,29 +109,37 @@ public class Stairs
 
 			for(String i : set)
 			{
-				Block ACACIA_TERRACE_STAIRS, ACACIA_SKYLINE_STAIRS, ACACIA_COMPACT_STAIRS, ACACIA_BULK_STAIRS, ACACIA_LOFT_STAIRS, ACACIA_RAILING, ACACIA_BALCONY, ACACIA_PLATFORM;
 				try {
 				    if (AddonsLib.isLoaded(modid))
 				    {
-						ACACIA_TERRACE_STAIRS = registryEntry(MODID, i+"_terrace_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", WOOD), tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = registryEntry(MODID, i+"_skyline_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", WOOD), tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = registryEntry(MODID, i+"_compact_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", WOOD), tab, modLoaded);
-						ACACIA_BULK_STAIRS = registryEntry(MODID, i+"_bulk_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", WOOD), tab, modLoaded);
-						ACACIA_LOFT_STAIRS = registryEntry(MODID, i+"_loft_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", WOOD), tab, modLoaded);
-						ACACIA_RAILING = registryEntry(MODID, i+"_railing", Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", WOOD), tab, modLoaded);
-						ACACIA_BALCONY = registryEntry(MODID, i+"_balcony", Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", WOOD), tab, modLoaded);
-						ACACIA_PLATFORM = registryEntry(MODID, i+"_platform", Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", WOOD), tab, modLoaded);
+				    	final Block ACACIA_TERRACE_STAIRS = Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", WOOD);
+				    	final Block ACACIA_SKYLINE_STAIRS = Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", WOOD);
+				    	final Block ACACIA_COMPACT_STAIRS = Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", WOOD);
+				    	final Block ACACIA_BULK_STAIRS = Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", WOOD);
+				    	final Block ACACIA_LOFT_STAIRS = Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", WOOD);
+				    	final Block ACACIA_RAILING = Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", WOOD);
+				    	final Block ACACIA_BALCONY = Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", WOOD);
+				    	final Block ACACIA_PLATFORM = Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", WOOD);
+				    	
+						registryEntry(MODID, i+"_terrace_stairs", ACACIA_TERRACE_STAIRS, tab, modLoaded);
+						registryEntry(MODID, i+"_skyline_stairs", ACACIA_SKYLINE_STAIRS, tab, modLoaded);
+						registryEntry(MODID, i+"_compact_stairs", ACACIA_COMPACT_STAIRS, tab, modLoaded);
+						registryEntry(MODID, i+"_bulk_stairs", ACACIA_BULK_STAIRS, tab, modLoaded);
+						registryEntry(MODID, i+"_loft_stairs", ACACIA_LOFT_STAIRS, tab, modLoaded);
+						registryEntry(MODID, i+"_railing", ACACIA_RAILING, tab, modLoaded);
+						registryEntry(MODID, i+"_balcony", ACACIA_BALCONY, tab, modLoaded);
+						registryEntry(MODID, i+"_platform", ACACIA_PLATFORM, tab, modLoaded);
 				    }
 				    else
 				    {
-						ACACIA_TERRACE_STAIRS = registryEntry(MODID, i+"_terrace_stairs", new Block(WOOD), tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = registryEntry(MODID, i+"_skyline_stairs", new Block(WOOD), tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = registryEntry(MODID, i+"_compact_stairs", new Block(WOOD), tab, modLoaded);
-						ACACIA_BULK_STAIRS = registryEntry(MODID, i+"_bulk_stairs", new Block(WOOD), tab, modLoaded);
-						ACACIA_LOFT_STAIRS = registryEntry(MODID, i+"_loft_stairs", new Block(WOOD), tab, modLoaded);
-						ACACIA_RAILING = registryEntry(MODID, i+"_railing", new Block(WOOD), tab, modLoaded);
-						ACACIA_BALCONY = registryEntry(MODID, i+"_balcony", new Block(WOOD), tab, modLoaded);
-						ACACIA_PLATFORM = registryEntry(MODID, i+"_platform", new Block(WOOD), tab, modLoaded);
+						registryEntry(MODID, i+"_terrace_stairs", new Block(WOOD), tab, modLoaded);
+						registryEntry(MODID, i+"_skyline_stairs", new Block(WOOD), tab, modLoaded);
+						registryEntry(MODID, i+"_compact_stairs", new Block(WOOD), tab, modLoaded);
+						registryEntry(MODID, i+"_bulk_stairs", new Block(WOOD), tab, modLoaded);
+						registryEntry(MODID, i+"_loft_stairs", new Block(WOOD), tab, modLoaded);
+						registryEntry(MODID, i+"_railing", new Block(WOOD), tab, modLoaded);
+						registryEntry(MODID, i+"_balcony", new Block(WOOD), tab, modLoaded);
+						registryEntry(MODID, i+"_platform", new Block(WOOD), tab, modLoaded);
 				    }
 				} catch (Exception e) {
 				    e.printStackTrace();

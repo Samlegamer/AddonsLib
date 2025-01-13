@@ -20,7 +20,7 @@ public class Paths
 {
 	public static final String modid = "mcwpaths";
 	
-	private static Block registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
 	{
     	Registry.register(Registry.BLOCK, new Identifier(MODID, name), b);
     	if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
@@ -30,8 +30,6 @@ public class Paths
     	else {
             Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
         }
-    	
-    	return b;
 	}
 	/**
 	 * Init all Wood Variants of Macaw's Paths
@@ -50,16 +48,15 @@ public class Paths
 
 			for(String i : set)
 			{
-				Block planks_path;
-				  
 				try {
 				    if (AddonsLib.isLoaded(modid))
 				    {
-				    	planks_path = registryEntry(MODID, i+"_planks_path", Registration.getBlocksField("com.mcwpaths.kikoz.objects.FacingPathBlock", WOOD), tab, modLoaded);
+						final Block planks_path = Registration.getBlocksField("com.mcwpaths.kikoz.objects.FacingPathBlock", WOOD);
+				    	registryEntry(MODID, i+"_planks_path", planks_path, tab, modLoaded);
 				    }
 				    else
 				    {
-				    	planks_path = registryEntry(MODID, i+"_planks_path", new Block(WOOD), tab, modLoaded);
+				    	registryEntry(MODID, i+"_planks_path", new Block(WOOD), tab, modLoaded);
 				    }
 				} catch (Exception e) {
 				    e.printStackTrace();

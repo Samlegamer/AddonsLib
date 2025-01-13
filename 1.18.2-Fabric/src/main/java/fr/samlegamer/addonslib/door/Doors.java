@@ -23,7 +23,7 @@ public class Doors
 {
 	public static final String modid = "mcwdoors";
 	
-	private static Block registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
 	{
     	Registry.register(Registry.BLOCK, new Identifier(MODID, name), b);
     	if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
@@ -33,8 +33,6 @@ public class Doors
     	else {
             Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
         }
-    	
-    	return b;
 	}
 	/**
 	 * Init all Wood Variants of Macaw's Doors
@@ -52,60 +50,61 @@ public class Doors
 			final AbstractBlock.Settings JAPAN = AbstractBlock.Settings.of(Material.WOOD).nonOpaque().strength(1.5F, 1.0F).sounds(BlockSoundGroup.WOOD);
 			final AbstractBlock.Settings DOOR_WOOD = AbstractBlock.Settings.copy(Blocks.ACACIA_DOOR);
 
-			Block japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door, 
-			tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
-			
 			for(String i : set)
 			{
 				try {
 				    if (AddonsLib.isLoaded(modid))
 				    {
-				    	japanese_door = registryEntry(MODID, i+"_japanese_door", Registration.getBlocksField("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN), tab, modLoaded);
-				    	japanese2_door = registryEntry(MODID, i+"_japanese2_door", Registration.getBlocksField("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN), tab, modLoaded);
-				    	barn_door = registryEntry(MODID, i+"_barn_door", new DoorBlock(DOOR_WOOD), tab, modLoaded);
-				    	barn_glass_door = registryEntry(MODID, i+"_barn_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	modern_door = registryEntry(MODID, i+"_modern_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	cottage_door = registryEntry(MODID, i+"_cottage_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	classic_door = registryEntry(MODID, i+"_classic_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	beach_door = registryEntry(MODID, i+"_beach_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	paper_door = registryEntry(MODID, i+"_paper_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	four_panel_door = registryEntry(MODID, i+"_four_panel_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	tropical_door = registryEntry(MODID, i+"_tropical_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	glass_door = registryEntry(MODID, i+"_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	stable_door = registryEntry(MODID, i+"_stable_door", Registration.getBlocksField("com.mcwdoors.kikoz.objects.StableDoor", JAPAN), tab, modLoaded);
-				    	stable_head_door = registryEntry(MODID, i+"_stable_head_door", Registration.getBlocksField("com.mcwdoors.kikoz.objects.StableDoor", JAPAN), tab, modLoaded);
-				    	western_door = registryEntry(MODID, i+"_western_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	mystic_door = registryEntry(MODID, i+"_mystic_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	nether_door = registryEntry(MODID, i+"_nether_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	swamp_door = registryEntry(MODID, i+"_swamp_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	bamboo_door = registryEntry(MODID, i+"_bamboo_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	bark_glass_door = registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	waffle_door = registryEntry(MODID, i+"_waffle_door", new DoorBlock(JAPAN), tab, modLoaded);
-
+				    	final Block japanese_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.JapaneseDoors", JAPAN);
+				    	final Block japanese2_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.JapaneseDoors", JAPAN);
+				    	final Block stable_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.StableDoor", JAPAN);
+				    	final Block stable_head_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.StableDoor", JAPAN);
+				    	
+				    	registryEntry(MODID, i+"_japanese_door", japanese_door, tab, modLoaded);
+				    	registryEntry(MODID, i+"_japanese2_door", japanese2_door, tab, modLoaded);
+				    	registryEntry(MODID, i+"_barn_door", new DoorBlock(DOOR_WOOD), tab, modLoaded);
+				    	registryEntry(MODID, i+"_barn_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_modern_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_cottage_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_classic_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_beach_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_paper_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_four_panel_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_tropical_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_stable_door", stable_door, tab, modLoaded);
+				    	registryEntry(MODID, i+"_stable_head_door", stable_head_door, tab, modLoaded);
+				    	registryEntry(MODID, i+"_western_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_mystic_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_nether_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_swamp_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_bamboo_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_waffle_door", new DoorBlock(JAPAN), tab, modLoaded);
 				    }
 				    else
 				    {
-				    	japanese_door = registryEntry(MODID, i+"_japanese_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	japanese2_door = registryEntry(MODID, i+"_japanese2_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	barn_door = registryEntry(MODID, i+"_barn_door", new DoorBlock(DOOR_WOOD), tab, modLoaded);
-				    	barn_glass_door = registryEntry(MODID, i+"_barn_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	modern_door = registryEntry(MODID, i+"_modern_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	cottage_door = registryEntry(MODID, i+"_cottage_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	classic_door = registryEntry(MODID, i+"_classic_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	beach_door = registryEntry(MODID, i+"_beach_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	paper_door = registryEntry(MODID, i+"_paper_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	four_panel_door = registryEntry(MODID, i+"_four_panel_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	tropical_door = registryEntry(MODID, i+"_tropical_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	glass_door = registryEntry(MODID, i+"_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	stable_door = registryEntry(MODID, i+"_stable_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	stable_head_door = registryEntry(MODID, i+"_stable_head_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	western_door = registryEntry(MODID, i+"_western_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	mystic_door = registryEntry(MODID, i+"_mystic_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	nether_door = registryEntry(MODID, i+"_nether_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	swamp_door = registryEntry(MODID, i+"_swamp_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	bamboo_door = registryEntry(MODID, i+"_bamboo_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	bark_glass_door = registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
-				    	waffle_door = registryEntry(MODID, i+"_waffle_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_japanese_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_japanese2_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_barn_door", new DoorBlock(DOOR_WOOD), tab, modLoaded);
+				    	registryEntry(MODID, i+"_barn_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_modern_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_cottage_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_classic_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_beach_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_paper_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_four_panel_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_tropical_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_stable_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_stable_head_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_western_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_mystic_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_nether_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_swamp_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_bamboo_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_waffle_door", new DoorBlock(JAPAN), tab, modLoaded);
 				    }
 				} catch (Exception e) {
 				    e.printStackTrace();

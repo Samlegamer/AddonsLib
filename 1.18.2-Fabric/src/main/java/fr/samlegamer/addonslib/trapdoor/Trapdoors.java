@@ -20,7 +20,7 @@ public class Trapdoors
 {
 	public static final String modid = "mcwtrpdoors";
 	
-	private static Block registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
 	{
     	Registry.register(Registry.BLOCK, new Identifier(MODID, name), b);
     	if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
@@ -30,8 +30,6 @@ public class Trapdoors
     	else {
             Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
         }
-    	
-    	return b;
 	}
 
 	/**
@@ -48,27 +46,25 @@ public class Trapdoors
 	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded)
 	{
 			final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR);
-			Block barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, mystic_trapdoor, paper_trapdoor, 
-			tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor;
 
 			for(String i : set)
 			{
-				barn_trapdoor = registryEntry(MODID, i+"_barn_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	cottage_trapdoor = registryEntry(MODID, i+"_cottage_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	barred_trapdoor = registryEntry(MODID, i+"_barred_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	beach_trapdoor = registryEntry(MODID, i+"_beach_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	four_panel_trapdoor = registryEntry(MODID, i+"_four_panel_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	glass_trapdoor = registryEntry(MODID, i+"_glass_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	mystic_trapdoor = registryEntry(MODID, i+"_mystic_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	paper_trapdoor = registryEntry(MODID, i+"_paper_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	tropical_trapdoor = registryEntry(MODID, i+"_tropical_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	swamp_trapdoor = registryEntry(MODID, i+"_swamp_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	bamboo_trapdoor = registryEntry(MODID, i+"_bamboo_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	classic_trapdoor = registryEntry(MODID, i+"_classic_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	bark_trapdoor = registryEntry(MODID, i+"_bark_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	ranch_trapdoor = registryEntry(MODID, i+"_ranch_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	blossom_trapdoor = registryEntry(MODID, i+"_blossom_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	barrel_trapdoor = registryEntry(MODID, i+"_barrel_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+				registryEntry(MODID, i+"_barn_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_cottage_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_barred_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_beach_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_four_panel_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_glass_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_mystic_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_paper_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_tropical_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_swamp_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_bamboo_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_classic_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_bark_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_ranch_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_blossom_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+		    	registryEntry(MODID, i+"_barrel_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
 			}
 	}
 	
