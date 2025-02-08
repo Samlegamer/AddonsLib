@@ -40,7 +40,7 @@ public class Doors
 			final BlockBehaviour.Properties DOOR_WOOD = BlockBehaviour.Properties.copy(Blocks.ACACIA_DOOR);
 
 			RegistryObject<Block> japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door, 
-			tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
+			tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door, whispering_door;
 			
 			for(String i : set)
 			{
@@ -68,8 +68,8 @@ public class Doors
 				    	bamboo_door = createBlock(i+"_bamboo_door", () -> new DoorBlock(JAPAN), block, item, tab, modLoaded);
 				    	bark_glass_door = createBlock(i+"_bark_glass_door", () -> new DoorBlock(JAPAN), block, item, tab, modLoaded);
 				    	waffle_door = createBlock(i+"_waffle_door", () -> new DoorBlock(JAPAN), block, item, tab, modLoaded);
-
-				    }
+						whispering_door = createBlock(i+"_whispering_door", () -> new DoorBlock(JAPAN), block, item, tab, modLoaded);
+					}
 				    else
 				    {
 				    	japanese_door = createBlock(i+"_japanese_door", () -> new DoorBlock(JAPAN), block, item, tab, modLoaded);
@@ -93,7 +93,8 @@ public class Doors
 				    	bamboo_door = createBlock(i+"_bamboo_door", () -> new DoorBlock(JAPAN), block, item, tab, modLoaded);
 				    	bark_glass_door = createBlock(i+"_bark_glass_door", () -> new DoorBlock(JAPAN), block, item, tab, modLoaded);
 				    	waffle_door = createBlock(i+"_waffle_door", () -> new DoorBlock(JAPAN), block, item, tab, modLoaded);
-				    }
+						whispering_door = createBlock(i+"_whispering_door", () -> new DoorBlock(JAPAN), block, item, tab, modLoaded);
+					}
 				} catch (Exception e) {
 				    e.printStackTrace();
 				}
@@ -108,7 +109,7 @@ public class Doors
 	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
 	{
 		Block japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door,
-		tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
+		tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door, whispering_door;
 		
 		for (String i : WOOD)
 		{
@@ -133,7 +134,8 @@ public class Doors
 			bamboo_door = Finder.findBlock(MODID, i + "_bamboo_door");
 			bark_glass_door = Finder.findBlock(MODID, i + "_bark_glass_door");
 			waffle_door = Finder.findBlock(MODID, i + "_waffle_door");
-			
+			whispering_door = Finder.findBlock(MODID, i + "_whispering_door");
+
 			ItemBlockRenderTypes.setRenderLayer(japanese_door, renderSet);
 			ItemBlockRenderTypes.setRenderLayer(japanese2_door, renderSet);
 			ItemBlockRenderTypes.setRenderLayer(barn_door, renderSet);
@@ -155,6 +157,7 @@ public class Doors
 			ItemBlockRenderTypes.setRenderLayer(bamboo_door, renderSet);
 			ItemBlockRenderTypes.setRenderLayer(bark_glass_door, renderSet);
 			ItemBlockRenderTypes.setRenderLayer(waffle_door, renderSet);
+			ItemBlockRenderTypes.setRenderLayer(whispering_door, renderSet);
         }
 	}
 

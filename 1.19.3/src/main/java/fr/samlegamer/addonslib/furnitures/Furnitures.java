@@ -539,7 +539,7 @@ public class Furnitures
 		stripped_cherry_double_kitchen_cabinet,
 		stripped_cherry_glass_kitchen_cabinet;
 		
-		if (event.getTab() == tab)
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : WOOD)
 			{

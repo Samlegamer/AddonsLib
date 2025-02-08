@@ -296,8 +296,8 @@ public class Fences
 	public static void addToTab(BuildCreativeModeTabContentsEvent event, String MODID, List<String> WOOD, CreativeModeTab tab)
 	{
 		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
-		
-		if (event.getTab() == tab)
+
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : WOOD)
 			{
@@ -321,8 +321,8 @@ public class Fences
 	public static void addToTabHedge(BuildCreativeModeTabContentsEvent event, String MODID, List<String> LEAVES, CreativeModeTab tab)
 	{
 		Block hedge;
-		
-		if (event.getTab() == tab)
+
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : LEAVES)
 			{
@@ -336,8 +336,8 @@ public class Fences
 	public static void addToTabStone(BuildCreativeModeTabContentsEvent event, String MODID, List<String> STONE, CreativeModeTab tab)
 	{
 		Block modern_wall, railing_wall, railing_gate, pillar_wall, grass_topped_wall;
-		
-		if (event.getTab() == tab)
+
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : STONE)
 			{

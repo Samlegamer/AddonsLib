@@ -36,7 +36,7 @@ public class Trapdoors
 	{
 			final AbstractBlock.Properties WOOD = AbstractBlock.Properties.copy(Blocks.OAK_TRAPDOOR);
 			RegistryObject<Block> barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, mystic_trapdoor, paper_trapdoor, 
-			tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor;
+			tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor, whispering_trapdoor;
 
 			for(String i : set)
 			{
@@ -56,6 +56,7 @@ public class Trapdoors
 		    	ranch_trapdoor = createBlock(i+"_ranch_trapdoor", () -> new TrapDoorBlock(WOOD), block, item, tab, modLoaded);
 		    	blossom_trapdoor = createBlock(i+"_blossom_trapdoor", () -> new TrapDoorBlock(WOOD), block, item, tab, modLoaded);
 		    	barrel_trapdoor = createBlock(i+"_barrel_trapdoor", () -> new TrapDoorBlock(WOOD), block, item, tab, modLoaded);
+				whispering_trapdoor = createBlock(i+"_whispering_trapdoor", () -> new TrapDoorBlock(WOOD), block, item, tab, modLoaded);
 			}
 	}
 	
@@ -63,7 +64,7 @@ public class Trapdoors
 	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
 	{
 		Block barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, mystic_trapdoor, paper_trapdoor, 
-		tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor;
+		tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor, whispering_trapdoor;
 
 		for (String i : WOOD)
 		{		
@@ -83,7 +84,8 @@ public class Trapdoors
 			ranch_trapdoor = Finder.findBlock(MODID, i+"_ranch_trapdoor");
 			blossom_trapdoor = Finder.findBlock(MODID, i+"_blossom_trapdoor");
 			barrel_trapdoor = Finder.findBlock(MODID, i+"_barrel_trapdoor");
-	    	
+			whispering_trapdoor = Finder.findBlock(MODID, i+"_whispering_trapdoor");
+
         	RenderTypeLookup.setRenderLayer(barn_trapdoor, renderSet);
         	RenderTypeLookup.setRenderLayer(cottage_trapdoor, renderSet);
         	RenderTypeLookup.setRenderLayer(barred_trapdoor, renderSet);
@@ -100,6 +102,7 @@ public class Trapdoors
         	RenderTypeLookup.setRenderLayer(ranch_trapdoor, renderSet);
         	RenderTypeLookup.setRenderLayer(blossom_trapdoor, renderSet);
         	RenderTypeLookup.setRenderLayer(barrel_trapdoor, renderSet);
+			RenderTypeLookup.setRenderLayer(whispering_trapdoor, renderSet);
         }
 	}
 	

@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import fr.samlegamer.addonslib.item.BlockItemFuelInfo;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -14,8 +15,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.NewRegistryEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
 public class Bridges
@@ -153,7 +153,7 @@ public class Bridges
 	
 	//Start of new registration system
 	
-	public static void registryWood(final NewRegistryEvent event, List<String> WOODS, CreativeModeTab tab)
+	public static void registryWood(final RegisterEvent event, List<String> WOODS, CreativeModeTab tab)
 	{
 		final BlockBehaviour.Properties WOOD = wood;
 		final BlockBehaviour.Properties RAILS = wood.noOcclusion();
@@ -165,21 +165,21 @@ public class Bridges
 			try {
 			    if (ModList.get().isLoaded(modid))
 			    {
-			    	log_bridge_middle = createBlockWoodOpti(i+"_log_bridge_middle", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Log_Bridge", WOOD), tab);
-					rope_bridge = createBlockWoodOpti("rope_"+i+"_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block_Rope", WOOD), tab);
-					bridge_pier = createBlockWoodOpti(i+"_bridge_pier", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Support", WOOD), tab);
-					log_bridge_stair = createBlockWoodOpti(i+"_log_bridge_stair", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", WOOD), tab);
-					rope_bridge_stair = createBlockWoodOpti(i+"_rope_bridge_stair", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", WOOD), tab);
-					rail_bridge = createBlockWoodOpti(i+"_rail_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Rail_Bridge", WOOD), tab);
+			    	log_bridge_middle = createBlockWoodOpti(event, i+"_log_bridge_middle", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Log_Bridge", WOOD), tab);
+					rope_bridge = createBlockWoodOpti(event, "rope_"+i+"_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block_Rope", WOOD), tab);
+					bridge_pier = createBlockWoodOpti(event, i+"_bridge_pier", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Support", WOOD), tab);
+					log_bridge_stair = createBlockWoodOpti(event, i+"_log_bridge_stair", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", WOOD), tab);
+					rope_bridge_stair = createBlockWoodOpti(event, i+"_rope_bridge_stair", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", WOOD), tab);
+					rail_bridge = createBlockWoodOpti(event, i+"_rail_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Rail_Bridge", WOOD), tab);
 			    }
 			    else
 			    {
-					log_bridge_middle = createBlockWoodOpti(i+"_log_bridge_middle", new Block(WOOD), tab);
-					rope_bridge = createBlockWoodOpti("rope_"+i+"_bridge", new Block(WOOD), tab);
-					bridge_pier = createBlockWoodOpti(i+"_bridge_pier", new Block(WOOD), tab);
-					log_bridge_stair = createBlockWoodOpti(i+"_log_bridge_stair", new Block(WOOD), tab);
-					rope_bridge_stair = createBlockWoodOpti(i+"_rope_bridge_stair", new Block(WOOD), tab);
-					rail_bridge = createBlockWoodOpti(i+"_rail_bridge", new Block(RAILS), tab);
+					log_bridge_middle = createBlockWoodOpti(event, i+"_log_bridge_middle", new Block(WOOD), tab);
+					rope_bridge = createBlockWoodOpti(event, "rope_"+i+"_bridge", new Block(WOOD), tab);
+					bridge_pier = createBlockWoodOpti(event, i+"_bridge_pier", new Block(WOOD), tab);
+					log_bridge_stair = createBlockWoodOpti(event, i+"_log_bridge_stair", new Block(WOOD), tab);
+					rope_bridge_stair = createBlockWoodOpti(event, i+"_rope_bridge_stair", new Block(WOOD), tab);
+					rail_bridge = createBlockWoodOpti(event, i+"_rail_bridge", new Block(RAILS), tab);
 			    }
 			} catch (Exception e) {
 			    e.printStackTrace();
@@ -187,7 +187,7 @@ public class Bridges
 		}
 	}
 	
-	public static void registryStone(final NewRegistryEvent event, List<String> STONES, CreativeModeTab tab)
+	public static void registryStone(final RegisterEvent event, List<String> STONES, CreativeModeTab tab)
 	{
 		final BlockBehaviour.Properties STONE = stone;
 
@@ -197,17 +197,17 @@ public class Bridges
 			try {
 			    if (ModList.get().isLoaded(modid))
 			    {
-			    	cryptic_stone_bridge = createBlockStoneOpti(i+"_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block", STONE), tab);
-					cryptic_stone_bridge_pier = createBlockStoneOpti(i+"_bridge_pier", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Support", STONE), tab);
-					cryptic_stone_bridge_stair = createBlockStoneOpti(i+"_bridge_stair", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", STONE), tab);
-					balustrade_cryptic_stone_bridge = createBlockStoneOpti("balustrade_"+i+"_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block", STONE), tab);
+			    	cryptic_stone_bridge = createBlockStoneOpti(event, i+"_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block", STONE), tab);
+					cryptic_stone_bridge_pier = createBlockStoneOpti(event, i+"_bridge_pier", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Support", STONE), tab);
+					cryptic_stone_bridge_stair = createBlockStoneOpti(event, i+"_bridge_stair", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Stairs", STONE), tab);
+					balustrade_cryptic_stone_bridge = createBlockStoneOpti(event, "balustrade_"+i+"_bridge", Registration.getBlocksField("com.mcwbridges.kikoz.objects.Bridge_Block", STONE), tab);
 			    }
 			    else
 			    {
-					cryptic_stone_bridge = createBlockStoneOpti(i+"_bridge", new Block(STONE), tab);
-					cryptic_stone_bridge_pier = createBlockStoneOpti(i+"_bridge_pier", new Block(STONE), tab);
-					cryptic_stone_bridge_stair = createBlockStoneOpti(i+"_bridge_stair", new Block(STONE), tab);
-					balustrade_cryptic_stone_bridge = createBlockStoneOpti("balustrade_"+i+"_bridge", new Block(STONE), tab);
+					cryptic_stone_bridge = createBlockStoneOpti(event, i+"_bridge", new Block(STONE), tab);
+					cryptic_stone_bridge_pier = createBlockStoneOpti(event, i+"_bridge_pier", new Block(STONE), tab);
+					cryptic_stone_bridge_stair = createBlockStoneOpti(event, i+"_bridge_stair", new Block(STONE), tab);
+					balustrade_cryptic_stone_bridge = createBlockStoneOpti(event, "balustrade_"+i+"_bridge", new Block(STONE), tab);
 			    }
 			} catch (Exception e) {
 			    e.printStackTrace();
@@ -215,7 +215,7 @@ public class Bridges
 		}
 	}
 
-	protected static Block createBlockWoodOpti(String name, Block block, CreativeModeTab tab)
+	protected static Block createBlockWoodOpti(final RegisterEvent event, String name, Block block, CreativeModeTab tab)
     {
 		BlockItem itemBlock;        
         if(ModList.get().isLoaded(modid))
@@ -231,14 +231,22 @@ public class Bridges
 		{
 			itemBlock = new BlockItemFuel(block, new Item.Properties());
 		}
+        
+        event.register(Registry.BLOCK_REGISTRY, helper -> {
+        	helper.register(name, block);
+        });
+        event.register(Registry.ITEM_REGISTRY, helper -> {
+        	helper.register(name, itemBlock);
+        });
+
         //block.setRegistryName(name);
         //itemBlock.setRegistryName(name);
-        ForgeRegistries.BLOCKS.register(name, block);
-        ForgeRegistries.ITEMS.register(name, itemBlock);
+        //ForgeRegistries.BLOCKS.register(name, block);
+        //ForgeRegistries.ITEMS.register(name, itemBlock);
         return block;
     }
 
-	protected static Block createBlockStoneOpti(String name, Block block, CreativeModeTab tab)
+	protected static Block createBlockStoneOpti(final RegisterEvent event, String name, Block block, CreativeModeTab tab)
     {
 		BlockItem itemBlock;
         if(ModList.get().isLoaded(modid))
@@ -249,10 +257,17 @@ public class Bridges
 		{
 			itemBlock = new BlockItem(block, new Item.Properties());
 		}
+        event.register(Registry.BLOCK_REGISTRY, helper -> {
+        	helper.register(name, block);
+        });
+        event.register(Registry.ITEM_REGISTRY, helper -> {
+        	helper.register(name, itemBlock);
+        });
+
         //block.setRegistryName(name);
         //itemBlock.setRegistryName(name);
-        ForgeRegistries.BLOCKS.register(name, block);
-        ForgeRegistries.ITEMS.register(name, itemBlock);
+        //ForgeRegistries.BLOCKS.register(name, block);
+        //ForgeRegistries.ITEMS.register(name, itemBlock);
         return block;
     }
 }

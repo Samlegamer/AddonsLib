@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -14,8 +15,7 @@ import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.NewRegistryEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
 public class Fences
@@ -173,7 +173,7 @@ public class Fences
 	
 	//Start of new registration system
 
-	public static void registryWood(final NewRegistryEvent event, List<String> set, CreativeModeTab tab)
+	public static void registryWood(final RegisterEvent event, List<String> set, CreativeModeTab tab)
 	{
 			final BlockBehaviour.Properties WOOD = wood;
 
@@ -184,19 +184,19 @@ public class Fences
 				try {
 				    if (ModList.get().isLoaded(modid))
 				    {
-				        picket_fence = createBlockWoodOpti(i + "_picket_fence", new FenceBlock(WOOD), tab);
-				        stockade_fence = createBlockWoodOpti(i + "_stockade_fence", new FenceBlock(WOOD), tab);
-				        horse_fence = createBlockWoodOpti(i + "_horse_fence", new FenceBlock(WOOD), tab);
-			            wired_fence = createBlockWoodOpti(i + "_wired_fence", Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.WiredFence", WOOD), tab);
-				        highley_gate = createBlockWoodOpti(i + "_highley_gate", new FenceGateBlock(WOOD), tab);
-				        pyramid_gate = createBlockWoodOpti(i + "_pyramid_gate", new FenceGateBlock(WOOD), tab);
+				        picket_fence = createBlockWoodOpti(event, i + "_picket_fence", new FenceBlock(WOOD), tab);
+				        stockade_fence = createBlockWoodOpti(event, i + "_stockade_fence", new FenceBlock(WOOD), tab);
+				        horse_fence = createBlockWoodOpti(event, i + "_horse_fence", new FenceBlock(WOOD), tab);
+			            wired_fence = createBlockWoodOpti(event, i + "_wired_fence", Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.WiredFence", WOOD), tab);
+				        highley_gate = createBlockWoodOpti(event, i + "_highley_gate", new FenceGateBlock(WOOD), tab);
+				        pyramid_gate = createBlockWoodOpti(event, i + "_pyramid_gate", new FenceGateBlock(WOOD), tab);
 				    } else {
-				        picket_fence = createBlockWoodOpti(i + "_picket_fence", new FenceBlock(WOOD), tab);
-				        stockade_fence = createBlockWoodOpti(i + "_stockade_fence", new FenceBlock(WOOD), tab);
-				        horse_fence = createBlockWoodOpti(i + "_horse_fence", new FenceBlock(WOOD), tab);
-				        wired_fence = createBlockWoodOpti(i + "_wired_fence", new FenceBlock(WOOD), tab);
-				        highley_gate = createBlockWoodOpti(i + "_highley_gate", new FenceGateBlock(WOOD), tab);
-				        pyramid_gate = createBlockWoodOpti(i + "_pyramid_gate", new FenceGateBlock(WOOD), tab);
+				        picket_fence = createBlockWoodOpti(event, i + "_picket_fence", new FenceBlock(WOOD), tab);
+				        stockade_fence = createBlockWoodOpti(event, i + "_stockade_fence", new FenceBlock(WOOD), tab);
+				        horse_fence = createBlockWoodOpti(event, i + "_horse_fence", new FenceBlock(WOOD), tab);
+				        wired_fence = createBlockWoodOpti(event, i + "_wired_fence", new FenceBlock(WOOD), tab);
+				        highley_gate = createBlockWoodOpti(event, i + "_highley_gate", new FenceGateBlock(WOOD), tab);
+				        pyramid_gate = createBlockWoodOpti(event, i + "_pyramid_gate", new FenceGateBlock(WOOD), tab);
 				    }
 				} catch (Exception e) {
 				    e.printStackTrace();
@@ -207,7 +207,7 @@ public class Fences
 	/**
 	 * Init all Hedges Variants of Macaw's Fences
 	 */
-	public static void registryHedges(final NewRegistryEvent event, List<String> leaves, CreativeModeTab tab)
+	public static void registryHedges(final RegisterEvent event, List<String> leaves, CreativeModeTab tab)
 	{
 			final BlockBehaviour.Properties HEDGES = Fences.leaves;
 			
@@ -217,10 +217,10 @@ public class Fences
 			{
 				if (ModList.get().isLoaded(modid))
 	        	{
-	                hedge = createBlockWoodOpti(i + "_hedge", Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES), tab);
+	                hedge = createBlockWoodOpti(event, i + "_hedge", Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES), tab);
 
 	            } else {
-	                hedge = createBlockWoodOpti(i + "_hedge", new FenceBlock(HEDGES), tab);
+	                hedge = createBlockWoodOpti(event, i + "_hedge", new FenceBlock(HEDGES), tab);
 	            }
 			}
 	}
@@ -228,7 +228,7 @@ public class Fences
 	/**
 	 * Init all Stone Variants of Macaw's Fences
 	 */
-	public static void registryStone(final NewRegistryEvent event, List<String> rock, CreativeModeTab tab)
+	public static void registryStone(final RegisterEvent event, List<String> rock, CreativeModeTab tab)
 	{
 			final BlockBehaviour.Properties STONE = stone;
 			Block modern_wall, railing_wall, railing_gate, pillar_wall, grass_topped_wall;
@@ -236,23 +236,23 @@ public class Fences
 			for(String i : rock)
 			{
 				if (ModList.get().isLoaded(modid)) {
-					modern_wall = createBlockStoneOpti("modern_"+i+"_wall", new FenceBlock(STONE), tab);
-					railing_wall = createBlockStoneOpti("railing_"+i+"_wall", new FenceBlock(STONE), tab);
-					railing_gate = createBlockStoneOpti(i+"_railing_gate", new FenceGateBlock(STONE), tab);
-					pillar_wall = createBlockStoneOpti(i+"_pillar_wall", new FenceBlock(STONE), tab);
-	                grass_topped_wall = createBlockStoneOpti(i + "_grass_topped_wall", Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", STONE), tab);
+					modern_wall = createBlockStoneOpti(event, "modern_"+i+"_wall", new FenceBlock(STONE), tab);
+					railing_wall = createBlockStoneOpti(event, "railing_"+i+"_wall", new FenceBlock(STONE), tab);
+					railing_gate = createBlockStoneOpti(event, i+"_railing_gate", new FenceGateBlock(STONE), tab);
+					pillar_wall = createBlockStoneOpti(event, i+"_pillar_wall", new FenceBlock(STONE), tab);
+	                grass_topped_wall = createBlockStoneOpti(event, i + "_grass_topped_wall", Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", STONE), tab);
 
 	            } else {
-					modern_wall = createBlockStoneOpti("modern_"+i+"_wall", new FenceBlock(STONE), tab);
-					railing_wall = createBlockStoneOpti("railing_"+i+"_wall", new FenceBlock(STONE), tab);
-					railing_gate = createBlockStoneOpti(i+"_railing_gate", new FenceGateBlock(STONE), tab);
-					pillar_wall = createBlockStoneOpti(i+"_pillar_wall", new FenceBlock(STONE), tab);
-					grass_topped_wall = createBlockStoneOpti(i+"_grass_topped_wall", new FenceBlock(STONE), tab);
+					modern_wall = createBlockStoneOpti(event, "modern_"+i+"_wall", new FenceBlock(STONE), tab);
+					railing_wall = createBlockStoneOpti(event, "railing_"+i+"_wall", new FenceBlock(STONE), tab);
+					railing_gate = createBlockStoneOpti(event, i+"_railing_gate", new FenceGateBlock(STONE), tab);
+					pillar_wall = createBlockStoneOpti(event, i+"_pillar_wall", new FenceBlock(STONE), tab);
+					grass_topped_wall = createBlockStoneOpti(event, i+"_grass_topped_wall", new FenceBlock(STONE), tab);
 	            }
 			}
 	}
 	
-	protected static Block createBlockWoodOpti(String name, Block block, CreativeModeTab tab)
+	protected static Block createBlockWoodOpti(final RegisterEvent event, String name, Block block, CreativeModeTab tab)
     {
 		BlockItem itemBlock;        
         if(ModList.get().isLoaded(modid))
@@ -263,14 +263,21 @@ public class Fences
 		{
 			itemBlock = new BlockItem(block, new Item.Properties());
 		}
+        event.register(Registry.BLOCK_REGISTRY, helper -> {
+        	helper.register(name, block);
+        });
+        event.register(Registry.ITEM_REGISTRY, helper -> {
+        	helper.register(name, itemBlock);
+        });
+
         //block.setRegistryName(name);
         //itemBlock.setRegistryName(name);
-        ForgeRegistries.BLOCKS.register(name, block);
-        ForgeRegistries.ITEMS.register(name, itemBlock);
+        //ForgeRegistries.BLOCKS.register(name, block);
+        //ForgeRegistries.ITEMS.register(name, itemBlock);
         return block;
     }
 
-	protected static Block createBlockStoneOpti(String name, Block block, CreativeModeTab tab)
+	protected static Block createBlockStoneOpti(final RegisterEvent event, String name, Block block, CreativeModeTab tab)
     {
 		BlockItem itemBlock;
         if(ModList.get().isLoaded(modid))
@@ -281,10 +288,17 @@ public class Fences
 		{
 			itemBlock = new BlockItem(block, new Item.Properties());
 		}
+        event.register(Registry.BLOCK_REGISTRY, helper -> {
+        	helper.register(name, block);
+        });
+        event.register(Registry.ITEM_REGISTRY, helper -> {
+        	helper.register(name, itemBlock);
+        });
+
         //block.setRegistryName(name);
         //itemBlock.setRegistryName(name);
-        ForgeRegistries.BLOCKS.register(name, block);
-        ForgeRegistries.ITEMS.register(name, itemBlock);
+        //ForgeRegistries.BLOCKS.register(name, block);
+        //ForgeRegistries.ITEMS.register(name, itemBlock);
         return block;
     }
 }

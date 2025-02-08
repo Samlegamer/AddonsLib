@@ -115,8 +115,8 @@ public class Windows
 		Block window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2,
 		plank_four_window, log_parapet, plank_parapet, blinds, shutter, louvered_shutter, pane_window, strippedpane_window, plank_pane_window,
 		curtain_rod;
-		
-		if (event.getTab() == tab)
+
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : WOOD)
 			{

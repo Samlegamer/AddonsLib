@@ -1,7 +1,6 @@
 package fr.samlegamer.addonslib.mapping;
 
 import java.util.List;
-import fr.samlegamer.addonslib.AddonsLib;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -436,13 +435,8 @@ public class MappingMissing
 				if(entry.getKey().toString().equals(oldModid + ":" + nameMissing))
 				{
 					entry.remap(remapped);
-					AddonsLib.LOGGER.info("Remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
 				}
 			}
-        }
-        else
-        {
-			AddonsLib.LOGGER.info("Failed remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
         }
 	}
 	
@@ -457,13 +451,8 @@ public class MappingMissing
 				if(entry.getKey().toString().equals(oldModid + ":" + nameMissing))
 				{
 					entry.remap(remapped);
-					AddonsLib.LOGGER.info("Remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
 				}
 			}
-        }
-        else
-        {
-			AddonsLib.LOGGER.info("Failed remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
         }
 	}
 

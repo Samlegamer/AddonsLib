@@ -31,7 +31,7 @@ public class ColorRegistry
 		for(String i : NoColorLeaves)
 		{
 			Block hedges = ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath(this.MODID, i+"_hedge"));
-			event.getBlockColors().register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getAverageFoliageColor(view, pos) : FoliageColor.get(0.5D, 1.0D), hedges);
+			event.register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getAverageFoliageColor(view, pos) : FoliageColor.get(0.5D, 1.0D), hedges);
 		}
 	}
 	
@@ -41,7 +41,7 @@ public class ColorRegistry
 		for(String i : NoColorLeaves)
 		{
 			Block hedges = ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath(this.MODID, i+"_hedge"));
-			event.getItemColors().register((stack, tintIndex) -> {
+			event.register((stack, tintIndex) -> {
 	            Block block = ((BlockItem) stack.getItem()).getBlock();
 	            return event.getBlockColors().getColor(block.defaultBlockState(), null, null, tintIndex);
 	        }, hedges);

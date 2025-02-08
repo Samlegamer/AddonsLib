@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -13,8 +14,7 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.NewRegistryEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
 public class Roofs
@@ -190,7 +190,7 @@ public class Roofs
         return block;
     }
 	
-	protected static Block createBlockWoodOpti(String name, Block block, CreativeModeTab tab)
+	protected static Block createBlockWoodOpti(final RegisterEvent event, String name, Block block, CreativeModeTab tab)
     {
 		BlockItem itemBlock;        
         if(ModList.get().isLoaded(modid))
@@ -201,14 +201,20 @@ public class Roofs
 		{
 			itemBlock = new BlockItemFuel(block, new Item.Properties());
 		}
+        event.register(Registry.BLOCK_REGISTRY, helper -> {
+        	helper.register(name, block);
+        });
+        event.register(Registry.ITEM_REGISTRY, helper -> {
+        	helper.register(name, itemBlock);
+        });
         //block.setRegistryName(name);
         //itemBlock.setRegistryName(name);
-        ForgeRegistries.BLOCKS.register(name, block);
-        ForgeRegistries.ITEMS.register(name, itemBlock);
+        //ForgeRegistries.BLOCKS.register(name, block);
+        //ForgeRegistries.ITEMS.register(name, itemBlock);
         return block;
     }
 
-	protected static Block createBlockStoneOpti(String name, Block block, CreativeModeTab tab)
+	protected static Block createBlockStoneOpti(final RegisterEvent event, String name, Block block, CreativeModeTab tab)
     {
 		BlockItem itemBlock;
         if(ModList.get().isLoaded(modid))
@@ -219,14 +225,20 @@ public class Roofs
 		{
 			itemBlock = new BlockItem(block, new Item.Properties());
 		}
+        event.register(Registry.BLOCK_REGISTRY, helper -> {
+        	helper.register(name, block);
+        });
+        event.register(Registry.ITEM_REGISTRY, helper -> {
+        	helper.register(name, itemBlock);
+        });
         //block.setRegistryName(name);
         ///itemBlock.setRegistryName(name);
-        ForgeRegistries.BLOCKS.register(name, block);
-        ForgeRegistries.ITEMS.register(name, itemBlock);
+        //ForgeRegistries.BLOCKS.register(name, block);
+        //ForgeRegistries.ITEMS.register(name, itemBlock);
         return block;
     }
 	
-	public static void registryWood(final NewRegistryEvent event, List<String> set, CreativeModeTab tab)
+	public static void registryWood(final RegisterEvent event, List<String> set, CreativeModeTab tab)
 	{
 			final BlockBehaviour.Properties WOOD = wood;
 		    Block cherry_roof,
@@ -249,39 +261,39 @@ public class Roofs
 				try {
 				    if (ModList.get().isLoaded(modid))
 				    {
-				    	cherry_roof = createBlockWoodOpti(i+"_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-			            cherry_attic_roof = createBlockWoodOpti(i + "_attic_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofGlass", WOOD), tab);
-			            cherry_top_roof = createBlockWoodOpti(i + "_top_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofTopNew", WOOD), tab);
-					    cherry_lower_roof = createBlockWoodOpti(i+"_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-					    cherry_steep_roof = createBlockWoodOpti(i+"_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-			            cherry_upper_lower_roof = createBlockWoodOpti(i + "_upper_lower_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Lower", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), tab);
-			            cherry_upper_steep_roof = createBlockWoodOpti(i + "_upper_steep_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Steep", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), tab);
+				    	cherry_roof = createBlockWoodOpti(event, i+"_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+			            cherry_attic_roof = createBlockWoodOpti(event, i + "_attic_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofGlass", WOOD), tab);
+			            cherry_top_roof = createBlockWoodOpti(event, i + "_top_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofTopNew", WOOD), tab);
+					    cherry_lower_roof = createBlockWoodOpti(event, i+"_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+					    cherry_steep_roof = createBlockWoodOpti(event, i+"_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+			            cherry_upper_lower_roof = createBlockWoodOpti(event, i + "_upper_lower_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Lower", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), tab);
+			            cherry_upper_steep_roof = createBlockWoodOpti(event, i + "_upper_steep_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Steep", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), tab);
 					    
-			            cherry_planks_roof = createBlockWoodOpti(i+"_planks_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-			            cherry_planks_attic_roof = createBlockWoodOpti(i + "_planks_attic_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofGlass", WOOD), tab);
-			            cherry_planks_top_roof = createBlockWoodOpti(i + "_planks_top_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofTopNew", WOOD), tab);
-					    cherry_planks_lower_roof = createBlockWoodOpti(i+"_planks_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-					    cherry_planks_steep_roof = createBlockWoodOpti(i+"_planks_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-			            cherry_planks_upper_lower_roof = createBlockWoodOpti(i + "_planks_upper_lower_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Lower", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), tab);
-			            cherry_planks_upper_steep_roof = createBlockWoodOpti(i + "_planks_upper_steep_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Steep", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), tab);
+			            cherry_planks_roof = createBlockWoodOpti(event, i+"_planks_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+			            cherry_planks_attic_roof = createBlockWoodOpti(event, i + "_planks_attic_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofGlass", WOOD), tab);
+			            cherry_planks_top_roof = createBlockWoodOpti(event, i + "_planks_top_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofTopNew", WOOD), tab);
+					    cherry_planks_lower_roof = createBlockWoodOpti(event, i+"_planks_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+					    cherry_planks_steep_roof = createBlockWoodOpti(event, i+"_planks_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+			            cherry_planks_upper_lower_roof = createBlockWoodOpti(event, i + "_planks_upper_lower_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Lower", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), tab);
+			            cherry_planks_upper_steep_roof = createBlockWoodOpti(event, i + "_planks_upper_steep_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Steep", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), tab);
 				    }
 				    else
 				    {
-				    	cherry_roof = createBlockWoodOpti(i+"_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-					    cherry_attic_roof = createBlockWoodOpti(i+"_attic_roof", new Block(WOOD), tab);
-					    cherry_top_roof = createBlockWoodOpti(i+"_top_roof", new Block(WOOD), tab);
-					    cherry_lower_roof = createBlockWoodOpti(i+"_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-					    cherry_steep_roof = createBlockWoodOpti(i+"_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-					    cherry_upper_lower_roof = createBlockWoodOpti(i+"_upper_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-					    cherry_upper_steep_roof = createBlockWoodOpti(i+"_upper_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+				    	cherry_roof = createBlockWoodOpti(event, i+"_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+					    cherry_attic_roof = createBlockWoodOpti(event, i+"_attic_roof", new Block(WOOD), tab);
+					    cherry_top_roof = createBlockWoodOpti(event, i+"_top_roof", new Block(WOOD), tab);
+					    cherry_lower_roof = createBlockWoodOpti(event, i+"_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+					    cherry_steep_roof = createBlockWoodOpti(event, i+"_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+					    cherry_upper_lower_roof = createBlockWoodOpti(event, i+"_upper_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+					    cherry_upper_steep_roof = createBlockWoodOpti(event, i+"_upper_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
 
-					    cherry_planks_roof = createBlockWoodOpti(i+"_planks_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-					    cherry_planks_attic_roof = createBlockWoodOpti(i+"_planks_attic_roof", new Block(WOOD), tab);
-					    cherry_planks_top_roof = createBlockWoodOpti(i+"_planks_top_roof", new Block(WOOD), tab);
-					    cherry_planks_lower_roof = createBlockWoodOpti(i+"_planks_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-					    cherry_planks_steep_roof = createBlockWoodOpti(i+"_planks_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
-					    cherry_planks_upper_lower_roof = createBlockWoodOpti(i+"_planks_upper_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState() ,WOOD), tab);
-					    cherry_planks_upper_steep_roof = createBlockWoodOpti(i+"_planks_upper_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState() ,WOOD), tab);
+					    cherry_planks_roof = createBlockWoodOpti(event, i+"_planks_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+					    cherry_planks_attic_roof = createBlockWoodOpti(event, i+"_planks_attic_roof", new Block(WOOD), tab);
+					    cherry_planks_top_roof = createBlockWoodOpti(event, i+"_planks_top_roof", new Block(WOOD), tab);
+					    cherry_planks_lower_roof = createBlockWoodOpti(event, i+"_planks_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+					    cherry_planks_steep_roof = createBlockWoodOpti(event, i+"_planks_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState(), WOOD), tab);
+					    cherry_planks_upper_lower_roof = createBlockWoodOpti(event, i+"_planks_upper_lower_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState() ,WOOD), tab);
+					    cherry_planks_upper_steep_roof = createBlockWoodOpti(event, i+"_planks_upper_steep_roof", new StairBlock(()->Blocks.OAK_PLANKS.defaultBlockState() ,WOOD), tab);
 				    }
 				} catch (Exception e) {
 				    e.printStackTrace();
@@ -290,7 +302,7 @@ public class Roofs
 			wood = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
 	}
 	
-	public static void registryStone(final NewRegistryEvent event, List<String> rock, CreativeModeTab tab)
+	public static void registryStone(final RegisterEvent event, List<String> rock, CreativeModeTab tab)
 	{
 			final BlockBehaviour.Properties STONE = stone;
 			Block ROOF,
@@ -306,23 +318,23 @@ public class Roofs
 				try {
 				    if (ModList.get().isLoaded(modid))
 				    {
-				    	ROOF = createBlockStoneOpti(i+"_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
-			            ATTIC_ROOF = createBlockStoneOpti(i + "_attic_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofGlass", STONE), tab);
-			            TOP_ROOF = createBlockStoneOpti(i + "_top_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofTopNew", STONE), tab);
-			            LOWER_ROOF = createBlockStoneOpti(i+"_lower_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
-			            STEEP_ROOF = createBlockStoneOpti(i+"_steep_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
-			            UPPER_LOWER_ROOF = createBlockStoneOpti(i + "_upper_lower_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Lower", STONE, Blocks.CUT_SANDSTONE.defaultBlockState()), tab);
-			            UPPER_STEEP_ROOF = createBlockStoneOpti(i + "_upper_steep_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Steep", STONE, Blocks.CUT_SANDSTONE.defaultBlockState()), tab);
+				    	ROOF = createBlockStoneOpti(event, i+"_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
+			            ATTIC_ROOF = createBlockStoneOpti(event, i + "_attic_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofGlass", STONE), tab);
+			            TOP_ROOF = createBlockStoneOpti(event, i + "_top_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofTopNew", STONE), tab);
+			            LOWER_ROOF = createBlockStoneOpti(event, i+"_lower_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
+			            STEEP_ROOF = createBlockStoneOpti(event, i+"_steep_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
+			            UPPER_LOWER_ROOF = createBlockStoneOpti(event, i + "_upper_lower_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Lower", STONE, Blocks.CUT_SANDSTONE.defaultBlockState()), tab);
+			            UPPER_STEEP_ROOF = createBlockStoneOpti(event, i + "_upper_steep_roof", Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Steep", STONE, Blocks.CUT_SANDSTONE.defaultBlockState()), tab);
 				    }
 				    else
 				    {
-				    	ROOF = createBlockStoneOpti(i+"_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
-				    	ATTIC_ROOF = createBlockStoneOpti(i+"_attic_roof", new Block(STONE), tab);
-					    TOP_ROOF = createBlockStoneOpti(i+"_top_roof", new Block(STONE), tab);
-					    LOWER_ROOF = createBlockStoneOpti(i+"_lower_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
-					    STEEP_ROOF = createBlockStoneOpti(i+"_steep_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
-					    UPPER_LOWER_ROOF = createBlockStoneOpti(i+"_upper_lower_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
-					    UPPER_STEEP_ROOF = createBlockStoneOpti(i+"_upper_steep_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
+				    	ROOF = createBlockStoneOpti(event, i+"_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
+				    	ATTIC_ROOF = createBlockStoneOpti(event, i+"_attic_roof", new Block(STONE), tab);
+					    TOP_ROOF = createBlockStoneOpti(event, i+"_top_roof", new Block(STONE), tab);
+					    LOWER_ROOF = createBlockStoneOpti(event, i+"_lower_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
+					    STEEP_ROOF = createBlockStoneOpti(event, i+"_steep_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
+					    UPPER_LOWER_ROOF = createBlockStoneOpti(event, i+"_upper_lower_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
+					    UPPER_STEEP_ROOF = createBlockStoneOpti(event, i+"_upper_steep_roof", new StairBlock(()->Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), tab);
 				    }
 				} catch (Exception e)
 				{

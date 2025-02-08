@@ -1,7 +1,9 @@
 package fr.samlegamer.addonslib.mapping;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -252,7 +254,7 @@ public class MappingMissing
 			}
 		}
 		
-		/*use missingnoStoneBlock(, boolean balustrade)*/
+		/*use missingnoStoneBlock(boolean balustrade)*/
 		@Deprecated
 		public void missingnoStoneBlock()
 		{
@@ -285,19 +287,41 @@ public class MappingMissing
 			}
         }
         
-        
-        try
+        if(notExistIn(file, oldModid, newModid, oldName, newName))
+        {
+	        try
+			{
+	            BufferedWriter buffer = new BufferedWriter(new FileWriter(file, true));
+				
+				buffer.write(oldModid+":"+oldName+" -> "+newModid+":"+newName+"\n");
+				
+				buffer.close();
+				file.createNewFile();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+        }
+	}
+	
+	private static boolean notExistIn(File file, String oldModid, String newModid, String oldName, String newName)
+	{
+		try(BufferedReader br = new BufferedReader(new FileReader(file)))
 		{
-            BufferedWriter buffer = new BufferedWriter(new FileWriter(file, true));
-			
-			buffer.write(oldModid+":"+oldName+" -> "+newModid+":"+newName+"\n");
-			
-			buffer.close();
-			file.createNewFile();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+            String ligne;
+            while ((ligne = br.readLine()) != null)
+            {
+                if(ligne.equals(oldModid+":"+oldName+" -> "+newModid+":"+newName))
+                {
+                	return false;
+                }
+            }
+
+		}catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+		return true;
 	}
 }

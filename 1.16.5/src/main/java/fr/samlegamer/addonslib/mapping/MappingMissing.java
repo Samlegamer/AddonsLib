@@ -436,13 +436,8 @@ public class MappingMissing
 				if(entry.key.toString().equals(oldModid + ":" + nameMissing))
 				{
 					entry.remap(remapped);
-					AddonsLib.LOGGER.info("Remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
 				}
 			}
-        }
-        else
-        {
-			AddonsLib.LOGGER.info("Failed remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
         }
 	}
 	
@@ -457,13 +452,8 @@ public class MappingMissing
 				if(entry.key.toString().equals(oldModid + ":" + nameMissing))
 				{
 					entry.remap(remapped);
-					AddonsLib.LOGGER.info("Remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
 				}
 			}
-        }
-        else
-        {
-			AddonsLib.LOGGER.info("Failed remap "+oldModid+":"+nameMissing+"to -> "+newModid+":"+nameNew+" !");
         }
 	}
 

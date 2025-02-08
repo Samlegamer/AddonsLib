@@ -36,7 +36,7 @@ public class Trapdoors
 	{
 			final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR);
 			RegistryObject<Block> barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, mystic_trapdoor, paper_trapdoor, 
-			tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor;
+			tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor, whispering_trapdoor;
 
 			for(String i : set)
 			{
@@ -56,6 +56,7 @@ public class Trapdoors
 		    	ranch_trapdoor = createBlock(i+"_ranch_trapdoor", () -> new TrapDoorBlock(WOOD, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN), block, item, tab, modLoaded);
 		    	blossom_trapdoor = createBlock(i+"_blossom_trapdoor", () -> new TrapDoorBlock(WOOD, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN), block, item, tab, modLoaded);
 		    	barrel_trapdoor = createBlock(i+"_barrel_trapdoor", () -> new TrapDoorBlock(WOOD, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN), block, item, tab, modLoaded);
+				whispering_trapdoor = createBlock(i+"_whispering_trapdoor", () -> new TrapDoorBlock(WOOD, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN), block, item, tab, modLoaded);
 			}
 	}
 	
@@ -81,9 +82,9 @@ public class Trapdoors
 	public static void addToTab(CreativeModeTabEvent.BuildContents event, String MODID, List<String> WOOD, CreativeModeTab tab)
 	{
 		Block barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, mystic_trapdoor, paper_trapdoor, 
-		tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor;
+		tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor, whispering_trapdoor;
 
-		if (event.getTab() == tab)
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : WOOD)
 			{		
@@ -103,8 +104,9 @@ public class Trapdoors
 				ranch_trapdoor = Finder.findBlock(MODID, i+"_ranch_trapdoor");
 				blossom_trapdoor = Finder.findBlock(MODID, i+"_blossom_trapdoor");
 				barrel_trapdoor = Finder.findBlock(MODID, i+"_barrel_trapdoor");
-				
-		    	event.accept(barn_trapdoor);
+				whispering_trapdoor = Finder.findBlock(MODID, i+"_whispering_trapdoor");
+
+				event.accept(barn_trapdoor);
 		    	event.accept(cottage_trapdoor);
 		    	event.accept(barred_trapdoor);
 		    	event.accept(beach_trapdoor);
@@ -120,6 +122,7 @@ public class Trapdoors
 		    	event.accept(ranch_trapdoor);
 		    	event.accept(blossom_trapdoor);
 		    	event.accept(barrel_trapdoor);
+				event.accept(whispering_trapdoor);
 			}
    	 	}
 	}

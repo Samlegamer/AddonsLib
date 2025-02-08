@@ -352,40 +352,43 @@ public class Roofs
 		cherry_planks_upper_lower_roof,
 		cherry_planks_upper_steep_roof;
 
-		for (String i : WOOD)
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
 		{
-			cherry_roof = Finder.findBlock(MODID, i+"_roof");
-			cherry_attic_roof = Finder.findBlock(MODID, i + "_attic_roof");
-			cherry_top_roof = Finder.findBlock(MODID, i + "_top_roof");
-			cherry_lower_roof = Finder.findBlock(MODID, i+"_lower_roof");
-			cherry_steep_roof = Finder.findBlock(MODID, i+"_steep_roof");
-			cherry_upper_lower_roof = Finder.findBlock(MODID, i + "_upper_lower_roof");
-			cherry_upper_steep_roof = Finder.findBlock(MODID, i + "_upper_steep_roof");
-			
-        	event.accept(cherry_roof);
-        	event.accept(cherry_attic_roof);
-        	event.accept(cherry_top_roof);
-        	event.accept(cherry_lower_roof);
-        	event.accept(cherry_steep_roof);
-        	event.accept(cherry_upper_lower_roof);
-        	event.accept(cherry_upper_steep_roof);
-        	
-        	cherry_planks_roof = Finder.findBlock(MODID, i+"_planks_roof");
-			cherry_planks_attic_roof = Finder.findBlock(MODID, i + "_planks_attic_roof");
-			cherry_planks_top_roof = Finder.findBlock(MODID, i + "_planks_top_roof");
-			cherry_planks_lower_roof = Finder.findBlock(MODID, i+"_planks_lower_roof");
-			cherry_planks_steep_roof = Finder.findBlock(MODID, i+"_planks_steep_roof");
-			cherry_planks_upper_lower_roof = Finder.findBlock(MODID, i + "_planks_upper_lower_roof");
-			cherry_planks_upper_steep_roof = Finder.findBlock(MODID, i + "_planks_upper_steep_roof");
-			
-        	event.accept(cherry_planks_roof);
-        	event.accept(cherry_planks_attic_roof);
-        	event.accept(cherry_planks_top_roof);
-        	event.accept(cherry_planks_lower_roof);
-        	event.accept(cherry_planks_steep_roof);
-        	event.accept(cherry_planks_upper_lower_roof);
-        	event.accept(cherry_planks_upper_steep_roof);
-        }
+			for (String i : WOOD)
+			{
+				cherry_roof = Finder.findBlock(MODID, i + "_roof");
+				cherry_attic_roof = Finder.findBlock(MODID, i + "_attic_roof");
+				cherry_top_roof = Finder.findBlock(MODID, i + "_top_roof");
+				cherry_lower_roof = Finder.findBlock(MODID, i + "_lower_roof");
+				cherry_steep_roof = Finder.findBlock(MODID, i + "_steep_roof");
+				cherry_upper_lower_roof = Finder.findBlock(MODID, i + "_upper_lower_roof");
+				cherry_upper_steep_roof = Finder.findBlock(MODID, i + "_upper_steep_roof");
+
+				event.accept(cherry_roof);
+				event.accept(cherry_attic_roof);
+				event.accept(cherry_top_roof);
+				event.accept(cherry_lower_roof);
+				event.accept(cherry_steep_roof);
+				event.accept(cherry_upper_lower_roof);
+				event.accept(cherry_upper_steep_roof);
+
+				cherry_planks_roof = Finder.findBlock(MODID, i + "_planks_roof");
+				cherry_planks_attic_roof = Finder.findBlock(MODID, i + "_planks_attic_roof");
+				cherry_planks_top_roof = Finder.findBlock(MODID, i + "_planks_top_roof");
+				cherry_planks_lower_roof = Finder.findBlock(MODID, i + "_planks_lower_roof");
+				cherry_planks_steep_roof = Finder.findBlock(MODID, i + "_planks_steep_roof");
+				cherry_planks_upper_lower_roof = Finder.findBlock(MODID, i + "_planks_upper_lower_roof");
+				cherry_planks_upper_steep_roof = Finder.findBlock(MODID, i + "_planks_upper_steep_roof");
+
+				event.accept(cherry_planks_roof);
+				event.accept(cherry_planks_attic_roof);
+				event.accept(cherry_planks_top_roof);
+				event.accept(cherry_planks_lower_roof);
+				event.accept(cherry_planks_steep_roof);
+				event.accept(cherry_planks_upper_lower_roof);
+				event.accept(cherry_planks_upper_steep_roof);
+			}
+		}
 	}
 	
 	public static void addToTabStone(BuildCreativeModeTabContentsEvent event, String MODID, List<String> STONE, CreativeModeTab tab)
@@ -398,7 +401,7 @@ public class Roofs
 		UPPER_LOWER_ROOF,
 		UPPER_STEEP_ROOF;
 
-		if (event.getTab() == tab)
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : STONE)
 			{

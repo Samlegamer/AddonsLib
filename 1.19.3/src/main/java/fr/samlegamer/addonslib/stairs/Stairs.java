@@ -306,7 +306,7 @@ public class Stairs
 	{
 		Block _terrace_stairs, _skyline_stairs, _compact_stairs, _bulk_stairs, _loft_stairs, _railing, _balcony, _platform;
 
-		if (event.getTab() == tab)
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : WOOD)
 			{

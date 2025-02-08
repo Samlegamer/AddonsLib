@@ -296,7 +296,7 @@ public class Fences
 	{
 		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
 		
-		if (event.getTab() == tab)
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : WOOD)
 			{
@@ -321,7 +321,7 @@ public class Fences
 	{
 		Block hedge;
 		
-		if (event.getTab() == tab)
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : LEAVES)
 			{
@@ -336,7 +336,7 @@ public class Fences
 	{
 		Block modern_wall, railing_wall, railing_gate, pillar_wall, grass_topped_wall;
 		
-		if (event.getTab() == tab)
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : STONE)
 			{

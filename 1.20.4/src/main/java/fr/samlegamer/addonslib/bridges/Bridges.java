@@ -24,7 +24,7 @@ public class Bridges
 {
 	private static BlockBehaviour.Properties wood = BlockBehaviour.Properties.of().strength(0.5F, 2.5F).sound(SoundType.WOOD);
 	private static BlockBehaviour.Properties stone = BlockBehaviour.Properties.of().strength(3.0F, 5.0F).sound(SoundType.STONE);
-	
+
 	public static final String modid = "mcwbridges";
 	private static final String desc = "mcwbridges.bridges.desc";
 	/**
@@ -260,10 +260,9 @@ public class Bridges
 	
 	public static void addToTab(BuildCreativeModeTabContentsEvent event, String MODID, List<String> WOOD, CreativeModeTab tab)
 	{
-
 		Block log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
-		
-		if (event.getTab() == tab)
+
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : WOOD)
 			{				    	
@@ -287,8 +286,8 @@ public class Bridges
 	public static void addToTabStone(BuildCreativeModeTabContentsEvent event, String MODID, List<String> STONE, CreativeModeTab tab)
 	{
 		Block stone_bridge, stone_bridge_pier, stone_bridge_stair, balustrade_stone_bridge;
-		
-		if (event.getTab() == tab)
+
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : STONE)
 			{

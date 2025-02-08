@@ -264,7 +264,7 @@ public class Bridges
 
 		Block log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
 		
-		if (event.getTab() == tab)
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : WOOD)
 			{				    	
@@ -289,7 +289,7 @@ public class Bridges
 	{
 		Block stone_bridge, stone_bridge_pier, stone_bridge_stair, balustrade_stone_bridge;
 		
-		if (event.getTab() == tab)
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : STONE)
 			{

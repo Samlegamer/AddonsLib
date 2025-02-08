@@ -39,7 +39,7 @@ public class Doors
 			final BlockBehaviour.Properties DOOR_WOOD = BlockBehaviour.Properties.copy(Blocks.ACACIA_DOOR);
 
 			RegistryObject<Block> japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door, 
-			tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
+			tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door, whispering_door;
 			
 			for(String i : set)
 			{
@@ -67,7 +67,7 @@ public class Doors
 				    	bamboo_door = createBlock(i+"_bamboo_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item, tab, modLoaded);
 				    	bark_glass_door = createBlock(i+"_bark_glass_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item, tab, modLoaded);
 				    	waffle_door = createBlock(i+"_waffle_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item, tab, modLoaded);
-
+						whispering_door = createBlock(i+"_whispering_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item, tab, modLoaded);
 				    }
 				    else
 				    {
@@ -92,7 +92,8 @@ public class Doors
 				    	bamboo_door = createBlock(i+"_bamboo_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item, tab, modLoaded);
 				    	bark_glass_door = createBlock(i+"_bark_glass_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item, tab, modLoaded);
 				    	waffle_door = createBlock(i+"_waffle_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item, tab, modLoaded);
-				    }
+						whispering_door = createBlock(i+"_whispering_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item, tab, modLoaded);
+					}
 				} catch (Exception e) {
 				    e.printStackTrace();
 				}
@@ -121,9 +122,9 @@ public class Doors
 	public static void addToTab(CreativeModeTabEvent.BuildContents event, String MODID, List<String> WOOD, CreativeModeTab tab)
 	{
 		Block japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door,
-		tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
+		tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door, whispering_door;
 		
-		if (event.getTab() == tab)
+		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
 			for (String i : WOOD)
 			{
@@ -148,6 +149,7 @@ public class Doors
 				bamboo_door = Finder.findBlock(MODID, i + "_bamboo_door");
 				bark_glass_door = Finder.findBlock(MODID, i + "_bark_glass_door");
 				waffle_door = Finder.findBlock(MODID, i + "_waffle_door");
+				whispering_door = Finder.findBlock(MODID, i + "_whispering_door");
 				
 				event.accept(japanese_door);
 				event.accept(japanese2_door);
@@ -170,6 +172,7 @@ public class Doors
 				event.accept(bamboo_door);
 				event.accept(bark_glass_door);
 				event.accept(waffle_door);
+				event.accept(whispering_door);
 	        }
    	 	}
 	}
