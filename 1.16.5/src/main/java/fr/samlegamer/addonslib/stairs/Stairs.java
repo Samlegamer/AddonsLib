@@ -313,18 +313,18 @@ public class Stairs
 		BlockItem itemBlock;
 		if(ModList.get().isLoaded(modid))
 		{
-	        if(name.contains("railing")) {
-	        	itemBlock = new com.mcwstairs.kikoz.util.wooden.RailingItemWooden(block, new Item.Properties().tab(tab));
-	        }
-	        else if(name.contains("balcony")) {
-	        	itemBlock = new com.mcwstairs.kikoz.util.wooden.BalconyItemWooden(block, new Item.Properties().tab(tab));
-	        }
-	        else if(name.contains("platform")) {
-	        	itemBlock = new com.mcwstairs.kikoz.util.wooden.PlatformItemWooden(block, new Item.Properties().tab(tab));
-	        }
-	        else {
-	        	itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
-	        }
+			if(name.contains("railing")) {
+				itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.railing.desc");
+			}
+			else if(name.contains("balcony")) {
+				itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.balcony.desc");
+			}
+			else if(name.contains("platform")) {
+				itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.platform.desc");
+			}
+			else {
+				itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
+			}
 		}
 		else
 		{
