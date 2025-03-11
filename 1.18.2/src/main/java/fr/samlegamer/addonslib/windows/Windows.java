@@ -7,15 +7,18 @@ import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class Windows
@@ -165,4 +168,75 @@ public class Windows
         }
         return block;
     }
+
+	protected static Block createBlockWoodOpti(String name, Block block, CreativeModeTab tab) {
+		BlockItem itemBlock;
+		if (ModList.get().isLoaded(modid)) {
+			itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
+		} else {
+			itemBlock = new BlockItemFuel(block, new Item.Properties());
+		}
+		block.setRegistryName(name);
+		itemBlock.setRegistryName(name);
+		ForgeRegistries.BLOCKS.register(block);
+		ForgeRegistries.ITEMS.register(itemBlock);
+		return block;
+	}
+
+	public static void registryWood(final RegistryEvent.Register<Block> event, List<String> WOODS, CreativeModeTab tab)
+	{
+		final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.6F, 1.2F);
+		final BlockBehaviour.Properties PARAPET = BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.2F, 1.0F);
+		final BlockBehaviour.Properties BLINDS = BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.3F, 1.0F);
+		final BlockBehaviour.Properties SHUTTER = BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.5F, 2.0F);
+		final BlockBehaviour.Properties ROD = BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.3F, 0.7F);
+		Block window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2, plank_four_window,
+				log_parapet, plank_parapet, blinds, shutter, louvered_shutter, pane_window, strippedpane_window, plank_pane_window, curtain_rod;
+
+		for (String i : WOODS) {
+			try {
+				if (ModList.get().isLoaded(modid)) {
+					window = createBlockWoodOpti(i + "_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.ConnectedWindow", WOOD), tab);
+					window2 = createBlockWoodOpti(i + "_window2", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
+					four_window = createBlockWoodOpti(i + "_four_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
+					strippedlog_window = createBlockWoodOpti("stripped_" + i + "_log_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.ConnectedWindow", WOOD), tab);
+					strippedlog_window2 = createBlockWoodOpti("stripped_" + i + "_log_window2", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
+					strippedlog_four_window = createBlockWoodOpti("stripped_" + i + "_log_four_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
+					plank_window = createBlockWoodOpti(i + "_plank_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.ConnectedWindow", WOOD), tab);
+					plank_window2 = createBlockWoodOpti(i + "_plank_window2", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
+					plank_four_window = createBlockWoodOpti(i + "_plank_four_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
+					log_parapet = createBlockWoodOpti(i + "_log_parapet", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Parapet", PARAPET), tab);
+					plank_parapet = createBlockWoodOpti(i + "_plank_parapet", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Parapet", PARAPET), tab);
+					blinds = createBlockWoodOpti(i + "_blinds", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Blinds", BLINDS), tab);
+					shutter = createBlockWoodOpti(i + "_shutter", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Shutter", SHUTTER), tab);
+					louvered_shutter = createBlockWoodOpti(i + "_louvered_shutter", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Shutter", SHUTTER), tab);
+					pane_window = createBlockWoodOpti(i + "_pane_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Window", WOOD), tab);
+					strippedpane_window = createBlockWoodOpti("stripped_" + i + "_pane_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Window", WOOD), tab);
+					plank_pane_window = createBlockWoodOpti(i + "_plank_pane_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Window", WOOD), tab);
+					curtain_rod = createBlockWoodOpti(i + "_curtain_rod", Registration.getBlocksField("com.mcwwindows.kikoz.objects.CurtainRod", ROD), tab);
+				} else {
+					window = createBlockWoodOpti(i + "_window", new Block(WOOD), tab);
+					window2 = createBlockWoodOpti(i + "_window2", new Block(WOOD), tab);
+					four_window = createBlockWoodOpti(i + "_four_window", new Block(WOOD), tab);
+					strippedlog_window = createBlockWoodOpti("stripped_" + i + "_log_window", new Block(WOOD), tab);
+					strippedlog_window2 = createBlockWoodOpti("stripped_" + i + "_log_window2", new Block(WOOD), tab);
+					strippedlog_four_window = createBlockWoodOpti("stripped_" + i + "_log_four_window", new Block(WOOD), tab);
+					plank_window = createBlockWoodOpti(i + "_plank_window", new Block(WOOD), tab);
+					plank_window2 = createBlockWoodOpti(i + "_plank_window2", new Block(WOOD), tab);
+					plank_four_window = createBlockWoodOpti(i + "_plank_four_window", new Block(WOOD), tab);
+					log_parapet = createBlockWoodOpti(i + "_log_parapet", new Block(WOOD), tab);
+					plank_parapet = createBlockWoodOpti(i + "_plank_parapet", new Block(WOOD), tab);
+					blinds = createBlockWoodOpti(i + "_blinds", new Block(WOOD), tab);
+					shutter = createBlockWoodOpti(i + "_shutter", new Block(WOOD), tab);
+					louvered_shutter = createBlockWoodOpti(i + "_louvered_shutter", new Block(WOOD), tab);
+					pane_window = createBlockWoodOpti(i + "_pane_window", new Block(WOOD), tab);
+					strippedpane_window = createBlockWoodOpti("stripped_" + i + "_pane_window", new Block(WOOD), tab);
+					plank_pane_window = createBlockWoodOpti(i + "_plank_pane_window", new Block(WOOD), tab);
+					curtain_rod = createBlockWoodOpti(i + "_curtain_rod", new Block(WOOD), tab);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

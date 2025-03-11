@@ -81,6 +81,7 @@ public class Doors
 				    	registryEntry(MODID, i+"_bamboo_door", new DoorBlock(JAPAN), tab, modLoaded);
 				    	registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
 				    	registryEntry(MODID, i+"_waffle_door", new DoorBlock(JAPAN), tab, modLoaded);
+						registryEntry(MODID, i+"_whispering_door", new DoorBlock(JAPAN), tab, modLoaded);
 				    }
 				    else
 				    {
@@ -105,6 +106,7 @@ public class Doors
 				    	registryEntry(MODID, i+"_bamboo_door", new DoorBlock(JAPAN), tab, modLoaded);
 				    	registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(JAPAN), tab, modLoaded);
 				    	registryEntry(MODID, i+"_waffle_door", new DoorBlock(JAPAN), tab, modLoaded);
+						registryEntry(MODID, i+"_whispering_door", new DoorBlock(JAPAN), tab, modLoaded);
 				    }
 				} catch (Exception e) {
 				    e.printStackTrace();
@@ -120,7 +122,8 @@ public class Doors
 	public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
 	{
 		Block japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door,
-		tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
+		tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door,
+				whispering_door;
 		
 		for (String i : WOOD)
 		{
@@ -145,7 +148,8 @@ public class Doors
 			bamboo_door = Finder.findBlock(MODID, i + "_bamboo_door");
 			bark_glass_door = Finder.findBlock(MODID, i + "_bark_glass_door");
 			waffle_door = Finder.findBlock(MODID, i + "_waffle_door");
-			
+			whispering_door = Finder.findBlock(MODID, i + "_whispering_door");
+
 			BlockRenderLayerMap.INSTANCE.putBlocks(renderSet, japanese_door
 			,japanese2_door
 			,barn_door
@@ -166,14 +170,14 @@ public class Doors
 			,swamp_door
 			,bamboo_door
 			,bark_glass_door
-			,waffle_door);
+			,waffle_door, whispering_door);
         }
 	}
 	
 	public static void fuelWood(String MODID, List<String> WOOD)
 	{
 		Block japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door,
-		tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
+		tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door, whispering_door;
 		
 		for (String i : WOOD)
 		{
@@ -198,6 +202,7 @@ public class Doors
 			bamboo_door = Finder.findBlock(MODID, i + "_bamboo_door");
 			bark_glass_door = Finder.findBlock(MODID, i + "_bark_glass_door");
 			waffle_door = Finder.findBlock(MODID, i + "_waffle_door");
+			whispering_door = Finder.findBlock(MODID, i + "_whispering_door");
 			
 			FuelRegistry.INSTANCE.add(japanese_door, 300);
 			FuelRegistry.INSTANCE.add(japanese2_door, 300);
@@ -220,6 +225,7 @@ public class Doors
 			FuelRegistry.INSTANCE.add(bamboo_door, 300);
 			FuelRegistry.INSTANCE.add(bark_glass_door, 300);
 			FuelRegistry.INSTANCE.add(waffle_door, 300);
+			FuelRegistry.INSTANCE.add(whispering_door, 300);
 		}
 	}
 }

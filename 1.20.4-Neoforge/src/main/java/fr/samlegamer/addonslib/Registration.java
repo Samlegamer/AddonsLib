@@ -36,7 +36,7 @@ public class Registration
 	/**
 	 * Item
 	 */
-	public static DeferredRegister<Item> items(String MODID)
+	public static DeferredRegister.Items items(String MODID)
 	{
 		return DeferredRegister.createItems(MODID);
 	}

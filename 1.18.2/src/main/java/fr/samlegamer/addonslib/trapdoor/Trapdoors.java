@@ -6,15 +6,18 @@ import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class Trapdoors
@@ -129,4 +132,46 @@ public class Trapdoors
         }
         return block;
     }
+
+	protected static Block createBlockWoodOpti(String name, Block block, CreativeModeTab tab) {
+		BlockItem itemBlock;
+		if (ModList.get().isLoaded(modid)) {
+			itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
+		} else {
+			itemBlock = new BlockItemFuel(block, new Item.Properties());
+		}
+		block.setRegistryName(name);
+		itemBlock.setRegistryName(name);
+		ForgeRegistries.BLOCKS.register(block);
+		ForgeRegistries.ITEMS.register(itemBlock);
+		return block;
+	}
+
+	public static void registryWood(final RegistryEvent.Register<Block> event, List<String> WOODS, CreativeModeTab tab)
+	{
+		final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR);
+		Block barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, mystic_trapdoor, paper_trapdoor,
+				tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor, whispering_trapdoor;
+
+		for (String i : WOODS)
+		{
+			barn_trapdoor = createBlockWoodOpti(i + "_barn_trapdoor", new TrapDoorBlock(WOOD), tab);
+			cottage_trapdoor = createBlockWoodOpti(i + "_cottage_trapdoor", new TrapDoorBlock(WOOD), tab);
+			barred_trapdoor = createBlockWoodOpti(i + "_barred_trapdoor", new TrapDoorBlock(WOOD), tab);
+			beach_trapdoor = createBlockWoodOpti(i + "_beach_trapdoor", new TrapDoorBlock(WOOD), tab);
+			four_panel_trapdoor = createBlockWoodOpti(i + "_four_panel_trapdoor", new TrapDoorBlock(WOOD), tab);
+			glass_trapdoor = createBlockWoodOpti(i + "_glass_trapdoor", new TrapDoorBlock(WOOD), tab);
+			mystic_trapdoor = createBlockWoodOpti(i + "_mystic_trapdoor", new TrapDoorBlock(WOOD), tab);
+			paper_trapdoor = createBlockWoodOpti(i + "_paper_trapdoor", new TrapDoorBlock(WOOD), tab);
+			tropical_trapdoor = createBlockWoodOpti(i + "_tropical_trapdoor", new TrapDoorBlock(WOOD), tab);
+			swamp_trapdoor = createBlockWoodOpti(i + "_swamp_trapdoor", new TrapDoorBlock(WOOD), tab);
+			bamboo_trapdoor = createBlockWoodOpti(i + "_bamboo_trapdoor", new TrapDoorBlock(WOOD), tab);
+			classic_trapdoor = createBlockWoodOpti(i + "_classic_trapdoor", new TrapDoorBlock(WOOD), tab);
+			bark_trapdoor = createBlockWoodOpti(i + "_bark_trapdoor", new TrapDoorBlock(WOOD), tab);
+			ranch_trapdoor = createBlockWoodOpti(i + "_ranch_trapdoor", new TrapDoorBlock(WOOD), tab);
+			blossom_trapdoor = createBlockWoodOpti(i + "_blossom_trapdoor", new TrapDoorBlock(WOOD), tab);
+			barrel_trapdoor = createBlockWoodOpti(i + "_barrel_trapdoor", new TrapDoorBlock(WOOD), tab);
+			whispering_trapdoor = createBlockWoodOpti(i + "_whispering_trapdoor", new TrapDoorBlock(WOOD), tab);
+		}
+	}
 }

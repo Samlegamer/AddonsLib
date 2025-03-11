@@ -7,14 +7,17 @@ import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class Paths
@@ -90,6 +93,38 @@ public class Paths
             ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
         }
         return block;
-
     }
+
+	protected static Block createBlockWoodOpti(String name, Block block, CreativeModeTab tab) {
+		BlockItem itemBlock;
+		if (ModList.get().isLoaded(modid)) {
+			itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
+		} else {
+			itemBlock = new BlockItemFuel(block, new Item.Properties());
+		}
+		block.setRegistryName(name);
+		itemBlock.setRegistryName(name);
+		ForgeRegistries.BLOCKS.register(block);
+		ForgeRegistries.ITEMS.register(itemBlock);
+		return block;
+	}
+
+	public static void registryWood(final RegistryEvent.Register<Block> event, List<String> WOODS, CreativeModeTab tab)
+	{
+		final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
+
+		for (String i : WOODS) {
+			Block planks_path;
+
+			try {
+				if (ModList.get().isLoaded(modid)) {
+					planks_path = createBlockWoodOpti(i + "_planks_path", Registration.getBlocksField("com.mcwpaths.kikoz.objects.FacingPathBlock", WOOD), tab);
+				} else {
+					planks_path = createBlockWoodOpti(i + "_planks_path", new Block(WOOD), tab);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

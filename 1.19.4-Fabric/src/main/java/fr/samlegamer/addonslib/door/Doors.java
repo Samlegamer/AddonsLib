@@ -56,10 +56,10 @@ public class Doors
 				try {
 				    if (AddonsLib.isLoaded(modid))
 				    {
-				    	final Block japanese_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.JapaneseDoors", JAPAN);
-				    	final Block japanese2_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.JapaneseDoors", JAPAN);
-				    	final Block stable_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.StableDoor", JAPAN);
-				    	final Block stable_head_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.StableDoor", JAPAN);
+				    	final Block japanese_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.JapaneseDoors", JAPAN, BlockSetType.OAK);
+				    	final Block japanese2_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.JapaneseDoors", JAPAN, BlockSetType.OAK);
+				    	final Block stable_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.StableDoor", JAPAN, BlockSetType.OAK);
+				    	final Block stable_head_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.StableDoor", JAPAN, BlockSetType.OAK);
 				    	
 				    	registryEntry(MODID, i+"_japanese_door", japanese_door, tab, modLoaded);
 				    	registryEntry(MODID, i+"_japanese2_door", japanese2_door, tab, modLoaded);
@@ -82,6 +82,7 @@ public class Doors
 				    	registryEntry(MODID, i+"_bamboo_door", new DoorBlock(JAPAN, BlockSetType.OAK), tab, modLoaded);
 				    	registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(JAPAN, BlockSetType.OAK), tab, modLoaded);
 				    	registryEntry(MODID, i+"_waffle_door", new DoorBlock(JAPAN, BlockSetType.OAK), tab, modLoaded);
+						registryEntry(MODID, i+"_whispering_door", new DoorBlock(JAPAN, BlockSetType.OAK), tab, modLoaded);
 				    }
 				    else
 				    {
@@ -106,6 +107,7 @@ public class Doors
 				    	registryEntry(MODID, i+"_bamboo_door", new DoorBlock(JAPAN, BlockSetType.OAK), tab, modLoaded);
 				    	registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(JAPAN, BlockSetType.OAK), tab, modLoaded);
 				    	registryEntry(MODID, i+"_waffle_door", new DoorBlock(JAPAN, BlockSetType.OAK), tab, modLoaded);
+						registryEntry(MODID, i+"_whispering_door", new DoorBlock(JAPAN, BlockSetType.OAK), tab, modLoaded);
 				    }
 				} catch (Exception e) {
 				    e.printStackTrace();
@@ -116,7 +118,7 @@ public class Doors
 	public static void fuelWood(String MODID, List<String> WOOD)
 	{
 		Block japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door,
-		tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door;
+		tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door, whispering_door;
 		
 		for (String i : WOOD)
 		{
@@ -141,7 +143,8 @@ public class Doors
 			bamboo_door = Finder.findBlock(MODID, i + "_bamboo_door");
 			bark_glass_door = Finder.findBlock(MODID, i + "_bark_glass_door");
 			waffle_door = Finder.findBlock(MODID, i + "_waffle_door");
-			
+			whispering_door = Finder.findBlock(MODID, i + "_whispering_door");
+
 			FuelRegistry.INSTANCE.add(japanese_door, 300);
 			FuelRegistry.INSTANCE.add(japanese2_door, 300);
 			FuelRegistry.INSTANCE.add(barn_door, 300);
@@ -163,12 +166,18 @@ public class Doors
 			FuelRegistry.INSTANCE.add(bamboo_door, 300);
 			FuelRegistry.INSTANCE.add(bark_glass_door, 300);
 			FuelRegistry.INSTANCE.add(waffle_door, 300);
+			FuelRegistry.INSTANCE.add(whispering_door, 300);
 		}
 	}
-	
+
 	public static void addToTabWood(String MODID, List<String> WOOD, ItemGroup tab)
 	{
-		if(AddonsLib.isLoaded(modid))
+		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
+	}
+
+	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, ItemGroup tab, String modLoaded)
+	{
+		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
 		{
 			for (String i : WOOD)
 			{
@@ -193,7 +202,8 @@ public class Doors
 				final Block bamboo_door = Finder.findBlock(MODID, i + "_bamboo_door");
 				final Block bark_glass_door = Finder.findBlock(MODID, i + "_bark_glass_door");
 				final Block waffle_door = Finder.findBlock(MODID, i + "_waffle_door");
-	
+				final Block whispering_door = Finder.findBlock(MODID, i + "_whispering_door");
+
 				ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
 					content.add(japanese_door);
 					content.add(japanese2_door);
@@ -216,6 +226,7 @@ public class Doors
 					content.add(bamboo_door);
 					content.add(bark_glass_door);
 					content.add(waffle_door);
+					content.add(whispering_door);
 				});
 	
 			}

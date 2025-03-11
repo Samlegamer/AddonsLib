@@ -16,7 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 @OnlyIn(value = Dist.CLIENT)
 public class ColorRegistry
 {
-	private String MODID;
+	private final String MODID;
 	private List<String> NoColorLeaves = new ArrayList<String>();
 	
 	public ColorRegistry(String MODID, List<String> LEAVES)

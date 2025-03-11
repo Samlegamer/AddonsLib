@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "addonslib",
-  "version": "1.20.4-1.2",
+  "version": "1.20.4-1.4",
   "name": "AddonsLib",
   "description": "A library to facilitate registration between mods, in particular macaw's bridges/roofs/fences/etc...",
   "authors": [

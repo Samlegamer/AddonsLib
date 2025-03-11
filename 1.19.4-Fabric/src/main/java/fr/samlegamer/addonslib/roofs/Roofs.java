@@ -215,10 +215,15 @@ public class Roofs
         	FuelRegistry.INSTANCE.add(cherry_planks_upper_steep_roof, 300);
         }
 	}
-	
+
 	public static void addToTabWood(String MODID, List<String> WOOD, ItemGroup tab)
 	{
-		if(AddonsLib.isLoaded(modid))
+		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
+	}
+
+	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, ItemGroup tab, String modLoaded)
+	{
+		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
 		{
 			for (String i : WOOD)
 			{
@@ -229,15 +234,15 @@ public class Roofs
 				final Block cherry_steep_roof = Finder.findBlock(MODID, i+"_steep_roof");
 				final Block cherry_upper_lower_roof = Finder.findBlock(MODID, i + "_upper_lower_roof");
 				final Block cherry_upper_steep_roof = Finder.findBlock(MODID, i + "_upper_steep_roof");
-	
+
 				final Block cherry_planks_roof = Finder.findBlock(MODID, i+"_planks_roof");
-	        	final Block cherry_planks_attic_roof = Finder.findBlock(MODID, i + "_planks_attic_roof");
-	        	final Block cherry_planks_top_roof = Finder.findBlock(MODID, i + "_planks_top_roof");
-	        	final Block cherry_planks_lower_roof = Finder.findBlock(MODID, i+"_planks_lower_roof");
-	        	final Block cherry_planks_steep_roof = Finder.findBlock(MODID, i+"_planks_steep_roof");
-	        	final Block cherry_planks_upper_lower_roof = Finder.findBlock(MODID, i + "_planks_upper_lower_roof");
-	        	final Block cherry_planks_upper_steep_roof = Finder.findBlock(MODID, i + "_planks_upper_steep_roof");
-	
+				final Block cherry_planks_attic_roof = Finder.findBlock(MODID, i + "_planks_attic_roof");
+				final Block cherry_planks_top_roof = Finder.findBlock(MODID, i + "_planks_top_roof");
+				final Block cherry_planks_lower_roof = Finder.findBlock(MODID, i+"_planks_lower_roof");
+				final Block cherry_planks_steep_roof = Finder.findBlock(MODID, i+"_planks_steep_roof");
+				final Block cherry_planks_upper_lower_roof = Finder.findBlock(MODID, i + "_planks_upper_lower_roof");
+				final Block cherry_planks_upper_steep_roof = Finder.findBlock(MODID, i + "_planks_upper_steep_roof");
+
 				ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
 					content.add(cherry_roof);
 					content.add(cherry_attic_roof);
@@ -257,10 +262,14 @@ public class Roofs
 			}
 		}
 	}
-	
 	public static void addToTabStone(String MODID, List<String> ROCK, ItemGroup tab)
 	{
-		if(AddonsLib.isLoaded(modid))
+		addToTabStoneModLoaded(MODID, ROCK, tab, "minecraft");
+	}
+
+	public static void addToTabStoneModLoaded(String MODID, List<String> ROCK, ItemGroup tab, String modLoaded)
+	{
+		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
 		{
 			for (String i : ROCK)
 			{
@@ -271,7 +280,7 @@ public class Roofs
 				final Block STEEP_ROOF = Finder.findBlock(MODID, i + "_steep_roof");
 				final Block UPPER_LOWER_ROOF = Finder.findBlock(MODID, i + "_upper_lower_roof");
 				final Block UPPER_STEEP_ROOF = Finder.findBlock(MODID, i + "_upper_steep_roof");
-				
+
 				ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
 					content.add(ROOF);
 					content.add(ATTIC_ROOF);

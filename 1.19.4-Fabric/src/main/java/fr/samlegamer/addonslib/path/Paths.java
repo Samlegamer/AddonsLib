@@ -75,10 +75,15 @@ public class Paths
 			FuelRegistry.INSTANCE.add(planks_path, 300);
         }
 	}
-	
+
 	public static void addToTabWood(String MODID, List<String> WOOD, ItemGroup tab)
 	{
-		if(AddonsLib.isLoaded(modid))
+		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
+	}
+
+	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, ItemGroup tab, String modLoaded)
+	{
+		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
 		{
 			for (String i : WOOD)
 			{

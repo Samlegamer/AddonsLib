@@ -66,13 +66,14 @@ public class Trapdoors
 		    	registryEntry(MODID, i+"_ranch_trapdoor", new TrapdoorBlock(WOOD, BlockSetType.OAK), tab, modLoaded);
 		    	registryEntry(MODID, i+"_blossom_trapdoor", new TrapdoorBlock(WOOD, BlockSetType.OAK), tab, modLoaded);
 		    	registryEntry(MODID, i+"_barrel_trapdoor", new TrapdoorBlock(WOOD, BlockSetType.OAK), tab, modLoaded);
+				registryEntry(MODID, i+"_whispering_trapdoor", new TrapdoorBlock(WOOD, BlockSetType.OAK), tab, modLoaded);
 			}
 	}
 	
 	public static void fuelWood(String MODID, List<String> WOOD)
 	{
 		Block barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, mystic_trapdoor, paper_trapdoor, 
-		tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor;
+		tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor, whispering_trapdoor;
 
 		for (String i : WOOD)
 		{		
@@ -92,7 +93,8 @@ public class Trapdoors
 			ranch_trapdoor = Finder.findBlock(MODID, i+"_ranch_trapdoor");
 			blossom_trapdoor = Finder.findBlock(MODID, i+"_blossom_trapdoor");
 			barrel_trapdoor = Finder.findBlock(MODID, i+"_barrel_trapdoor");
-	    	
+			whispering_trapdoor = Finder.findBlock(MODID, i+"_whispering_trapdoor");
+
 			FuelRegistry.INSTANCE.add(barn_trapdoor, 300);
         	FuelRegistry.INSTANCE.add(cottage_trapdoor, 300);
         	FuelRegistry.INSTANCE.add(barred_trapdoor, 300);
@@ -109,12 +111,18 @@ public class Trapdoors
         	FuelRegistry.INSTANCE.add(ranch_trapdoor, 300);
         	FuelRegistry.INSTANCE.add(blossom_trapdoor, 300);
         	FuelRegistry.INSTANCE.add(barrel_trapdoor, 300);
+			FuelRegistry.INSTANCE.add(whispering_trapdoor, 300);
         }
 	}
-	
+
 	public static void addToTabWood(String MODID, List<String> WOOD, ItemGroup tab)
 	{
-		if(AddonsLib.isLoaded(modid))
+		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
+	}
+
+	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, ItemGroup tab, String modLoaded)
+	{
+		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
 		{
 			for (String i : WOOD)
 			{
@@ -134,7 +142,8 @@ public class Trapdoors
 				final Block ranch_trapdoor = Finder.findBlock(MODID, i+"_ranch_trapdoor");
 				final Block blossom_trapdoor = Finder.findBlock(MODID, i+"_blossom_trapdoor");
 				final Block barrel_trapdoor = Finder.findBlock(MODID, i+"_barrel_trapdoor");
-	
+				final Block whispering_trapdoor = Finder.findBlock(MODID, i+"_whispering_trapdoor");
+
 				ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
 					content.add(barn_trapdoor);
 					content.add(cottage_trapdoor);
@@ -152,6 +161,7 @@ public class Trapdoors
 					content.add(ranch_trapdoor);
 					content.add(blossom_trapdoor);
 					content.add(barrel_trapdoor);
+					content.add(whispering_trapdoor);
 				});
 			}
 		}

@@ -7,6 +7,7 @@ import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -15,9 +16,11 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class Doors
@@ -179,4 +182,89 @@ public class Doors
         }
         return block;
     }
+
+	public static void registryWood(final RegistryEvent.Register<Block> event, List<String> WOODS, CreativeModeTab tab)
+	{
+		final BlockBehaviour.Properties JAPAN = BlockBehaviour.Properties.of(Material.WOOD).noOcclusion().strength(1.5F, 1.0F).sound(SoundType.WOOD);
+		final BlockBehaviour.Properties DOOR_WOOD = BlockBehaviour.Properties.copy(Blocks.ACACIA_DOOR);
+
+		Block japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door,
+				tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door, whispering_door;
+
+		for(String i : WOODS)
+		{
+			try {
+				if (ModList.get().isLoaded(modid))
+				{
+					japanese_door = createBlockWoodOpti(i+"_japanese_door", Registration.getBlocksField("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN), tab);
+					japanese2_door = createBlockWoodOpti(i+"_japanese2_door", Registration.getBlocksField("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN), tab);
+					barn_door = createBlockWoodOpti(i+"_barn_door", new DoorBlock(DOOR_WOOD), tab);
+					barn_glass_door = createBlockWoodOpti(i+"_barn_glass_door", new DoorBlock(JAPAN), tab);
+					modern_door = createBlockWoodOpti(i+"_modern_door", new DoorBlock(JAPAN), tab);
+					cottage_door = createBlockWoodOpti(i+"_cottage_door", new DoorBlock(JAPAN), tab);
+					classic_door = createBlockWoodOpti(i+"_classic_door", new DoorBlock(JAPAN), tab);
+					beach_door = createBlockWoodOpti(i+"_beach_door", new DoorBlock(JAPAN), tab);
+					paper_door = createBlockWoodOpti(i+"_paper_door", new DoorBlock(JAPAN), tab);
+					four_panel_door = createBlockWoodOpti(i+"_four_panel_door", new DoorBlock(JAPAN), tab);
+					tropical_door = createBlockWoodOpti(i+"_tropical_door", new DoorBlock(JAPAN), tab);
+					glass_door = createBlockWoodOpti(i+"_glass_door", new DoorBlock(JAPAN), tab);
+					stable_door = createBlockWoodOpti(i+"_stable_door", Registration.getBlocksField("com.mcwdoors.kikoz.objects.StableDoor", JAPAN), tab);
+					stable_head_door = createBlockWoodOpti(i+"_stable_head_door", Registration.getBlocksField("com.mcwdoors.kikoz.objects.StableDoor", JAPAN), tab);
+					western_door = createBlockWoodOpti(i+"_western_door", new DoorBlock(JAPAN), tab);
+					mystic_door = createBlockWoodOpti(i+"_mystic_door", new DoorBlock(JAPAN), tab);
+					nether_door = createBlockWoodOpti(i+"_nether_door", new DoorBlock(JAPAN), tab);
+					swamp_door = createBlockWoodOpti(i+"_swamp_door", new DoorBlock(JAPAN), tab);
+					bamboo_door = createBlockWoodOpti(i+"_bamboo_door", new DoorBlock(JAPAN), tab);
+					bark_glass_door = createBlockWoodOpti(i+"_bark_glass_door", new DoorBlock(JAPAN), tab);
+					waffle_door = createBlockWoodOpti(i+"_waffle_door", new DoorBlock(JAPAN), tab);
+					whispering_door = createBlockWoodOpti(i+"_whispering_door", new DoorBlock(JAPAN), tab);
+				}
+				else
+				{
+					japanese_door = createBlockWoodOpti(i+"_japanese_door", new DoorBlock(JAPAN), tab);
+					japanese2_door = createBlockWoodOpti(i+"_japanese2_door", new DoorBlock(JAPAN), tab);
+					barn_door = createBlockWoodOpti(i+"_barn_door", new DoorBlock(DOOR_WOOD), tab);
+					barn_glass_door = createBlockWoodOpti(i+"_barn_glass_door", new DoorBlock(JAPAN), tab);
+					modern_door = createBlockWoodOpti(i+"_modern_door", new DoorBlock(JAPAN), tab);
+					cottage_door = createBlockWoodOpti(i+"_cottage_door", new DoorBlock(JAPAN), tab);
+					classic_door = createBlockWoodOpti(i+"_classic_door", new DoorBlock(JAPAN), tab);
+					beach_door = createBlockWoodOpti(i+"_beach_door", new DoorBlock(JAPAN), tab);
+					paper_door = createBlockWoodOpti(i+"_paper_door", new DoorBlock(JAPAN), tab);
+					four_panel_door = createBlockWoodOpti(i+"_four_panel_door", new DoorBlock(JAPAN), tab);
+					tropical_door = createBlockWoodOpti(i+"_tropical_door", new DoorBlock(JAPAN), tab);
+					glass_door = createBlockWoodOpti(i+"_glass_door", new DoorBlock(JAPAN), tab);
+					stable_door = createBlockWoodOpti(i+"_stable_door", new DoorBlock(JAPAN), tab);
+					stable_head_door = createBlockWoodOpti(i+"_stable_head_door", new DoorBlock(JAPAN), tab);
+					western_door = createBlockWoodOpti(i+"_western_door", new DoorBlock(JAPAN), tab);
+					mystic_door = createBlockWoodOpti(i+"_mystic_door", new DoorBlock(JAPAN), tab);
+					nether_door = createBlockWoodOpti(i+"_nether_door", new DoorBlock(JAPAN), tab);
+					swamp_door = createBlockWoodOpti(i+"_swamp_door", new DoorBlock(JAPAN), tab);
+					bamboo_door = createBlockWoodOpti(i+"_bamboo_door", new DoorBlock(JAPAN), tab);
+					bark_glass_door = createBlockWoodOpti(i+"_bark_glass_door", new DoorBlock(JAPAN), tab);
+					waffle_door = createBlockWoodOpti(i+"_waffle_door", new DoorBlock(JAPAN), tab);
+					whispering_door = createBlockWoodOpti(i+"_whispering_door", new DoorBlock(JAPAN), tab);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	protected static Block createBlockWoodOpti(String name, Block block, CreativeModeTab tab)
+	{
+		BlockItem itemBlock;
+		if(ModList.get().isLoaded(modid))
+		{
+			itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
+		}
+		else
+		{
+			itemBlock = new BlockItemFuel(block, new Item.Properties());
+		}
+		block.setRegistryName(name);
+		itemBlock.setRegistryName(name);
+		ForgeRegistries.BLOCKS.register(block);
+		ForgeRegistries.ITEMS.register(itemBlock);
+		return block;
+	}
 }

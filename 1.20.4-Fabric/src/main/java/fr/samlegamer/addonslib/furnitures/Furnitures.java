@@ -247,10 +247,15 @@ public class Furnitures
 				}
 			}
 	}
-	
+
 	public static void addToTabWood(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab)
 	{
-		if(AddonsLib.isLoaded(modid))
+		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
+	}
+
+	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab, String modLoaded)
+	{
+		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
 		{
 			for (String i : WOOD)
 			{

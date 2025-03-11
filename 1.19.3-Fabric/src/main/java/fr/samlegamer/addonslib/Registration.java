@@ -6,6 +6,7 @@ import net.fabricmc.loader.api.MappingResolver;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.sound.SoundEvent;
 
 /**
  * Used for easy registries
@@ -42,6 +43,35 @@ public class Registration
         return new Block(settings);
     }
 
+    public static Block getBlocksField(String intermediaryClassName, AbstractBlock.Settings settings, SoundEvent close, SoundEvent open) {
+        try {
+            MappingResolver resolver = FabricLoader.getInstance().getMappingResolver();
+
+            String runtimeClassName = resolver.mapClassName("intermediary", intermediaryClassName);
+
+            Class<?> blockClass = Class.forName(runtimeClassName);
+
+            Constructor<?> constructor = blockClass.getConstructor(AbstractBlock.Settings.class, SoundEvent.class, SoundEvent.class);
+
+            Object blockInstance = constructor.newInstance(settings, close, open);
+
+            if (blockInstance instanceof Block) {
+                return (Block) blockInstance;
+            } else {
+                throw new IllegalStateException("La classe " + runtimeClassName + " n'est pas un Block valide.");
+            }
+        } catch (ClassNotFoundException e) {
+            System.err.println("Classe introuvable : " + intermediaryClassName);
+        } catch (NoSuchMethodException e) {
+            System.err.println("Constructeur incorrect pour la classe : " + intermediaryClassName);
+        } catch (Exception e) {
+            System.err.println("Erreur lors de la création du bloc pour : " + intermediaryClassName);
+            e.printStackTrace();
+        }
+
+        System.err.println("Retour d'un bloc par défaut pour : " + intermediaryClassName);
+        return new Block(settings);
+    }
 
 
 	public static Block getBlocksField(String intermediaryClassName, AbstractBlock.Settings settings, BlockState defaultState) {

@@ -202,44 +202,57 @@ public class Fences
 			FuelRegistry.INSTANCE.add(hedge, 300);
         }
 	}
-	
-	public static void addToTabWood(String MODID, List<String> WOOD, ItemGroup tab)
-	{
-		for (String i : WOOD)
-		{
-			final Block picket_fence = Finder.findBlock(MODID, i + "_picket_fence");
-			final Block stockade_fence = Finder.findBlock(MODID, i + "_stockade_fence");
-			final Block horse_fence = Finder.findBlock(MODID, i + "_horse_fence");
-			final Block wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
-			final Block highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
-			final Block pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
 
-			ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
-				content.add(picket_fence);
-				content.add(stockade_fence);
-				content.add(horse_fence);
-				content.add(wired_fence);
-				content.add(highley_gate);
-				content.add(pyramid_gate);
-			});
+	public static void addToTabWood(String MODID, List<String> WOOD, ItemGroup tab) {
+		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
+	}
+
+	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, ItemGroup tab, String modLoaded) {
+		if (AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded)) {
+			for (String i : WOOD) {
+				final Block picket_fence = Finder.findBlock(MODID, i + "_picket_fence");
+				final Block stockade_fence = Finder.findBlock(MODID, i + "_stockade_fence");
+				final Block horse_fence = Finder.findBlock(MODID, i + "_horse_fence");
+				final Block wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
+				final Block highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
+				final Block pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
+
+				ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
+					content.add(picket_fence);
+					content.add(stockade_fence);
+					content.add(horse_fence);
+					content.add(wired_fence);
+					content.add(highley_gate);
+					content.add(pyramid_gate);
+				});
+			}
 		}
 	}
-	
-	public static void addToTabLeave(String MODID, List<String> LEAVE, ItemGroup tab)
-	{
-		for (String i : LEAVE)
-		{
-			final Block hedge = Finder.findBlock(MODID, i + "_hedge");
-			
-			ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
-				content.add(hedge);
-			});
+
+	public static void addToTabLeave(String MODID, List<String> LEAVE, ItemGroup tab) {
+		addToTabLeaveModLoaded(MODID, LEAVE, tab, "minecraft");
+	}
+
+	public static void addToTabLeaveModLoaded(String MODID, List<String> LEAVE, ItemGroup tab, String modLoaded) {
+		if (AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded)) {
+			for (String i : LEAVE) {
+				final Block hedge = Finder.findBlock(MODID, i + "_hedge");
+
+				ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
+					content.add(hedge);
+				});
+			}
 		}
 	}
-	
+
 	public static void addToTabStone(String MODID, List<String> ROCK, ItemGroup tab)
 	{
-		if(AddonsLib.isLoaded(modid))
+		addToTabStoneModLoaded(MODID, ROCK, tab, "minecraft");
+	}
+
+	public static void addToTabStoneModLoaded(String MODID, List<String> ROCK, ItemGroup tab, String modLoaded)
+	{
+		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
 		{
 			for (String i : ROCK)
 			{
@@ -248,7 +261,7 @@ public class Fences
 				final Block railing_gate = Finder.findBlock(MODID, i+"_railing_gate");
 				final Block pillar_wall = Finder.findBlock(MODID, i+"_pillar_wall");
 				final Block grass_topped_wall = Finder.findBlock(MODID, i + "_grass_topped_wall");
-	
+
 				ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
 					content.add(modern_wall);
 					content.add(railing_wall);

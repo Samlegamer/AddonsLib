@@ -158,20 +158,17 @@ public class Bridges
 			FuelRegistry.INSTANCE.add(rail_bridge, 300);
 		}
 	}
-	
-	public static void addToTabWood(String MODID, List<String> WOOD, ItemGroup tab)
-	{
-		if(AddonsLib.isLoaded(modid))
-		{
-			for (String i : WOOD)
-			{
-				final Block log_bridge_middle = Finder.findBlock(MODID, i+"_log_bridge_middle");
-				final Block rope_bridge = Finder.findBlock(MODID, "rope_"+i+"_bridge");
-				final Block bridge_pier = Finder.findBlock(MODID, i+"_bridge_pier");
-				final Block log_bridge_stair = Finder.findBlock(MODID, i+"_log_bridge_stair");
-				final Block rope_bridge_stair = Finder.findBlock(MODID, i+"_rope_bridge_stair");
-				final Block rail_bridge = Finder.findBlock(MODID, i+"_rail_bridge");
-	
+
+	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, ItemGroup tab, String modLoaded) {
+		if (AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded)) {
+			for (String i : WOOD) {
+				final Block log_bridge_middle = Finder.findBlock(MODID, i + "_log_bridge_middle");
+				final Block rope_bridge = Finder.findBlock(MODID, "rope_" + i + "_bridge");
+				final Block bridge_pier = Finder.findBlock(MODID, i + "_bridge_pier");
+				final Block log_bridge_stair = Finder.findBlock(MODID, i + "_log_bridge_stair");
+				final Block rope_bridge_stair = Finder.findBlock(MODID, i + "_rope_bridge_stair");
+				final Block rail_bridge = Finder.findBlock(MODID, i + "_rail_bridge");
+
 				ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
 					content.add(log_bridge_middle);
 					content.add(rope_bridge);
@@ -183,10 +180,20 @@ public class Bridges
 			}
 		}
 	}
-	
+
+	public static void addToTabWood(String MODID, List<String> WOOD, ItemGroup tab)
+	{
+		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
+	}
+
 	public static void addToTabStone(String MODID, List<String> ROCK, ItemGroup tab)
 	{
-		if(AddonsLib.isLoaded(modid))
+		addToTabStoneModLoaded(MODID, ROCK, tab, "minecraft");
+	}
+
+	public static void addToTabStoneModLoaded(String MODID, List<String> ROCK, ItemGroup tab, String modLoaded)
+	{
+		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
 		{
 			for (String i : ROCK)
 			{
