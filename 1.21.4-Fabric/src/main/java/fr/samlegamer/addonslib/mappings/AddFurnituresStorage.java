@@ -72,7 +72,9 @@ public class AddFurnituresStorage
 					Finder.findBlock(MODID, i+"_glass_kitchen_cabinet"),
 					Finder.findBlock(MODID, "stripped_"+i+"_kitchen_cabinet"),
 					Finder.findBlock(MODID, "stripped_"+i+"_double_kitchen_cabinet"),
-					Finder.findBlock(MODID, "stripped_"+i+"_glass_kitchen_cabinet"));
+					Finder.findBlock(MODID, "stripped_"+i+"_glass_kitchen_cabinet"),
+					Finder.findBlock(MODID, i+"_counter"),
+					Finder.findBlock(MODID, "stripped_"+i+"_counter"));
 		}
 	}
 }
