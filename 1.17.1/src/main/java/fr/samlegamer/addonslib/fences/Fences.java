@@ -1,9 +1,7 @@
 package fr.samlegamer.addonslib.fences;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
-
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
@@ -26,9 +24,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class Fences
 {
-	private static BlockBehaviour.Properties wood = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
-	private static BlockBehaviour.Properties leaves = BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES);
-	private static BlockBehaviour.Properties stone = BlockBehaviour.Properties.copy(Blocks.CUT_SANDSTONE);
+	private static final BlockBehaviour.Properties wood = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
+	private static final BlockBehaviour.Properties leaves = BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES);
+	private static final BlockBehaviour.Properties stone = BlockBehaviour.Properties.copy(Blocks.CUT_SANDSTONE);
 	
 	public static final String modid = "mcwfences";
 	
@@ -63,7 +61,7 @@ public class Fences
 	{
 			final BlockBehaviour.Properties WOOD = prop;
 
-			RegistryObject<Block> picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+			RegistryObject<Block> picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 
 			for(String i : set)
 			{				
@@ -76,14 +74,16 @@ public class Fences
 			            wired_fence = createBlock(i + "_wired_fence", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.WiredFence", WOOD, new FenceBlock(WOOD)), block, item, tab, modLoaded);
 				        highley_gate = createBlock(i + "_highley_gate", () -> new FenceGateBlock(WOOD), block, item, tab, modLoaded);
 				        pyramid_gate = createBlock(i + "_pyramid_gate", () -> new FenceGateBlock(WOOD), block, item, tab, modLoaded);
-				    } else {
+						curved_gate = createBlock(i + "_curved_gate", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.DoubleGate", WOOD, new FenceBlock(WOOD)), block, item, tab, modLoaded);
+					} else {
 				        picket_fence = createBlock(i + "_picket_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
 				        stockade_fence = createBlock(i + "_stockade_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
 				        horse_fence = createBlock(i + "_horse_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
 				        wired_fence = createBlock(i + "_wired_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
 				        highley_gate = createBlock(i + "_highley_gate", () -> new FenceGateBlock(WOOD), block, item, tab, modLoaded);
 				        pyramid_gate = createBlock(i + "_pyramid_gate", () -> new FenceGateBlock(WOOD), block, item, tab, modLoaded);
-				    }
+						curved_gate = createBlock(i + "_curved_gate", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
+					}
 				} catch (Exception e) {
 				    e.printStackTrace();
 				}
@@ -183,7 +183,7 @@ public class Fences
 	{
 			final BlockBehaviour.Properties WOOD = wood;
 
-			Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+			Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 
 			for(String i : set)
 			{
@@ -196,13 +196,15 @@ public class Fences
 			            wired_fence = createBlockWoodOpti(i + "_wired_fence", Registration.getBlocksField("com.mcwfences.kikoz.objects.WiredFence", WOOD, new FenceBlock(WOOD)), tab);
 				        highley_gate = createBlockWoodOpti(i + "_highley_gate", new FenceGateBlock(WOOD), tab);
 				        pyramid_gate = createBlockWoodOpti(i + "_pyramid_gate", new FenceGateBlock(WOOD), tab);
-				    } else {
+						curved_gate = createBlockWoodOpti(i + "_curved_gate", Registration.getBlocksField("com.mcwfences.kikoz.objects.DoubleGate", WOOD, new FenceBlock(WOOD)), tab);
+					} else {
 				        picket_fence = createBlockWoodOpti(i + "_picket_fence", new FenceBlock(WOOD), tab);
 				        stockade_fence = createBlockWoodOpti(i + "_stockade_fence", new FenceBlock(WOOD), tab);
 				        horse_fence = createBlockWoodOpti(i + "_horse_fence", new FenceBlock(WOOD), tab);
 				        wired_fence = createBlockWoodOpti(i + "_wired_fence", new FenceBlock(WOOD), tab);
 				        highley_gate = createBlockWoodOpti(i + "_highley_gate", new FenceGateBlock(WOOD), tab);
 				        pyramid_gate = createBlockWoodOpti(i + "_pyramid_gate", new FenceGateBlock(WOOD), tab);
+						curved_gate = createBlockWoodOpti(i + "_curved_gate", new FenceBlock(WOOD), tab);
 				    }
 				} catch (Exception e) {
 				    e.printStackTrace();
@@ -296,7 +298,7 @@ public class Fences
 	
 	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
 	{
-		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 		
 		for (String i : WOOD)
 		{
@@ -306,6 +308,7 @@ public class Fences
 			wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
 			highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
 			pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
+			curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
 			
         	ItemBlockRenderTypes.setRenderLayer(picket_fence, renderSet);
         	ItemBlockRenderTypes.setRenderLayer(stockade_fence, renderSet);
@@ -313,6 +316,7 @@ public class Fences
         	ItemBlockRenderTypes.setRenderLayer(wired_fence, renderSet);
         	ItemBlockRenderTypes.setRenderLayer(highley_gate, renderSet);
         	ItemBlockRenderTypes.setRenderLayer(pyramid_gate, renderSet);
+			ItemBlockRenderTypes.setRenderLayer(curved_gate, renderSet);
         }
 	}
 
