@@ -89,7 +89,7 @@ public class Paths
 		{				    	
 			planks_path = Finder.findBlock(MODID, i+"_planks_path");
 			
-			FuelRegistry.INSTANCE.add(planks_path, 300);
+			FuelRegistry.INSTANCE.add(planks_path, 50);
         }
 	}
 }

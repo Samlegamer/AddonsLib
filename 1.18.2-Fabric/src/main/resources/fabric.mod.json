@@ -1,25 +1,25 @@
 {
   "schemaVersion": 1,
-  "id": "addonslib",
-  "version": "1.18.2-1.4",
+  "id": "${archives_base_name}",
+  "version": "${mod_version}",
 
-  "name": "AddonsLib",
-  "description": "A library to facilitate registration between mods, in particular macaw's bridges/roofs/fences/etc...",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
   "authors": [
-    "Samlegamer"
+    "${mod_authors}"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/addonslib",
     "sources": "https://github.com/Samlegamer/AddonsLib"
   },
 
-  "license": "CC0-1.0",
+  "license": "${mod_license}",
   "icon": "logo.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "fr.samlegamer.addonslib.AddonsLib"
+      "${mod_init}"
     ]
   },
   "depends": {

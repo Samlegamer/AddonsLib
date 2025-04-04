@@ -20,9 +20,9 @@ import net.minecraft.util.registry.Registry;
 
 public class Fences
 {
-	private static AbstractBlock.Settings wood = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
-	private static AbstractBlock.Settings leaves = AbstractBlock.Settings.copy(Blocks.OAK_LEAVES);
-	private static AbstractBlock.Settings stone = AbstractBlock.Settings.copy(Blocks.COBBLESTONE);
+	private static final AbstractBlock.Settings wood = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
+	private static final AbstractBlock.Settings leave = AbstractBlock.Settings.copy(Blocks.OAK_LEAVES);
+	private static final AbstractBlock.Settings stone = AbstractBlock.Settings.copy(Blocks.COBBLESTONE);
 	
 	public static final String modid = "mcwfences";
 	
@@ -51,7 +51,7 @@ public class Fences
 	 */
 	public static void setRegistrationHedges(String MODID, List<String> leaves, ItemGroup tab)
 	{
-		setRegistrationHedgesModLoaded(MODID, leaves, tab, "minecraft", Fences.leaves);
+		setRegistrationHedgesModLoaded(MODID, leaves, tab, "minecraft", leave);
 	}
 	
 	/**
@@ -80,13 +80,15 @@ public class Fences
 				    	final Block wired_fence = Registration.getBlocksField("net.kikoz.mcwfences.objects.WiredFence", WOOD);
 				    	final Block highley_gate = new FenceGateBlock(WOOD);
 				    	final Block pyramid_gate = new FenceGateBlock(WOOD);
-				    	
+				    	final Block curved_gate = Registration.getBlocksField("net.kikoz.mcwfences.objects.DoubleGate", WOOD);
+
 				        registryEntry(MODID, i + "_picket_fence", picket_fence, tab, modLoaded);
 				        registryEntry(MODID, i + "_stockade_fence", stockade_fence, tab, modLoaded);
 				        registryEntry(MODID, i + "_horse_fence", horse_fence, tab, modLoaded);
 			            registryEntry(MODID, i + "_wired_fence", wired_fence, tab, modLoaded);
 				        registryEntry(MODID, i + "_highley_gate", highley_gate, tab, modLoaded);
 				        registryEntry(MODID, i + "_pyramid_gate", pyramid_gate, tab, modLoaded);
+						registryEntry(MODID, i + "_curved_gate", curved_gate, tab, modLoaded);
 				    }
 				    else
 				    {
@@ -96,6 +98,7 @@ public class Fences
 				        registryEntry(MODID, i + "_wired_fence", new FenceBlock(WOOD), tab, modLoaded);
 				        registryEntry(MODID, i + "_highley_gate", new FenceGateBlock(WOOD), tab, modLoaded);
 				        registryEntry(MODID, i + "_pyramid_gate", new FenceGateBlock(WOOD), tab, modLoaded);
+						registryEntry(MODID, i + "_curved_gate", new FenceGateBlock(WOOD), tab, modLoaded);
 				    }
 				} catch (Exception e) {
 				    e.printStackTrace();
@@ -170,7 +173,7 @@ public class Fences
 	
 	public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
 	{
-		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 		
 		for (String i : WOOD)
 		{
@@ -180,14 +183,16 @@ public class Fences
 			wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
 			highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
 			pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
-			
+			curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
+
 			BlockRenderLayerMap.INSTANCE.putBlocks(renderSet
         	, picket_fence
         	, stockade_fence
         	, horse_fence
         	, wired_fence
         	, highley_gate
-        	, pyramid_gate);
+        	, pyramid_gate
+			, curved_gate);
         }
 	}
 
@@ -241,7 +246,7 @@ public class Fences
 
 	public static void fuelWood(String MODID, List<String> WOOD)
 	{
-		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 		
 		for (String i : WOOD)
 		{
@@ -251,6 +256,7 @@ public class Fences
 			wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
 			highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
 			pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
+			curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
 			
 			FuelRegistry.INSTANCE.add(picket_fence, 300);
 			FuelRegistry.INSTANCE.add(stockade_fence, 300);
@@ -258,6 +264,7 @@ public class Fences
 			FuelRegistry.INSTANCE.add(wired_fence, 300);
 			FuelRegistry.INSTANCE.add(highley_gate, 300);
 			FuelRegistry.INSTANCE.add(pyramid_gate, 300);
+			FuelRegistry.INSTANCE.add(curved_gate, 300);
         }
 	}
 
