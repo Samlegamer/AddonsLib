@@ -175,7 +175,6 @@ public class MappingMissing
 		protected String newModid;
 		protected List<String> mats;
 		protected List<String> mat_rockable;
-		protected List<String> leaves;
 
 		public Roofs(String oldModid, String newModid, List<String> mats)
 		{
