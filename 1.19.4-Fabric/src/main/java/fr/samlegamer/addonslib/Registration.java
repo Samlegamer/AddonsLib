@@ -73,7 +73,9 @@ public class Registration
         return new Block(settings);
     }
 
-	public static Block getBlocksField(String intermediaryClassName, AbstractBlock.Settings settings, BlockState defaultState) {
+
+
+    public static Block getBlocksField(String intermediaryClassName, AbstractBlock.Settings settings, BlockState defaultState) {
 		try {
             MappingResolver resolver = FabricLoader.getInstance().getMappingResolver();
 

@@ -7,15 +7,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.Block;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.world.ClientWorld;
 
 @Environment(EnvType.CLIENT)
 public class APIRenderer
 {
-    public static ClientWorld serv = MinecraftClient.getInstance().world;
-
 	public static class Windows
 	{
 		public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
@@ -456,7 +452,7 @@ public class APIRenderer
 	{
 		public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
 		{
-			Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+			Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 			
 			for (String i : WOOD)
 			{
@@ -466,6 +462,7 @@ public class APIRenderer
 				wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
 				highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
 				pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
+				curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
 				
 				BlockRenderLayerMap.INSTANCE.putBlocks(renderSet
 	        	, picket_fence
@@ -473,7 +470,8 @@ public class APIRenderer
 	        	, horse_fence
 	        	, wired_fence
 	        	, highley_gate
-	        	, pyramid_gate);
+	        	, pyramid_gate
+				, curved_gate);
 	        }
 		}
 
