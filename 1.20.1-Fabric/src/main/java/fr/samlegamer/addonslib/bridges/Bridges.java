@@ -19,20 +19,13 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
 public class Bridges {
-	private static final AbstractBlock.Settings wood = AbstractBlock.Settings.create().strength(0.5F, 2.5F).sounds(BlockSoundGroup.WOOD);
-	private static final AbstractBlock.Settings stone = AbstractBlock.Settings.create().strength(3.0F, 5.0F).sounds(BlockSoundGroup.STONE);
-
 	public static final String modid = "mcwbridges";
 	private static final String desc = "mcwbridges.bridges.desc";
 
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded) {
+	private static void registryEntry(String MODID, String name, Block b) {
 		Registry.register(Registries.BLOCK, new Identifier(MODID, name), b);
-		if (AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded)) {
-			if (name.contains("log_bridge_middle") || name.startsWith("rope_") || name.endsWith("_bridge")) {
-				Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItemInfo(b, new Item.Settings(), desc));
-			} else {
-				Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-			}
+		if (name.contains("log_bridge_middle") || name.startsWith("rope_") || name.endsWith("_bridge")) {
+			Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItemInfo(b, new Item.Settings(), desc));
 		} else {
 			Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
 		}
@@ -41,21 +34,23 @@ public class Bridges {
 	/**
 	 * Init all Wood Variants of Macaw's Bridges
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab) {
-		setRegistrationWoodModLoaded(MODID, set, tab, "minecraft", wood);
+	public static void setRegistrationWood(String MODID, List<String> set) {
+		final AbstractBlock.Settings wood = AbstractBlock.Settings.create().strength(0.5F, 2.5F).sounds(BlockSoundGroup.WOOD);
+		setRegistrationWoodModLoaded(MODID, set, wood);
 	}
 
 	/**
 	 * Init all Stone Variants of Macaw's Bridges
 	 */
-	public static void setRegistrationRock(String MODID, List<String> set, ItemGroup tab) {
-		setRegistrationRockModLoaded(MODID, set, tab, "minecraft", stone);
+	public static void setRegistrationRock(String MODID, List<String> set) {
+		final AbstractBlock.Settings stone = AbstractBlock.Settings.create().strength(3.0F, 5.0F).sounds(BlockSoundGroup.STONE);
+		setRegistrationRockModLoaded(MODID, set, stone);
 	}
 
 	/**
 	 * Init all Stone Variants of Macaw's Bridges with if Mod Loaded
 	 */
-	public static void setRegistrationRockModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded, AbstractBlock.Settings prop) {
+	public static void setRegistrationRockModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop) {
 		final AbstractBlock.Settings STONE = prop;
 
 		for (String i : set) {
@@ -66,18 +61,18 @@ public class Bridges {
 					final Block cryptic_stone_bridge_stair = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Stairs", STONE);
 					final Block balustrade_cryptic_stone_bridge = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Block", STONE);
 
-					registryEntry(MODID, i + "_bridge", cryptic_stone_bridge, tab, modLoaded);
-					registryEntry(MODID, i + "_bridge_pier", cryptic_stone_bridge_pier, tab, modLoaded);
-					registryEntry(MODID, i + "_bridge_stair", cryptic_stone_bridge_stair, tab, modLoaded);
-					registryEntry(MODID, "balustrade_" + i + "_bridge", balustrade_cryptic_stone_bridge, tab, modLoaded);
+					registryEntry(MODID, i + "_bridge", cryptic_stone_bridge);
+					registryEntry(MODID, i + "_bridge_pier", cryptic_stone_bridge_pier);
+					registryEntry(MODID, i + "_bridge_stair", cryptic_stone_bridge_stair);
+					registryEntry(MODID, "balustrade_" + i + "_bridge", balustrade_cryptic_stone_bridge);
 				} else {
-					registryEntry(MODID, i + "_bridge", new Block(STONE), tab, modLoaded);
-					registryEntry(MODID, i + "_bridge_pier", new Block(STONE), tab, modLoaded);
-					registryEntry(MODID, i + "_bridge_stair", new Block(STONE), tab, modLoaded);
-					registryEntry(MODID, "balustrade_" + i + "_bridge", new Block(STONE), tab, modLoaded);
+					registryEntry(MODID, i + "_bridge", new Block(STONE));
+					registryEntry(MODID, i + "_bridge_pier", new Block(STONE));
+					registryEntry(MODID, i + "_bridge_stair", new Block(STONE));
+					registryEntry(MODID, "balustrade_" + i + "_bridge", new Block(STONE));
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				AddonsLib.LOGGER.error(e);
 			}
 		}
 	}
@@ -85,36 +80,35 @@ public class Bridges {
 	/**
 	 * Init all Wood Variants of Macaw's Bridges with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded, AbstractBlock.Settings prop) {
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop) {
 		final AbstractBlock.Settings WOOD = prop;
-		final AbstractBlock.Settings RAILS = prop.nonOpaque();
 
 		for (String i : set) {
 			try {
 				if (AddonsLib.isLoaded(modid)) {
-					final Block log_bridge_middle = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Log_Bridge", wood);
-					final Block rope_bridge = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Block_Rope", wood);
-					final Block bridge_pier = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Support", wood);
-					final Block log_bridge_stair = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Stairs", wood);
-					final Block rope_bridge_stair = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Stairs", wood);
-					final Block rail_bridge = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Rail_Bridge", wood);
+					final Block log_bridge_middle = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Log_Bridge", WOOD);
+					final Block rope_bridge = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Block_Rope", WOOD);
+					final Block bridge_pier = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Support", WOOD);
+					final Block log_bridge_stair = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Stairs", WOOD);
+					final Block rope_bridge_stair = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Stairs", WOOD);
+					final Block rail_bridge = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Rail_Bridge", WOOD);
 
-					registryEntry(MODID, i + "_log_bridge_middle", log_bridge_middle, tab, modLoaded);
-					registryEntry(MODID, "rope_" + i + "_bridge", rope_bridge, tab, modLoaded);
-					registryEntry(MODID, i + "_bridge_pier", bridge_pier, tab, modLoaded);
-					registryEntry(MODID, i + "_log_bridge_stair", log_bridge_stair, tab, modLoaded);
-					registryEntry(MODID, i + "_rope_bridge_stair", rope_bridge_stair, tab, modLoaded);
-					registryEntry(MODID, i + "_rail_bridge", rail_bridge, tab, modLoaded);
+					registryEntry(MODID, i + "_log_bridge_middle", log_bridge_middle);
+					registryEntry(MODID, "rope_" + i + "_bridge", rope_bridge);
+					registryEntry(MODID, i + "_bridge_pier", bridge_pier);
+					registryEntry(MODID, i + "_log_bridge_stair", log_bridge_stair);
+					registryEntry(MODID, i + "_rope_bridge_stair", rope_bridge_stair);
+					registryEntry(MODID, i + "_rail_bridge", rail_bridge);
 				} else {
-					registryEntry(MODID, i + "_log_bridge_middle", new Block(WOOD), tab, modLoaded);
-					registryEntry(MODID, "rope_" + i + "_bridge", new Block(WOOD), tab, modLoaded);
-					registryEntry(MODID, i + "_bridge_pier", new Block(WOOD), tab, modLoaded);
-					registryEntry(MODID, i + "_log_bridge_stair", new Block(WOOD), tab, modLoaded);
-					registryEntry(MODID, i + "_rope_bridge_stair", new Block(WOOD), tab, modLoaded);
-					registryEntry(MODID, i + "_rail_bridge", new Block(RAILS), tab, modLoaded);
+					registryEntry(MODID, i + "_log_bridge_middle", new Block(WOOD));
+					registryEntry(MODID, "rope_" + i + "_bridge", new Block(WOOD));
+					registryEntry(MODID, i + "_bridge_pier", new Block(WOOD));
+					registryEntry(MODID, i + "_log_bridge_stair", new Block(WOOD));
+					registryEntry(MODID, i + "_rope_bridge_stair", new Block(WOOD));
+					registryEntry(MODID, i + "_rail_bridge", new Block(WOOD));
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				AddonsLib.LOGGER.error(e);
 			}
 		}
 	}

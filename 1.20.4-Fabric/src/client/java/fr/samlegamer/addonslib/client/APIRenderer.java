@@ -77,7 +77,7 @@ public class APIRenderer
 				ranch_trapdoor = Finder.findBlock(MODID, i+"_ranch_trapdoor");
 				blossom_trapdoor = Finder.findBlock(MODID, i+"_blossom_trapdoor");
 				barrel_trapdoor = Finder.findBlock(MODID, i+"_barrel_trapdoor");
-		    	whispering_trapdoor = Finder.findBlock(MODID, i+"_whispering_trapdoor");
+				whispering_trapdoor  = Finder.findBlock(MODID, i+"_whispering_trapdoor");
 
 				BlockRenderLayerMap.INSTANCE.putBlocks(renderSet, barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, 
 				mystic_trapdoor, paper_trapdoor, tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor, whispering_trapdoor);
@@ -452,7 +452,7 @@ public class APIRenderer
 	{
 		public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
 		{
-			Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+			Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 			
 			for (String i : WOOD)
 			{
@@ -462,6 +462,7 @@ public class APIRenderer
 				wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
 				highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
 				pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
+				curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
 				
 				BlockRenderLayerMap.INSTANCE.putBlocks(renderSet
 	        	, picket_fence
@@ -469,7 +470,8 @@ public class APIRenderer
 	        	, horse_fence
 	        	, wired_fence
 	        	, highley_gate
-	        	, pyramid_gate);
+	        	, pyramid_gate
+				, curved_gate);
 	        }
 		}
 

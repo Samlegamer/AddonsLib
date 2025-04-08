@@ -13,9 +13,9 @@ import net.minecraft.world.World;
 
 public class BlockItemInfo extends BlockItem
 {
-	private String desc;
+	private final String desc;
 	
-	public BlockItemInfo(Block p_40565_, Item.Settings p_40566_, String desc)
+	public BlockItemInfo(Block p_40565_, Settings p_40566_, String desc)
 	{
 		super(p_40565_, p_40566_);
 		this.desc = desc;

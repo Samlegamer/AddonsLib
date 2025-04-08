@@ -20,38 +20,35 @@ import net.minecraft.util.Identifier;
 public class Paths {
 	public static final String modid = "mcwpaths";
 
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded) {
+	private static void registryEntry(String MODID, String name, Block b) {
 		Registry.register(Registries.BLOCK, new Identifier(MODID, name), b);
-		if (AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded)) {
-			Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-		} else {
-			Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-		}
+		Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
 	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Paths
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab) {
-		setRegistrationWoodModLoaded(MODID, set, tab, "minecraft");
+	public static void setRegistrationWood(String MODID, List<String> set) {
+		final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
+		setRegistrationWoodModLoaded(MODID, set, WOOD);
 	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Paths with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded) {
-		final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop) {
+		final AbstractBlock.Settings WOOD = prop;
 
 		for (String i : set) {
 			try {
 				if (AddonsLib.isLoaded(modid)) {
 					final Block planks_path = Registration.getBlocksField("com.mcwpaths.kikoz.objects.FacingPathBlock", WOOD);
-					registryEntry(MODID, i + "_planks_path", planks_path, tab, modLoaded);
+					registryEntry(MODID, i + "_planks_path", planks_path);
 				} else {
-					registryEntry(MODID, i + "_planks_path", new Block(WOOD), tab, modLoaded);
+					registryEntry(MODID, i + "_planks_path", new Block(WOOD));
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				AddonsLib.LOGGER.error(e);
 			}
 		}
 	}

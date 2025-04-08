@@ -75,6 +75,8 @@ public class Registration
         return new Block(settings);
     }
 
+
+
 	public static Block getBlocksField(String intermediaryClassName, AbstractBlock.Settings settings, BlockSetType type) {
 		try {
             MappingResolver resolver = FabricLoader.getInstance().getMappingResolver();
@@ -104,4 +106,5 @@ public class Registration
         System.err.println("Retour d'un bloc par défaut pour : " + intermediaryClassName);
         return new Block(settings);
 	}
+
 }
