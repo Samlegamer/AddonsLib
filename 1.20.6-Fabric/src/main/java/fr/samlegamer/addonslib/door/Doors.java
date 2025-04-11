@@ -24,32 +24,29 @@ public class Doors
 {
 	public static final String modid = "mcwdoors";
 	
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b)
 	{
     	Registry.register(Registries.BLOCK, new Identifier(MODID, name), b);
-    	if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
-    	{
-            Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-    	}
-    	else {
-            Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-        }
+		Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
 	}
+	
 	/**
 	 * Init all Wood Variants of Macaw's Doors
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab)
+	public static void setRegistrationWood(String MODID, List<String> set)
 	{
-		setRegistrationWoodModLoaded(MODID, set, tab, "minecraft");
+		final AbstractBlock.Settings JAPAN = AbstractBlock.Settings.create().nonOpaque().strength(1.5F, 1.0F).sounds(BlockSoundGroup.WOOD);
+		final AbstractBlock.Settings DOOR_WOOD = AbstractBlock.Settings.copy(Blocks.ACACIA_DOOR);
+		setRegistrationWoodModLoaded(MODID, set, JAPAN, DOOR_WOOD);
 	}
 	
 	/**
 	 * Init all Wood Variants of Macaw's Doors with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded)
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings japan_door, AbstractBlock.Settings wood_door)
 	{
-			final AbstractBlock.Settings JAPAN = AbstractBlock.Settings.create().nonOpaque().strength(1.5F, 1.0F).sounds(BlockSoundGroup.WOOD);
-			final AbstractBlock.Settings DOOR_WOOD = AbstractBlock.Settings.copy(Blocks.ACACIA_DOOR);
+			final AbstractBlock.Settings JAPAN = japan_door;
+			final AbstractBlock.Settings DOOR_WOOD = wood_door;
 
 			for(String i : set)
 			{
@@ -61,56 +58,56 @@ public class Doors
 				    	final Block stable_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.StableDoor", JAPAN, BlockSetType.OAK);
 				    	final Block stable_head_door = Registration.getBlocksField("net.kikoz.mcwdoors.objects.StableDoor", JAPAN, BlockSetType.OAK);
 				    	
-				    	registryEntry(MODID, i+"_japanese_door", japanese_door, tab, modLoaded);
-				    	registryEntry(MODID, i+"_japanese2_door", japanese2_door, tab, modLoaded);
-				    	registryEntry(MODID, i+"_barn_door", new DoorBlock(BlockSetType.OAK, DOOR_WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_barn_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_modern_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_cottage_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_classic_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_beach_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_paper_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_four_panel_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_tropical_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_stable_door", stable_door, tab, modLoaded);
-				    	registryEntry(MODID, i+"_stable_head_door", stable_head_door, tab, modLoaded);
-				    	registryEntry(MODID, i+"_western_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_mystic_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_nether_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_swamp_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_bamboo_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_waffle_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-						registryEntry(MODID, i+"_whispering_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_japanese_door", japanese_door);
+				    	registryEntry(MODID, i+"_japanese2_door", japanese2_door);
+				    	registryEntry(MODID, i+"_barn_door", new DoorBlock(BlockSetType.OAK, DOOR_WOOD));
+				    	registryEntry(MODID, i+"_barn_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_modern_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_cottage_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_classic_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_beach_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_paper_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_four_panel_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_tropical_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_stable_door", stable_door);
+				    	registryEntry(MODID, i+"_stable_head_door", stable_head_door);
+				    	registryEntry(MODID, i+"_western_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_mystic_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_nether_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_swamp_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_bamboo_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_waffle_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+						registryEntry(MODID, i+"_whispering_door", new DoorBlock(BlockSetType.OAK, JAPAN));
 					}
 				    else
 				    {
-				    	registryEntry(MODID, i+"_japanese_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_japanese2_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_barn_door", new DoorBlock(BlockSetType.OAK, DOOR_WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_barn_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_modern_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_cottage_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_classic_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_beach_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_paper_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_four_panel_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_tropical_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_stable_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_stable_head_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_western_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_mystic_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_nether_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_swamp_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_bamboo_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-				    	registryEntry(MODID, i+"_waffle_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
-						registryEntry(MODID, i+"_whispering_door", new DoorBlock(BlockSetType.OAK, JAPAN), tab, modLoaded);
+				    	registryEntry(MODID, i+"_japanese_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_japanese2_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_barn_door", new DoorBlock(BlockSetType.OAK, DOOR_WOOD));
+				    	registryEntry(MODID, i+"_barn_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_modern_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_cottage_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_classic_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_beach_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_paper_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_four_panel_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_tropical_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_stable_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_stable_head_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_western_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_mystic_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_nether_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_swamp_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_bamboo_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_bark_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+				    	registryEntry(MODID, i+"_waffle_door", new DoorBlock(BlockSetType.OAK, JAPAN));
+						registryEntry(MODID, i+"_whispering_door", new DoorBlock(BlockSetType.OAK, JAPAN));
 					}
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}

@@ -39,13 +39,13 @@ public class Furnitures
 	 */
 	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab)
 	{
-		setRegistrationWood(MODID, set, tab, "minecraft");
+		setRegistrationWoodModLoaded(MODID, set, tab, "minecraft");
 	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Furnitures with if Mod Loaded
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab, String modLoaded)
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded)
 	{
 			final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
 

@@ -22,53 +22,47 @@ public class Trapdoors
 {
 	public static final String modid = "mcwtrpdoors";
 	
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b)
 	{
     	Registry.register(Registries.BLOCK, new Identifier(MODID, name), b);
-    	if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
-    	{
-            Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-    	}
-    	else {
-            Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-        }
+		Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
 	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Trapdoors
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab)
+	public static void setRegistrationWood(String MODID, List<String> set)
 	{
-		setRegistrationWoodModLoaded(MODID, set, tab, "minecraft");
+		final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR);
+		setRegistrationWoodModLoaded(MODID, set, WOOD);
 	}
 	
 	/**
 	 * Init all Wood Variants of Macaw's Trapdoors with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded)
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
 	{
-			final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR);
-			
-			for(String i : set)
-			{
-				registryEntry(MODID, i+"_barn_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_cottage_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_barred_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_beach_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_four_panel_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_glass_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_mystic_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_paper_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_tropical_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_swamp_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_bamboo_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_classic_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_bark_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_ranch_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_blossom_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_barrel_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-				registryEntry(MODID, i+"_whispering_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD), tab, modLoaded);
-			}
+		final AbstractBlock.Settings WOOD = prop;
+
+		for (String i : set) {
+			registryEntry(MODID, i + "_barn_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_cottage_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_barred_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_beach_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_four_panel_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_glass_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_mystic_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_paper_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_tropical_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_swamp_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_bamboo_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_classic_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_bark_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_ranch_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_blossom_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_barrel_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+			registryEntry(MODID, i + "_whispering_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD));
+		}
 	}
 	
 	public static void fuelWood(String MODID, List<String> WOOD)

@@ -21,36 +21,30 @@ public class Windows
 {
 	private static final String modid = "mcwwindows";
 	
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b)
 	{
     	Registry.register(Registries.BLOCK, new Identifier(MODID, name), b);
-    	if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
-    	{
-            Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-    	}
-    	else {
-            Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-        }
+		Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
 	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Windows
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab)
+	public static void setRegistrationWood(String MODID, List<String> set)
 	{
-		setRegistrationWoodModLoaded(MODID, set, tab, "minecraft");
+		setRegistrationWoodModLoaded(MODID, set, AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD));
 	}
 	
 	/**
 	 * Init all Wood Variants of Macaw's Windows with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded)
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
 	{
-			final AbstractBlock.Settings WOOD = AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).strength(0.6F, 1.2F);
-			final AbstractBlock.Settings PARAPET = AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).strength(0.2F, 1.0F);
-			final AbstractBlock.Settings BLINDS = AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).strength(0.3F, 1.0F);
-			final AbstractBlock.Settings SHUTTER = AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).strength(0.5F, 2.0F);
-			final AbstractBlock.Settings ROD = AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).strength(0.3F, 0.7F);
+			final AbstractBlock.Settings WOOD = prop.strength(0.6F, 1.2F);
+			final AbstractBlock.Settings PARAPET = prop.strength(0.2F, 1.0F);
+			final AbstractBlock.Settings BLINDS = prop.strength(0.3F, 1.0F);
+			final AbstractBlock.Settings SHUTTER = prop.strength(0.5F, 2.0F);
+			final AbstractBlock.Settings ROD = prop.strength(0.3F, 0.7F);
 			  
 			for(String i : set)
 			{
@@ -76,45 +70,45 @@ public class Windows
 				    	final Block plank_pane_window = Registration.getBlocksField("net.kikoz.mcwwindows.objects.Window", WOOD);
 				    	final Block curtain_rod = Registration.getBlocksField("net.kikoz.mcwwindows.objects.CurtainRod", ROD);
 				    	
-				    	registryEntry(MODID, i+"_window", window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_window2", window2, tab, modLoaded);
-				    	registryEntry(MODID, i+"_four_window", four_window, tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_window", strippedlog_window, tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_window2", strippedlog_window2, tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_four_window", strippedlog_four_window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_window", plank_window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_window2", plank_window2, tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_four_window", plank_four_window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_log_parapet", log_parapet, tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_parapet", plank_parapet, tab, modLoaded);
-				    	registryEntry(MODID, i+"_blinds", blinds, tab, modLoaded);
-				    	registryEntry(MODID, i+"_shutter", shutter, tab, modLoaded);
-				    	registryEntry(MODID, i+"_louvered_shutter", louvered_shutter, tab, modLoaded);
-				    	registryEntry(MODID, i+"_pane_window", pane_window, tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_pane_window", strippedpane_window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_pane_window", plank_pane_window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_curtain_rod", curtain_rod, tab, modLoaded);
+				    	registryEntry(MODID, i+"_window", window);
+				    	registryEntry(MODID, i+"_window2", window2);
+				    	registryEntry(MODID, i+"_four_window", four_window);
+				    	registryEntry(MODID, "stripped_"+i+"_log_window", strippedlog_window);
+				    	registryEntry(MODID, "stripped_"+i+"_log_window2", strippedlog_window2);
+				    	registryEntry(MODID, "stripped_"+i+"_log_four_window", strippedlog_four_window);
+				    	registryEntry(MODID, i+"_plank_window", plank_window);
+				    	registryEntry(MODID, i+"_plank_window2", plank_window2);
+				    	registryEntry(MODID, i+"_plank_four_window", plank_four_window);
+				    	registryEntry(MODID, i+"_log_parapet", log_parapet);
+				    	registryEntry(MODID, i+"_plank_parapet", plank_parapet);
+				    	registryEntry(MODID, i+"_blinds", blinds);
+				    	registryEntry(MODID, i+"_shutter", shutter);
+				    	registryEntry(MODID, i+"_louvered_shutter", louvered_shutter);
+				    	registryEntry(MODID, i+"_pane_window", pane_window);
+				    	registryEntry(MODID, "stripped_"+i+"_pane_window", strippedpane_window);
+				    	registryEntry(MODID, i+"_plank_pane_window", plank_pane_window);
+				    	registryEntry(MODID, i+"_curtain_rod", curtain_rod);
 				    }
 				    else
 				    {
-				    	registryEntry(MODID, i+"_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_window2", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_four_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_window2", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_four_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_window2", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_four_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_log_parapet", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_parapet", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_blinds", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_shutter", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_louvered_shutter", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_pane_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_pane_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_pane_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_curtain_rod", new Block(WOOD), tab, modLoaded);
+				    	registryEntry(MODID, i+"_window", new Block(WOOD));
+				    	registryEntry(MODID, i+"_window2", new Block(WOOD));
+				    	registryEntry(MODID, i+"_four_window", new Block(WOOD));
+				    	registryEntry(MODID, "stripped_"+i+"_log_window", new Block(WOOD));
+				    	registryEntry(MODID, "stripped_"+i+"_log_window2", new Block(WOOD));
+				    	registryEntry(MODID, "stripped_"+i+"_log_four_window", new Block(WOOD));
+				    	registryEntry(MODID, i+"_plank_window", new Block(WOOD));
+				    	registryEntry(MODID, i+"_plank_window2", new Block(WOOD));
+				    	registryEntry(MODID, i+"_plank_four_window", new Block(WOOD));
+				    	registryEntry(MODID, i+"_log_parapet", new Block(WOOD));
+				    	registryEntry(MODID, i+"_plank_parapet", new Block(WOOD));
+				    	registryEntry(MODID, i+"_blinds", new Block(WOOD));
+				    	registryEntry(MODID, i+"_shutter", new Block(WOOD));
+				    	registryEntry(MODID, i+"_louvered_shutter", new Block(WOOD));
+				    	registryEntry(MODID, i+"_pane_window", new Block(WOOD));
+				    	registryEntry(MODID, "stripped_"+i+"_pane_window", new Block(WOOD));
+				    	registryEntry(MODID, i+"_plank_pane_window", new Block(WOOD));
+				    	registryEntry(MODID, i+"_curtain_rod", new Block(WOOD));
 				    }
 				} catch (Exception e) {
 				    e.printStackTrace();
