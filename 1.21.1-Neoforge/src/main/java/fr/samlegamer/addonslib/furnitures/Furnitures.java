@@ -2,6 +2,7 @@ package fr.samlegamer.addonslib.furnitures;
 
 import java.util.List;
 import java.util.function.Supplier;
+import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
@@ -23,17 +24,18 @@ public class Furnitures
 	/**
 	 * Init all Wood Variants of Macaw's Furnitures
 	 */
-	public static void setRegistrationWood(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab)
+	public static void setRegistrationWood(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
-		setRegistrationWoodModLoaded(set, block, item, tab, "minecraft");
+		final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS);
+		setRegistrationWoodModLoaded(set, block, item, WOOD);
 	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Furnitures with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab, String modLoaded)
+	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
-			final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS);
+			final BlockBehaviour.Properties WOOD = prop;
 
 			DeferredBlock<Block> cherry_wardrobe,
 			cherry_modern_wardrobe,
@@ -101,154 +103,142 @@ public class Furnitures
 				try {
 				    if (ModList.get().isLoaded(modid))
 				    {
-				    	cherry_wardrobe = createBlock(i+"_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurnitureHinge", WOOD), block, item, tab, modLoaded);
-						cherry_modern_wardrobe = createBlock(i+"_modern_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurnitureHinge", WOOD), block, item, tab, modLoaded);
-						cherry_double_wardrobe = createBlock(i+"_double_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurniture", WOOD), block, item, tab, modLoaded);
-						cherry_bookshelf = createBlock(i+"_bookshelf", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookCabinet", WOOD), block, item, tab, modLoaded);
-						cherry_bookshelf_cupboard = createBlock(i+"_bookshelf_cupboard", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookCabinetHinge", WOOD), block, item, tab, modLoaded);
-						cherry_drawer = createBlock(i+"_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item, tab, modLoaded);
-						cherry_double_drawer = createBlock(i+"_double_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item, tab, modLoaded);
-						cherry_bookshelf_drawer = createBlock(i+"_bookshelf_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookDrawer", WOOD), block, item, tab, modLoaded);
-						cherry_lower_bookshelf_drawer = createBlock(i+"_lower_bookshelf_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookDrawer", WOOD), block, item, tab, modLoaded);
-						cherry_large_drawer = createBlock(i+"_large_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item, tab, modLoaded);
-						cherry_lower_triple_drawer = createBlock(i+"_lower_triple_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item, tab, modLoaded);
-						cherry_triple_drawer = createBlock(i+"_triple_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item, tab, modLoaded);
-						cherry_desk = createBlock(i+"_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item, tab, modLoaded);
-						cherry_covered_desk = createBlock(i+"_covered_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item, tab, modLoaded);
-						cherry_modern_desk = createBlock(i+"_modern_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item, tab, modLoaded);
-						cherry_table = createBlock(i+"_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item, tab, modLoaded);
-						cherry_end_table = createBlock(i+"_end_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item, tab, modLoaded);
-						cherry_coffee_table = createBlock(i+"_coffee_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Table", WOOD), block, item, tab, modLoaded);
-						cherry_glass_table = createBlock(i+"_glass_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item, tab, modLoaded);
-						cherry_chair = createBlock(i+"_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.ClassicChair", WOOD), block, item, tab, modLoaded);
-						cherry_modern_chair = createBlock(i+"_modern_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.ModernChair", WOOD), block, item, tab, modLoaded);
-						cherry_striped_chair = createBlock(i+"_striped_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.StripedChair", WOOD), block, item, tab, modLoaded);
-						cherry_stool_chair = createBlock(i+"_stool_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Chair", WOOD), block, item, tab, modLoaded);
-						cherry_counter = createBlock(i+"_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.Counter", WOOD), block, item, tab, modLoaded);
-						cherry_drawer_counter = createBlock(i+"_drawer_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.StorageCounter", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, modLoaded);
-						cherry_double_drawer_counter = createBlock(i+"_double_drawer_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.StorageCounter", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, modLoaded);
-						cherry_cupboard_counter = createBlock(i+"_cupboard_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.CupboardCounter", WOOD), block, item, tab, modLoaded);
+				    	cherry_wardrobe = createBlock(i+"_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurnitureHinge", WOOD), block, item);
+						cherry_modern_wardrobe = createBlock(i+"_modern_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurnitureHinge", WOOD), block, item);
+						cherry_double_wardrobe = createBlock(i+"_double_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurniture", WOOD), block, item);
+						cherry_bookshelf = createBlock(i+"_bookshelf", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookCabinet", WOOD), block, item);
+						cherry_bookshelf_cupboard = createBlock(i+"_bookshelf_cupboard", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookCabinetHinge", WOOD), block, item);
+						cherry_drawer = createBlock(i+"_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item);
+						cherry_double_drawer = createBlock(i+"_double_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item);
+						cherry_bookshelf_drawer = createBlock(i+"_bookshelf_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookDrawer", WOOD), block, item);
+						cherry_lower_bookshelf_drawer = createBlock(i+"_lower_bookshelf_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookDrawer", WOOD), block, item);
+						cherry_large_drawer = createBlock(i+"_large_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item);
+						cherry_lower_triple_drawer = createBlock(i+"_lower_triple_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item);
+						cherry_triple_drawer = createBlock(i+"_triple_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item);
+						cherry_desk = createBlock(i+"_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item);
+						cherry_covered_desk = createBlock(i+"_covered_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item);
+						cherry_modern_desk = createBlock(i+"_modern_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item);
+						cherry_table = createBlock(i+"_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item);
+						cherry_end_table = createBlock(i+"_end_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item);
+						cherry_coffee_table = createBlock(i+"_coffee_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Table", WOOD), block, item);
+						cherry_glass_table = createBlock(i+"_glass_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item);
+						cherry_chair = createBlock(i+"_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.ClassicChair", WOOD), block, item);
+						cherry_modern_chair = createBlock(i+"_modern_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.ModernChair", WOOD), block, item);
+						cherry_striped_chair = createBlock(i+"_striped_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.StripedChair", WOOD), block, item);
+						cherry_stool_chair = createBlock(i+"_stool_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Chair", WOOD), block, item);
+						cherry_counter = createBlock(i+"_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.Counter", WOOD), block, item);
+						cherry_drawer_counter = createBlock(i+"_drawer_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.StorageCounter", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
+						cherry_double_drawer_counter = createBlock(i+"_double_drawer_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.StorageCounter", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
+						cherry_cupboard_counter = createBlock(i+"_cupboard_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.CupboardCounter", WOOD), block, item);
 						
-						stripped_cherry_wardrobe = createBlock("stripped_"+i+"_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurnitureHinge", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_modern_wardrobe = createBlock("stripped_"+i+"_modern_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurnitureHinge", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_double_wardrobe = createBlock("stripped_"+i+"_double_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurniture", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_bookshelf = createBlock("stripped_"+i+"_bookshelf", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookCabinet", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_bookshelf_cupboard = createBlock("stripped_"+i+"_bookshelf_cupboard", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookCabinetHinge", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_drawer = createBlock("stripped_"+i+"_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_double_drawer = createBlock("stripped_"+i+"_double_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_bookshelf_drawer = createBlock("stripped_"+i+"_bookshelf_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookDrawer", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_lower_bookshelf_drawer = createBlock("stripped_"+i+"_lower_bookshelf_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookDrawer", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_large_drawer = createBlock("stripped_"+i+"_large_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_lower_triple_drawer = createBlock("stripped_"+i+"_lower_triple_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_triple_drawer = createBlock("stripped_"+i+"_triple_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_desk = createBlock("stripped_"+i+"_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_covered_desk = createBlock("stripped_"+i+"_covered_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_modern_desk = createBlock("stripped_"+i+"_modern_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_table = createBlock("stripped_"+i+"_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_end_table = createBlock("stripped_"+i+"_end_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_coffee_table = createBlock("stripped_"+i+"_coffee_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Table", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_glass_table = createBlock("stripped_"+i+"_glass_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_chair = createBlock("stripped_"+i+"_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.ClassicChair", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_modern_chair = createBlock("stripped_"+i+"_modern_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.ModernChair", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_striped_chair = createBlock("stripped_"+i+"_striped_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.StripedChair", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_stool_chair = createBlock("stripped_"+i+"_stool_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Chair", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_counter = createBlock("stripped_"+i+"_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.Counter", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_drawer_counter = createBlock("stripped_"+i+"_drawer_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.StorageCounter", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, modLoaded);
-						stripped_cherry_double_drawer_counter = createBlock("stripped_"+i+"_double_drawer_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.StorageCounter", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, modLoaded);
-						stripped_cherry_cupboard_counter = createBlock("stripped_"+i+"_cupboard_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.CupboardCounter", WOOD), block, item, tab, modLoaded);
-						cherry_kitchen_cabinet = createBlock(i+"_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.CabinetHinge", WOOD), block, item, tab, modLoaded);
-						cherry_double_kitchen_cabinet = createBlock(i+"_double_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.Cabinet", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, modLoaded);
-						cherry_glass_kitchen_cabinet = createBlock(i+"_glass_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.Cabinet", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, modLoaded);
-						stripped_cherry_kitchen_cabinet = createBlock("stripped_"+i+"_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.CabinetHinge", WOOD), block, item, tab, modLoaded);
-						stripped_cherry_double_kitchen_cabinet = createBlock("stripped_"+i+"_double_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.Cabinet", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, modLoaded);
-						stripped_cherry_glass_kitchen_cabinet = createBlock("stripped_"+i+"_glass_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.Cabinet", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, modLoaded);
+						stripped_cherry_wardrobe = createBlock("stripped_"+i+"_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurnitureHinge", WOOD), block, item);
+						stripped_cherry_modern_wardrobe = createBlock("stripped_"+i+"_modern_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurnitureHinge", WOOD), block, item);
+						stripped_cherry_double_wardrobe = createBlock("stripped_"+i+"_double_wardrobe", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TallFurniture", WOOD), block, item);
+						stripped_cherry_bookshelf = createBlock("stripped_"+i+"_bookshelf", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookCabinet", WOOD), block, item);
+						stripped_cherry_bookshelf_cupboard = createBlock("stripped_"+i+"_bookshelf_cupboard", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookCabinetHinge", WOOD), block, item);
+						stripped_cherry_drawer = createBlock("stripped_"+i+"_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item);
+						stripped_cherry_double_drawer = createBlock("stripped_"+i+"_double_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item);
+						stripped_cherry_bookshelf_drawer = createBlock("stripped_"+i+"_bookshelf_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookDrawer", WOOD), block, item);
+						stripped_cherry_lower_bookshelf_drawer = createBlock("stripped_"+i+"_lower_bookshelf_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.bookshelves.BookDrawer", WOOD), block, item);
+						stripped_cherry_large_drawer = createBlock("stripped_"+i+"_large_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item);
+						stripped_cherry_lower_triple_drawer = createBlock("stripped_"+i+"_lower_triple_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item);
+						stripped_cherry_triple_drawer = createBlock("stripped_"+i+"_triple_drawer", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.WideFurniture", WOOD), block, item);
+						stripped_cherry_desk = createBlock("stripped_"+i+"_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item);
+						stripped_cherry_covered_desk = createBlock("stripped_"+i+"_covered_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item);
+						stripped_cherry_modern_desk = createBlock("stripped_"+i+"_modern_desk", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Desk", WOOD), block, item);
+						stripped_cherry_table = createBlock("stripped_"+i+"_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item);
+						stripped_cherry_end_table = createBlock("stripped_"+i+"_end_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item);
+						stripped_cherry_coffee_table = createBlock("stripped_"+i+"_coffee_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Table", WOOD), block, item);
+						stripped_cherry_glass_table = createBlock("stripped_"+i+"_glass_table", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.TableHitbox", WOOD), block, item);
+						stripped_cherry_chair = createBlock("stripped_"+i+"_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.ClassicChair", WOOD), block, item);
+						stripped_cherry_modern_chair = createBlock("stripped_"+i+"_modern_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.ModernChair", WOOD), block, item);
+						stripped_cherry_striped_chair = createBlock("stripped_"+i+"_striped_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.chairs.StripedChair", WOOD), block, item);
+						stripped_cherry_stool_chair = createBlock("stripped_"+i+"_stool_chair", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.Chair", WOOD), block, item);
+						stripped_cherry_counter = createBlock("stripped_"+i+"_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.Counter", WOOD), block, item);
+						stripped_cherry_drawer_counter = createBlock("stripped_"+i+"_drawer_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.StorageCounter", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
+						stripped_cherry_double_drawer_counter = createBlock("stripped_"+i+"_double_drawer_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.StorageCounter", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
+						stripped_cherry_cupboard_counter = createBlock("stripped_"+i+"_cupboard_counter", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.counters.CupboardCounter", WOOD), block, item);
+						cherry_kitchen_cabinet = createBlock(i+"_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.CabinetHinge", WOOD), block, item);
+						cherry_double_kitchen_cabinet = createBlock(i+"_double_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.Cabinet", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
+						cherry_glass_kitchen_cabinet = createBlock(i+"_glass_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.Cabinet", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
+						stripped_cherry_kitchen_cabinet = createBlock("stripped_"+i+"_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.CabinetHinge", WOOD), block, item);
+						stripped_cherry_double_kitchen_cabinet = createBlock("stripped_"+i+"_double_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.Cabinet", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
+						stripped_cherry_glass_kitchen_cabinet = createBlock("stripped_"+i+"_glass_kitchen_cabinet", () -> Registration.getBlocksField("com.mcwfurnitures.kikoz.objects.cabinets.Cabinet", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
 				    }
 				    else
 				    {
-						cherry_wardrobe = createBlock(i+"_wardrobe", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_modern_wardrobe = createBlock(i+"_modern_wardrobe", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_double_wardrobe = createBlock(i+"_double_wardrobe", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_bookshelf = createBlock(i+"_bookshelf", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_bookshelf_cupboard = createBlock(i+"_bookshelf_cupboard", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_drawer = createBlock(i+"_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_double_drawer = createBlock(i+"_double_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_bookshelf_drawer = createBlock(i+"_bookshelf_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_lower_bookshelf_drawer = createBlock(i+"_lower_bookshelf_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_large_drawer = createBlock(i+"_large_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_lower_triple_drawer = createBlock(i+"_lower_triple_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_triple_drawer = createBlock(i+"_triple_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_desk = createBlock(i+"_desk", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_covered_desk = createBlock(i+"_covered_desk", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_modern_desk = createBlock(i+"_modern_desk", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_table = createBlock(i+"_table", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_end_table = createBlock(i+"_end_table", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_coffee_table = createBlock(i+"_coffee_table", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_glass_table = createBlock(i+"_glass_table", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_chair = createBlock(i+"_chair", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_modern_chair = createBlock(i+"_modern_chair", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_striped_chair = createBlock(i+"_striped_chair", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_stool_chair = createBlock(i+"_stool_chair", () -> new Block(WOOD), block, item, tab, modLoaded);
-						cherry_counter = createBlock(i+"_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						cherry_drawer_counter = createBlock(i+"_drawer_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						cherry_double_drawer_counter = createBlock(i+"_double_drawer_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						cherry_cupboard_counter = createBlock(i+"_cupboard_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
+						cherry_wardrobe = createBlock(i+"_wardrobe", () -> new Block(WOOD), block, item);
+						cherry_modern_wardrobe = createBlock(i+"_modern_wardrobe", () -> new Block(WOOD), block, item);
+						cherry_double_wardrobe = createBlock(i+"_double_wardrobe", () -> new Block(WOOD), block, item);
+						cherry_bookshelf = createBlock(i+"_bookshelf", () -> new Block(WOOD), block, item);
+						cherry_bookshelf_cupboard = createBlock(i+"_bookshelf_cupboard", () -> new Block(WOOD), block, item);
+						cherry_drawer = createBlock(i+"_drawer", () -> new Block(WOOD), block, item);
+						cherry_double_drawer = createBlock(i+"_double_drawer", () -> new Block(WOOD), block, item);
+						cherry_bookshelf_drawer = createBlock(i+"_bookshelf_drawer", () -> new Block(WOOD), block, item);
+						cherry_lower_bookshelf_drawer = createBlock(i+"_lower_bookshelf_drawer", () -> new Block(WOOD), block, item);
+						cherry_large_drawer = createBlock(i+"_large_drawer", () -> new Block(WOOD), block, item);
+						cherry_lower_triple_drawer = createBlock(i+"_lower_triple_drawer", () -> new Block(WOOD), block, item);
+						cherry_triple_drawer = createBlock(i+"_triple_drawer", () -> new Block(WOOD), block, item);
+						cherry_desk = createBlock(i+"_desk", () -> new Block(WOOD), block, item);
+						cherry_covered_desk = createBlock(i+"_covered_desk", () -> new Block(WOOD), block, item);
+						cherry_modern_desk = createBlock(i+"_modern_desk", () -> new Block(WOOD), block, item);
+						cherry_table = createBlock(i+"_table", () -> new Block(WOOD), block, item);
+						cherry_end_table = createBlock(i+"_end_table", () -> new Block(WOOD), block, item);
+						cherry_coffee_table = createBlock(i+"_coffee_table", () -> new Block(WOOD), block, item);
+						cherry_glass_table = createBlock(i+"_glass_table", () -> new Block(WOOD), block, item);
+						cherry_chair = createBlock(i+"_chair", () -> new Block(WOOD), block, item);
+						cherry_modern_chair = createBlock(i+"_modern_chair", () -> new Block(WOOD), block, item);
+						cherry_striped_chair = createBlock(i+"_striped_chair", () -> new Block(WOOD), block, item);
+						cherry_stool_chair = createBlock(i+"_stool_chair", () -> new Block(WOOD), block, item);
+						cherry_counter = createBlock(i+"_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						cherry_drawer_counter = createBlock(i+"_drawer_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						cherry_double_drawer_counter = createBlock(i+"_double_drawer_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						cherry_cupboard_counter = createBlock(i+"_cupboard_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
 						
-						stripped_cherry_wardrobe = createBlock("stripped_"+i+"_wardrobe", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_modern_wardrobe = createBlock("stripped_"+i+"_modern_wardrobe", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_double_wardrobe = createBlock("stripped_"+i+"_double_wardrobe", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_bookshelf = createBlock("stripped_"+i+"_bookshelf", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_bookshelf_cupboard = createBlock("stripped_"+i+"_bookshelf_cupboard", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_drawer = createBlock("stripped_"+i+"_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_double_drawer = createBlock("stripped_"+i+"_double_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_bookshelf_drawer = createBlock("stripped_"+i+"_bookshelf_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_lower_bookshelf_drawer = createBlock("stripped_"+i+"_lower_bookshelf_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_large_drawer = createBlock("stripped_"+i+"_large_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_lower_triple_drawer = createBlock("stripped_"+i+"_lower_triple_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_triple_drawer = createBlock("stripped_"+i+"_triple_drawer", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_desk = createBlock("stripped_"+i+"_desk", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_covered_desk = createBlock("stripped_"+i+"_covered_desk", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_modern_desk = createBlock("stripped_"+i+"_modern_desk", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_table = createBlock("stripped_"+i+"_table", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_end_table = createBlock("stripped_"+i+"_end_table", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_coffee_table = createBlock("stripped_"+i+"_coffee_table", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_glass_table = createBlock("stripped_"+i+"_glass_table", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_chair = createBlock("stripped_"+i+"_chair", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_modern_chair = createBlock("stripped_"+i+"_modern_chair", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_striped_chair = createBlock("stripped_"+i+"_striped_chair", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_stool_chair = createBlock("stripped_"+i+"_stool_chair", () -> new Block(WOOD), block, item, tab, modLoaded);
-						stripped_cherry_counter = createBlock("stripped_"+i+"_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						stripped_cherry_drawer_counter = createBlock("stripped_"+i+"_drawer_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						stripped_cherry_double_drawer_counter = createBlock("stripped_"+i+"_double_drawer_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						stripped_cherry_cupboard_counter = createBlock("stripped_"+i+"_cupboard_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						cherry_kitchen_cabinet = createBlock(i+"_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						cherry_double_kitchen_cabinet = createBlock(i+"_double_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						cherry_glass_kitchen_cabinet = createBlock(i+"_glass_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						stripped_cherry_kitchen_cabinet = createBlock("stripped_"+i+"_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						stripped_cherry_double_kitchen_cabinet = createBlock("stripped_"+i+"_double_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
-						stripped_cherry_glass_kitchen_cabinet = createBlock("stripped_"+i+"_glass_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item, tab, modLoaded);
+						stripped_cherry_wardrobe = createBlock("stripped_"+i+"_wardrobe", () -> new Block(WOOD), block, item);
+						stripped_cherry_modern_wardrobe = createBlock("stripped_"+i+"_modern_wardrobe", () -> new Block(WOOD), block, item);
+						stripped_cherry_double_wardrobe = createBlock("stripped_"+i+"_double_wardrobe", () -> new Block(WOOD), block, item);
+						stripped_cherry_bookshelf = createBlock("stripped_"+i+"_bookshelf", () -> new Block(WOOD), block, item);
+						stripped_cherry_bookshelf_cupboard = createBlock("stripped_"+i+"_bookshelf_cupboard", () -> new Block(WOOD), block, item);
+						stripped_cherry_drawer = createBlock("stripped_"+i+"_drawer", () -> new Block(WOOD), block, item);
+						stripped_cherry_double_drawer = createBlock("stripped_"+i+"_double_drawer", () -> new Block(WOOD), block, item);
+						stripped_cherry_bookshelf_drawer = createBlock("stripped_"+i+"_bookshelf_drawer", () -> new Block(WOOD), block, item);
+						stripped_cherry_lower_bookshelf_drawer = createBlock("stripped_"+i+"_lower_bookshelf_drawer", () -> new Block(WOOD), block, item);
+						stripped_cherry_large_drawer = createBlock("stripped_"+i+"_large_drawer", () -> new Block(WOOD), block, item);
+						stripped_cherry_lower_triple_drawer = createBlock("stripped_"+i+"_lower_triple_drawer", () -> new Block(WOOD), block, item);
+						stripped_cherry_triple_drawer = createBlock("stripped_"+i+"_triple_drawer", () -> new Block(WOOD), block, item);
+						stripped_cherry_desk = createBlock("stripped_"+i+"_desk", () -> new Block(WOOD), block, item);
+						stripped_cherry_covered_desk = createBlock("stripped_"+i+"_covered_desk", () -> new Block(WOOD), block, item);
+						stripped_cherry_modern_desk = createBlock("stripped_"+i+"_modern_desk", () -> new Block(WOOD), block, item);
+						stripped_cherry_table = createBlock("stripped_"+i+"_table", () -> new Block(WOOD), block, item);
+						stripped_cherry_end_table = createBlock("stripped_"+i+"_end_table", () -> new Block(WOOD), block, item);
+						stripped_cherry_coffee_table = createBlock("stripped_"+i+"_coffee_table", () -> new Block(WOOD), block, item);
+						stripped_cherry_glass_table = createBlock("stripped_"+i+"_glass_table", () -> new Block(WOOD), block, item);
+						stripped_cherry_chair = createBlock("stripped_"+i+"_chair", () -> new Block(WOOD), block, item);
+						stripped_cherry_modern_chair = createBlock("stripped_"+i+"_modern_chair", () -> new Block(WOOD), block, item);
+						stripped_cherry_striped_chair = createBlock("stripped_"+i+"_striped_chair", () -> new Block(WOOD), block, item);
+						stripped_cherry_stool_chair = createBlock("stripped_"+i+"_stool_chair", () -> new Block(WOOD), block, item);
+						stripped_cherry_counter = createBlock("stripped_"+i+"_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						stripped_cherry_drawer_counter = createBlock("stripped_"+i+"_drawer_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						stripped_cherry_double_drawer_counter = createBlock("stripped_"+i+"_double_drawer_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						stripped_cherry_cupboard_counter = createBlock("stripped_"+i+"_cupboard_counter", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						cherry_kitchen_cabinet = createBlock(i+"_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						cherry_double_kitchen_cabinet = createBlock(i+"_double_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						cherry_glass_kitchen_cabinet = createBlock(i+"_glass_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						stripped_cherry_kitchen_cabinet = createBlock("stripped_"+i+"_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						stripped_cherry_double_kitchen_cabinet = createBlock("stripped_"+i+"_double_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
+						stripped_cherry_glass_kitchen_cabinet = createBlock("stripped_"+i+"_glass_kitchen_cabinet", () -> new StairBlock(Blocks.OAK_LOG.defaultBlockState(), WOOD), block, item);
 				    }
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}
-	
-	protected static DeferredBlock<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab)
-    {
-        return createBlock(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
-	
-	protected static DeferredBlock<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab, String modLoaded)
+
+	protected static DeferredBlock<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
         DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
-		{
-			ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-		}
-		else
-		{
-			ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-		}
+		ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
         return block;
     }
 		

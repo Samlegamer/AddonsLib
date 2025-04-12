@@ -2,7 +2,7 @@ package fr.samlegamer.addonslib.fences;
 
 import java.util.List;
 import java.util.function.Supplier;
-
+import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
@@ -22,66 +22,68 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class Fences
 {
-	private static BlockBehaviour.Properties wood = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS);
-	private static BlockBehaviour.Properties leaves = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES);
-	private static BlockBehaviour.Properties stone = BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE);
+	private static final BlockBehaviour.Properties wood = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS);
+	private static final BlockBehaviour.Properties leave = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES);
+	private static final BlockBehaviour.Properties stone = BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE);
 	
 	public static final String modid = "mcwfences";
 	
 	/**
 	 * Init all Wood Variants of Macaw's Fences
 	 */
-	public static void setRegistrationWood(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab)
+	public static void setRegistrationWood(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
-		setRegistrationWoodModLoaded(set, block, item, tab, "minecraft", wood);
+		setRegistrationWoodModLoaded(set, block, item, wood);
 	}
 	
 	/**
 	 * Init all Hedges Variants of Macaw's Fences
 	 */
-	public static void setRegistrationHedges(List<String> leaves, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab)
+	public static void setRegistrationHedges(List<String> leaves, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
-		setRegistrationHedgesModLoaded(leaves, block, item, tab, "minecraft", Fences.leaves);
+		setRegistrationHedgesModLoaded(leaves, block, item, leave);
 	}
 	
 	/**
 	 * Init all Stone Variants of Macaw's Fences
 	 */
-	public static void setRegistrationRock(List<String> rock, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab)
+	public static void setRegistrationRock(List<String> rock, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
-		setRegistrationRockModLoaded(rock, block, item, tab, "minecraft", stone);
+		setRegistrationRockModLoaded(rock, block, item, stone);
 	}
 	
 	/**
 	 * Init all Wood Variants of Macaw's Fences with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab, String modLoaded, BlockBehaviour.Properties prop)
+	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
 			final BlockBehaviour.Properties WOOD = prop;
 
-			DeferredBlock<Block> picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+			DeferredBlock<Block> picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 
 			for(String i : set)
 			{				
 				try {
 				    if (ModList.get().isLoaded(modid))
 				    {
-				        picket_fence = createBlock(i + "_picket_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
-				        stockade_fence = createBlock(i + "_stockade_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
-				        horse_fence = createBlock(i + "_horse_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
-			            wired_fence = createBlock(i + "_wired_fence", () -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.WiredFence", WOOD), block, item, tab, modLoaded);
-				        highley_gate = createBlock(i + "_highley_gate", () -> new FenceGateBlock(WOOD, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item, tab, modLoaded);
-				        pyramid_gate = createBlock(i + "_pyramid_gate", () -> new FenceGateBlock(WOOD, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item, tab, modLoaded);
+				        picket_fence = createBlock(i + "_picket_fence", () -> new FenceBlock(WOOD), block, item);
+				        stockade_fence = createBlock(i + "_stockade_fence", () -> new FenceBlock(WOOD), block, item);
+				        horse_fence = createBlock(i + "_horse_fence", () -> new FenceBlock(WOOD), block, item);
+			            wired_fence = createBlock(i + "_wired_fence", () -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.WiredFence", WOOD), block, item);
+				        highley_gate = createBlock(i + "_highley_gate", () -> new FenceGateBlock(WOOD, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item);
+				        pyramid_gate = createBlock(i + "_pyramid_gate", () -> new FenceGateBlock(WOOD, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item);
+						curved_gate = createBlock(i + "_curved_gate", () -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.DoubleGate", WOOD), block, item);
 				    } else {
-				        picket_fence = createBlock(i + "_picket_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
-				        stockade_fence = createBlock(i + "_stockade_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
-				        horse_fence = createBlock(i + "_horse_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
-				        wired_fence = createBlock(i + "_wired_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
-				        highley_gate = createBlock(i + "_highley_gate", () -> new FenceGateBlock(WOOD, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item, tab, modLoaded);
-				        pyramid_gate = createBlock(i + "_pyramid_gate", () -> new FenceGateBlock(WOOD, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item, tab, modLoaded);
+				        picket_fence = createBlock(i + "_picket_fence", () -> new FenceBlock(WOOD), block, item);
+				        stockade_fence = createBlock(i + "_stockade_fence", () -> new FenceBlock(WOOD), block, item);
+				        horse_fence = createBlock(i + "_horse_fence", () -> new FenceBlock(WOOD), block, item);
+				        wired_fence = createBlock(i + "_wired_fence", () -> new FenceBlock(WOOD), block, item);
+				        highley_gate = createBlock(i + "_highley_gate", () -> new FenceGateBlock(WOOD, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item);
+				        pyramid_gate = createBlock(i + "_pyramid_gate", () -> new FenceGateBlock(WOOD, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item);
+						curved_gate = createBlock(i + "_curved_gate", () -> new FenceBlock(WOOD), block, item);
 				    }
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}
@@ -89,7 +91,7 @@ public class Fences
 	/**
 	 * Init all Hedges Variants of Macaw's Fences with if Mod Loaded
 	 */
-	public static void setRegistrationHedgesModLoaded(List<String> leaves, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab, String modLoaded, BlockBehaviour.Properties prop)
+	public static void setRegistrationHedgesModLoaded(List<String> leaves, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
 			final BlockBehaviour.Properties HEDGES = prop;
 
@@ -99,10 +101,10 @@ public class Fences
 			{
 				if (ModList.get().isLoaded(modid))
 	        	{
-	                hedge = createBlock(i + "_hedge", () -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES), block, item, tab, modLoaded);
+	                hedge = createBlock(i + "_hedge", () -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES), block, item);
 
 	            } else {
-	                hedge = createBlock(i + "_hedge", () -> new FenceBlock(HEDGES), block, item, tab, modLoaded);
+	                hedge = createBlock(i + "_hedge", () -> new FenceBlock(HEDGES), block, item);
 	            }
 			}
 	}
@@ -110,7 +112,7 @@ public class Fences
 	/**
 	 * Init all Stone Variants of Macaw's Fences with if Mod Loaded
 	 */
-	public static void setRegistrationRockModLoaded(List<String> rock, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab, String modLoaded, BlockBehaviour.Properties prop)
+	public static void setRegistrationRockModLoaded(List<String> rock, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
 			final BlockBehaviour.Properties STONE = prop;
 
@@ -119,57 +121,33 @@ public class Fences
 			for(String i : rock)
 			{
 				if (ModList.get().isLoaded(modid)) {
-					modern_wall = createBlockStone("modern_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
-					railing_wall = createBlockStone("railing_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
-					railing_gate = createBlockStone(i+"_railing_gate", () -> new FenceGateBlock(STONE, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item, tab, modLoaded);
-					pillar_wall = createBlockStone(i+"_pillar_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
-	                grass_topped_wall = createBlock(i + "_grass_topped_wall", () -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", STONE), block, item, tab, modLoaded);
+					modern_wall = createBlockStone("modern_"+i+"_wall", () -> new FenceBlock(STONE), block, item);
+					railing_wall = createBlockStone("railing_"+i+"_wall", () -> new FenceBlock(STONE), block, item);
+					railing_gate = createBlockStone(i+"_railing_gate", () -> new FenceGateBlock(STONE, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item);
+					pillar_wall = createBlockStone(i+"_pillar_wall", () -> new FenceBlock(STONE), block, item);
+	                grass_topped_wall = createBlock(i + "_grass_topped_wall", () -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", STONE), block, item);
 
 	            } else {
-					modern_wall = createBlockStone("modern_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
-					railing_wall = createBlockStone("railing_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
-					railing_gate = createBlockStone(i+"_railing_gate", () -> new FenceGateBlock(STONE, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item, tab, modLoaded);
-					pillar_wall = createBlockStone(i+"_pillar_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
-					grass_topped_wall = createBlockStone(i+"_grass_topped_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
+					modern_wall = createBlockStone("modern_"+i+"_wall", () -> new FenceBlock(STONE), block, item);
+					railing_wall = createBlockStone("railing_"+i+"_wall", () -> new FenceBlock(STONE), block, item);
+					railing_gate = createBlockStone(i+"_railing_gate", () -> new FenceGateBlock(STONE, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item);
+					pillar_wall = createBlockStone(i+"_pillar_wall", () -> new FenceBlock(STONE), block, item);
+					grass_topped_wall = createBlockStone(i+"_grass_topped_wall", () -> new FenceBlock(STONE), block, item);
 	            }
 			}
 	}
 	
-	protected static DeferredBlock<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab)
-    {
-        return createBlock(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
-	
-	protected static DeferredBlock<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab, String modLoaded)
+	protected static DeferredBlock<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
         DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-        }
-        else
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-        }
+		ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
         return block;
     }
-
-	protected static DeferredBlock<Block> createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab)
-    {
-        return createBlockStone(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
 	
-	protected static DeferredBlock<Block> createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab, String modLoaded)
+	protected static DeferredBlock<Block> createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
         DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-        }
-        else
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-        }
+		ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         return block;
     }
 		
