@@ -7,12 +7,12 @@ import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
-import net.minecraft.world.World;
 
 public class BlockItemInfo extends BlockItem
 {
-	private String desc;
+	private final String desc;
 	
 	public BlockItemInfo(Block p_40565_, Item.Settings p_40566_, String desc)
 	{
@@ -20,8 +20,9 @@ public class BlockItemInfo extends BlockItem
 		this.desc = desc;
 	}
 
+	@Override
 	@Environment(EnvType.CLIENT)
-	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context)
+	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type)
 	{
 		tooltip.add(Text.translatable(this.desc));
 	}

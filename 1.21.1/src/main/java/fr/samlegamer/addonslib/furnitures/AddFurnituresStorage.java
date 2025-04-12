@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import fr.samlegamer.addonslib.Finder;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.ModList;

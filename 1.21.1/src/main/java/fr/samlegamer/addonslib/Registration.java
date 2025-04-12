@@ -59,9 +59,9 @@ public class Registration
 	/**
 	 * register
 	 */
-	public static void init(DeferredRegister<Block> b, DeferredRegister<Item> i, DeferredRegister<CreativeModeTab> t)
+	public static void init(FMLJavaModLoadingContext context, DeferredRegister<Block> b, DeferredRegister<Item> i, DeferredRegister<CreativeModeTab> t)
 	{
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+		IEventBus bus = context.getModEventBus();
 		b.register(bus);
 		i.register(bus);
 		t.register(bus);

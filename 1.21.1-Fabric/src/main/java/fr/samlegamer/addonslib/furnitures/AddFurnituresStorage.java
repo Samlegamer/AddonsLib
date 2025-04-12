@@ -1,4 +1,4 @@
-package fr.samlegamer.addonslib.mappings;
+package fr.samlegamer.addonslib.furnitures;
 
 import java.lang.reflect.Field;
 import java.util.List;
