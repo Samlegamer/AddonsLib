@@ -25,36 +25,31 @@ public class Doors
 {
 	public static final String modid = "mcwdoors";
 	
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b)
 	{
 		final Identifier ID = Identifier.of(MODID, name);
 		final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, ID);
-
-		Registry.register(Registries.BLOCK, Identifier.of(MODID, name), b);
-
-    	if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
-    	{
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-    	}
-    	else {
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-        }
+		Registry.register(Registries.BLOCK, ID, b);
+		Registry.register(Registries.ITEM, ID, new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
 	}
+
 	/**
 	 * Init all Wood Variants of Macaw's Doors
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab)
+	public static void setRegistrationWood(String MODID, List<String> set)
 	{
-		setRegistrationWoodModLoaded(MODID, set, tab, "minecraft");
+		final AbstractBlock.Settings JAPAN = AbstractBlock.Settings.create().nonOpaque().strength(1.5F, 1.0F).sounds(BlockSoundGroup.WOOD);
+		final AbstractBlock.Settings DOOR_WOOD = AbstractBlock.Settings.copy(Blocks.ACACIA_DOOR);
+		setRegistrationWoodModLoaded(MODID, set, JAPAN, DOOR_WOOD);
 	}
 	
 	/**
 	 * Init all Wood Variants of Macaw's Doors with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded)
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings japan_door, AbstractBlock.Settings wood_door)
 	{
-			final AbstractBlock.Settings JAPAN = AbstractBlock.Settings.create().nonOpaque().strength(1.5F, 1.0F).sounds(BlockSoundGroup.WOOD);
-			final AbstractBlock.Settings DOOR_WOOD = AbstractBlock.Settings.copy(Blocks.ACACIA_DOOR);
+			final AbstractBlock.Settings JAPAN = japan_door;
+			final AbstractBlock.Settings DOOR_WOOD = wood_door;
 
 		for (String i : set) {
 			try {
@@ -80,51 +75,51 @@ public class Doors
 							BlockSetType.OAK
 					);
 
-					registryEntry(MODID, i + "_japanese_door", japanese_door, tab, modLoaded);
-					registryEntry(MODID, i + "_japanese2_door", japanese2_door, tab, modLoaded);
-					registryEntry(MODID, i + "_barn_door", new DoorBlock(BlockSetType.OAK, DOOR_WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barn_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_barn_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barn_glass_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_modern_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_modern_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_cottage_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_cottage_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_classic_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_classic_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_beach_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_beach_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_paper_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_paper_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_four_panel_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_four_panel_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_tropical_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_tropical_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_glass_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_stable_door", stable_door, tab, modLoaded);
-					registryEntry(MODID, i + "_stable_head_door", stable_head_door, tab, modLoaded);
-					registryEntry(MODID, i + "_western_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_western_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_mystic_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_mystic_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_nether_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_nether_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_swamp_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_swamp_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_bamboo_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bamboo_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_bark_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bark_glass_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_waffle_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_waffle_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_whispering_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_whispering_door")))), tab, modLoaded);
+					registryEntry(MODID, i + "_japanese_door", japanese_door);
+					registryEntry(MODID, i + "_japanese2_door", japanese2_door);
+					registryEntry(MODID, i + "_barn_door", new DoorBlock(BlockSetType.OAK, DOOR_WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barn_door")))));
+					registryEntry(MODID, i + "_barn_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barn_glass_door")))));
+					registryEntry(MODID, i + "_modern_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_modern_door")))));
+					registryEntry(MODID, i + "_cottage_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_cottage_door")))));
+					registryEntry(MODID, i + "_classic_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_classic_door")))));
+					registryEntry(MODID, i + "_beach_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_beach_door")))));
+					registryEntry(MODID, i + "_paper_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_paper_door")))));
+					registryEntry(MODID, i + "_four_panel_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_four_panel_door")))));
+					registryEntry(MODID, i + "_tropical_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_tropical_door")))));
+					registryEntry(MODID, i + "_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_glass_door")))));
+					registryEntry(MODID, i + "_stable_door", stable_door);
+					registryEntry(MODID, i + "_stable_head_door", stable_head_door);
+					registryEntry(MODID, i + "_western_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_western_door")))));
+					registryEntry(MODID, i + "_mystic_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_mystic_door")))));
+					registryEntry(MODID, i + "_nether_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_nether_door")))));
+					registryEntry(MODID, i + "_swamp_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_swamp_door")))));
+					registryEntry(MODID, i + "_bamboo_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bamboo_door")))));
+					registryEntry(MODID, i + "_bark_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bark_glass_door")))));
+					registryEntry(MODID, i + "_waffle_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_waffle_door")))));
+					registryEntry(MODID, i + "_whispering_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_whispering_door")))));
 				} else {
-					registryEntry(MODID, i + "_japanese_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_japanese_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_japanese2_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_japanese2_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_barn_door", new DoorBlock(BlockSetType.OAK, DOOR_WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barn_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_barn_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barn_glass_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_modern_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_modern_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_cottage_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_cottage_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_classic_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_classic_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_beach_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_beach_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_paper_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_paper_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_four_panel_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_four_panel_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_tropical_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_tropical_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_glass_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_stable_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_stable_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_stable_head_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_stable_head_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_western_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_western_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_mystic_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_mystic_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_nether_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_nether_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_swamp_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_swamp_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_bamboo_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bamboo_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_bark_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bark_glass_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_waffle_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_waffle_door")))), tab, modLoaded);
-					registryEntry(MODID, i + "_whispering_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_whispering_door")))), tab, modLoaded);
+					registryEntry(MODID, i + "_japanese_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_japanese_door")))));
+					registryEntry(MODID, i + "_japanese2_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_japanese2_door")))));
+					registryEntry(MODID, i + "_barn_door", new DoorBlock(BlockSetType.OAK, DOOR_WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barn_door")))));
+					registryEntry(MODID, i + "_barn_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barn_glass_door")))));
+					registryEntry(MODID, i + "_modern_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_modern_door")))));
+					registryEntry(MODID, i + "_cottage_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_cottage_door")))));
+					registryEntry(MODID, i + "_classic_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_classic_door")))));
+					registryEntry(MODID, i + "_beach_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_beach_door")))));
+					registryEntry(MODID, i + "_paper_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_paper_door")))));
+					registryEntry(MODID, i + "_four_panel_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_four_panel_door")))));
+					registryEntry(MODID, i + "_tropical_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_tropical_door")))));
+					registryEntry(MODID, i + "_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_glass_door")))));
+					registryEntry(MODID, i + "_stable_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_stable_door")))));
+					registryEntry(MODID, i + "_stable_head_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_stable_head_door")))));
+					registryEntry(MODID, i + "_western_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_western_door")))));
+					registryEntry(MODID, i + "_mystic_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_mystic_door")))));
+					registryEntry(MODID, i + "_nether_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_nether_door")))));
+					registryEntry(MODID, i + "_swamp_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_swamp_door")))));
+					registryEntry(MODID, i + "_bamboo_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bamboo_door")))));
+					registryEntry(MODID, i + "_bark_glass_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bark_glass_door")))));
+					registryEntry(MODID, i + "_waffle_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_waffle_door")))));
+					registryEntry(MODID, i + "_whispering_door", new DoorBlock(BlockSetType.OAK, JAPAN.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_whispering_door")))));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

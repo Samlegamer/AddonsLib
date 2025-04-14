@@ -23,39 +23,32 @@ public class Furnitures
 {
 	public static final String modid = "mcwfurnitures";
 	
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b)
 	{
 		final Identifier ID = Identifier.of(MODID, name);
 		final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, ID);
-
-		Registry.register(Registries.BLOCK, Identifier.of(MODID, name), b);
-
-		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
-    	{
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-    	}
-    	else {
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-        }
+		Registry.register(Registries.BLOCK, ID, b);
+		Registry.register(Registries.ITEM, ID, new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
 	}
 	
 	/**
 	 * Init all Wood Variants of Macaw's Furnitures
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab)
+	public static void setRegistrationWood(String MODID, List<String> set)
 	{
-		setRegistrationWoodModLoaded(MODID, set, tab, "minecraft");
+		final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
+		setRegistrationWoodModLoaded(MODID, set, WOOD);
 	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Furnitures with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded)
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
 	{
-			final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
+			final AbstractBlock.Settings WOOD = prop;
 
 			for(String i : set)
-			{				
+			{
 				try {
 				    if (AddonsLib.isLoaded(modid))
 				    {
@@ -300,134 +293,134 @@ public class Furnitures
 								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_glass_kitchen_cabinet")))
 						);
 
-				    	registryEntry(MODID, i+"_wardrobe", cherry_wardrobe, tab, modLoaded);
-						registryEntry(MODID, i+"_modern_wardrobe", cherry_modern_wardrobe, tab, modLoaded);
-						registryEntry(MODID, i+"_double_wardrobe", cherry_double_wardrobe, tab, modLoaded);
-						registryEntry(MODID, i+"_bookshelf", cherry_bookshelf, tab, modLoaded);
-						registryEntry(MODID, i+"_bookshelf_cupboard", cherry_bookshelf_cupboard, tab, modLoaded);
-						registryEntry(MODID, i+"_drawer", cherry_drawer, tab, modLoaded);
-						registryEntry(MODID, i+"_double_drawer", cherry_double_drawer, tab, modLoaded);
-						registryEntry(MODID, i+"_bookshelf_drawer", cherry_bookshelf_drawer, tab, modLoaded);
-						registryEntry(MODID, i+"_lower_bookshelf_drawer", cherry_lower_bookshelf_drawer, tab, modLoaded);
-						registryEntry(MODID, i+"_large_drawer", cherry_large_drawer, tab, modLoaded);
-						registryEntry(MODID, i+"_lower_triple_drawer", cherry_lower_triple_drawer, tab, modLoaded);
-						registryEntry(MODID, i+"_triple_drawer", cherry_triple_drawer, tab, modLoaded);
-						registryEntry(MODID, i+"_desk", cherry_desk, tab, modLoaded);
-						registryEntry(MODID, i+"_covered_desk", cherry_covered_desk, tab, modLoaded);
-						registryEntry(MODID, i+"_modern_desk", cherry_modern_desk, tab, modLoaded);
-						registryEntry(MODID, i+"_table", cherry_table, tab, modLoaded);
-						registryEntry(MODID, i+"_end_table", cherry_end_table, tab, modLoaded);
-						registryEntry(MODID, i+"_coffee_table", cherry_coffee_table, tab, modLoaded);
-						registryEntry(MODID, i+"_glass_table", cherry_glass_table, tab, modLoaded);
-						registryEntry(MODID, i+"_chair", cherry_chair, tab, modLoaded);
-						registryEntry(MODID, i+"_modern_chair", cherry_modern_chair, tab, modLoaded);
-						registryEntry(MODID, i+"_striped_chair", cherry_striped_chair, tab, modLoaded);
-						registryEntry(MODID, i+"_stool_chair", cherry_stool_chair, tab, modLoaded);
-						registryEntry(MODID, i+"_counter", cherry_counter, tab, modLoaded);
-						registryEntry(MODID, i+"_drawer_counter", cherry_drawer_counter, tab, modLoaded);
-						registryEntry(MODID, i+"_double_drawer_counter", cherry_double_drawer_counter, tab, modLoaded);
-						registryEntry(MODID, i+"_cupboard_counter", cherry_cupboard_counter, tab, modLoaded);
+				    	registryEntry(MODID, i+"_wardrobe", cherry_wardrobe);
+						registryEntry(MODID, i+"_modern_wardrobe", cherry_modern_wardrobe);
+						registryEntry(MODID, i+"_double_wardrobe", cherry_double_wardrobe);
+						registryEntry(MODID, i+"_bookshelf", cherry_bookshelf);
+						registryEntry(MODID, i+"_bookshelf_cupboard", cherry_bookshelf_cupboard);
+						registryEntry(MODID, i+"_drawer", cherry_drawer);
+						registryEntry(MODID, i+"_double_drawer", cherry_double_drawer);
+						registryEntry(MODID, i+"_bookshelf_drawer", cherry_bookshelf_drawer);
+						registryEntry(MODID, i+"_lower_bookshelf_drawer", cherry_lower_bookshelf_drawer);
+						registryEntry(MODID, i+"_large_drawer", cherry_large_drawer);
+						registryEntry(MODID, i+"_lower_triple_drawer", cherry_lower_triple_drawer);
+						registryEntry(MODID, i+"_triple_drawer", cherry_triple_drawer);
+						registryEntry(MODID, i+"_desk", cherry_desk);
+						registryEntry(MODID, i+"_covered_desk", cherry_covered_desk);
+						registryEntry(MODID, i+"_modern_desk", cherry_modern_desk);
+						registryEntry(MODID, i+"_table", cherry_table);
+						registryEntry(MODID, i+"_end_table", cherry_end_table);
+						registryEntry(MODID, i+"_coffee_table", cherry_coffee_table);
+						registryEntry(MODID, i+"_glass_table", cherry_glass_table);
+						registryEntry(MODID, i+"_chair", cherry_chair);
+						registryEntry(MODID, i+"_modern_chair", cherry_modern_chair);
+						registryEntry(MODID, i+"_striped_chair", cherry_striped_chair);
+						registryEntry(MODID, i+"_stool_chair", cherry_stool_chair);
+						registryEntry(MODID, i+"_counter", cherry_counter);
+						registryEntry(MODID, i+"_drawer_counter", cherry_drawer_counter);
+						registryEntry(MODID, i+"_double_drawer_counter", cherry_double_drawer_counter);
+						registryEntry(MODID, i+"_cupboard_counter", cherry_cupboard_counter);
 
-						registryEntry(MODID, "stripped_"+i+"_wardrobe", stripped_cherry_wardrobe, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_modern_wardrobe", stripped_cherry_modern_wardrobe, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_double_wardrobe", stripped_cherry_double_wardrobe, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_bookshelf", stripped_cherry_bookshelf, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_bookshelf_cupboard", stripped_cherry_bookshelf_cupboard, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_drawer", stripped_cherry_drawer, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_double_drawer", stripped_cherry_double_drawer, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_bookshelf_drawer", stripped_cherry_bookshelf_drawer, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_lower_bookshelf_drawer", stripped_cherry_lower_bookshelf_drawer, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_large_drawer", stripped_cherry_large_drawer, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_lower_triple_drawer", stripped_cherry_lower_triple_drawer, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_triple_drawer", stripped_cherry_triple_drawer, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_desk", stripped_cherry_desk, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_covered_desk", stripped_cherry_covered_desk, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_modern_desk", stripped_cherry_modern_desk, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_table", stripped_cherry_table, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_end_table", stripped_cherry_end_table, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_coffee_table", stripped_cherry_coffee_table, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_glass_table", stripped_cherry_glass_table, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_chair", stripped_cherry_chair, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_modern_chair", stripped_cherry_modern_chair, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_striped_chair", stripped_cherry_striped_chair, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_stool_chair", stripped_cherry_stool_chair, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_counter", stripped_cherry_counter, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_drawer_counter", stripped_cherry_drawer_counter, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_double_drawer_counter", stripped_cherry_double_drawer_counter, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_cupboard_counter", stripped_cherry_cupboard_counter, tab, modLoaded);
-						registryEntry(MODID, i+"_kitchen_cabinet", cherry_kitchen_cabinet, tab, modLoaded);
-						registryEntry(MODID, i+"_double_kitchen_cabinet", cherry_double_kitchen_cabinet, tab, modLoaded);
-						registryEntry(MODID, i+"_glass_kitchen_cabinet", cherry_glass_kitchen_cabinet, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_kitchen_cabinet", stripped_cherry_kitchen_cabinet, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_double_kitchen_cabinet", stripped_cherry_double_kitchen_cabinet, tab, modLoaded);
-						registryEntry(MODID, "stripped_"+i+"_glass_kitchen_cabinet", stripped_cherry_glass_kitchen_cabinet, tab, modLoaded);
+						registryEntry(MODID, "stripped_"+i+"_wardrobe", stripped_cherry_wardrobe);
+						registryEntry(MODID, "stripped_"+i+"_modern_wardrobe", stripped_cherry_modern_wardrobe);
+						registryEntry(MODID, "stripped_"+i+"_double_wardrobe", stripped_cherry_double_wardrobe);
+						registryEntry(MODID, "stripped_"+i+"_bookshelf", stripped_cherry_bookshelf);
+						registryEntry(MODID, "stripped_"+i+"_bookshelf_cupboard", stripped_cherry_bookshelf_cupboard);
+						registryEntry(MODID, "stripped_"+i+"_drawer", stripped_cherry_drawer);
+						registryEntry(MODID, "stripped_"+i+"_double_drawer", stripped_cherry_double_drawer);
+						registryEntry(MODID, "stripped_"+i+"_bookshelf_drawer", stripped_cherry_bookshelf_drawer);
+						registryEntry(MODID, "stripped_"+i+"_lower_bookshelf_drawer", stripped_cherry_lower_bookshelf_drawer);
+						registryEntry(MODID, "stripped_"+i+"_large_drawer", stripped_cherry_large_drawer);
+						registryEntry(MODID, "stripped_"+i+"_lower_triple_drawer", stripped_cherry_lower_triple_drawer);
+						registryEntry(MODID, "stripped_"+i+"_triple_drawer", stripped_cherry_triple_drawer);
+						registryEntry(MODID, "stripped_"+i+"_desk", stripped_cherry_desk);
+						registryEntry(MODID, "stripped_"+i+"_covered_desk", stripped_cherry_covered_desk);
+						registryEntry(MODID, "stripped_"+i+"_modern_desk", stripped_cherry_modern_desk);
+						registryEntry(MODID, "stripped_"+i+"_table", stripped_cherry_table);
+						registryEntry(MODID, "stripped_"+i+"_end_table", stripped_cherry_end_table);
+						registryEntry(MODID, "stripped_"+i+"_coffee_table", stripped_cherry_coffee_table);
+						registryEntry(MODID, "stripped_"+i+"_glass_table", stripped_cherry_glass_table);
+						registryEntry(MODID, "stripped_"+i+"_chair", stripped_cherry_chair);
+						registryEntry(MODID, "stripped_"+i+"_modern_chair", stripped_cherry_modern_chair);
+						registryEntry(MODID, "stripped_"+i+"_striped_chair", stripped_cherry_striped_chair);
+						registryEntry(MODID, "stripped_"+i+"_stool_chair", stripped_cherry_stool_chair);
+						registryEntry(MODID, "stripped_"+i+"_counter", stripped_cherry_counter);
+						registryEntry(MODID, "stripped_"+i+"_drawer_counter", stripped_cherry_drawer_counter);
+						registryEntry(MODID, "stripped_"+i+"_double_drawer_counter", stripped_cherry_double_drawer_counter);
+						registryEntry(MODID, "stripped_"+i+"_cupboard_counter", stripped_cherry_cupboard_counter);
+						registryEntry(MODID, i+"_kitchen_cabinet", cherry_kitchen_cabinet);
+						registryEntry(MODID, i+"_double_kitchen_cabinet", cherry_double_kitchen_cabinet);
+						registryEntry(MODID, i+"_glass_kitchen_cabinet", cherry_glass_kitchen_cabinet);
+						registryEntry(MODID, "stripped_"+i+"_kitchen_cabinet", stripped_cherry_kitchen_cabinet);
+						registryEntry(MODID, "stripped_"+i+"_double_kitchen_cabinet", stripped_cherry_double_kitchen_cabinet);
+						registryEntry(MODID, "stripped_"+i+"_glass_kitchen_cabinet", stripped_cherry_glass_kitchen_cabinet);
 				    }
 				    else
 				    {
-						registryEntry(MODID, i+"_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_wardrobe")))), tab, modLoaded);
-						registryEntry(MODID, i+"_modern_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_modern_wardrobe")))), tab, modLoaded);
-						registryEntry(MODID, i+"_double_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_double_wardrobe")))), tab, modLoaded);
-						registryEntry(MODID, i+"_bookshelf", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_bookshelf")))), tab, modLoaded);
-						registryEntry(MODID, i+"_bookshelf_cupboard", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_bookshelf_cupboard")))), tab, modLoaded);
-						registryEntry(MODID, i+"_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_drawer")))), tab, modLoaded);
-						registryEntry(MODID, i+"_double_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_double_drawer")))), tab, modLoaded);
-						registryEntry(MODID, i+"_bookshelf_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_bookshelf_drawer")))), tab, modLoaded);
-						registryEntry(MODID, i+"_lower_bookshelf_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_lower_bookshelf_drawer")))), tab, modLoaded);
-						registryEntry(MODID, i+"_large_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_large_drawer")))), tab, modLoaded);
-						registryEntry(MODID, i+"_lower_triple_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_lower_triple_drawer")))), tab, modLoaded);
-						registryEntry(MODID, i+"_triple_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_triple_drawer")))), tab, modLoaded);
-						registryEntry(MODID, i+"_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_desk")))), tab, modLoaded);
-						registryEntry(MODID, i+"_covered_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_covered_desk")))), tab, modLoaded);
-						registryEntry(MODID, i+"_modern_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_modern_desk")))), tab, modLoaded);
-						registryEntry(MODID, i+"_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_table")))), tab, modLoaded);
-						registryEntry(MODID, i+"_end_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_end_table")))), tab, modLoaded);
-						registryEntry(MODID, i+"_coffee_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_coffee_table")))), tab, modLoaded);
-						registryEntry(MODID, i+"_glass_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_glass_table")))), tab, modLoaded);
-						registryEntry(MODID, i+"_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_chair")))), tab, modLoaded);
-						registryEntry(MODID, i+"_modern_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_modern_chair")))), tab, modLoaded);
-						registryEntry(MODID, i+"_striped_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_striped_chair")))), tab, modLoaded);
-						registryEntry(MODID, i+"_stool_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_stool_chair")))), tab, modLoaded);
-						registryEntry(MODID, i+"_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_counter")))), tab, modLoaded);
-						registryEntry(MODID, i+"_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_drawer_counter")))), tab, modLoaded);
-						registryEntry(MODID, i+"_double_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_double_drawer_counter")))), tab, modLoaded);
-						registryEntry(MODID, i+"_cupboard_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_cupboard_counter")))), tab, modLoaded);
+						registryEntry(MODID, i+"_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_wardrobe")))));
+						registryEntry(MODID, i+"_modern_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_modern_wardrobe")))));
+						registryEntry(MODID, i+"_double_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_double_wardrobe")))));
+						registryEntry(MODID, i+"_bookshelf", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_bookshelf")))));
+						registryEntry(MODID, i+"_bookshelf_cupboard", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_bookshelf_cupboard")))));
+						registryEntry(MODID, i+"_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_drawer")))));
+						registryEntry(MODID, i+"_double_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_double_drawer")))));
+						registryEntry(MODID, i+"_bookshelf_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_bookshelf_drawer")))));
+						registryEntry(MODID, i+"_lower_bookshelf_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_lower_bookshelf_drawer")))));
+						registryEntry(MODID, i+"_large_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_large_drawer")))));
+						registryEntry(MODID, i+"_lower_triple_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_lower_triple_drawer")))));
+						registryEntry(MODID, i+"_triple_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_triple_drawer")))));
+						registryEntry(MODID, i+"_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_desk")))));
+						registryEntry(MODID, i+"_covered_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_covered_desk")))));
+						registryEntry(MODID, i+"_modern_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_modern_desk")))));
+						registryEntry(MODID, i+"_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_table")))));
+						registryEntry(MODID, i+"_end_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_end_table")))));
+						registryEntry(MODID, i+"_coffee_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_coffee_table")))));
+						registryEntry(MODID, i+"_glass_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_glass_table")))));
+						registryEntry(MODID, i+"_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_chair")))));
+						registryEntry(MODID, i+"_modern_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_modern_chair")))));
+						registryEntry(MODID, i+"_striped_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_striped_chair")))));
+						registryEntry(MODID, i+"_stool_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_stool_chair")))));
+						registryEntry(MODID, i+"_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_counter")))));
+						registryEntry(MODID, i+"_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_drawer_counter")))));
+						registryEntry(MODID, i+"_double_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_double_drawer_counter")))));
+						registryEntry(MODID, i+"_cupboard_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_cupboard_counter")))));
 
-						registryEntry(MODID, "stripped_" + i + "_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_wardrobe")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_modern_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_modern_wardrobe")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_double_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_double_wardrobe")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_bookshelf", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_bookshelf")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_bookshelf_cupboard", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_bookshelf_cupboard")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_drawer")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_double_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_double_drawer")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_bookshelf_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_bookshelf_drawer")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_lower_bookshelf_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_lower_bookshelf_drawer")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_large_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_large_drawer")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_lower_triple_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_lower_triple_drawer")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_triple_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_triple_drawer")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_desk")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_covered_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_covered_desk")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_modern_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_modern_desk")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_table")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_end_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_end_table")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_coffee_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_coffee_table")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_glass_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_glass_table")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_chair")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_modern_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_modern_chair")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_striped_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_striped_chair")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_stool_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_stool_chair")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_counter")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_drawer_counter")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_double_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_double_drawer_counter")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_cupboard_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_cupboard_counter")))), tab, modLoaded);
-						registryEntry(MODID, i + "_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_kitchen_cabinet")))), tab, modLoaded);
-						registryEntry(MODID, i + "_double_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_double_kitchen_cabinet")))), tab, modLoaded);
-						registryEntry(MODID, i + "_glass_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_glass_kitchen_cabinet")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_kitchen_cabinet")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_double_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_double_kitchen_cabinet")))), tab, modLoaded);
-						registryEntry(MODID, "stripped_" + i + "_glass_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_glass_kitchen_cabinet")))), tab, modLoaded);
+						registryEntry(MODID, "stripped_" + i + "_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_wardrobe")))));
+						registryEntry(MODID, "stripped_" + i + "_modern_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_modern_wardrobe")))));
+						registryEntry(MODID, "stripped_" + i + "_double_wardrobe", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_double_wardrobe")))));
+						registryEntry(MODID, "stripped_" + i + "_bookshelf", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_bookshelf")))));
+						registryEntry(MODID, "stripped_" + i + "_bookshelf_cupboard", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_bookshelf_cupboard")))));
+						registryEntry(MODID, "stripped_" + i + "_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_drawer")))));
+						registryEntry(MODID, "stripped_" + i + "_double_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_double_drawer")))));
+						registryEntry(MODID, "stripped_" + i + "_bookshelf_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_bookshelf_drawer")))));
+						registryEntry(MODID, "stripped_" + i + "_lower_bookshelf_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_lower_bookshelf_drawer")))));
+						registryEntry(MODID, "stripped_" + i + "_large_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_large_drawer")))));
+						registryEntry(MODID, "stripped_" + i + "_lower_triple_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_lower_triple_drawer")))));
+						registryEntry(MODID, "stripped_" + i + "_triple_drawer", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_triple_drawer")))));
+						registryEntry(MODID, "stripped_" + i + "_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_desk")))));
+						registryEntry(MODID, "stripped_" + i + "_covered_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_covered_desk")))));
+						registryEntry(MODID, "stripped_" + i + "_modern_desk", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_modern_desk")))));
+						registryEntry(MODID, "stripped_" + i + "_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_table")))));
+						registryEntry(MODID, "stripped_" + i + "_end_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_end_table")))));
+						registryEntry(MODID, "stripped_" + i + "_coffee_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_coffee_table")))));
+						registryEntry(MODID, "stripped_" + i + "_glass_table", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_glass_table")))));
+						registryEntry(MODID, "stripped_" + i + "_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_chair")))));
+						registryEntry(MODID, "stripped_" + i + "_modern_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_modern_chair")))));
+						registryEntry(MODID, "stripped_" + i + "_striped_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_striped_chair")))));
+						registryEntry(MODID, "stripped_" + i + "_stool_chair", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_stool_chair")))));
+						registryEntry(MODID, "stripped_" + i + "_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_counter")))));
+						registryEntry(MODID, "stripped_" + i + "_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_drawer_counter")))));
+						registryEntry(MODID, "stripped_" + i + "_double_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_double_drawer_counter")))));
+						registryEntry(MODID, "stripped_" + i + "_cupboard_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_cupboard_counter")))));
+						registryEntry(MODID, i + "_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_kitchen_cabinet")))));
+						registryEntry(MODID, i + "_double_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_double_kitchen_cabinet")))));
+						registryEntry(MODID, i + "_glass_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_glass_kitchen_cabinet")))));
+						registryEntry(MODID, "stripped_" + i + "_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_kitchen_cabinet")))));
+						registryEntry(MODID, "stripped_" + i + "_double_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_double_kitchen_cabinet")))));
+						registryEntry(MODID, "stripped_" + i + "_glass_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "stripped_" + i + "_glass_kitchen_cabinet")))));
 				    }
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}

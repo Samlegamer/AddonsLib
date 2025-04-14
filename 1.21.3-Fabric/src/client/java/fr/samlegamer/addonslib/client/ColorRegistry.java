@@ -1,6 +1,5 @@
 package fr.samlegamer.addonslib.client;
 
-import java.util.ArrayList;
 import java.util.List;
 import fr.samlegamer.addonslib.Finder;
 import net.fabricmc.api.EnvType;
@@ -12,8 +11,8 @@ import net.minecraft.world.biome.FoliageColors;
 @Environment(EnvType.CLIENT)
 public class ColorRegistry
 {
-	private String MODID;
-	private List<String> NoColorLeaves = new ArrayList<String>();
+	private final String MODID;
+	private final List<String> NoColorLeaves;
 	
 	public ColorRegistry(String MODID, List<String> LEAVES)
 	{

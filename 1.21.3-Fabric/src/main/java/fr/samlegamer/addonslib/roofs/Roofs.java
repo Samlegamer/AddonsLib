@@ -21,46 +21,38 @@ import net.minecraft.util.Identifier;
 
 public class Roofs
 {
-	private static AbstractBlock.Settings wood = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
-	private static AbstractBlock.Settings stone = AbstractBlock.Settings.copy(Blocks.COBBLESTONE);
+	private static final AbstractBlock.Settings wood = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
+	private static final AbstractBlock.Settings stone = AbstractBlock.Settings.copy(Blocks.COBBLESTONE);
 	public static final String modid = "mcwroofs";
 	
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b)
 	{
 		final Identifier ID = Identifier.of(MODID, name);
 		final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, ID);
-
-		Registry.register(Registries.BLOCK, Identifier.of(MODID, name), b);
-
-		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
-    	{
-    		Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-    	}
-    	else {
-    		Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-        }
+		Registry.register(Registries.BLOCK, ID, b);
+		Registry.register(Registries.ITEM, ID, new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
 	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Roofs
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab)
+	public static void setRegistrationWood(String MODID, List<String> set)
 	{
-		setRegistrationWoodModLoaded(MODID, set, tab, "minecraft", wood);
+		setRegistrationWoodModLoaded(MODID, set, wood);
 	}
 	
 	/**
 	 * Init all Stone Variants of Macaw's Roofs
 	 */
-	public static void setRegistrationRock(String MODID, List<String> rock, ItemGroup tab)
+	public static void setRegistrationRock(String MODID, List<String> rock)
 	{
-		setRegistrationRockModLoaded(MODID, rock, tab, "minecraft", stone);
+		setRegistrationRockModLoaded(MODID, rock, stone);
 	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Roofs
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded, AbstractBlock.Settings prop)
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
 	{
 			final AbstractBlock.Settings WOOD = prop;
 
@@ -136,41 +128,41 @@ public class Roofs
 								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_planks_upper_steep_roof"))),
 								Blocks.OAK_PLANKS.getDefaultState()
 						);
-				    	registryEntry(MODID, i+"_roof", cherry_roof, tab, modLoaded);
-			            registryEntry(MODID, i + "_attic_roof", cherry_attic_roof, tab, modLoaded);
-			            registryEntry(MODID, i + "_top_roof", cherry_top_roof, tab, modLoaded);
-					    registryEntry(MODID, i+"_lower_roof", cherry_lower_roof, tab, modLoaded);
-					    registryEntry(MODID, i+"_steep_roof", cherry_steep_roof, tab, modLoaded);
-			            registryEntry(MODID, i + "_upper_lower_roof", cherry_upper_lower_roof, tab, modLoaded);
-			            registryEntry(MODID, i + "_upper_steep_roof", cherry_upper_steep_roof, tab, modLoaded);
+				    	registryEntry(MODID, i+"_roof", cherry_roof);
+			            registryEntry(MODID, i + "_attic_roof", cherry_attic_roof);
+			            registryEntry(MODID, i + "_top_roof", cherry_top_roof);
+					    registryEntry(MODID, i+"_lower_roof", cherry_lower_roof);
+					    registryEntry(MODID, i+"_steep_roof", cherry_steep_roof);
+			            registryEntry(MODID, i + "_upper_lower_roof", cherry_upper_lower_roof);
+			            registryEntry(MODID, i + "_upper_steep_roof", cherry_upper_steep_roof);
 					    
-			            registryEntry(MODID, i+"_planks_roof", cherry_planks_roof, tab, modLoaded);
-			            registryEntry(MODID, i + "_planks_attic_roof", cherry_planks_attic_roof, tab, modLoaded);
-			            registryEntry(MODID, i + "_planks_top_roof", cherry_planks_top_roof, tab, modLoaded);
-					    registryEntry(MODID, i+"_planks_lower_roof", cherry_planks_lower_roof, tab, modLoaded);
-					    registryEntry(MODID, i+"_planks_steep_roof", cherry_planks_steep_roof, tab, modLoaded);
-			            registryEntry(MODID, i + "_planks_upper_lower_roof", cherry_planks_upper_lower_roof, tab, modLoaded);
-			            registryEntry(MODID, i + "_planks_upper_steep_roof", cherry_planks_upper_steep_roof, tab, modLoaded);
+			            registryEntry(MODID, i+"_planks_roof", cherry_planks_roof);
+			            registryEntry(MODID, i + "_planks_attic_roof", cherry_planks_attic_roof);
+			            registryEntry(MODID, i + "_planks_top_roof", cherry_planks_top_roof);
+					    registryEntry(MODID, i+"_planks_lower_roof", cherry_planks_lower_roof);
+					    registryEntry(MODID, i+"_planks_steep_roof", cherry_planks_steep_roof);
+			            registryEntry(MODID, i + "_planks_upper_lower_roof", cherry_planks_upper_lower_roof);
+			            registryEntry(MODID, i + "_planks_upper_steep_roof", cherry_planks_upper_steep_roof);
 				    }
 				    else
 				    {
-						registryEntry(MODID, i + "_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_attic_roof", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_attic_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_top_roof", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_top_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_lower_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_steep_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_upper_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_upper_lower_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_upper_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_upper_steep_roof")))), tab, modLoaded);
+						registryEntry(MODID, i + "_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_roof")))));
+						registryEntry(MODID, i + "_attic_roof", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_attic_roof")))));
+						registryEntry(MODID, i + "_top_roof", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_top_roof")))));
+						registryEntry(MODID, i + "_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_lower_roof")))));
+						registryEntry(MODID, i + "_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_steep_roof")))));
+						registryEntry(MODID, i + "_upper_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_upper_lower_roof")))));
+						registryEntry(MODID, i + "_upper_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_upper_steep_roof")))));
 
-						registryEntry(MODID, i + "_planks_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_planks_attic_roof", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_attic_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_planks_top_roof", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_top_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_planks_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_lower_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_planks_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_steep_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_planks_upper_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_upper_lower_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_planks_upper_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_upper_steep_roof")))), tab, modLoaded);				    }
+						registryEntry(MODID, i + "_planks_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_roof")))));
+						registryEntry(MODID, i + "_planks_attic_roof", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_attic_roof")))));
+						registryEntry(MODID, i + "_planks_top_roof", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_top_roof")))));
+						registryEntry(MODID, i + "_planks_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_lower_roof")))));
+						registryEntry(MODID, i + "_planks_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_steep_roof")))));
+						registryEntry(MODID, i + "_planks_upper_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_upper_lower_roof")))));
+						registryEntry(MODID, i + "_planks_upper_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_planks_upper_steep_roof")))));				    }
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}
@@ -178,7 +170,7 @@ public class Roofs
 	/**
 	 * Init all Stone Variants of Macaw's Roofs
 	 */
-	public static void setRegistrationRockModLoaded(String MODID, List<String> rock, ItemGroup tab, String modLoaded, AbstractBlock.Settings prop)
+	public static void setRegistrationRockModLoaded(String MODID, List<String> rock, AbstractBlock.Settings prop)
 	{
 			final AbstractBlock.Settings STONE = prop;
 
@@ -221,27 +213,26 @@ public class Roofs
 								Blocks.COBBLESTONE.getDefaultState()
 						);
 
-				    	registryEntry(MODID, i+"_roof", ROOF, tab, modLoaded);
-			            registryEntry(MODID, i + "_attic_roof", ATTIC_ROOF, tab, modLoaded);
-			            registryEntry(MODID, i + "_top_roof", TOP_ROOF, tab, modLoaded);
-			            registryEntry(MODID, i+"_lower_roof", LOWER_ROOF, tab, modLoaded);
-			            registryEntry(MODID, i+"_steep_roof", STEEP_ROOF, tab, modLoaded);
-			            registryEntry(MODID, i + "_upper_lower_roof", UPPER_LOWER_ROOF, tab, modLoaded);
-			            registryEntry(MODID, i + "_upper_steep_roof", UPPER_STEEP_ROOF, tab, modLoaded);
+				    	registryEntry(MODID, i+"_roof", ROOF);
+			            registryEntry(MODID, i + "_attic_roof", ATTIC_ROOF);
+			            registryEntry(MODID, i + "_top_roof", TOP_ROOF);
+			            registryEntry(MODID, i+"_lower_roof", LOWER_ROOF);
+			            registryEntry(MODID, i+"_steep_roof", STEEP_ROOF);
+			            registryEntry(MODID, i + "_upper_lower_roof", UPPER_LOWER_ROOF);
+			            registryEntry(MODID, i + "_upper_steep_roof", UPPER_STEEP_ROOF);
 				    }
 				    else
 				    {
-						registryEntry(MODID, i + "_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_attic_roof", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_attic_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_top_roof", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_top_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_lower_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_steep_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_upper_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_upper_lower_roof")))), tab, modLoaded);
-						registryEntry(MODID, i + "_upper_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_upper_steep_roof")))), tab, modLoaded);
+						registryEntry(MODID, i + "_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_roof")))));
+						registryEntry(MODID, i + "_attic_roof", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_attic_roof")))));
+						registryEntry(MODID, i + "_top_roof", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_top_roof")))));
+						registryEntry(MODID, i + "_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_lower_roof")))));
+						registryEntry(MODID, i + "_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_steep_roof")))));
+						registryEntry(MODID, i + "_upper_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_upper_lower_roof")))));
+						registryEntry(MODID, i + "_upper_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_upper_steep_roof")))));
 					}
-				} catch (Exception e)
-				{
-				    e.printStackTrace();
+				} catch (Exception e) {
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}

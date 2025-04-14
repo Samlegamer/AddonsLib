@@ -23,56 +23,49 @@ public class Trapdoors
 {
 	public static final String modid = "mcwtrpdoors";
 	
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b)
 	{
 		final Identifier ID = Identifier.of(MODID, name);
 		final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, ID);
-
-		Registry.register(Registries.BLOCK, Identifier.of(MODID, name), b);
-
-		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
-    	{
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-    	}
-    	else {
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-        }
+		Registry.register(Registries.BLOCK, ID, b);
+		Registry.register(Registries.ITEM, ID, new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
 	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Trapdoors
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab)
+	public static void setRegistrationWood(String MODID, List<String> set)
 	{
-		setRegistrationWoodModLoaded(MODID, set, tab, "minecraft");
+		final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR);
+		setRegistrationWoodModLoaded(MODID, set, WOOD);
 	}
 	
 	/**
 	 * Init all Wood Variants of Macaw's Trapdoors with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded)
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
 	{
-			final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR);
+			final AbstractBlock.Settings WOOD = prop;
 			
 			for(String i : set)
 			{
-				registryEntry(MODID, i + "_barn_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barn_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_cottage_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_cottage_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_barred_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barred_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_beach_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_beach_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_four_panel_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_four_panel_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_glass_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_glass_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_mystic_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_mystic_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_paper_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_paper_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_tropical_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_tropical_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_swamp_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_swamp_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_bamboo_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bamboo_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_classic_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_classic_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_bark_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bark_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_ranch_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_ranch_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_blossom_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_blossom_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_barrel_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barrel_trapdoor")))), tab, modLoaded);
-				registryEntry(MODID, i + "_whispering_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_whispering_trapdoor")))), tab, modLoaded);
+				registryEntry(MODID, i + "_barn_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barn_trapdoor")))));
+				registryEntry(MODID, i + "_cottage_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_cottage_trapdoor")))));
+				registryEntry(MODID, i + "_barred_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barred_trapdoor")))));
+				registryEntry(MODID, i + "_beach_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_beach_trapdoor")))));
+				registryEntry(MODID, i + "_four_panel_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_four_panel_trapdoor")))));
+				registryEntry(MODID, i + "_glass_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_glass_trapdoor")))));
+				registryEntry(MODID, i + "_mystic_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_mystic_trapdoor")))));
+				registryEntry(MODID, i + "_paper_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_paper_trapdoor")))));
+				registryEntry(MODID, i + "_tropical_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_tropical_trapdoor")))));
+				registryEntry(MODID, i + "_swamp_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_swamp_trapdoor")))));
+				registryEntry(MODID, i + "_bamboo_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bamboo_trapdoor")))));
+				registryEntry(MODID, i + "_classic_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_classic_trapdoor")))));
+				registryEntry(MODID, i + "_bark_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bark_trapdoor")))));
+				registryEntry(MODID, i + "_ranch_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_ranch_trapdoor")))));
+				registryEntry(MODID, i + "_blossom_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_blossom_trapdoor")))));
+				registryEntry(MODID, i + "_barrel_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barrel_trapdoor")))));
+				registryEntry(MODID, i + "_whispering_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_whispering_trapdoor")))));
 			}
 	}
 	

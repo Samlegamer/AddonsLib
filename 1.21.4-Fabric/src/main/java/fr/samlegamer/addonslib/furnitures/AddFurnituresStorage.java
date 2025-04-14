@@ -1,33 +1,41 @@
 package fr.samlegamer.addonslib.furnitures;
 
-import java.util.Collections;
-import java.util.HashSet;
+import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Set;
+import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntityType;
 
 /*
- * Is used in McwFurnituresBOP 1.21.1
+ * First used in McwFurnituresBOP 1.21.1
  * Fix Placing Furnitures Crash
  */
 public class AddFurnituresStorage
 {
-	private static void addCompatibleBlocks(Block... blocks)
-	{
-        Set<Block> currentBlocks = new HashSet<>(Finder.findTileEntity("mcwfurnitures", "furniture_storage").validBlocks);
-        Collections.addAll(currentBlocks, blocks);
-        Finder.findTileEntity("mcwfurnitures", "furniture_storage").validBlocks = Set.copyOf(currentBlocks);
+	
+	private static void addCompatibleBlocks(Block... blocks) {
+		try {
+		    Class<?> furnitureClass = Class.forName("net.kikoz.mcwfurnitures.MacawsFurniture");
+
+		    Field blockEntityField = furnitureClass.getField("FURNITURE_BLOCK_ENTITY"); // Pas besoin de setAccessible
+
+		    BlockEntityType<?> furnitureBlockEntity = (BlockEntityType<?>) blockEntityField.get(null);
+
+		    if (furnitureBlockEntity == null) {
+		    } else {
+		        for (Block b : blocks) {
+		        	furnitureBlockEntity.addSupportedBlock(b); 
+		        }
+		    }
+		} catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException ignored) {
+		}
     }
 	
-	public static void addCompatibleBlocksToFurnitureStorage(FMLCommonSetupEvent e, String MODID, List<String> MAT)
+	public static void addCompatibleBlocksToFurnitureStorage(String MODID, List<String> MAT)
 	{
-		if (ModList.get().isLoaded(Furnitures.modid))
-		{
-			for (String i : MAT)
-			{
+		if(AddonsLib.isLoaded(Furnitures.modid)) {
+			for (String i : MAT) {
 				addCompatibleBlocks(Finder.findBlock(MODID, i + "_wardrobe"),
 						Finder.findBlock(MODID, i + "_modern_wardrobe"),
 						Finder.findBlock(MODID, i + "_double_wardrobe"),
@@ -64,7 +72,9 @@ public class AddFurnituresStorage
 						Finder.findBlock(MODID, i + "_glass_kitchen_cabinet"),
 						Finder.findBlock(MODID, "stripped_" + i + "_kitchen_cabinet"),
 						Finder.findBlock(MODID, "stripped_" + i + "_double_kitchen_cabinet"),
-						Finder.findBlock(MODID, "stripped_" + i + "_glass_kitchen_cabinet"));
+						Finder.findBlock(MODID, "stripped_" + i + "_glass_kitchen_cabinet"),
+						Finder.findBlock(MODID, i + "_counter"),
+						Finder.findBlock(MODID, "stripped_" + i + "_counter"));
 			}
 		}
 	}

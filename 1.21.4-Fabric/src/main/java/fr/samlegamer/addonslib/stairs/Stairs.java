@@ -23,48 +23,40 @@ public class Stairs
 {
 	public static final String modid = "mcwstairs";
 	
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b)
 	{
 		final Identifier ID = Identifier.of(MODID, name);
 		final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, ID);
+		Registry.register(Registries.BLOCK, ID, b);
+		if(name.contains("railing")) {
+			Registry.register(Registries.ITEM, ID, new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.railing.desc"));
+		}
+		else if(name.contains("balcony")) {
+			Registry.register(Registries.ITEM, ID, new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.balcony.desc"));
 
-		Registry.register(Registries.BLOCK, Identifier.of(MODID, name), b);
+		}
+		else if(name.contains("platform")) {
+			Registry.register(Registries.ITEM, ID, new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.platform.desc"));
 
-		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
-    	{
-    		if(name.contains("railing")) {
-                Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.railing.desc"));
-	        }
-	        else if(name.contains("balcony")) {
-                Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.balcony.desc"));
-
-	        }
-	        else if(name.contains("platform")) {
-                Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.platform.desc"));
-
-	        }
-	        else {
-                Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-	        }
-    	}
-    	else {
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-        }
+		}
+		else {
+			Registry.register(Registries.ITEM, ID, new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
+		}
 	}
 
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab)
+	public static void setRegistrationWood(String MODID, List<String> set)
 	{
 		final AbstractBlock.Settings WOOD = AbstractBlock.Settings.create().strength(2.0F, 2.3F).sounds(BlockSoundGroup.WOOD);
-		setRegistrationWoodModLoaded(MODID,set, tab, "minecraft", WOOD);
+		setRegistrationWoodModLoaded(MODID,set, WOOD);
 	}
 
-	public static void setRegistrationRock(String MODID, List<String> set, ItemGroup tab)
+	public static void setRegistrationRock(String MODID, List<String> set)
 	{
 		final AbstractBlock.Settings STONE = AbstractBlock.Settings.create().strength(2.0F, 2.3F).sounds(BlockSoundGroup.STONE).requiresTool();
-		setRegistrationRockModLoaded(MODID, set, tab, "minecraft", STONE);
+		setRegistrationRockModLoaded(MODID, set, STONE);
 	}
 	
-	public static void setRegistrationRockModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded, AbstractBlock.Settings prop)
+	public static void setRegistrationRockModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
 	{
 		 final AbstractBlock.Settings STONE = prop;
 
@@ -106,33 +98,33 @@ public class Stairs
 								STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_platform")))
 						);
 
-						registryEntry(MODID, i+"_terrace_stairs", ACACIA_TERRACE_STAIRS, tab, modLoaded);
-						registryEntry(MODID, i+"_skyline_stairs", ACACIA_SKYLINE_STAIRS, tab, modLoaded);
-						registryEntry(MODID, i+"_compact_stairs", ACACIA_COMPACT_STAIRS, tab, modLoaded);
-						registryEntry(MODID, i+"_bulk_stairs", ACACIA_BULK_STAIRS, tab, modLoaded);
-						registryEntry(MODID, i+"_loft_stairs", ACACIA_LOFT_STAIRS, tab, modLoaded);
-						registryEntry(MODID, i+"_railing", ACACIA_RAILING, tab, modLoaded);
-						registryEntry(MODID, i+"_balcony", ACACIA_BALCONY, tab, modLoaded);
-						registryEntry(MODID, i+"_platform", ACACIA_PLATFORM, tab, modLoaded);
+						registryEntry(MODID, i+"_terrace_stairs", ACACIA_TERRACE_STAIRS);
+						registryEntry(MODID, i+"_skyline_stairs", ACACIA_SKYLINE_STAIRS);
+						registryEntry(MODID, i+"_compact_stairs", ACACIA_COMPACT_STAIRS);
+						registryEntry(MODID, i+"_bulk_stairs", ACACIA_BULK_STAIRS);
+						registryEntry(MODID, i+"_loft_stairs", ACACIA_LOFT_STAIRS);
+						registryEntry(MODID, i+"_railing", ACACIA_RAILING);
+						registryEntry(MODID, i+"_balcony", ACACIA_BALCONY);
+						registryEntry(MODID, i+"_platform", ACACIA_PLATFORM);
 				    }
 				    else
 				    {
-						registryEntry(MODID, i + "_terrace_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_terrace_stairs")))), tab, modLoaded);
-						registryEntry(MODID, i + "_skyline_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_skyline_stairs")))), tab, modLoaded);
-						registryEntry(MODID, i + "_compact_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_compact_stairs")))), tab, modLoaded);
-						registryEntry(MODID, i + "_bulk_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bulk_stairs")))), tab, modLoaded);
-						registryEntry(MODID, i + "_loft_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_loft_stairs")))), tab, modLoaded);
-						registryEntry(MODID, i + "_railing", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_railing")))), tab, modLoaded);
-						registryEntry(MODID, i + "_balcony", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_balcony")))), tab, modLoaded);
-						registryEntry(MODID, i + "_platform", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_platform")))), tab, modLoaded);
+						registryEntry(MODID, i + "_terrace_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_terrace_stairs")))));
+						registryEntry(MODID, i + "_skyline_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_skyline_stairs")))));
+						registryEntry(MODID, i + "_compact_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_compact_stairs")))));
+						registryEntry(MODID, i + "_bulk_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bulk_stairs")))));
+						registryEntry(MODID, i + "_loft_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_loft_stairs")))));
+						registryEntry(MODID, i + "_railing", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_railing")))));
+						registryEntry(MODID, i + "_balcony", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_balcony")))));
+						registryEntry(MODID, i + "_platform", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_platform")))));
 					}
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}
 	
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded, AbstractBlock.Settings prop)
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
 	{
 			final AbstractBlock.Settings WOOD = prop;
 
@@ -174,28 +166,28 @@ public class Stairs
 								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_platform")))
 						);
 				    	
-						registryEntry(MODID, i+"_terrace_stairs", ACACIA_TERRACE_STAIRS, tab, modLoaded);
-						registryEntry(MODID, i+"_skyline_stairs", ACACIA_SKYLINE_STAIRS, tab, modLoaded);
-						registryEntry(MODID, i+"_compact_stairs", ACACIA_COMPACT_STAIRS, tab, modLoaded);
-						registryEntry(MODID, i+"_bulk_stairs", ACACIA_BULK_STAIRS, tab, modLoaded);
-						registryEntry(MODID, i+"_loft_stairs", ACACIA_LOFT_STAIRS, tab, modLoaded);
-						registryEntry(MODID, i+"_railing", ACACIA_RAILING, tab, modLoaded);
-						registryEntry(MODID, i+"_balcony", ACACIA_BALCONY, tab, modLoaded);
-						registryEntry(MODID, i+"_platform", ACACIA_PLATFORM, tab, modLoaded);
+						registryEntry(MODID, i+"_terrace_stairs", ACACIA_TERRACE_STAIRS);
+						registryEntry(MODID, i+"_skyline_stairs", ACACIA_SKYLINE_STAIRS);
+						registryEntry(MODID, i+"_compact_stairs", ACACIA_COMPACT_STAIRS);
+						registryEntry(MODID, i+"_bulk_stairs", ACACIA_BULK_STAIRS);
+						registryEntry(MODID, i+"_loft_stairs", ACACIA_LOFT_STAIRS);
+						registryEntry(MODID, i+"_railing", ACACIA_RAILING);
+						registryEntry(MODID, i+"_balcony", ACACIA_BALCONY);
+						registryEntry(MODID, i+"_platform", ACACIA_PLATFORM);
 				    }
 				    else
 				    {
-						registryEntry(MODID, i + "_terrace_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_terrace_stairs")))), tab, modLoaded);
-						registryEntry(MODID, i + "_skyline_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_skyline_stairs")))), tab, modLoaded);
-						registryEntry(MODID, i + "_compact_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_compact_stairs")))), tab, modLoaded);
-						registryEntry(MODID, i + "_bulk_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bulk_stairs")))), tab, modLoaded);
-						registryEntry(MODID, i + "_loft_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_loft_stairs")))), tab, modLoaded);
-						registryEntry(MODID, i + "_railing", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_railing")))), tab, modLoaded);
-						registryEntry(MODID, i + "_balcony", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_balcony")))), tab, modLoaded);
-						registryEntry(MODID, i + "_platform", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_platform")))), tab, modLoaded);
+						registryEntry(MODID, i + "_terrace_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_terrace_stairs")))));
+						registryEntry(MODID, i + "_skyline_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_skyline_stairs")))));
+						registryEntry(MODID, i + "_compact_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_compact_stairs")))));
+						registryEntry(MODID, i + "_bulk_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bulk_stairs")))));
+						registryEntry(MODID, i + "_loft_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_loft_stairs")))));
+						registryEntry(MODID, i + "_railing", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_railing")))));
+						registryEntry(MODID, i + "_balcony", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_balcony")))));
+						registryEntry(MODID, i + "_platform", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_platform")))));
 				    }
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}

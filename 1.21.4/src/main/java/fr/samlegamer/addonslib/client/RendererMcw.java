@@ -165,7 +165,7 @@ public class RendererMcw
     {
         public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
         {
-            Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+            Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 
             for (String i : WOOD)
             {
@@ -175,6 +175,7 @@ public class RendererMcw
                 wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
                 highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
                 pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
+                curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
 
                 ItemBlockRenderTypes.setRenderLayer(picket_fence, renderSet);
                 ItemBlockRenderTypes.setRenderLayer(stockade_fence, renderSet);
@@ -182,6 +183,7 @@ public class RendererMcw
                 ItemBlockRenderTypes.setRenderLayer(wired_fence, renderSet);
                 ItemBlockRenderTypes.setRenderLayer(highley_gate, renderSet);
                 ItemBlockRenderTypes.setRenderLayer(pyramid_gate, renderSet);
+                ItemBlockRenderTypes.setRenderLayer(curved_gate, renderSet);
             }
         }
 

@@ -1,6 +1,45 @@
 1.21.x Changelog
+54.1
+====
+ - 54.1.0 1.21.4 RB 1
+          https://forums.minecraftforge.net/topic/154394-forge-541-minecraft-1214/
+
 54.0
 ====
+ - 54.0.38 Fix corrupted and invalidly symlinked worlds crashing on level select (#10406)
+ - 54.0.37 Add fast graphics render type to block model jsons (#10394)
+           Make modded leaves behave like vanilla leaves by default (Fixes #10389)
+ - 54.0.36 Add updated tag context to AddReloadListenerEvent (#10412)
+           Fixes using custom tags in GlobalLootModifiers.
+ - 54.0.35 Give ItemStack context to IForgeItem.getCapabilityProvider (#10404)
+ - 54.0.34 Re-introduce ItemStack Capabilities (#10324)
+ - 54.0.33 Fix redstone updates for comparators going up/down incorrectly. Related: #9973
+ - 54.0.32 Fix forced chunks never being ticked by the server (#10325)
+ - 54.0.31 Fix redstone update order not matching vanilla. (#10392)
+ - 54.0.30 Fix game test structure rotations being inconsistant (#10391)
+ - 54.0.29 Re-introduce IForgeItem.damageItem when an item takes damage, Fixes #10344 (#10371)
+ - 54.0.28 Gate client test mods behind clientSideOnly (#10390)
+ - 54.0.27 Fix issue with superclass event listeners by updating EventBus (#10384)
+ - 54.0.26 Bump dependencies, most notably EventBus (#10370)
+           - CoreMods 5.2.4 -> 5.2.6
+           - EventBus 6.2.15 -> 6.2.26
+               - Reduced memory usage
+               - Further performance improvements
+               - Fixed EventBus#39, unregistered listeners are now immediately reclaimable by the GC
+           - Apache MavenArtifact 3.8.5 -> 3.8.8
+           - NightConfig 3.7.3 -> 3.7.4
+ - 54.0.25 Fix shield disabling being completely ignored (#10316)
+ - 54.0.24 Update Gradle to 8.12.1
+ - 54.0.23 Fix JOpt Simple by updating ModLauncher (#10347)
+ - 54.0.22 GameTestHelper additions (#10338)
+           Co-authored-by: LexManos <LexManos@gmail.com>
+ - 54.0.21 Add `c:flowers`, `c:flowers/tall`, and `c:flowers/small` block and item tags (#10335)
+           Co-authored-by: TelepathicGrunt <40846040+telepathicgrunt@users.noreply.github.com>
+ - 54.0.20 Fix JOpt Simple needing a strict version requirement declaration (#10311)
+ - 54.0.19 Fix incorrect method reference in TntBlock.explode() (#10326)
+ - 54.0.18 Fix issues in VillagerTrades.EmeraldsForVillagerTypeItem related to custom Villager Types (#10298)
+           Add VillagerType#registerBiomeType
+ - 54.0.17 Fix render_type in block models not being used. Fixes #10294
  - 54.0.16 Bump dependencies (#10274)
            - EventBus 6.2.8 -> 6.2.15
            - Bootstrap 2.1.7 -> 2.1.8

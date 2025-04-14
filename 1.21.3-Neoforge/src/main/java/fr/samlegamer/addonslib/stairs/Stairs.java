@@ -1,7 +1,8 @@
 package fr.samlegamer.addonslib.stairs;
 
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.Function;
+import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
@@ -25,19 +26,19 @@ public class Stairs
 {
 	public static final String modid = "mcwstairs";
 	
-	public static void setRegistrationWood(List<String> set, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab)
+	public static void setRegistrationWood(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
 		final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.of().strength(2.0F, 2.3F).sound(SoundType.WOOD);
-		setRegistrationWoodModLoaded(set, mod, block, item, tab, "minecraft", WOOD);
+		setRegistrationWoodModLoaded(set, block, item, WOOD);
 	}
 
-	public static void setRegistrationRock(List<String> set, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab)
+	public static void setRegistrationRock(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
 		final BlockBehaviour.Properties STONE = BlockBehaviour.Properties.of().strength(2.0F, 2.3F).sound(SoundType.STONE).requiresCorrectToolForDrops();
-		setRegistrationRockModLoaded(set, mod, block, item, tab, "minecraft", STONE);
+		setRegistrationRockModLoaded(set, block, item, STONE);
 	}
 	
-	public static void setRegistrationRockModLoaded(List<String> set, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab, String modLoaded, BlockBehaviour.Properties prop)
+	public static void setRegistrationRockModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
 		 final BlockBehaviour.Properties STONE = prop;
 			DeferredBlock<Block> ACACIA_TERRACE_STAIRS, ACACIA_SKYLINE_STAIRS, ACACIA_COMPACT_STAIRS, ACACIA_BULK_STAIRS, ACACIA_LOFT_STAIRS, ACACIA_RAILING, ACACIA_BALCONY, ACACIA_PLATFORM;
@@ -45,35 +46,72 @@ public class Stairs
 			for(String i : set)
 			{
 				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-						ACACIA_TERRACE_STAIRS = createBlockStone(mod, i+"_terrace_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_terrace_stairs")))), block, item, tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = createBlockStone(mod, i+"_skyline_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_skyline_stairs")))), block, item, tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = createBlockStone(mod, i+"_compact_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_compact_stairs")))), block, item, tab, modLoaded);
-						ACACIA_BULK_STAIRS = createBlockStone(mod, i+"_bulk_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_bulk_stairs")))), block, item, tab, modLoaded);
-						ACACIA_LOFT_STAIRS = createBlockStone(mod, i+"_loft_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_loft_stairs")))), block, item, tab, modLoaded);
-						ACACIA_RAILING = createBlockStone(mod, i+"_railing", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_railing")))), block, item, tab, modLoaded);
-						ACACIA_BALCONY = createBlockStone(mod, i+"_balcony", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_balcony")))), block, item, tab, modLoaded);
-						ACACIA_PLATFORM = createBlockStone(mod, i+"_platform", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_platform")))), block, item, tab, modLoaded);
+					if (ModList.get().isLoaded(modid)) {
+						ACACIA_TERRACE_STAIRS = createBlockStone(i + "_terrace_stairs", registryName ->
+										Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs",
+												STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_SKYLINE_STAIRS = createBlockStone(i + "_skyline_stairs", registryName ->
+										Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs",
+												STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_COMPACT_STAIRS = createBlockStone(i + "_compact_stairs", registryName ->
+										Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs",
+												STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_BULK_STAIRS = createBlockStone(i + "_bulk_stairs", registryName ->
+										Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs",
+												STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_LOFT_STAIRS = createBlockStone(i + "_loft_stairs", registryName ->
+										Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs",
+												STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_RAILING = createBlockStone(i + "_railing", registryName ->
+										Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing",
+												STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_BALCONY = createBlockStone(i + "_balcony", registryName ->
+										Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing",
+												STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_PLATFORM = createBlockStone(i + "_platform", registryName ->
+										Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform",
+												STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+					} else {
+						ACACIA_TERRACE_STAIRS = createBlockStone(i + "_terrace_stairs", registryName ->
+										new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_SKYLINE_STAIRS = createBlockStone(i + "_skyline_stairs", registryName ->
+										new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_COMPACT_STAIRS = createBlockStone(i + "_compact_stairs", registryName ->
+										new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_BULK_STAIRS = createBlockStone(i + "_bulk_stairs", registryName ->
+										new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_LOFT_STAIRS = createBlockStone(i + "_loft_stairs", registryName ->
+										new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_RAILING = createBlockStone(i + "_railing", registryName ->
+										new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_BALCONY = createBlockStone(i + "_balcony", registryName ->
+										new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
+						ACACIA_PLATFORM = createBlockStone(i + "_platform", registryName ->
+										new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))),
+								block, item);
 					}
-					else
-					{
-						ACACIA_TERRACE_STAIRS = createBlockStone(mod, i+"_terrace_stairs", () -> new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_terrace_stairs")))), block, item, tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = createBlockStone(mod, i+"_skyline_stairs", () -> new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_skyline_stairs")))), block, item, tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = createBlockStone(mod, i+"_compact_stairs", () -> new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_compact_stairs")))), block, item, tab, modLoaded);
-						ACACIA_BULK_STAIRS = createBlockStone(mod, i+"_bulk_stairs", () -> new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_bulk_stairs")))), block, item, tab, modLoaded);
-						ACACIA_LOFT_STAIRS = createBlockStone(mod, i+"_loft_stairs", () -> new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_loft_stairs")))), block, item, tab, modLoaded);
-						ACACIA_RAILING = createBlockStone(mod, i+"_railing", () -> new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_railing")))), block, item, tab, modLoaded);
-						ACACIA_BALCONY = createBlockStone(mod, i+"_balcony", () -> new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_balcony")))), block, item, tab, modLoaded);
-						ACACIA_PLATFORM = createBlockStone(mod, i+"_platform", () -> new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_platform")))), block, item, tab, modLoaded);
-				    }
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}
 	
-	public static void setRegistrationWoodModLoaded(List<String> set, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab, String modLoaded, BlockBehaviour.Properties prop)
+	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
 			final BlockBehaviour.Properties WOOD = prop;
 			DeferredBlock<Block> ACACIA_TERRACE_STAIRS, ACACIA_SKYLINE_STAIRS, ACACIA_COMPACT_STAIRS, ACACIA_BULK_STAIRS, ACACIA_LOFT_STAIRS, ACACIA_RAILING, ACACIA_BALCONY, ACACIA_PLATFORM;
@@ -81,90 +119,87 @@ public class Stairs
 			for(String i : set)
 			{
 				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-						ACACIA_TERRACE_STAIRS = createBlock(mod, i+"_terrace_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_terrace_stairs")))), block, item, tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = createBlock(mod, i+"_skyline_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_skyline_stairs")))), block, item, tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = createBlock(mod, i+"_compact_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_compact_stairs")))), block, item, tab, modLoaded);
-						ACACIA_BULK_STAIRS = createBlock(mod, i+"_bulk_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_bulk_stairs")))), block, item, tab, modLoaded);
-						ACACIA_LOFT_STAIRS = createBlock(mod, i+"_loft_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_loft_stairs")))), block, item, tab, modLoaded);
-						ACACIA_RAILING = createBlock(mod, i+"_railing", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_railing")))), block, item, tab, modLoaded);
-						ACACIA_BALCONY = createBlock(mod, i+"_balcony", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_balcony")))), block, item, tab, modLoaded);
-						ACACIA_PLATFORM = createBlock(mod, i+"_platform", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_platform")))), block, item, tab, modLoaded);
+					if (ModList.get().isLoaded(modid)) {
+						ACACIA_TERRACE_STAIRS = createBlock(i + "_terrace_stairs", registryName ->
+								Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs",
+										WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_SKYLINE_STAIRS = createBlock(i + "_skyline_stairs", registryName ->
+								Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs",
+										WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_COMPACT_STAIRS = createBlock(i + "_compact_stairs", registryName ->
+								Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs",
+										WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_BULK_STAIRS = createBlock(i + "_bulk_stairs", registryName ->
+								Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs",
+										WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_LOFT_STAIRS = createBlock(i + "_loft_stairs", registryName ->
+								Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs",
+										WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_RAILING = createBlock(i + "_railing", registryName ->
+								Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing",
+										WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_BALCONY = createBlock(i + "_balcony", registryName ->
+								Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing",
+										WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_PLATFORM = createBlock(i + "_platform", registryName ->
+								Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform",
+										WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+					} else {
+						ACACIA_TERRACE_STAIRS = createBlock(i + "_terrace_stairs", registryName ->
+								new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_SKYLINE_STAIRS = createBlock(i + "_skyline_stairs", registryName ->
+								new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_COMPACT_STAIRS = createBlock(i + "_compact_stairs", registryName ->
+								new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_BULK_STAIRS = createBlock(i + "_bulk_stairs", registryName ->
+								new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_LOFT_STAIRS = createBlock(i + "_loft_stairs", registryName ->
+								new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_RAILING = createBlock(i + "_railing", registryName ->
+								new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_BALCONY = createBlock(i + "_balcony", registryName ->
+								new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						ACACIA_PLATFORM = createBlock(i + "_platform", registryName ->
+								new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
 					}
-					else
-					{
-						ACACIA_TERRACE_STAIRS = createBlock(mod, i+"_terrace_stairs", () -> new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_terrace_stairs")))), block, item, tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = createBlock(mod, i+"_skyline_stairs", () -> new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_skyline_stairs")))), block, item, tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = createBlock(mod, i+"_compact_stairs", () -> new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_compact_stairs")))), block, item, tab, modLoaded);
-						ACACIA_BULK_STAIRS = createBlock(mod, i+"_bulk_stairs", () -> new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_bulk_stairs")))), block, item, tab, modLoaded);
-						ACACIA_LOFT_STAIRS = createBlock(mod, i+"_loft_stairs", () -> new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_loft_stairs")))), block, item, tab, modLoaded);
-						ACACIA_RAILING = createBlock(mod, i+"_railing", () -> new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_railing")))), block, item, tab, modLoaded);
-						ACACIA_BALCONY = createBlock(mod, i+"_balcony", () -> new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_balcony")))), block, item, tab, modLoaded);
-						ACACIA_PLATFORM = createBlock(mod, i+"_platform", () -> new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_platform")))), block, item, tab, modLoaded);
-				    }
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}
-			
-	protected static DeferredBlock<Block> createBlock(String mod, String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab)
-    {
-        return createBlock(mod, name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
 	
-	protected static DeferredBlock<Block> createBlock(String mod, String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab, String modLoaded)
+	protected static DeferredBlock<Block> createBlock(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
-		{
-	        if(name.contains("railing")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location())), "mcwstairs.railing.desc"));
-	        }
-	        else if(name.contains("balcony")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location())), "mcwstairs.balcony.desc"));
-	        }
-	        else if(name.contains("platform")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location())), "mcwstairs.platform.desc"));
-	        }
-	        else {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location()))));
-	        }
+        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
+		if(name.contains("railing")) {
+			ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuelInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryName)), "mcwstairs.railing.desc"));
 		}
-		else
-		{
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location()))));
+		else if(name.contains("balcony")) {
+			ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuelInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryName)), "mcwstairs.balcony.desc"));
+		}
+		else if(name.contains("platform")) {
+			ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuelInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryName)), "mcwstairs.platform.desc"));
+		}
+		else {
+			ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuel(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryName))));
 		}
         return block;
     }
 	
-	protected static DeferredBlock<Block> createBlockStone(String mod, String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab)
+	protected static DeferredBlock<Block> createBlockStone(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
-        return createBlockStone(mod, name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
-	
-	protected static DeferredBlock<Block> createBlockStone(String mod, String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab, String modLoaded)
-    {
-		DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
-		{
-	        if(name.contains("railing")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location())), "mcwstairs.railing.desc"));
-	        }
-	        else if(name.contains("balcony")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location())), "mcwstairs.balcony.desc"));
-	        }
-	        else if(name.contains("platform")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location())), "mcwstairs.platform.desc"));
-	        }
-	        else {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location()))));
-	        }
+		DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
+		if(name.contains("railing")) {
+			ITEMS_REGISTRY.register(name, registryName -> new BlockItemInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryName)), "mcwstairs.railing.desc"));
 		}
-		else
-		{
-            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location()))));
+		else if(name.contains("balcony")) {
+			ITEMS_REGISTRY.register(name, registryName -> new BlockItemInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryName)), "mcwstairs.balcony.desc"));
+		}
+		else if(name.contains("platform")) {
+			ITEMS_REGISTRY.register(name, registryName -> new BlockItemInfo(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryName)), "mcwstairs.platform.desc"));
+		}
+		else {
+			ITEMS_REGISTRY.register(name, registryName -> new BlockItem(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryName))));
 		}
         return block;
     }

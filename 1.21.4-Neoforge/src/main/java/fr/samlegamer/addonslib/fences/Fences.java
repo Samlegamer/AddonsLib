@@ -2,8 +2,8 @@ package fr.samlegamer.addonslib.fences;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
-
+import java.util.function.Function;
+import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
@@ -27,66 +27,70 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class Fences
 {
-	private static BlockBehaviour.Properties wood = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS);
-	private static BlockBehaviour.Properties leaves = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES);
-	private static BlockBehaviour.Properties stone = BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE);
+	private static final BlockBehaviour.Properties wood = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS);
+	private static final BlockBehaviour.Properties leave = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES);
+	private static final BlockBehaviour.Properties stone = BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE);
 	
 	public static final String modid = "mcwfences";
 	
 	/**
 	 * Init all Wood Variants of Macaw's Fences
 	 */
-	public static void setRegistrationWood(List<String> set, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab)
+	public static void setRegistrationWood(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
-		setRegistrationWoodModLoaded(set, mod, block, item, tab, "minecraft", wood);
+		setRegistrationWoodModLoaded(set, block, item, wood);
 	}
 	
 	/**
 	 * Init all Hedges Variants of Macaw's Fences
 	 */
-	public static void setRegistrationHedges(List<String> leaves, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab)
+	public static void setRegistrationHedges(List<String> leaves, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
-		setRegistrationHedgesModLoaded(leaves, mod, block, item, tab, "minecraft", Fences.leaves);
+		setRegistrationHedgesModLoaded(leaves, block, item, leave);
 	}
 	
 	/**
 	 * Init all Stone Variants of Macaw's Fences
 	 */
-	public static void setRegistrationRock(List<String> rock, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab)
+	public static void setRegistrationRock(List<String> rock, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
-		setRegistrationRockModLoaded(rock, mod, block, item, tab, "minecraft", stone);
+		setRegistrationRockModLoaded(rock, block, item, stone);
 	}
 	
 	/**
 	 * Init all Wood Variants of Macaw's Fences with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(List<String> set, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab, String modLoaded, BlockBehaviour.Properties prop)
+	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
 			final BlockBehaviour.Properties WOOD = prop;
 
-			DeferredBlock<Block> picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+			DeferredBlock<Block> picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 
 			for(String i : set)
 			{				
 				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-						picket_fence = createBlock(mod, i + "_picket_fence", () -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_picket_fence")))), block, item, tab, modLoaded);
-						stockade_fence = createBlock(mod, i + "_stockade_fence", () -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_stockade_fence")))), block, item, tab, modLoaded);
-						horse_fence = createBlock(mod, i + "_horse_fence", () -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_horse_fence")))), block, item, tab, modLoaded);
-						wired_fence = createBlock(mod, i + "_wired_fence", () -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.WiredFence", WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_wired_fence")))), block, item, tab, modLoaded);
-						highley_gate = createBlock(mod, i + "_highley_gate", () -> new FenceGateBlock(Optional.of(WoodType.OAK), WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_highley_gate"))), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item, tab, modLoaded);
-						pyramid_gate = createBlock(mod, i + "_pyramid_gate", () -> new FenceGateBlock(Optional.of(WoodType.OAK), WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_pyramid_gate"))), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item, tab, modLoaded);
-					} else {
-						picket_fence = createBlock(mod, i + "_picket_fence", () -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_picket_fence")))), block, item, tab, modLoaded);
-						stockade_fence = createBlock(mod, i + "_stockade_fence", () -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_stockade_fence")))), block, item, tab, modLoaded);
-						horse_fence = createBlock(mod, i + "_horse_fence", () -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_horse_fence")))), block, item, tab, modLoaded);
-						wired_fence = createBlock(mod, i + "_wired_fence", () -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_wired_fence")))), block, item, tab, modLoaded);
-						highley_gate = createBlock(mod, i + "_highley_gate", () -> new FenceGateBlock(Optional.of(WoodType.OAK), WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_highley_gate"))), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item, tab, modLoaded);
-						pyramid_gate = createBlock(mod, i + "_pyramid_gate", () -> new FenceGateBlock(Optional.of(WoodType.OAK), WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_pyramid_gate"))), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item, tab, modLoaded);
-				    }
+					if (ModList.get().isLoaded(modid))
+					{
+						picket_fence = createBlock(i + "_picket_fence", registryName -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						stockade_fence = createBlock(i + "_stockade_fence", registryName -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						horse_fence = createBlock(i + "_horse_fence", registryName -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						wired_fence = createBlock(i + "_wired_fence", registryName -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.WiredFence", WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						highley_gate = createBlock(i + "_highley_gate", registryName -> new FenceGateBlock(Optional.of(WoodType.OAK), WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName)), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item);
+						pyramid_gate = createBlock(i + "_pyramid_gate", registryName -> new FenceGateBlock(Optional.of(WoodType.OAK), WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName)), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item);
+						curved_gate = createBlock(i + "_curved_gate", registryName -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.DoubleGate", WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+					}
+					else
+					{
+						picket_fence = createBlock(i + "_picket_fence", registryName -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						stockade_fence = createBlock(i + "_stockade_fence", registryName -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						horse_fence = createBlock(i + "_horse_fence", registryName -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						wired_fence = createBlock(i + "_wired_fence", registryName -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						highley_gate = createBlock(i + "_highley_gate", registryName -> new FenceGateBlock(Optional.of(WoodType.OAK), WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName)), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item);
+						pyramid_gate = createBlock(i + "_pyramid_gate", registryName -> new FenceGateBlock(Optional.of(WoodType.OAK), WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName)), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item);
+						curved_gate = createBlock(i + "_curved_gate", registryName -> new FenceBlock(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+					}
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}
@@ -94,7 +98,7 @@ public class Fences
 	/**
 	 * Init all Hedges Variants of Macaw's Fences with if Mod Loaded
 	 */
-	public static void setRegistrationHedgesModLoaded(List<String> leaves, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab, String modLoaded, BlockBehaviour.Properties prop)
+	public static void setRegistrationHedgesModLoaded(List<String> leaves, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
 			final BlockBehaviour.Properties HEDGES = prop;
 
@@ -104,10 +108,10 @@ public class Fences
 			{
 				if (ModList.get().isLoaded(modid))
 	        	{
-					hedge = createBlock(mod, i + "_hedge", () -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_hedge")))), block, item, tab, modLoaded);
+					hedge = createBlock(i + "_hedge", registryName -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
 
 				} else {
-					hedge = createBlock(mod, i + "_hedge", () -> new FenceBlock(HEDGES.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_hedge")))), block, item, tab, modLoaded);
+					hedge = createBlock(i + "_hedge", registryName -> new FenceBlock(HEDGES.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
 	            }
 			}
 	}
@@ -115,7 +119,7 @@ public class Fences
 	/**
 	 * Init all Stone Variants of Macaw's Fences with if Mod Loaded
 	 */
-	public static void setRegistrationRockModLoaded(List<String> rock, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab, String modLoaded, BlockBehaviour.Properties prop)
+	public static void setRegistrationRockModLoaded(List<String> rock, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
 			final BlockBehaviour.Properties STONE = prop;
 
@@ -124,63 +128,47 @@ public class Fences
 			for(String i : rock)
 			{
 				if (ModList.get().isLoaded(modid)) {
-					modern_wall = createBlockStone(mod, "modern_"+i+"_wall", () -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, "modern_"+i+"_wall")))), block, item, tab, modLoaded);
-					railing_wall = createBlockStone(mod, "railing_"+i+"_wall", () -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, "railing_"+i+"_wall")))), block, item, tab, modLoaded);
-					railing_gate = createBlockStone(mod, i+"_railing_gate", () -> new FenceGateBlock(Optional.of(WoodType.OAK), STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_railing_gate"))), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item, tab, modLoaded);
-					pillar_wall = createBlockStone(mod, i+"_pillar_wall", () -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_pillar_wall")))), block, item, tab, modLoaded);
-					grass_topped_wall = createBlockStone(mod, i + "_grass_topped_wall", () -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i + "_grass_topped_wall")))), block, item, tab, modLoaded);
-
+					modern_wall = createBlockStone("modern_" + i + "_wall",
+							registryName -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+					railing_wall = createBlockStone("railing_" + i + "_wall",
+							registryName -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+					railing_gate = createBlockStone(i + "_railing_gate",
+							registryName -> new FenceGateBlock(Optional.of(WoodType.OAK), STONE.setId(ResourceKey.create(Registries.BLOCK, registryName)), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item);
+					pillar_wall = createBlockStone(i + "_pillar_wall",
+							registryName -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+					grass_topped_wall = createBlockStone(i + "_grass_topped_wall",
+							registryName -> Registration.getBlocksFieldForFences("com.mcwfences.kikoz.objects.FenceHitbox", STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
 				} else {
-					modern_wall = createBlockStone(mod, "modern_"+i+"_wall", () -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, "modern_"+i+"_wall")))), block, item, tab, modLoaded);
-					railing_wall = createBlockStone(mod, "railing_"+i+"_wall", () -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, "railing_"+i+"_wall")))), block, item, tab, modLoaded);
-					railing_gate = createBlockStone(mod, i+"_railing_gate", () -> new FenceGateBlock(Optional.of(WoodType.OAK), STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_railing_gate"))), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item, tab, modLoaded);
-					pillar_wall = createBlockStone(mod, i+"_pillar_wall", () -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_pillar_wall")))), block, item, tab, modLoaded);
-					grass_topped_wall = createBlockStone(mod, i + "_grass_topped_wall", () -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i + "_grass_topped_wall")))), block, item, tab, modLoaded);
-	            }
-			}
+					modern_wall = createBlockStone("modern_" + i + "_wall",
+							registryName -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+					railing_wall = createBlockStone("railing_" + i + "_wall",
+							registryName -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+					railing_gate = createBlockStone(i + "_railing_gate",
+							registryName -> new FenceGateBlock(Optional.of(WoodType.OAK), STONE.setId(ResourceKey.create(Registries.BLOCK, registryName)), Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item);
+					pillar_wall = createBlockStone(i + "_pillar_wall",
+							registryName -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+					grass_topped_wall = createBlockStone(i + "_grass_topped_wall",
+							registryName -> new FenceBlock(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+				}			}
 	}
 	
-	protected static DeferredBlock<Block> createBlock(String mod, String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab)
+	protected static DeferredBlock<Block> createBlock(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
-        return createBlock(mod, name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
-	
-	protected static DeferredBlock<Block> createBlock(String mod, String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab, String modLoaded)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location()))));
-        }
-        else
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location()))));
-        }
+        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
+		ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuel(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryName))));
         return block;
     }
-
-	protected static DeferredBlock<Block> createBlockStone(String mod, String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab)
-    {
-        return createBlockStone(mod, name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
 	
-	protected static DeferredBlock<Block> createBlockStone(String mod, String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab, String modLoaded)
+	protected static DeferredBlock<Block> createBlockStone(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location()))));
-        }
-        else
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location()))));
-        }
+        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
+		ITEMS_REGISTRY.register(name, registryName -> new BlockItem(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryName))));
         return block;
     }
 		
 	public static void addToTab(BuildCreativeModeTabContentsEvent event, String MODID, List<String> WOOD, CreativeModeTab tab)
 	{
-		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 		
 		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
@@ -192,6 +180,7 @@ public class Fences
 				wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
 				highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
 				pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
+				curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
 				
 	        	event.accept(picket_fence);
 	        	event.accept(stockade_fence);
@@ -199,6 +188,7 @@ public class Fences
 	        	event.accept(wired_fence);
 	        	event.accept(highley_gate);
 	        	event.accept(pyramid_gate);
+				event.accept(curved_gate);
 	        }
    	 	}
 	}

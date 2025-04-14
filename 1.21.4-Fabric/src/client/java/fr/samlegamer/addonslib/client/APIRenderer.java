@@ -1,7 +1,6 @@
 package fr.samlegamer.addonslib.client;
 
 import java.util.List;
-
 import fr.samlegamer.addonslib.Finder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -452,7 +451,7 @@ public class APIRenderer
 	{
 		public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
 		{
-			Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+			Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 			
 			for (String i : WOOD)
 			{
@@ -462,6 +461,7 @@ public class APIRenderer
 				wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
 				highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
 				pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
+				curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
 				
 				BlockRenderLayerMap.INSTANCE.putBlocks(renderSet
 	        	, picket_fence
@@ -469,7 +469,8 @@ public class APIRenderer
 	        	, horse_fence
 	        	, wired_fence
 	        	, highley_gate
-	        	, pyramid_gate);
+	        	, pyramid_gate
+				, curved_gate);
 	        }
 		}
 

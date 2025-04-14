@@ -23,55 +23,47 @@ import net.minecraft.util.Identifier;
 
 public class Fences
 {
-	private static AbstractBlock.Settings wood = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
-	private static AbstractBlock.Settings leaves = AbstractBlock.Settings.copy(Blocks.OAK_LEAVES);
-	private static AbstractBlock.Settings stone = AbstractBlock.Settings.copy(Blocks.COBBLESTONE);
+	private static final AbstractBlock.Settings wood = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
+	private static final AbstractBlock.Settings leave = AbstractBlock.Settings.copy(Blocks.OAK_LEAVES);
+	private static final AbstractBlock.Settings stone = AbstractBlock.Settings.copy(Blocks.COBBLESTONE);
 	
 	public static final String modid = "mcwfences";
 
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
+	private static void registryEntry(String MODID, String name, Block b)
 	{
 		final Identifier ID = Identifier.of(MODID, name);
 		final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, ID);
-
-		Registry.register(Registries.BLOCK, Identifier.of(MODID, name), b);
-
-    	if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
-    	{
-    		Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-    	}
-    	else {
-    		Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-        }
+		Registry.register(Registries.BLOCK, ID, b);
+		Registry.register(Registries.ITEM, ID, new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
 	}
 	/**
 	 * Init all Wood Variants of Macaw's Fences
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set, ItemGroup tab)
+	public static void setRegistrationWood(String MODID, List<String> set)
 	{
-		setRegistrationWoodModLoaded(MODID, set, tab, "minecraft", wood);
+		setRegistrationWoodModLoaded(MODID, set, wood);
 	}
 	
 	/**
 	 * Init all Hedges Variants of Macaw's Fences
 	 */
-	public static void setRegistrationHedges(String MODID, List<String> leaves, ItemGroup tab)
+	public static void setRegistrationHedges(String MODID, List<String> leaves)
 	{
-		setRegistrationHedgesModLoaded(MODID, leaves, tab, "minecraft", Fences.leaves);
+		setRegistrationHedgesModLoaded(MODID, leaves, leave);
 	}
 	
 	/**
 	 * Init all Stone Variants of Macaw's Fences
 	 */
-	public static void setRegistrationRock(String MODID, List<String> rock, ItemGroup tab)
+	public static void setRegistrationRock(String MODID, List<String> rock)
 	{
-		setRegistrationRockModLoaded(MODID, rock, tab, "minecraft", stone);
+		setRegistrationRockModLoaded(MODID, rock, stone);
 	}
 	
 	/**
 	 * Init all Wood Variants of Macaw's Fences with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded, AbstractBlock.Settings prop)
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
 	{
 			final AbstractBlock.Settings WOOD = prop;
 
@@ -85,29 +77,32 @@ public class Fences
 						final Block horse_fence = new FenceBlock(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_horse_fence"))));
 						final Block wired_fence = Registration.getBlocksField(
 								"net.kikoz.mcwfences.objects.WiredFence",
-								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_wired_fence")))
-						);
+								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_wired_fence"))));
 						final Block highley_gate = new FenceGateBlock(WoodType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_highley_gate"))));
 						final Block pyramid_gate = new FenceGateBlock(WoodType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_pyramid_gate"))));
+						final Block curved_gate = Registration.getBlocksField("net.kikoz.mcwfences.objects.DoubleGate",
+								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_curved_gate"))));
 
-						registryEntry(MODID, i + "_picket_fence", picket_fence, tab, modLoaded);
-						registryEntry(MODID, i + "_stockade_fence", stockade_fence, tab, modLoaded);
-						registryEntry(MODID, i + "_horse_fence", horse_fence, tab, modLoaded);
-						registryEntry(MODID, i + "_wired_fence", wired_fence, tab, modLoaded);
-						registryEntry(MODID, i + "_highley_gate", highley_gate, tab, modLoaded);
-						registryEntry(MODID, i + "_pyramid_gate", pyramid_gate, tab, modLoaded);
+						registryEntry(MODID, i + "_picket_fence", picket_fence);
+						registryEntry(MODID, i + "_stockade_fence", stockade_fence);
+						registryEntry(MODID, i + "_horse_fence", horse_fence);
+						registryEntry(MODID, i + "_wired_fence", wired_fence);
+						registryEntry(MODID, i + "_highley_gate", highley_gate);
+						registryEntry(MODID, i + "_pyramid_gate", pyramid_gate);
+						registryEntry(MODID, i + "_curved_gate", curved_gate);
 					}
 					else
 					{
-						registryEntry(MODID, i + "_picket_fence", new FenceBlock(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_picket_fence")))), tab, modLoaded);
-						registryEntry(MODID, i + "_stockade_fence", new FenceBlock(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_stockade_fence")))), tab, modLoaded);
-						registryEntry(MODID, i + "_horse_fence", new FenceBlock(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_horse_fence")))), tab, modLoaded);
-						registryEntry(MODID, i + "_wired_fence", new FenceBlock(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_wired_fence")))), tab, modLoaded);
-						registryEntry(MODID, i + "_highley_gate", new FenceGateBlock(WoodType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_highley_gate")))), tab, modLoaded);
-						registryEntry(MODID, i + "_pyramid_gate", new FenceGateBlock(WoodType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_pyramid_gate")))), tab, modLoaded);
+						registryEntry(MODID, i + "_picket_fence", new FenceBlock(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_picket_fence")))));
+						registryEntry(MODID, i + "_stockade_fence", new FenceBlock(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_stockade_fence")))));
+						registryEntry(MODID, i + "_horse_fence", new FenceBlock(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_horse_fence")))));
+						registryEntry(MODID, i + "_wired_fence", new FenceBlock(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_wired_fence")))));
+						registryEntry(MODID, i + "_highley_gate", new FenceGateBlock(WoodType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_highley_gate")))));
+						registryEntry(MODID, i + "_pyramid_gate", new FenceGateBlock(WoodType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_pyramid_gate")))));
+						registryEntry(MODID, i + "_curved_gate", new FenceGateBlock(WoodType.OAK, prop));
 					}
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}
@@ -115,7 +110,7 @@ public class Fences
 	/**
 	 * Init all Hedges Variants of Macaw's Fences with if Mod Loaded
 	 */
-	public static void setRegistrationHedgesModLoaded(String MODID, List<String> leaves, ItemGroup tab, String modLoaded, AbstractBlock.Settings prop)
+	public static void setRegistrationHedgesModLoaded(String MODID, List<String> leaves, AbstractBlock.Settings prop)
 	{
 			final AbstractBlock.Settings HEDGES = prop;
 			
@@ -125,15 +120,15 @@ public class Fences
 					if (AddonsLib.isLoaded(modid))
 		        	{
 						final Block hedge = Registration.getBlocksField("net.kikoz.mcwfences.objects.FenceHitbox", HEDGES.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_hedge"))));
-		                registryEntry(MODID, i + "_hedge", hedge, tab, modLoaded);
+		                registryEntry(MODID, i + "_hedge", hedge);
 	
 		            }
 					else
 		            {
-		                registryEntry(MODID, i + "_hedge", new FenceBlock(HEDGES.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_hedge")))), tab, modLoaded);
+		                registryEntry(MODID, i + "_hedge", new FenceBlock(HEDGES.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_hedge")))));
 		            }
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}
@@ -141,7 +136,7 @@ public class Fences
 	/**
 	 * Init all Stone Variants of Macaw's Fences with if Mod Loaded
 	 */
-	public static void setRegistrationRockModLoaded(String MODID, List<String> rock, ItemGroup tab, String modLoaded, AbstractBlock.Settings prop)
+	public static void setRegistrationRockModLoaded(String MODID, List<String> rock, AbstractBlock.Settings prop)
 	{
 			final AbstractBlock.Settings STONE = prop;
 
@@ -159,22 +154,22 @@ public class Fences
 								STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_grass_topped_wall")))
 						);
 
-						registryEntry(MODID, "modern_" + i + "_wall", modern_wall, tab, modLoaded);
-						registryEntry(MODID, "railing_" + i + "_wall", railing_wall, tab, modLoaded);
-						registryEntry(MODID, i + "_railing_gate", railing_gate, tab, modLoaded);
-						registryEntry(MODID, i + "_pillar_wall", pillar_wall, tab, modLoaded);
-						registryEntry(MODID, i + "_grass_topped_wall", grass_topped_wall, tab, modLoaded);
+						registryEntry(MODID, "modern_" + i + "_wall", modern_wall);
+						registryEntry(MODID, "railing_" + i + "_wall", railing_wall);
+						registryEntry(MODID, i + "_railing_gate", railing_gate);
+						registryEntry(MODID, i + "_pillar_wall", pillar_wall);
+						registryEntry(MODID, i + "_grass_topped_wall", grass_topped_wall);
 					}
 					else
 					{
-						registryEntry(MODID, "modern_" + i + "_wall", new FenceBlock(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "modern_" + i + "_wall")))), tab, modLoaded);
-						registryEntry(MODID, "railing_" + i + "_wall", new FenceBlock(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "railing_" + i + "_wall")))), tab, modLoaded);
-						registryEntry(MODID, i + "_railing_gate", new FenceGateBlock(WoodType.OAK, STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_railing_gate")))), tab, modLoaded);
-						registryEntry(MODID, i + "_pillar_wall", new FenceBlock(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_pillar_wall")))), tab, modLoaded);
-						registryEntry(MODID, i + "_grass_topped_wall", new FenceBlock(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_grass_topped_wall")))), tab, modLoaded);
+						registryEntry(MODID, "modern_" + i + "_wall", new FenceBlock(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "modern_" + i + "_wall")))));
+						registryEntry(MODID, "railing_" + i + "_wall", new FenceBlock(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, "railing_" + i + "_wall")))));
+						registryEntry(MODID, i + "_railing_gate", new FenceGateBlock(WoodType.OAK, STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_railing_gate")))));
+						registryEntry(MODID, i + "_pillar_wall", new FenceBlock(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_pillar_wall")))));
+						registryEntry(MODID, i + "_grass_topped_wall", new FenceBlock(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_grass_topped_wall")))));
 					}
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}
@@ -183,7 +178,7 @@ public class Fences
 	{
 		for (String i : WOOD)
 		{
-			Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+			Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 
 			picket_fence = Finder.findBlock(MODID, i + "_picket_fence");
 			stockade_fence = Finder.findBlock(MODID, i + "_stockade_fence");
@@ -191,6 +186,7 @@ public class Fences
 			wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
 			highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
 			pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
+			curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
 
 			FuelRegistryEvents.BUILD.register((builder, context) -> {
 				builder.add(picket_fence, 300);
@@ -199,6 +195,7 @@ public class Fences
 				builder.add(wired_fence, 300);
 				builder.add(highley_gate, 300);
 				builder.add(pyramid_gate, 300);
+				builder.add(curved_gate, 300);
 			});
         }
 	}
@@ -230,6 +227,7 @@ public class Fences
 				final Block wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
 				final Block highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
 				final Block pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
+				final Block curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
 
 				ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
 					content.add(picket_fence);
@@ -238,6 +236,7 @@ public class Fences
 					content.add(wired_fence);
 					content.add(highley_gate);
 					content.add(pyramid_gate);
+					content.add(curved_gate);
 				});
 			}
 		}

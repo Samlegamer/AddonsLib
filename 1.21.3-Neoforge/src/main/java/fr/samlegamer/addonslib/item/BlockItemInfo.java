@@ -13,7 +13,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 public class BlockItemInfo extends BlockItem
 {
-	private String desc;
+	private final String desc;
 	
 	public BlockItemInfo(Block p_40565_, Properties p_40566_, String desc)
 	{

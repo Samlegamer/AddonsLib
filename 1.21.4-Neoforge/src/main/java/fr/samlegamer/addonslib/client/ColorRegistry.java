@@ -1,6 +1,5 @@
 package fr.samlegamer.addonslib.client;
 
-import java.util.ArrayList;
 import java.util.List;
 import fr.samlegamer.addonslib.Finder;
 import net.minecraft.client.renderer.BiomeColors;
@@ -14,7 +13,7 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 public class ColorRegistry
 {
 	private final String MODID;
-	private List<String> NoColorLeaves = new ArrayList<String>();
+	private final List<String> NoColorLeaves;
 	
 	public ColorRegistry(String MODID, List<String> LEAVES)
 	{

@@ -1,7 +1,8 @@
 package fr.samlegamer.addonslib.door;
 
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.Function;
+import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
@@ -28,18 +29,20 @@ public class Doors
 	/**
 	 * Init all Wood Variants of Macaw's Doors
 	 */
-	public static void setRegistrationWood(List<String> set, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab)
+	public static void setRegistrationWood(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
-		setRegistrationWoodModLoaded(set, mod, block, item, tab, "minecraft");
+		final BlockBehaviour.Properties JAPAN = BlockBehaviour.Properties.of().noOcclusion().strength(1.5F, 1.0F).sound(SoundType.WOOD);
+		final BlockBehaviour.Properties DOOR_WOOD = BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_DOOR);
+		setRegistrationWoodModLoaded(set, block, item, JAPAN, DOOR_WOOD);
 	}
 	
 	/**
 	 * Init all Wood Variants of Macaw's Doors with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(List<String> set, String mod, DeferredRegister.Blocks block, DeferredRegister.Items item, CreativeModeTab tab, String modLoaded)
+	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties japan_door, BlockBehaviour.Properties wood_door)
 	{
-			final BlockBehaviour.Properties JAPAN = BlockBehaviour.Properties.of().noOcclusion().strength(1.5F, 1.0F).sound(SoundType.WOOD);
-			final BlockBehaviour.Properties DOOR_WOOD = BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_DOOR);
+			final BlockBehaviour.Properties JAPAN = japan_door;
+			final BlockBehaviour.Properties DOOR_WOOD = wood_door;
 
 			DeferredBlock<Block> japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door, 
 			tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door, whispering_door;
@@ -47,78 +50,66 @@ public class Doors
 			for(String i : set)
 			{
 				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-						japanese_door = createBlock(mod, i+"_japanese_door", () -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_japanese_door"))), BlockSetType.OAK), block, item, tab, modLoaded);
-						japanese2_door = createBlock(mod, i+"_japanese2_door", () -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_japanese2_door"))), BlockSetType.OAK), block, item, tab, modLoaded);
-						barn_door = createBlock(mod, i+"_barn_door", () -> new DoorBlock(BlockSetType.OAK, DOOR_WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_barn_door")))), block, item, tab, modLoaded);
-						barn_glass_door = createBlock(mod, i+"_barn_glass_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_barn_glass_door")))), block, item, tab, modLoaded);
-						modern_door = createBlock(mod, i+"_modern_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_modern_door")))), block, item, tab, modLoaded);
-						cottage_door = createBlock(mod, i+"_cottage_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_cottage_door")))), block, item, tab, modLoaded);
-						classic_door = createBlock(mod, i+"_classic_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_classic_door")))), block, item, tab, modLoaded);
-						beach_door = createBlock(mod, i+"_beach_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_beach_door")))), block, item, tab, modLoaded);
-						paper_door = createBlock(mod, i+"_paper_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_paper_door")))), block, item, tab, modLoaded);
-						four_panel_door = createBlock(mod, i+"_four_panel_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_four_panel_door")))), block, item, tab, modLoaded);
-						tropical_door = createBlock(mod, i+"_tropical_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_tropical_door")))), block, item, tab, modLoaded);
-						glass_door = createBlock(mod, i+"_glass_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_glass_door")))), block, item, tab, modLoaded);
-						stable_door = createBlock(mod, i+"_stable_door", () -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.StableDoor", JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_stable_door"))), BlockSetType.OAK), block, item, tab, modLoaded);
-						stable_head_door = createBlock(mod, i+"_stable_head_door", () -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.StableDoor", JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_stable_head_door"))), BlockSetType.OAK), block, item, tab, modLoaded);
-						western_door = createBlock(mod, i+"_western_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_western_door")))), block, item, tab, modLoaded);
-						mystic_door = createBlock(mod, i+"_mystic_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_mystic_door")))), block, item, tab, modLoaded);
-						nether_door = createBlock(mod, i+"_nether_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_nether_door")))), block, item, tab, modLoaded);
-						swamp_door = createBlock(mod, i+"_swamp_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_swamp_door")))), block, item, tab, modLoaded);
-						bamboo_door = createBlock(mod, i+"_bamboo_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_bamboo_door")))), block, item, tab, modLoaded);
-						bark_glass_door = createBlock(mod, i+"_bark_glass_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_bark_glass_door")))), block, item, tab, modLoaded);
-						waffle_door = createBlock(mod, i+"_waffle_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_waffle_door")))), block, item, tab, modLoaded);
-						whispering_door = createBlock(mod, i+"_whispering_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_whispering_door")))), block, item, tab, modLoaded);
+					if (ModList.get().isLoaded(modid))
+					{
+						japanese_door = createBlock(i + "_japanese_door", registryName -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName)), BlockSetType.OAK), block, item);
+						japanese2_door = createBlock(i + "_japanese2_door", registryName -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName)), BlockSetType.OAK), block, item);
+						barn_door = createBlock(i + "_barn_door", registryName -> new DoorBlock(BlockSetType.OAK, DOOR_WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						barn_glass_door = createBlock(i + "_barn_glass_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						modern_door = createBlock(i + "_modern_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						cottage_door = createBlock(i + "_cottage_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						classic_door = createBlock(i + "_classic_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						beach_door = createBlock(i + "_beach_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						paper_door = createBlock(i + "_paper_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						four_panel_door = createBlock(i + "_four_panel_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						tropical_door = createBlock(i + "_tropical_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						glass_door = createBlock(i + "_glass_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						stable_door = createBlock(i + "_stable_door", registryName -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.StableDoor", JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName)), BlockSetType.OAK), block, item);
+						stable_head_door = createBlock(i + "_stable_head_door", registryName -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.StableDoor", JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName)), BlockSetType.OAK), block, item);
+						western_door = createBlock(i + "_western_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						mystic_door = createBlock(i + "_mystic_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						nether_door = createBlock(i + "_nether_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						swamp_door = createBlock(i + "_swamp_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						bamboo_door = createBlock(i + "_bamboo_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						bark_glass_door = createBlock(i + "_bark_glass_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						waffle_door = createBlock(i + "_waffle_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						whispering_door = createBlock(i + "_whispering_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
 					}
 					else
 					{
-						japanese_door = createBlock(mod, i+"_japanese_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_japanese_door")))), block, item, tab, modLoaded);
-						japanese2_door = createBlock(mod, i+"_japanese2_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_japanese2_door")))), block, item, tab, modLoaded);
-						barn_door = createBlock(mod, i+"_barn_door", () -> new DoorBlock(BlockSetType.OAK, DOOR_WOOD.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_barn_door")))), block, item, tab, modLoaded);
-						barn_glass_door = createBlock(mod, i+"_barn_glass_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_barn_glass_door")))), block, item, tab, modLoaded);
-						modern_door = createBlock(mod, i+"_modern_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_modern_door")))), block, item, tab, modLoaded);
-						cottage_door = createBlock(mod, i+"_cottage_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_cottage_door")))), block, item, tab, modLoaded);
-						classic_door = createBlock(mod, i+"_classic_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_classic_door")))), block, item, tab, modLoaded);
-						beach_door = createBlock(mod, i+"_beach_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_beach_door")))), block, item, tab, modLoaded);
-						paper_door = createBlock(mod, i+"_paper_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_paper_door")))), block, item, tab, modLoaded);
-						four_panel_door = createBlock(mod, i+"_four_panel_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_four_panel_door")))), block, item, tab, modLoaded);
-						tropical_door = createBlock(mod, i+"_tropical_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_tropical_door")))), block, item, tab, modLoaded);
-						glass_door = createBlock(mod, i+"_glass_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_glass_door")))), block, item, tab, modLoaded);
-						stable_door = createBlock(mod, i+"_stable_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_stable_door")))), block, item, tab, modLoaded);
-						stable_head_door = createBlock(mod, i+"_stable_head_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_stable_head_door")))), block, item, tab, modLoaded);
-						western_door = createBlock(mod, i+"_western_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_western_door")))), block, item, tab, modLoaded);
-						mystic_door = createBlock(mod, i+"_mystic_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_mystic_door")))), block, item, tab, modLoaded);
-						nether_door = createBlock(mod, i+"_nether_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_nether_door")))), block, item, tab, modLoaded);
-						swamp_door = createBlock(mod, i+"_swamp_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_swamp_door")))), block, item, tab, modLoaded);
-						bamboo_door = createBlock(mod, i+"_bamboo_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_bamboo_door")))), block, item, tab, modLoaded);
-						bark_glass_door = createBlock(mod, i+"_bark_glass_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_bark_glass_door")))), block, item, tab, modLoaded);
-						waffle_door = createBlock(mod, i+"_waffle_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_waffle_door")))), block, item, tab, modLoaded);
-						whispering_door = createBlock(mod, i+"_whispering_door", () -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(mod, i+"_whispering_door")))), block, item, tab, modLoaded);
+						japanese_door = createBlock(i + "_japanese_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						japanese2_door = createBlock(i + "_japanese2_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						barn_door = createBlock(i + "_barn_door", registryName -> new DoorBlock(BlockSetType.OAK, DOOR_WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						barn_glass_door = createBlock(i + "_barn_glass_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						modern_door = createBlock(i + "_modern_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						cottage_door = createBlock(i + "_cottage_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						classic_door = createBlock(i + "_classic_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						beach_door = createBlock(i + "_beach_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						paper_door = createBlock(i + "_paper_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						four_panel_door = createBlock(i + "_four_panel_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						tropical_door = createBlock(i + "_tropical_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						glass_door = createBlock(i + "_glass_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						stable_door = createBlock(i + "_stable_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						stable_head_door = createBlock(i + "_stable_head_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						western_door = createBlock(i + "_western_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						mystic_door = createBlock(i + "_mystic_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						nether_door = createBlock(i + "_nether_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						swamp_door = createBlock(i + "_swamp_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						bamboo_door = createBlock(i + "_bamboo_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						bark_glass_door = createBlock(i + "_bark_glass_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						waffle_door = createBlock(i + "_waffle_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+						whispering_door = createBlock(i + "_whispering_door", registryName -> new DoorBlock(BlockSetType.OAK, JAPAN.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
 					}
 				} catch (Exception e) {
-				    e.printStackTrace();
+					AddonsLib.LOGGER.error(e);
 				}
 			}
 	}
 	
-	protected static DeferredBlock<Block> createBlock(String mod, String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab)
+	protected static DeferredBlock<Block> createBlock(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
-        return createBlock(mod, name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
-	
-	protected static DeferredBlock<Block> createBlock(String mod, String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY, CreativeModeTab tab, String modLoaded)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location()))));
-        }
-        else
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, block.get().builtInRegistryHolder().key().location()))));
-        }
+        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
+		ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuel(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryName))));
         return block;
     }
 	
