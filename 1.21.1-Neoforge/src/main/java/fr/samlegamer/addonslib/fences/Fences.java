@@ -153,7 +153,7 @@ public class Fences
 		
 	public static void addToTab(BuildCreativeModeTabContentsEvent event, String MODID, List<String> WOOD, CreativeModeTab tab)
 	{
-		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate;
+		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
 		
 		if (event.getTab() == tab && ModList.get().isLoaded(modid))
    	 	{
@@ -165,6 +165,7 @@ public class Fences
 				wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
 				highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
 				pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
+				curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
 				
 	        	event.accept(picket_fence);
 	        	event.accept(stockade_fence);
@@ -172,6 +173,7 @@ public class Fences
 	        	event.accept(wired_fence);
 	        	event.accept(highley_gate);
 	        	event.accept(pyramid_gate);
+				event.accept(curved_gate);
 	        }
    	 	}
 	}
