@@ -48,7 +48,7 @@ public class Furnitures
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if(isModLoaded) {
-					if(blockId.reflectedLocation().contains("StorageCounter") || blockId.reflectedLocation().contains("Cabinet")) {
+					if(blockId.reflectedLocation().contains("StorageCounter") || blockId.reflectedLocation().equals("com.mcwfurnitures.kikoz.objects.cabinets.Cabinet")) {
 						createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName)), Blocks.OAK_PLANKS.defaultBlockState()), block, item);
 					}
 					else {

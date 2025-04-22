@@ -4,6 +4,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.extensions.IItemExtension;
+import org.jetbrains.annotations.Nullable;
 
 public class BlockItemFuelInfo extends BlockItemInfo implements IItemExtension
 {
@@ -12,9 +13,9 @@ public class BlockItemFuelInfo extends BlockItemInfo implements IItemExtension
 		super(p_40565_, p_40566_, desc);
 	}
 
+
 	@Override
-	public int getBurnTime(ItemStack itemStack, RecipeType<?> recipeType)
-	{
+	public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
 		return 300;
 	}
 }

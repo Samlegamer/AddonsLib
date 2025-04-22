@@ -1,11 +1,13 @@
 package fr.samlegamer.addonslib.path;
 
 import java.util.List;
-import java.util.function.Supplier;
-import fr.samlegamer.addonslib.AddonsLib;
+import java.util.function.Function;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -34,34 +36,31 @@ public class Paths
 	 */
 	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
-			final BlockBehaviour.Properties WOOD = prop;
+		final BlockBehaviour.Properties WOOD = prop;
 
-			for(String i : set)
-			{
-				DeferredBlock<Block> planks_path;
-				  
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-				    	planks_path = createBlock(i+"_planks_path", () -> Registration.getBlocksField("com.mcwpaths.kikoz.objects.FacingPathBlock", WOOD), block, item);
-				    }
-				    else
-				    {
-				    	planks_path = createBlock(i+"_planks_path", () -> new Block(WOOD), block, item);
-				    }
-				} catch (Exception e) {
-					AddonsLib.LOGGER.error(e);
+		boolean isModLoaded = ModList.get().isLoaded(modid);
+
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.PATHS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModLoaded) {
+					createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item);
+				}
+				else {
+					createBlock(id, registryName -> new Block(WOOD), block, item);
 				}
 			}
+		}
 	}
 
-	protected static DeferredBlock<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
+	protected static void createBlock(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-        return block;
-    }
-	
+        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
+		ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuel(block.get(), new Item.Properties(), 50));
+	}
+
+	@Deprecated(forRemoval = true)
 	public static void addToTab(BuildCreativeModeTabContentsEvent event, String MODID, List<String> WOOD, CreativeModeTab tab)
 	{
 		if (event.getTab() == tab && ModList.get().isLoaded(modid))

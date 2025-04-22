@@ -21,11 +21,11 @@ public class BlockItemInfo extends BlockItem
 		this.desc = desc;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack p_43043_, TooltipContext p_43044_, List<Component> p_43045_, TooltipFlag p_43046_)
+	@Override
+	public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag)
 	{
-		p_43045_.add(this.getDescription().withStyle(ChatFormatting.GRAY));
+		pTooltipComponents.add(this.getDescription().withStyle(ChatFormatting.GRAY));
 	}
 
 	@OnlyIn(Dist.CLIENT)

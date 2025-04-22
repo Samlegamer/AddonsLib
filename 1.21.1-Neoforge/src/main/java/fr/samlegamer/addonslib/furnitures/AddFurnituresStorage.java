@@ -1,6 +1,7 @@
 package fr.samlegamer.addonslib.furnitures;
 
 import java.util.List;
+
 import fr.samlegamer.addonslib.Finder;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
@@ -17,7 +18,8 @@ public class AddFurnituresStorage
 		{
 			for (String i : MAT)
 			{
-				event.modify(Finder.findTileEntity(Furnitures.modid, "furniture_storage"), Finder.findBlock(MODID, i + "_wardrobe"),
+				event.modify(Finder.findTileEntity(Furnitures.modid, "furniture_storage"),
+						Finder.findBlock(MODID, i + "_wardrobe"),
 						Finder.findBlock(MODID, i + "_modern_wardrobe"),
 						Finder.findBlock(MODID, i + "_double_wardrobe"),
 						Finder.findBlock(MODID, i + "_bookshelf"),
