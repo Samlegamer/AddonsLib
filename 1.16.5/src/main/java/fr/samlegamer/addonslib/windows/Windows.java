@@ -22,7 +22,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class Windows {
-	private static final String modid = "mcwwindows";
+	public static final String modid = "mcwwindows";
 
 	/**
 	 * Init all Wood Variants of Macaw's Windows

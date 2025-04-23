@@ -83,6 +83,7 @@ public final class Registration
 		return block;
 	}
 
+	@Deprecated
 	public static Block getBlocksFieldForFences(String path, BlockBehaviour.Properties WOOD)
 	{
         return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class}, WOOD);

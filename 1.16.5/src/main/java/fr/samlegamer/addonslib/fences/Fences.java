@@ -71,10 +71,10 @@ public class Fences
 				        picket_fence = createBlock(i + "_picket_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
 				        stockade_fence = createBlock(i + "_stockade_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
 				        horse_fence = createBlock(i + "_horse_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
-			            wired_fence = createBlock(i + "_wired_fence", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.WiredFence", WOOD, new FenceBlock(WOOD)), block, item, tab, modLoaded);
+			            wired_fence = createBlock(i + "_wired_fence", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.WiredFence", WOOD), block, item, tab, modLoaded);
 				        highley_gate = createBlock(i + "_highley_gate", () -> new FenceGateBlock(WOOD), block, item, tab, modLoaded);
 				        pyramid_gate = createBlock(i + "_pyramid_gate", () -> new FenceGateBlock(WOOD), block, item, tab, modLoaded);
-						curved_gate = createBlock(i + "_curved_gate", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.DoubleGate", WOOD, new FenceBlock(WOOD)), block, item, tab, modLoaded);
+						curved_gate = createBlock(i + "_curved_gate", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.DoubleGate", WOOD), block, item, tab, modLoaded);
 					} else {
 				        picket_fence = createBlock(i + "_picket_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
 				        stockade_fence = createBlock(i + "_stockade_fence", () -> new FenceBlock(WOOD), block, item, tab, modLoaded);
@@ -103,7 +103,7 @@ public class Fences
 			{
 				if (ModList.get().isLoaded(modid))
 	        	{
-	                hedge = createBlock(i + "_hedge", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES, new FenceBlock(HEDGES)), block, item, tab, modLoaded);
+	                hedge = createBlock(i + "_hedge", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES), block, item, tab, modLoaded);
 
 	            } else {
 	                hedge = createBlock(i + "_hedge", () -> new FenceBlock(HEDGES), block, item, tab, modLoaded);
@@ -127,7 +127,7 @@ public class Fences
 					railing_wall = createBlockStone("railing_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
 					railing_gate = createBlockStone(i+"_railing_gate", () -> new FenceGateBlock(STONE), block, item, tab, modLoaded);
 					pillar_wall = createBlockStone(i+"_pillar_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
-	                grass_topped_wall = createBlock(i + "_grass_topped_wall", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", STONE, new FenceBlock(STONE)), block, item, tab, modLoaded);
+	                grass_topped_wall = createBlock(i + "_grass_topped_wall", () -> Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", STONE), block, item, tab, modLoaded);
 
 	            } else {
 					modern_wall = createBlockStone("modern_"+i+"_wall", () -> new FenceBlock(STONE), block, item, tab, modLoaded);
@@ -193,10 +193,10 @@ public class Fences
 				        picket_fence = createBlockWoodOpti(i + "_picket_fence", new FenceBlock(WOOD), tab);
 				        stockade_fence = createBlockWoodOpti(i + "_stockade_fence", new FenceBlock(WOOD), tab);
 				        horse_fence = createBlockWoodOpti(i + "_horse_fence", new FenceBlock(WOOD), tab);
-			            wired_fence = createBlockWoodOpti(i + "_wired_fence", Registration.getBlocksField("com.mcwfences.kikoz.objects.WiredFence", WOOD, new FenceBlock(WOOD)), tab);
+			            wired_fence = createBlockWoodOpti(i + "_wired_fence", Registration.getBlocksField("com.mcwfences.kikoz.objects.WiredFence", WOOD), tab);
 				        highley_gate = createBlockWoodOpti(i + "_highley_gate", new FenceGateBlock(WOOD), tab);
 				        pyramid_gate = createBlockWoodOpti(i + "_pyramid_gate", new FenceGateBlock(WOOD), tab);
-						curved_gate = createBlockWoodOpti(i + "_curved_gate", Registration.getBlocksField("com.mcwfences.kikoz.objects.DoubleGate", WOOD, new FenceBlock(WOOD)), tab);
+						curved_gate = createBlockWoodOpti(i + "_curved_gate", Registration.getBlocksField("com.mcwfences.kikoz.objects.DoubleGate", WOOD), tab);
 					} else {
 				        picket_fence = createBlockWoodOpti(i + "_picket_fence", new FenceBlock(WOOD), tab);
 				        stockade_fence = createBlockWoodOpti(i + "_stockade_fence", new FenceBlock(WOOD), tab);
@@ -225,7 +225,7 @@ public class Fences
 			{
 				if (ModList.get().isLoaded(modid))
 	        	{
-	                hedge = createBlockWoodOpti(i + "_hedge", Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES, new FenceBlock(HEDGES)), tab);
+	                hedge = createBlockWoodOpti(i + "_hedge", Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", HEDGES), tab);
 
 	            } else {
 	                hedge = createBlockWoodOpti(i + "_hedge", new FenceBlock(HEDGES), tab);
@@ -248,7 +248,7 @@ public class Fences
 					railing_wall = createBlockStoneOpti("railing_"+i+"_wall", new FenceBlock(STONE), tab);
 					railing_gate = createBlockStoneOpti(i+"_railing_gate", new FenceGateBlock(STONE), tab);
 					pillar_wall = createBlockStoneOpti(i+"_pillar_wall", new FenceBlock(STONE), tab);
-	                grass_topped_wall = createBlockStoneOpti(i + "_grass_topped_wall", Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", STONE, new FenceBlock(STONE)), tab);
+	                grass_topped_wall = createBlockStoneOpti(i + "_grass_topped_wall", Registration.getBlocksField("com.mcwfences.kikoz.objects.FenceHitbox", STONE), tab);
 
 	            } else {
 					modern_wall = createBlockStoneOpti("modern_"+i+"_wall", new FenceBlock(STONE), tab);
