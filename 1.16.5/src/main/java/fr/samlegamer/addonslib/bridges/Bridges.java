@@ -181,7 +181,7 @@ public class Bridges
 
 	//Start of new registration system
 	
-	public static void registryWood(final RegistryEvent.Register<Block> event, List<String> WOODS, ItemGroup tab)
+	public static void registryWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOODS, ItemGroup tab)
 	{
 		final AbstractBlock.Properties WOOD = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
 
@@ -192,16 +192,16 @@ public class Bridges
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if(isModLoaded) {
-					createBlockWoodOpti(id, Registration.getBlocksField(blockId.reflectedLocation(), WOOD), tab);
+					createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), WOOD), tab);
 				}
 				else {
-					createBlockWoodOpti(id, new Block(WOOD), tab);
+					createBlockWoodOpti(Modid, id, new Block(WOOD), tab);
 				}
 			}
 		}
 	}
 	
-	public static void registryStone(final RegistryEvent.Register<Block> event, List<String> STONES, ItemGroup tab)
+	public static void registryStone(final RegistryEvent.Register<Block> event, String Modid, List<String> STONES, ItemGroup tab)
 	{
 		final AbstractBlock.Properties STONE = AbstractBlock.Properties.copy(Blocks.COBBLESTONE);
 
@@ -212,16 +212,16 @@ public class Bridges
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if(isModLoaded) {
-					createBlockStoneOpti(id, Registration.getBlocksField(blockId.reflectedLocation(), STONE), tab);
+					createBlockStoneOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), STONE), tab);
 				}
 				else {
-					createBlockStoneOpti(id,new Block(STONE), tab);
+					createBlockStoneOpti(Modid, id,new Block(STONE), tab);
 				}
 			}
 		}
 	}
 
-	protected static void createBlockWoodOpti(String name, Block block, ItemGroup tab)
+	protected static void createBlockWoodOpti(String Modid, String name, Block block, ItemGroup tab)
     {
 		BlockItem itemBlock;        
         if(ModList.get().isLoaded(modid))
@@ -237,13 +237,13 @@ public class Bridges
 		{
 			itemBlock = new BlockItemFuel(block, new Item.Properties());
 		}
-        block.setRegistryName(name);
-        itemBlock.setRegistryName(name);
+        block.setRegistryName(Modid, name);
+        itemBlock.setRegistryName(Modid, name);
         ForgeRegistries.BLOCKS.register(block);
         ForgeRegistries.ITEMS.register(itemBlock);
 	}
 
-	protected static void createBlockStoneOpti(String name, Block block, ItemGroup tab)
+	protected static void createBlockStoneOpti(String Modid, String name, Block block, ItemGroup tab)
     {
 		BlockItem itemBlock;
         if(ModList.get().isLoaded(modid))
@@ -254,8 +254,8 @@ public class Bridges
 		{
 			itemBlock = new BlockItem(block, new Item.Properties());
 		}
-        block.setRegistryName(name);
-        itemBlock.setRegistryName(name);
+        block.setRegistryName(Modid, name);
+        itemBlock.setRegistryName(Modid, name);
         ForgeRegistries.BLOCKS.register(block);
         ForgeRegistries.ITEMS.register(itemBlock);
 	}

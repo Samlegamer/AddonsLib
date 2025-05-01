@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -40,56 +42,52 @@ public class Windows {
 		final AbstractBlock.Properties BLINDS = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.3F, 1.0F);
 		final AbstractBlock.Properties SHUTTER = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.5F, 2.0F);
 		final AbstractBlock.Properties ROD = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.3F, 0.7F);
-		RegistryObject<Block> window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2, plank_four_window,
-				log_parapet, plank_parapet, blinds, shutter, louvered_shutter, pane_window, strippedpane_window, plank_pane_window, curtain_rod;
+
+		boolean isModLoaded = ModList.get().isLoaded(modid);
 
 		for (String i : set) {
-			try {
-				if (ModList.get().isLoaded(modid)) {
-					window = createBlock(i + "_window", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.ConnectedWindow", WOOD), block, item, tab, modLoaded);
-					window2 = createBlock(i + "_window2", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), block, item, tab, modLoaded);
-					four_window = createBlock(i + "_four_window", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), block, item, tab, modLoaded);
-					strippedlog_window = createBlock("stripped_" + i + "_log_window", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.ConnectedWindow", WOOD), block, item, tab, modLoaded);
-					strippedlog_window2 = createBlock("stripped_" + i + "_log_window2", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), block, item, tab, modLoaded);
-					strippedlog_four_window = createBlock("stripped_" + i + "_log_four_window", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), block, item, tab, modLoaded);
-					plank_window = createBlock(i + "_plank_window", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.ConnectedWindow", WOOD), block, item, tab, modLoaded);
-					plank_window2 = createBlock(i + "_plank_window2", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), block, item, tab, modLoaded);
-					plank_four_window = createBlock(i + "_plank_four_window", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), block, item, tab, modLoaded);
-					log_parapet = createBlock(i + "_log_parapet", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.Parapet", PARAPET), block, item, tab, modLoaded);
-					plank_parapet = createBlock(i + "_plank_parapet", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.Parapet", PARAPET), block, item, tab, modLoaded);
-					blinds = createBlock(i + "_blinds", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.Blinds", BLINDS), block, item, tab, modLoaded);
-					shutter = createBlock(i + "_shutter", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.Shutter", SHUTTER), block, item, tab, modLoaded);
-					louvered_shutter = createBlock(i + "_louvered_shutter", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.Shutter", SHUTTER), block, item, tab, modLoaded);
-					pane_window = createBlock(i + "_pane_window", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.Window", WOOD), block, item, tab, modLoaded);
-					strippedpane_window = createBlock("stripped_" + i + "_pane_window", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.Window", WOOD), block, item, tab, modLoaded);
-					plank_pane_window = createBlock(i + "_plank_pane_window", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.Window", WOOD), block, item, tab, modLoaded);
-					curtain_rod = createBlock(i + "_curtain_rod", () -> Registration.getBlocksField("com.mcwwindows.kikoz.objects.CurtainRod", ROD), block, item, tab, modLoaded);
-				} else {
-					window = createBlock(i + "_window", () -> new Block(WOOD), block, item, tab, modLoaded);
-					window2 = createBlock(i + "_window2", () -> new Block(WOOD), block, item, tab, modLoaded);
-					four_window = createBlock(i + "_four_window", () -> new Block(WOOD), block, item, tab, modLoaded);
-					strippedlog_window = createBlock("stripped_" + i + "_log_window", () -> new Block(WOOD), block, item, tab, modLoaded);
-					strippedlog_window2 = createBlock("stripped_" + i + "_log_window2", () -> new Block(WOOD), block, item, tab, modLoaded);
-					strippedlog_four_window = createBlock("stripped_" + i + "_log_four_window", () -> new Block(WOOD), block, item, tab, modLoaded);
-					plank_window = createBlock(i + "_plank_window", () -> new Block(WOOD), block, item, tab, modLoaded);
-					plank_window2 = createBlock(i + "_plank_window2", () -> new Block(WOOD), block, item, tab, modLoaded);
-					plank_four_window = createBlock(i + "_plank_four_window", () -> new Block(WOOD), block, item, tab, modLoaded);
-					log_parapet = createBlock(i + "_log_parapet", () -> new Block(WOOD), block, item, tab, modLoaded);
-					plank_parapet = createBlock(i + "_plank_parapet", () -> new Block(WOOD), block, item, tab, modLoaded);
-					blinds = createBlock(i + "_blinds", () -> new Block(WOOD), block, item, tab, modLoaded);
-					shutter = createBlock(i + "_shutter", () -> new Block(WOOD), block, item, tab, modLoaded);
-					louvered_shutter = createBlock(i + "_louvered_shutter", () -> new Block(WOOD), block, item, tab, modLoaded);
-					pane_window = createBlock(i + "_pane_window", () -> new Block(WOOD), block, item, tab, modLoaded);
-					strippedpane_window = createBlock("stripped_" + i + "_pane_window", () -> new Block(WOOD), block, item, tab, modLoaded);
-					plank_pane_window = createBlock(i + "_plank_pane_window", () -> new Block(WOOD), block, item, tab, modLoaded);
-					curtain_rod = createBlock(i + "_curtain_rod", () -> new Block(WOOD), block, item, tab, modLoaded);
+			for (BlockId blockId : McwBlocksIdBase.WINDOWS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+				String relectedLocation = blockId.reflectedLocation();
+
+				if(isModLoaded) {
+					switch (relectedLocation)
+					{
+						case "Parapet":
+							createBlock(id, () ->
+											Registration.getBlocksField(relectedLocation, PARAPET),
+									block, item, tab, modLoaded);
+							break;
+						case "Blinds":
+							createBlock(id, () ->
+											Registration.getBlocksField(relectedLocation, BLINDS),
+									block, item, tab, modLoaded);
+							break;
+						case "Shutter":
+							createBlock(id, () ->
+											Registration.getBlocksField(relectedLocation, SHUTTER),
+									block, item, tab, modLoaded);
+							break;
+						case "CurtainRod":
+							createBlock(id, () ->
+											Registration.getBlocksField(relectedLocation, ROD),
+									block, item, tab, modLoaded);
+							break;
+						default:
+							createBlock(id, () ->
+											Registration.getBlocksField(relectedLocation, WOOD),
+									block, item, tab, modLoaded);
+							break;
+					}
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+				else {
+					createBlock(id, () -> new Block(WOOD), block, item, tab, modLoaded);
+				}
 			}
 		}
 	}
 
+	@Deprecated
 	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet) {
 		Block window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2,
 				plank_four_window, log_parapet, plank_parapet, blinds, shutter, louvered_shutter, pane_window, strippedpane_window, plank_pane_window,
@@ -136,91 +134,82 @@ public class Windows {
 		}
 	}
 
+	@Deprecated
 	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD) {
 		clientWood(event, MODID, WOOD, RenderType.cutout());
 	}
 
-	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab) {
-		return createBlock(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-	}
-
-	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded) {
+	protected static void createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded) {
 		RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		if (ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded)) {
+		ModList modList = ModList.get();
+		if (modList.isLoaded(modid) && modList.isLoaded(modLoaded)) {
 			ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
 		} else {
 			ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
 		}
-		return block;
 	}
 
-	protected static Block createBlockWoodOpti(String name, Block block, ItemGroup tab) {
+	protected static void createBlockWoodOpti(String Modid, String name, Block block, ItemGroup tab) {
 		BlockItem itemBlock;
 		if (ModList.get().isLoaded(modid)) {
 			itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
 		} else {
 			itemBlock = new BlockItemFuel(block, new Item.Properties());
 		}
-		block.setRegistryName(name);
-		itemBlock.setRegistryName(name);
+		block.setRegistryName(Modid, name);
+		itemBlock.setRegistryName(Modid, name);
 		ForgeRegistries.BLOCKS.register(block);
 		ForgeRegistries.ITEMS.register(itemBlock);
-		return block;
 	}
 
-	public static void registryWood(final RegistryEvent.Register<Block> event, List<String> WOODS, ItemGroup tab)
+	public static void registryWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOODS, ItemGroup tab)
 	{
 		final AbstractBlock.Properties WOOD = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.6F, 1.2F);
 		final AbstractBlock.Properties PARAPET = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.2F, 1.0F);
 		final AbstractBlock.Properties BLINDS = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.3F, 1.0F);
 		final AbstractBlock.Properties SHUTTER = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.5F, 2.0F);
 		final AbstractBlock.Properties ROD = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.3F, 0.7F);
-		Block window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2, plank_four_window,
-				log_parapet, plank_parapet, blinds, shutter, louvered_shutter, pane_window, strippedpane_window, plank_pane_window, curtain_rod;
+
+		boolean isModLoaded = ModList.get().isLoaded(modid);
 
 		for (String i : WOODS) {
-			try {
-				if (ModList.get().isLoaded(modid)) {
-					window = createBlockWoodOpti(i + "_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.ConnectedWindow", WOOD), tab);
-					window2 = createBlockWoodOpti(i + "_window2", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
-					four_window = createBlockWoodOpti(i + "_four_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
-					strippedlog_window = createBlockWoodOpti("stripped_" + i + "_log_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.ConnectedWindow", WOOD), tab);
-					strippedlog_window2 = createBlockWoodOpti("stripped_" + i + "_log_window2", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
-					strippedlog_four_window = createBlockWoodOpti("stripped_" + i + "_log_four_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
-					plank_window = createBlockWoodOpti(i + "_plank_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.ConnectedWindow", WOOD), tab);
-					plank_window2 = createBlockWoodOpti(i + "_plank_window2", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
-					plank_four_window = createBlockWoodOpti(i + "_plank_four_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.WindowBarred", WOOD), tab);
-					log_parapet = createBlockWoodOpti(i + "_log_parapet", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Parapet", PARAPET), tab);
-					plank_parapet = createBlockWoodOpti(i + "_plank_parapet", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Parapet", PARAPET), tab);
-					blinds = createBlockWoodOpti(i + "_blinds", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Blinds", BLINDS), tab);
-					shutter = createBlockWoodOpti(i + "_shutter", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Shutter", SHUTTER), tab);
-					louvered_shutter = createBlockWoodOpti(i + "_louvered_shutter", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Shutter", SHUTTER), tab);
-					pane_window = createBlockWoodOpti(i + "_pane_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Window", WOOD), tab);
-					strippedpane_window = createBlockWoodOpti("stripped_" + i + "_pane_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Window", WOOD), tab);
-					plank_pane_window = createBlockWoodOpti(i + "_plank_pane_window", Registration.getBlocksField("com.mcwwindows.kikoz.objects.Window", WOOD), tab);
-					curtain_rod = createBlockWoodOpti(i + "_curtain_rod", Registration.getBlocksField("com.mcwwindows.kikoz.objects.CurtainRod", ROD), tab);
-				} else {
-					window = createBlockWoodOpti(i + "_window", new Block(WOOD), tab);
-					window2 = createBlockWoodOpti(i + "_window2", new Block(WOOD), tab);
-					four_window = createBlockWoodOpti(i + "_four_window", new Block(WOOD), tab);
-					strippedlog_window = createBlockWoodOpti("stripped_" + i + "_log_window", new Block(WOOD), tab);
-					strippedlog_window2 = createBlockWoodOpti("stripped_" + i + "_log_window2", new Block(WOOD), tab);
-					strippedlog_four_window = createBlockWoodOpti("stripped_" + i + "_log_four_window", new Block(WOOD), tab);
-					plank_window = createBlockWoodOpti(i + "_plank_window", new Block(WOOD), tab);
-					plank_window2 = createBlockWoodOpti(i + "_plank_window2", new Block(WOOD), tab);
-					plank_four_window = createBlockWoodOpti(i + "_plank_four_window", new Block(WOOD), tab);
-					log_parapet = createBlockWoodOpti(i + "_log_parapet", new Block(WOOD), tab);
-					plank_parapet = createBlockWoodOpti(i + "_plank_parapet", new Block(WOOD), tab);
-					blinds = createBlockWoodOpti(i + "_blinds", new Block(WOOD), tab);
-					shutter = createBlockWoodOpti(i + "_shutter", new Block(WOOD), tab);
-					louvered_shutter = createBlockWoodOpti(i + "_louvered_shutter", new Block(WOOD), tab);
-					pane_window = createBlockWoodOpti(i + "_pane_window", new Block(WOOD), tab);
-					strippedpane_window = createBlockWoodOpti("stripped_" + i + "_pane_window", new Block(WOOD), tab);
-					plank_pane_window = createBlockWoodOpti(i + "_plank_pane_window", new Block(WOOD), tab);
-					curtain_rod = createBlockWoodOpti(i + "_curtain_rod", new Block(WOOD), tab);
+			for (BlockId blockId : McwBlocksIdBase.WINDOWS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+				String relectedLocation = blockId.reflectedLocation();
+
+				if(isModLoaded) {
+					switch (relectedLocation)
+					{
+						case "Parapet":
+							createBlockWoodOpti(Modid, id,
+											Registration.getBlocksField(relectedLocation, PARAPET),
+									tab);
+							break;
+						case "Blinds":
+							createBlockWoodOpti(Modid, id,
+											Registration.getBlocksField(relectedLocation, BLINDS),
+									tab);
+							break;
+						case "Shutter":
+							createBlockWoodOpti(Modid, id,
+											Registration.getBlocksField(relectedLocation, SHUTTER),
+									tab);
+							break;
+						case "CurtainRod":
+							createBlockWoodOpti(Modid, id,
+											Registration.getBlocksField(relectedLocation, ROD),
+									tab);
+							break;
+						default:
+							createBlockWoodOpti(Modid, id,
+											Registration.getBlocksField(relectedLocation, WOOD),
+									tab);
+							break;
+					}
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+				else {
+					createBlockWoodOpti(Modid, id, new Block(WOOD), tab);
+				}
 			}
 		}
 	}

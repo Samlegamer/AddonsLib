@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import fr.samlegamer.addonslib.item.BlockItemFuelInfo;
 import fr.samlegamer.addonslib.item.BlockItemInfo;
@@ -43,75 +45,44 @@ public class Stairs
 	public static void setRegistrationRockModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, String modLoaded, AbstractBlock.Properties prop)
 	{
 		 final AbstractBlock.Properties STONE = prop;
-			RegistryObject<Block> ACACIA_TERRACE_STAIRS, ACACIA_SKYLINE_STAIRS, ACACIA_COMPACT_STAIRS, ACACIA_BULK_STAIRS, ACACIA_LOFT_STAIRS, ACACIA_RAILING, ACACIA_BALCONY, ACACIA_PLATFORM;
 
-			for(String i : set)
-			{
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-						ACACIA_TERRACE_STAIRS = createBlockStone(i+"_terrace_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", STONE), block, item, tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = createBlockStone(i+"_skyline_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", STONE), block, item, tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = createBlockStone(i+"_compact_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", STONE), block, item, tab, modLoaded);
-						ACACIA_BULK_STAIRS = createBlockStone(i+"_bulk_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", STONE), block, item, tab, modLoaded);
-						ACACIA_LOFT_STAIRS = createBlockStone(i+"_loft_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", STONE), block, item, tab, modLoaded);
-						ACACIA_RAILING = createBlockStone(i+"_railing", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", STONE), block, item, tab, modLoaded);
-						ACACIA_BALCONY = createBlockStone(i+"_balcony", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", STONE), block, item, tab, modLoaded);
-						ACACIA_PLATFORM = createBlockStone(i+"_platform", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", STONE), block, item, tab, modLoaded);
-				    }
-				    else
-				    {
-						ACACIA_TERRACE_STAIRS = createBlock(i+"_terrace_stairs", () -> new Block(STONE), block, item, tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = createBlock(i+"_skyline_stairs", () -> new Block(STONE), block, item, tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = createBlock(i+"_compact_stairs", () -> new Block(STONE), block, item, tab, modLoaded);
-						ACACIA_BULK_STAIRS = createBlock(i+"_bulk_stairs", () -> new Block(STONE), block, item, tab, modLoaded);
-						ACACIA_LOFT_STAIRS = createBlock(i+"_loft_stairs", () -> new Block(STONE), block, item, tab, modLoaded);
-						ACACIA_RAILING = createBlock(i+"_railing", () -> new Block(STONE), block, item, tab, modLoaded);
-						ACACIA_BALCONY = createBlock(i+"_balcony", () -> new Block(STONE), block, item, tab, modLoaded);
-						ACACIA_PLATFORM = createBlock(i+"_platform", () -> new Block(STONE), block, item, tab, modLoaded);
-				    }
-				} catch (Exception e) {
-				    e.printStackTrace();
+		boolean isModLoaded = ModList.get().isLoaded(modid);
+
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.STAIRS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModLoaded) {
+					createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item, tab, modLoaded);
+				}
+				else {
+					createBlockStone(id, () -> new Block(STONE), block, item, tab, modLoaded);
 				}
 			}
+		}
 	}
 	
 	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, String modLoaded, AbstractBlock.Properties prop)
 	{
-			final AbstractBlock.Properties WOOD = prop;
-			RegistryObject<Block> ACACIA_TERRACE_STAIRS, ACACIA_SKYLINE_STAIRS, ACACIA_COMPACT_STAIRS, ACACIA_BULK_STAIRS, ACACIA_LOFT_STAIRS, ACACIA_RAILING, ACACIA_BALCONY, ACACIA_PLATFORM;
+		final AbstractBlock.Properties WOOD = prop;
 
-			for(String i : set)
-			{
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-						ACACIA_TERRACE_STAIRS = createBlock(i+"_terrace_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", WOOD), block, item, tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = createBlock(i+"_skyline_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", WOOD), block, item, tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = createBlock(i+"_compact_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", WOOD), block, item, tab, modLoaded);
-						ACACIA_BULK_STAIRS = createBlock(i+"_bulk_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", WOOD), block, item, tab, modLoaded);
-						ACACIA_LOFT_STAIRS = createBlock(i+"_loft_stairs", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", WOOD), block, item, tab, modLoaded);
-						ACACIA_RAILING = createBlock(i+"_railing", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", WOOD), block, item, tab, modLoaded);
-						ACACIA_BALCONY = createBlock(i+"_balcony", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", WOOD), block, item, tab, modLoaded);
-						ACACIA_PLATFORM = createBlock(i+"_platform", () -> Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", WOOD), block, item, tab, modLoaded);
-				    }
-				    else
-				    {
-						ACACIA_TERRACE_STAIRS = createBlock(i+"_terrace_stairs", () -> new Block(WOOD), block, item, tab, modLoaded);
-						ACACIA_SKYLINE_STAIRS = createBlock(i+"_skyline_stairs", () -> new Block(WOOD), block, item, tab, modLoaded);
-						ACACIA_COMPACT_STAIRS = createBlock(i+"_compact_stairs", () -> new Block(WOOD), block, item, tab, modLoaded);
-						ACACIA_BULK_STAIRS = createBlock(i+"_bulk_stairs", () -> new Block(WOOD), block, item, tab, modLoaded);
-						ACACIA_LOFT_STAIRS = createBlock(i+"_loft_stairs", () -> new Block(WOOD), block, item, tab, modLoaded);
-						ACACIA_RAILING = createBlock(i+"_railing", () -> new Block(WOOD), block, item, tab, modLoaded);
-						ACACIA_BALCONY = createBlock(i+"_balcony", () -> new Block(WOOD), block, item, tab, modLoaded);
-						ACACIA_PLATFORM = createBlock(i+"_platform", () -> new Block(WOOD), block, item, tab, modLoaded);
-				    }
-				} catch (Exception e) {
-				    e.printStackTrace();
+		boolean isModLoaded = ModList.get().isLoaded(modid);
+
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.STAIRS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModLoaded) {
+					createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item, tab, modLoaded);
+				}
+				else {
+					createBlock(id, () -> new Block(WOOD), block, item, tab, modLoaded);
 				}
 			}
+		}
 	}
-	
+
+	@Deprecated
 	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
 	{
 		Block _terrace_stairs, _skyline_stairs, _compact_stairs, _bulk_stairs, _loft_stairs, _railing, _balcony, _platform;
@@ -137,12 +108,14 @@ public class Stairs
         	RenderTypeLookup.setRenderLayer(_platform, renderSet);
         }
 	}
-	
+
+	@Deprecated
 	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD)
 	{
 		clientWood(event, MODID, WOOD, RenderType.cutout());
 	}
-	
+
+	@Deprecated
 	public static void clientStone(final FMLClientSetupEvent event, String MODID, List<String> STONE, RenderType renderSet)
 	{
 		Block _terrace_stairs, _skyline_stairs, _compact_stairs, _bulk_stairs, _loft_stairs, _railing, _balcony, _platform;
@@ -169,20 +142,17 @@ public class Stairs
         }
 	}
 
+	@Deprecated
 	public static void clientStone(final FMLClientSetupEvent event, String MODID, List<String> STONE)
 	{
 		clientStone(event, MODID, STONE, RenderType.cutout());
 	}
-		
-	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab)
-    {
-        return createBlock(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
-	
-	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
+
+	protected static void createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
+		ModList modList = ModList.get();
+        if(modList.isLoaded(modid) && modList.isLoaded(modLoaded))
 		{
 	        if(name.contains("railing")) {
 	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.railing.desc"));
@@ -201,18 +171,13 @@ public class Stairs
 		{
             ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
 		}
-        return block;
-    }
-	
-	protected static RegistryObject<Block> createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab)
-    {
-        return createBlockStone(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
-	
-	protected static RegistryObject<Block> createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
+	}
+
+	protected static void createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
     {
 		RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
+		ModList modList = ModList.get();
+		if(modList.isLoaded(modid) && modList.isLoaded(modLoaded))
 		{
 	        if(name.contains("railing")) {
 	            ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.railing.desc"));
@@ -231,84 +196,51 @@ public class Stairs
 		{
             ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
 		}
-        return block;
-    }
+	}
 	
 	//Start of new registration system
 	
-	public static void registryWood(final RegistryEvent.Register<Block> event, List<String> WOODS, ItemGroup tab)
+	public static void registryWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOODS, ItemGroup tab)
 	{
 		final AbstractBlock.Properties WOOD = AbstractBlock.Properties.of(Material.WOOD).strength(2.0F, 2.3F).sound(SoundType.WOOD).harvestTool(ToolType.AXE);
-		Block ACACIA_TERRACE_STAIRS, ACACIA_SKYLINE_STAIRS, ACACIA_COMPACT_STAIRS, ACACIA_BULK_STAIRS, ACACIA_LOFT_STAIRS, ACACIA_RAILING, ACACIA_BALCONY, ACACIA_PLATFORM;
 
-		for(String i : WOODS)
-		{
-			try {
-			    if (ModList.get().isLoaded(modid))
-			    {
-					ACACIA_TERRACE_STAIRS = createBlockWoodOpti(i+"_terrace_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", WOOD), tab);
-					ACACIA_SKYLINE_STAIRS = createBlockWoodOpti(i+"_skyline_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", WOOD), tab);
-					ACACIA_COMPACT_STAIRS = createBlockWoodOpti(i+"_compact_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", WOOD), tab);
-					ACACIA_BULK_STAIRS = createBlockWoodOpti(i+"_bulk_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", WOOD), tab);
-					ACACIA_LOFT_STAIRS = createBlockWoodOpti(i+"_loft_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", WOOD), tab);
-					ACACIA_RAILING = createBlockWoodOpti(i+"_railing", Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", WOOD), tab);
-					ACACIA_BALCONY = createBlockWoodOpti(i+"_balcony", Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", WOOD), tab);
-					ACACIA_PLATFORM = createBlockWoodOpti(i+"_platform", Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", WOOD), tab);
-			    }
-			    else
-			    {
-					ACACIA_TERRACE_STAIRS = createBlockWoodOpti(i+"_terrace_stairs", new Block(WOOD), tab);
-					ACACIA_SKYLINE_STAIRS = createBlockWoodOpti(i+"_skyline_stairs", new Block(WOOD), tab);
-					ACACIA_COMPACT_STAIRS = createBlockWoodOpti(i+"_compact_stairs", new Block(WOOD), tab);
-					ACACIA_BULK_STAIRS = createBlockWoodOpti(i+"_bulk_stairs", new Block(WOOD), tab);
-					ACACIA_LOFT_STAIRS = createBlockWoodOpti(i+"_loft_stairs", new Block(WOOD), tab);
-					ACACIA_RAILING = createBlockWoodOpti(i+"_railing", new Block(WOOD), tab);
-					ACACIA_BALCONY = createBlockWoodOpti(i+"_balcony", new Block(WOOD), tab);
-					ACACIA_PLATFORM = createBlockWoodOpti(i+"_platform", new Block(WOOD), tab);
-			    }
-			} catch (Exception e) {
-			    e.printStackTrace();
+		boolean isModLoaded = ModList.get().isLoaded(modid);
+
+		for (String i : WOODS) {
+			for (BlockId blockId : McwBlocksIdBase.STAIRS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModLoaded) {
+					createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), WOOD), tab);
+				}
+				else {
+					createBlockWoodOpti(Modid, id, new Block(WOOD), tab);
+				}
 			}
 		}
 	}
 	
-	public static void registryStone(final RegistryEvent.Register<Block> event, List<String> STONES, ItemGroup tab)
+	public static void registryStone(final RegistryEvent.Register<Block> event, String Modid, List<String> STONES, ItemGroup tab)
 	{
 	 	final AbstractBlock.Properties STONE = AbstractBlock.Properties.of(Material.STONE).strength(2.0F, 2.3F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops();
-		Block ACACIA_TERRACE_STAIRS, ACACIA_SKYLINE_STAIRS, ACACIA_COMPACT_STAIRS, ACACIA_BULK_STAIRS, ACACIA_LOFT_STAIRS, ACACIA_RAILING, ACACIA_BALCONY, ACACIA_PLATFORM;
 
-		for(String i : STONES)
-		{
-			try {
-			    if (ModList.get().isLoaded(modid))
-			    {
-					ACACIA_TERRACE_STAIRS = createBlockStoneOpti(i+"_terrace_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.TerraceStairs", STONE), tab);
-					ACACIA_SKYLINE_STAIRS = createBlockStoneOpti(i+"_skyline_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.SkylineStairs", STONE), tab);
-					ACACIA_COMPACT_STAIRS = createBlockStoneOpti(i+"_compact_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.CompactStairs", STONE), tab);
-					ACACIA_BULK_STAIRS = createBlockStoneOpti(i+"_bulk_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.BulkStairs", STONE), tab);
-					ACACIA_LOFT_STAIRS = createBlockStoneOpti(i+"_loft_stairs", Registration.getBlocksField("com.mcwstairs.kikoz.objects.stair_types.LoftStairs", STONE), tab);
-					ACACIA_RAILING = createBlockStoneOpti(i+"_railing", Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairRailing", STONE), tab);
-					ACACIA_BALCONY = createBlockStoneOpti(i+"_balcony", Registration.getBlocksField("com.mcwstairs.kikoz.objects.BalconyRailing", STONE), tab);
-					ACACIA_PLATFORM = createBlockStoneOpti(i+"_platform", Registration.getBlocksField("com.mcwstairs.kikoz.objects.StairPlatform", STONE), tab);
-			    }
-			    else
-			    {
-					ACACIA_TERRACE_STAIRS = createBlockStoneOpti(i+"_terrace_stairs", new Block(STONE), tab);
-					ACACIA_SKYLINE_STAIRS = createBlockStoneOpti(i+"_skyline_stairs", new Block(STONE), tab);
-					ACACIA_COMPACT_STAIRS = createBlockStoneOpti(i+"_compact_stairs", new Block(STONE), tab);
-					ACACIA_BULK_STAIRS = createBlockStoneOpti(i+"_bulk_stairs", new Block(STONE), tab);
-					ACACIA_LOFT_STAIRS = createBlockStoneOpti(i+"_loft_stairs", new Block(STONE), tab);
-					ACACIA_RAILING = createBlockStoneOpti(i+"_railing", new Block(STONE), tab);
-					ACACIA_BALCONY = createBlockStoneOpti(i+"_balcony", new Block(STONE), tab);
-					ACACIA_PLATFORM = createBlockStoneOpti(i+"_platform", new Block(STONE), tab);
-			    }
-			} catch (Exception e) {
-			    e.printStackTrace();
+		boolean isModLoaded = ModList.get().isLoaded(modid);
+
+		for (String i : STONES) {
+			for (BlockId blockId : McwBlocksIdBase.STAIRS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModLoaded) {
+					createBlockStoneOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), STONE), tab);
+				}
+				else {
+					createBlockStoneOpti(Modid, id, new Block(STONE), tab);
+				}
 			}
 		}
 	}
 
-	protected static Block createBlockWoodOpti(String name, Block block, ItemGroup tab)
+	protected static void createBlockWoodOpti(String Modid, String name, Block block, ItemGroup tab)
     {
 		BlockItem itemBlock;
 		if(ModList.get().isLoaded(modid))
@@ -330,39 +262,37 @@ public class Stairs
 		{
 			itemBlock = new BlockItemFuel(block, new Item.Properties());
 		}
-        block.setRegistryName(name);
-        itemBlock.setRegistryName(name);
+        block.setRegistryName(Modid, name);
+        itemBlock.setRegistryName(Modid, name);
         ForgeRegistries.BLOCKS.register(block);
         ForgeRegistries.ITEMS.register(itemBlock);
-        return block;
-    }
+	}
 
-	protected static Block createBlockStoneOpti(String name, Block block, ItemGroup tab)
+	protected static void createBlockStoneOpti(String Modid, String name, Block block, ItemGroup tab)
     {
 		BlockItem itemBlock;
 		if(ModList.get().isLoaded(modid))
 		{
 	        if(name.contains("railing")) {
-	        	itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.railing.desc");
+	        	itemBlock = new BlockItemInfo(block, new Item.Properties().tab(tab), "mcwstairs.railing.desc");
 	        }
 	        else if(name.contains("balcony")) {
-	        	itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.balcony.desc");
+	        	itemBlock = new BlockItemInfo(block, new Item.Properties().tab(tab), "mcwstairs.balcony.desc");
 	        }
 	        else if(name.contains("platform")) {
-	        	itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.platform.desc");
+	        	itemBlock = new BlockItemInfo(block, new Item.Properties().tab(tab), "mcwstairs.platform.desc");
 	        }
 	        else {
-	        	itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
+	        	itemBlock = new BlockItem(block, new Item.Properties().tab(tab));
 	        }
 		}
 		else
 		{
 			itemBlock = new BlockItemFuel(block, new Item.Properties());
-		}	
-        block.setRegistryName(name);
-        itemBlock.setRegistryName(name);
+		}
+        block.setRegistryName(Modid, name);
+        itemBlock.setRegistryName(Modid, name);
         ForgeRegistries.BLOCKS.register(block);
         ForgeRegistries.ITEMS.register(itemBlock);
-        return block;
-    }
+	}
 }
