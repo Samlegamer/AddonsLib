@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.annotation.Nonnull;
 
+import fr.samlegamer.addonslib.data.ModType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -22,8 +23,10 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 /**
  * Used for easy registries
  */
-public class Registration
+public final class Registration
 {
+	private Registration() {}
+
 	/**
 	 * Block
 	 */
@@ -61,74 +64,48 @@ public class Registration
 		i.register(bus);
 		t.register(bus);
 	}
-	
-	public static Block getBlocksFieldForFences(String path, BlockBehaviour.Properties WOOD)
+
+	public static ModType[] getAllModTypeWood()
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constructorBase;
-        
-		try {
-			classBase = Class.forName(path);
-			constructorBase = classBase.getConstructor(BlockBehaviour.Properties.class);
-			block = (Block) constructorBase.newInstance(WOOD);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new FenceBlock(WOOD);
-		}
-        return block;
+		return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES, ModType.FURNITURES,
+				ModType.WINDOWS, ModType.DOORS, ModType.TRAPDOORS, ModType.PATHS, ModType.STAIRS};
 	}
 
-	
+	public static ModType[] getAllModTypeStone()
+	{
+		return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+	}
+
+	public static Block getField(String path, BlockBehaviour.Properties prop, Class<?>[] params, Object... values)
+	{
+		Class<?> classBase;
+		Block block;
+		Constructor<?> constructorBase;
+
+		try {
+			classBase = Class.forName(path);
+			constructorBase = classBase.getConstructor(params);
+			block = (Block) constructorBase.newInstance(values);
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			AddonsLib.LOGGER.error(e);
+			block = new Block(prop);
+		}
+		return block;
+	}
+
 	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD)
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constuctorBase;
-
-		try {
-			classBase = Class.forName(path);
-			constuctorBase = classBase.getConstructor(BlockBehaviour.Properties.class);
-			block = (Block) constuctorBase.newInstance(WOOD);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new Block(WOOD);
-		}
-        return block;
+		return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class}, WOOD);
 	}
-	
-	public static Block getBlocksFieldDoors(String path, BlockBehaviour.Properties WOOD, BlockSetType set)
+
+	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD, BlockSetType set)
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constuctorBase;
-
-		try {
-			classBase = Class.forName(path);
-			constuctorBase = classBase.getConstructor(BlockBehaviour.Properties.class, BlockSetType.class);
-			block = (Block) constuctorBase.newInstance(WOOD, set);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new Block(WOOD);
-		}
-        return block;
+		return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class, BlockSetType.class}, WOOD, set);
 	}
 
-	
+
 	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD, BlockState state)
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constuctorBase;
-
-		try {
-			classBase = Class.forName(path);
-			constuctorBase = classBase.getConstructor(BlockState.class, BlockBehaviour.Properties.class);
-			block = (Block) constuctorBase.newInstance(state, WOOD);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new Block(WOOD);
-		}
-        return block;
+		return getField(path, WOOD, new Class<?>[] {BlockState.class, BlockBehaviour.Properties.class}, state, WOOD);
 	}
 }

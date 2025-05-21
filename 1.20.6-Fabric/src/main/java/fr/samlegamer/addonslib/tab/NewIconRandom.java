@@ -2,8 +2,6 @@ package fr.samlegamer.addonslib.tab;
 
 import java.util.EnumSet;
 import java.util.Random;
-
-import fr.samlegamer.addonslib.AddonsLib;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -353,7 +351,7 @@ public class NewIconRandom
 		
 		private boolean loaded(String modid)
 	    {
-	    	return AddonsLib.isLoaded(modid);
+	    	return FabricLoader.getInstance().isModLoaded(modid);
 	    }
 		
 	    private boolean loadedAllStone()

@@ -1,14 +1,12 @@
 package fr.samlegamer.addonslib.roofs;
 
 import java.util.List;
-import java.util.function.Supplier;
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
-import net.minecraft.world.item.BlockItem;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
@@ -20,8 +18,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class Roofs
 {
-	private static final BlockBehaviour.Properties wood = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS);
-	private static final BlockBehaviour.Properties stone = BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE);
 	public static final String modid = "mcwroofs";
 		
 	/**
@@ -29,7 +25,7 @@ public class Roofs
 	 */
 	public static void setRegistrationWood(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
-		setRegistrationWoodModLoaded(set, block, item, wood);
+		setRegistrationWoodModLoaded(set, block, item, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS));
 	}
 	
 	/**
@@ -37,7 +33,7 @@ public class Roofs
 	 */
 	public static void setRegistrationRock(List<String> rock, DeferredRegister.Blocks block, DeferredRegister.Items item)
 	{
-		setRegistrationRockModLoaded(rock, block, item, stone);
+		setRegistrationRockModLoaded(rock, block, item, BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE));
 	}
 
 	/**
@@ -45,65 +41,30 @@ public class Roofs
 	 */
 	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
-			final BlockBehaviour.Properties WOOD = prop;
-		    DeferredBlock<Block> cherry_roof,
-			cherry_attic_roof,
-			cherry_top_roof,
-			cherry_lower_roof,
-			cherry_steep_roof,
-			cherry_upper_lower_roof,
-			cherry_upper_steep_roof,
-			cherry_planks_roof,
-			cherry_planks_attic_roof,
-			cherry_planks_top_roof,
-			cherry_planks_lower_roof,
-			cherry_planks_steep_roof,
-			cherry_planks_upper_lower_roof,
-			cherry_planks_upper_steep_roof;
+		final BlockBehaviour.Properties WOOD = prop;
 
-			for(String i : set)
-			{
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-				    	cherry_roof = createBlock(i+"_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-			            cherry_attic_roof = createBlock(i + "_attic_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofGlass", WOOD), block, item);
-			            cherry_top_roof = createBlock(i + "_top_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofTopNew", WOOD), block, item);
-					    cherry_lower_roof = createBlock(i+"_lower_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-					    cherry_steep_roof = createBlock(i+"_steep_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-			            cherry_upper_lower_roof = createBlock(i + "_upper_lower_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Lower", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
-			            cherry_upper_steep_roof = createBlock(i + "_upper_steep_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Steep", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
-					    
-			            cherry_planks_roof = createBlock(i+"_planks_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-			            cherry_planks_attic_roof = createBlock(i + "_planks_attic_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofGlass", WOOD), block, item);
-			            cherry_planks_top_roof = createBlock(i + "_planks_top_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofTopNew", WOOD), block, item);
-					    cherry_planks_lower_roof = createBlock(i+"_planks_lower_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-					    cherry_planks_steep_roof = createBlock(i+"_planks_steep_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-			            cherry_planks_upper_lower_roof = createBlock(i + "_planks_upper_lower_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Lower", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
-			            cherry_planks_upper_steep_roof = createBlock(i + "_planks_upper_steep_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Steep", WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
-				    }
-				    else
-				    {
-				    	cherry_roof = createBlock(i+"_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-					    cherry_attic_roof = createBlock(i+"_attic_roof", () -> new Block(WOOD), block, item);
-					    cherry_top_roof = createBlock(i+"_top_roof", () -> new Block(WOOD), block, item);
-					    cherry_lower_roof = createBlock(i+"_lower_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-					    cherry_steep_roof = createBlock(i+"_steep_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-					    cherry_upper_lower_roof = createBlock(i+"_upper_lower_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-					    cherry_upper_steep_roof = createBlock(i+"_upper_steep_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
 
-					    cherry_planks_roof = createBlock(i+"_planks_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-					    cherry_planks_attic_roof = createBlock(i+"_planks_attic_roof", () -> new Block(WOOD), block, item);
-					    cherry_planks_top_roof = createBlock(i+"_planks_top_roof", () -> new Block(WOOD), block, item);
-					    cherry_planks_lower_roof = createBlock(i+"_planks_lower_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-					    cherry_planks_steep_roof = createBlock(i+"_planks_steep_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-					    cherry_planks_upper_lower_roof = createBlock(i+"_planks_upper_lower_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState() ,WOOD), block, item);
-					    cherry_planks_upper_steep_roof = createBlock(i+"_planks_upper_steep_roof", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState() ,WOOD), block, item);
-				    }
-				} catch (Exception e) {
-					AddonsLib.LOGGER.error(e);
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.ROOFS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(blockId.reflectedLocation().contains("StairsBlock")) {
+					CreateBlockReferences.createBlock(id, () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
+				}
+				else if(isModMcwLoaded) {
+					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
+						CreateBlockReferences.createBlock(id, () ->
+								Registration.getBlocksField(blockId.reflectedLocation(), WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
+					} else {
+						CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item);
+					}
+				}
+				else {
+					CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item);
 				}
 			}
+		}
 	}
 	
 	/**
@@ -111,59 +72,42 @@ public class Roofs
 	 */
 	public static void setRegistrationRockModLoaded(List<String> rock, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
-			final BlockBehaviour.Properties STONE = prop;
-			DeferredBlock<Block> ROOF,
-			ATTIC_ROOF,
-			TOP_ROOF,
-			LOWER_ROOF,
-			STEEP_ROOF,
-			UPPER_LOWER_ROOF,
-			UPPER_STEEP_ROOF;
+		final BlockBehaviour.Properties STONE = prop;
 
-			for(String i : rock)
-			{
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-				    	ROOF = createBlockStone(i+"_roof", () -> new StairBlock(Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), block, item);
-			            ATTIC_ROOF = createBlockStone(i + "_attic_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofGlass", STONE), block, item);
-			            TOP_ROOF = createBlockStone(i + "_top_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.RoofTopNew", STONE), block, item);
-			            LOWER_ROOF = createBlockStone(i+"_lower_roof", () -> new StairBlock(Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), block, item);
-			            STEEP_ROOF = createBlockStone(i+"_steep_roof", () -> new StairBlock(Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), block, item);
-			            UPPER_LOWER_ROOF = createBlockStone(i + "_upper_lower_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Lower", STONE, Blocks.CUT_SANDSTONE.defaultBlockState()), block, item);
-			            UPPER_STEEP_ROOF = createBlockStone(i + "_upper_steep_roof", () -> Registration.getBlocksField("com.mcwroofs.kikoz.objects.roofs.Steep", STONE, Blocks.CUT_SANDSTONE.defaultBlockState()), block, item);
-				    }
-				    else
-				    {
-				    	ROOF = createBlockStone(i+"_roof", () -> new StairBlock(Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), block, item);
-				    	ATTIC_ROOF = createBlockStone(i+"_attic_roof", () -> new Block(STONE), block, item);
-					    TOP_ROOF = createBlockStone(i+"_top_roof", () -> new Block(STONE), block, item);
-					    LOWER_ROOF = createBlockStone(i+"_lower_roof", () -> new StairBlock(Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), block, item);
-					    STEEP_ROOF = createBlockStone(i+"_steep_roof", () -> new StairBlock(Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), block, item);
-					    UPPER_LOWER_ROOF = createBlockStone(i+"_upper_lower_roof", () -> new StairBlock(Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), block, item);
-					    UPPER_STEEP_ROOF = createBlockStone(i+"_upper_steep_roof", () -> new StairBlock(Blocks.CUT_SANDSTONE.defaultBlockState(), STONE), block, item);
-				    }
-				} catch (Exception e) {
-					AddonsLib.LOGGER.error(e);
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
+
+		for (String i : rock) {
+			for (BlockId blockId : McwBlocksIdBase.ROOFS_STONE_BLOCKS.blocks()) {
+				final DeferredBlock<Block> blockObj;
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if (blockId.reflectedLocation().contains("StairsBlock")) {
+					blockObj = CreateBlockReferences.createBlockStone(id, () ->
+							new StairBlock(Blocks.COBBLESTONE.defaultBlockState(), STONE), block, item);
+				}
+				else if(isModMcwLoaded) {
+					final Block blockRef;
+					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
+						blockObj = CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE, Blocks.COBBLESTONE.defaultBlockState()), block, item);
+					} else {
+						blockObj = CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item);
+					}
+				}
+				else {
+					blockObj = CreateBlockReferences.createBlockStone(id, () -> new Block(STONE), block, item);
 				}
 			}
+		}
 	}
 
-	protected static DeferredBlock<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-        return block;
-    }
-	
-	protected static DeferredBlock<Block> createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-        return block;
-    }
-		
+	@Deprecated(forRemoval = true)
 	public static void addToTab(BuildCreativeModeTabContentsEvent event, String MODID, List<String> WOOD, CreativeModeTab tab)
+	{
+		addToTabModLoaded(event, MODID, WOOD, tab, "minecraft");
+	}
+
+	@Deprecated(forRemoval = true)
+	public static void addToTabModLoaded(BuildCreativeModeTabContentsEvent event, String MODID, List<String> WOOD, CreativeModeTab tab, String modLoaded)
 	{
 		Block cherry_roof,
 		cherry_attic_roof,
@@ -180,46 +124,53 @@ public class Roofs
 		cherry_planks_upper_lower_roof,
 		cherry_planks_upper_steep_roof;
 
-		if (event.getTab() == tab && ModList.get().isLoaded(modid))
-   	 	{
+		if (event.getTab() == tab && ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
+		{
 			for (String i : WOOD)
 			{
-				cherry_roof = Finder.findBlock(MODID, i+"_roof");
+				cherry_roof = Finder.findBlock(MODID, i + "_roof");
 				cherry_attic_roof = Finder.findBlock(MODID, i + "_attic_roof");
 				cherry_top_roof = Finder.findBlock(MODID, i + "_top_roof");
-				cherry_lower_roof = Finder.findBlock(MODID, i+"_lower_roof");
-				cherry_steep_roof = Finder.findBlock(MODID, i+"_steep_roof");
+				cherry_lower_roof = Finder.findBlock(MODID, i + "_lower_roof");
+				cherry_steep_roof = Finder.findBlock(MODID, i + "_steep_roof");
 				cherry_upper_lower_roof = Finder.findBlock(MODID, i + "_upper_lower_roof");
 				cherry_upper_steep_roof = Finder.findBlock(MODID, i + "_upper_steep_roof");
-				
-	        	event.accept(cherry_roof);
-	        	event.accept(cherry_attic_roof);
-	        	event.accept(cherry_top_roof);
-	        	event.accept(cherry_lower_roof);
-	        	event.accept(cherry_steep_roof);
-	        	event.accept(cherry_upper_lower_roof);
-	        	event.accept(cherry_upper_steep_roof);
-	        	
-	        	cherry_planks_roof = Finder.findBlock(MODID, i+"_planks_roof");
+
+				event.accept(cherry_roof);
+				event.accept(cherry_attic_roof);
+				event.accept(cherry_top_roof);
+				event.accept(cherry_lower_roof);
+				event.accept(cherry_steep_roof);
+				event.accept(cherry_upper_lower_roof);
+				event.accept(cherry_upper_steep_roof);
+
+				cherry_planks_roof = Finder.findBlock(MODID, i + "_planks_roof");
 				cherry_planks_attic_roof = Finder.findBlock(MODID, i + "_planks_attic_roof");
 				cherry_planks_top_roof = Finder.findBlock(MODID, i + "_planks_top_roof");
-				cherry_planks_lower_roof = Finder.findBlock(MODID, i+"_planks_lower_roof");
-				cherry_planks_steep_roof = Finder.findBlock(MODID, i+"_planks_steep_roof");
+				cherry_planks_lower_roof = Finder.findBlock(MODID, i + "_planks_lower_roof");
+				cherry_planks_steep_roof = Finder.findBlock(MODID, i + "_planks_steep_roof");
 				cherry_planks_upper_lower_roof = Finder.findBlock(MODID, i + "_planks_upper_lower_roof");
 				cherry_planks_upper_steep_roof = Finder.findBlock(MODID, i + "_planks_upper_steep_roof");
-				
-	        	event.accept(cherry_planks_roof);
-	        	event.accept(cherry_planks_attic_roof);
-	        	event.accept(cherry_planks_top_roof);
-	        	event.accept(cherry_planks_lower_roof);
-	        	event.accept(cherry_planks_steep_roof);
-	        	event.accept(cherry_planks_upper_lower_roof);
-	        	event.accept(cherry_planks_upper_steep_roof);
-	        }
-   	 	}
+
+				event.accept(cherry_planks_roof);
+				event.accept(cherry_planks_attic_roof);
+				event.accept(cherry_planks_top_roof);
+				event.accept(cherry_planks_lower_roof);
+				event.accept(cherry_planks_steep_roof);
+				event.accept(cherry_planks_upper_lower_roof);
+				event.accept(cherry_planks_upper_steep_roof);
+			}
+		}
 	}
-	
+
+	@Deprecated(forRemoval = true)
 	public static void addToTabStone(BuildCreativeModeTabContentsEvent event, String MODID, List<String> STONE, CreativeModeTab tab)
+	{
+		addToTabStoneModLoaded(event, MODID, STONE, tab, "minecraft");
+	}
+
+	@Deprecated(forRemoval = true)
+	public static void addToTabStoneModLoaded(BuildCreativeModeTabContentsEvent event, String MODID, List<String> STONE, CreativeModeTab tab, String modLoaded)
 	{
 		Block ROOF,
 		ATTIC_ROOF,
@@ -229,7 +180,7 @@ public class Roofs
 		UPPER_LOWER_ROOF,
 		UPPER_STEEP_ROOF;
 
-		if (event.getTab() == tab && ModList.get().isLoaded(modid))
+		if (event.getTab() == tab && ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
    	 	{
 			for (String i : STONE)
 			{

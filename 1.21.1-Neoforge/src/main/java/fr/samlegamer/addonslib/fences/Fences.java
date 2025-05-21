@@ -2,17 +2,13 @@ package fr.samlegamer.addonslib.fences;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FenceBlock;
@@ -21,7 +17,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class Fences
@@ -69,14 +64,14 @@ public class Fences
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if (blockId.reflectedLocation().contains("FenceBlock")) {
-					createBlock(id, registryName -> new FenceBlock(WOOD), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> new FenceBlock(WOOD), block, item);
 				} else if (blockId.reflectedLocation().contains("FenceGateBlock")) {
-					createBlock(id, registryName -> new FenceGateBlock(Optional.of(WoodType.OAK), WOOD, Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> new FenceGateBlock(Optional.of(WoodType.OAK), WOOD, Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item);
 				} else if(isModLoaded) {
-					createBlock(id, registryName -> Registration.getBlocksFieldForFences(blockId.reflectedLocation(), WOOD), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item);
 				}
 				else {
-					createBlock(id, registryName -> new FenceBlock(WOOD), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> new FenceBlock(WOOD), block, item);
 				}
 			}
 		}
@@ -96,10 +91,10 @@ public class Fences
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if(isModLoaded) {
-					createBlock(id, registryName -> Registration.getBlocksFieldForFences(blockId.reflectedLocation(), HEDGES), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), HEDGES), block, item);
 				}
 				else {
-					createBlock(id, registryName -> new FenceBlock(HEDGES), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> new FenceBlock(HEDGES), block, item);
 				}
 			}
 		}
@@ -119,29 +114,17 @@ public class Fences
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if (blockId.reflectedLocation().contains("FenceBlock")) {
-					createBlockStone(id, registryName -> new FenceBlock(STONE), block, item);
+					CreateBlockReferences.createBlockStone(id, registryName -> new FenceBlock(STONE), block, item);
 				} else if (blockId.reflectedLocation().contains("FenceGateBlock")) {
-					createBlockStone(id, registryName -> new FenceGateBlock(Optional.of(WoodType.OAK), STONE, Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item);
+					CreateBlockReferences.createBlockStone(id, registryName -> new FenceGateBlock(Optional.of(WoodType.OAK), STONE, Optional.of(SoundEvents.FENCE_GATE_CLOSE), Optional.of(SoundEvents.FENCE_GATE_OPEN)), block, item);
 				} else if(isModLoaded) {
-					createBlockStone(id, registryName -> Registration.getBlocksFieldForFences(blockId.reflectedLocation(), STONE), block, item);
+					CreateBlockReferences.createBlockStone(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item);
 				}
 				else {
-					createBlockStone(id, registryName -> new FenceBlock(STONE), block, item);
+					CreateBlockReferences.createBlockStone(id, registryName -> new FenceBlock(STONE), block, item);
 				}
 			}
 		}
-	}
-	
-	protected static void createBlock(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
-		ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuel(block.get(), new Item.Properties()));
-	}
-	
-	protected static void createBlockStone(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
-		ITEMS_REGISTRY.register(name, registryName -> new BlockItem(block.get(), new Item.Properties()));
 	}
 
 	@Deprecated(forRemoval = true)

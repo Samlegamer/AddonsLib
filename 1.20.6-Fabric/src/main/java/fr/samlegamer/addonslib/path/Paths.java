@@ -1,86 +1,78 @@
 package fr.samlegamer.addonslib.path;
 
 import java.util.List;
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
+import fr.samlegamer.addonslib.data.RegistryEntryReferences;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
 
-public class Paths
-{
+public class Paths {
 	public static final String modid = "mcwpaths";
-	
-	private static void registryEntry(String MODID, String name, Block b)
-	{
-    	Registry.register(Registries.BLOCK, new Identifier(MODID, name), b);
-		Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Paths
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set)
-	{
+	public static void setRegistrationWood(String MODID, List<String> set) {
 		final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
 		setRegistrationWoodModLoaded(MODID, set, WOOD);
 	}
-	
+
 	/**
 	 * Init all Wood Variants of Macaw's Paths with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
-	{
-			final AbstractBlock.Settings WOOD = prop;
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop) {
+		final AbstractBlock.Settings WOOD = prop;
 
-			for(String i : set)
-			{
-				try {
-				    if (AddonsLib.isLoaded(modid))
-				    {
-						final Block planks_path = Registration.getBlocksField("com.mcwpaths.kikoz.objects.FacingPathBlock", WOOD);
-				    	registryEntry(MODID, i+"_planks_path", planks_path);
-				    }
-				    else
-				    {
-				    	registryEntry(MODID, i+"_planks_path", new Block(WOOD));
-				    }
-				} catch (Exception e) {
-					AddonsLib.LOGGER.error(e);
+		var modList = FabricLoader.getInstance();
+		boolean isModMcwLoaded = modList.isModLoaded(modid);
+
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.PATHS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModMcwLoaded) {
+					final Block blockRef = Registration.getBlocksField(blockId.reflectedLocation(), WOOD);
+					RegistryEntryReferences.registryEntry(MODID, id, blockRef);
+				}
+				else {
+					RegistryEntryReferences.registryEntry(MODID, id, new Block(WOOD));
 				}
 			}
-	}
-	
-	public static void fuelWood(String MODID, List<String> WOOD)
-	{
-		Block planks_path;
-		
-		for (String i : WOOD)
-		{				    	
-			planks_path = Finder.findBlock(MODID, i+"_planks_path");
-			
-			FuelRegistry.INSTANCE.add(planks_path, 300);
-        }
+		}
 	}
 
+	@Deprecated(forRemoval = true)
+	public static void fuelWood(String MODID, List<String> WOOD) {
+		Block planks_path;
+
+		for (String i : WOOD) {
+			planks_path = Finder.findBlock(MODID, i + "_planks_path");
+
+			FuelRegistry.INSTANCE.add(planks_path, 300);
+		}
+	}
+
+	@Deprecated(forRemoval = true)
 	public static void addToTabWood(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab)
 	{
 		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab, String modLoaded)
 	{
-		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
+		var modList = FabricLoader.getInstance();
+
+		if(modList.isModLoaded(modid) && modList.isModLoaded(modLoaded))
 		{
 			for (String i : WOOD)
 			{

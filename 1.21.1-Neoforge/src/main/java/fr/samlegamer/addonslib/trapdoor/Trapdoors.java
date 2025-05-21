@@ -1,14 +1,11 @@
 package fr.samlegamer.addonslib.trapdoor;
 
 import java.util.List;
-import java.util.function.Function;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TrapDoorBlock;
@@ -16,7 +13,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class Trapdoors
@@ -59,15 +55,9 @@ public class Trapdoors
 			{
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-                createBlock(id, registryName -> new TrapDoorBlock(blockSetType, WOOD), block, item);
+				CreateBlockReferences.createBlock(id, registryName -> new TrapDoorBlock(blockSetType, WOOD), block, item);
             }
 		}
-	}
-	
-	protected static void createBlock(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
-		ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuel(block.get(), new Item.Properties()));
 	}
 
 	@Deprecated(forRemoval = true)

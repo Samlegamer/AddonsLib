@@ -1,8 +1,6 @@
 package fr.samlegamer.addonslib.client;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -16,8 +14,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 @OnlyIn(value = Dist.CLIENT)
 public class ColorRegistry
 {
-	private String MODID;
-	private List<String> NoColorLeaves = new ArrayList<String>();
+	private final String MODID;
+	private final List<String> NoColorLeaves;
 	
 	public ColorRegistry(String MODID, List<String> LEAVES)
 	{
@@ -31,7 +29,7 @@ public class ColorRegistry
 		for(String i : NoColorLeaves)
 		{
 			Block hedges = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(this.MODID, i+"_hedge"));
-			event.register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getAverageFoliageColor(view, pos) : FoliageColor.get(0.5D, 1.0D), hedges);
+			event.getBlockColors().register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getAverageFoliageColor(view, pos) : FoliageColor.get(0.5D, 1.0D), hedges);
 		}
 	}
 	
@@ -41,7 +39,7 @@ public class ColorRegistry
 		for(String i : NoColorLeaves)
 		{
 			Block hedges = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(this.MODID, i+"_hedge"));
-			event.register((stack, tintIndex) -> {
+			event.getItemColors().register((stack, tintIndex) -> {
 	            Block block = ((BlockItem) stack.getItem()).getBlock();
 	            return event.getBlockColors().getColor(block.defaultBlockState(), null, null, tintIndex);
 	        }, hedges);

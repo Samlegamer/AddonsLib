@@ -1,19 +1,17 @@
 package fr.samlegamer.addonslib.stairs;
 
 import java.util.List;
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
-import fr.samlegamer.addonslib.item.BlockItemInfo;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
+import fr.samlegamer.addonslib.data.RegistryEntryReferences;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
@@ -22,27 +20,6 @@ import net.minecraft.util.Identifier;
 public class Stairs
 {
 	public static final String modid = "mcwstairs";
-	
-	private static void registryEntry(String MODID, String name, Block b)
-	{
-		final Identifier ID = Identifier.of(MODID, name);
-		final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, ID);
-		Registry.register(Registries.BLOCK, ID, b);
-		if(name.contains("railing")) {
-			Registry.register(Registries.ITEM, ID, new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.railing.desc"));
-		}
-		else if(name.contains("balcony")) {
-			Registry.register(Registries.ITEM, ID, new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.balcony.desc"));
-
-		}
-		else if(name.contains("platform")) {
-			Registry.register(Registries.ITEM, ID, new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.platform.desc"));
-
-		}
-		else {
-			Registry.register(Registries.ITEM, ID, new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-		}
-	}
 
 	public static void setRegistrationWood(String MODID, List<String> set)
 	{
@@ -58,140 +35,49 @@ public class Stairs
 	
 	public static void setRegistrationRockModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
 	{
-		 final AbstractBlock.Settings STONE = prop;
+		final AbstractBlock.Settings STONE = prop;
 
-			for(String i : set)
-			{
-				try {
-				    if (AddonsLib.isLoaded(modid))
-				    {
-						final Block ACACIA_TERRACE_STAIRS = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.stair_types.TerraceStairs",
-								STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_terrace_stairs")))
-						);
-						final Block ACACIA_SKYLINE_STAIRS = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.stair_types.SkylineStairs",
-								STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_skyline_stairs")))
-						);
-						final Block ACACIA_COMPACT_STAIRS = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.stair_types.CompactStairs",
-								STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_compact_stairs")))
-						);
-						final Block ACACIA_BULK_STAIRS = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.stair_types.BulkStairs",
-								STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_bulk_stairs")))
-						);
-						final Block ACACIA_LOFT_STAIRS = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.stair_types.LoftStairs",
-								STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_loft_stairs")))
-						);
-						final Block ACACIA_RAILING = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.StairRailing",
-								STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_railing")))
-						);
-						final Block ACACIA_BALCONY = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.BalconyRailing",
-								STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_balcony")))
-						);
-						final Block ACACIA_PLATFORM = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.StairPlatform",
-								STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_platform")))
-						);
+		var modList = FabricLoader.getInstance();
+		boolean isModMcwLoaded = modList.isModLoaded(modid);
 
-						registryEntry(MODID, i+"_terrace_stairs", ACACIA_TERRACE_STAIRS);
-						registryEntry(MODID, i+"_skyline_stairs", ACACIA_SKYLINE_STAIRS);
-						registryEntry(MODID, i+"_compact_stairs", ACACIA_COMPACT_STAIRS);
-						registryEntry(MODID, i+"_bulk_stairs", ACACIA_BULK_STAIRS);
-						registryEntry(MODID, i+"_loft_stairs", ACACIA_LOFT_STAIRS);
-						registryEntry(MODID, i+"_railing", ACACIA_RAILING);
-						registryEntry(MODID, i+"_balcony", ACACIA_BALCONY);
-						registryEntry(MODID, i+"_platform", ACACIA_PLATFORM);
-				    }
-				    else
-				    {
-						registryEntry(MODID, i + "_terrace_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_terrace_stairs")))));
-						registryEntry(MODID, i + "_skyline_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_skyline_stairs")))));
-						registryEntry(MODID, i + "_compact_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_compact_stairs")))));
-						registryEntry(MODID, i + "_bulk_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bulk_stairs")))));
-						registryEntry(MODID, i + "_loft_stairs", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_loft_stairs")))));
-						registryEntry(MODID, i + "_railing", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_railing")))));
-						registryEntry(MODID, i + "_balcony", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_balcony")))));
-						registryEntry(MODID, i + "_platform", new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_platform")))));
-					}
-				} catch (Exception e) {
-					AddonsLib.LOGGER.error(e);
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.STAIRS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModMcwLoaded) {
+					final Block blockRef = Registration.getBlocksField(blockId.reflectedLocation(), STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, id))));
+					RegistryEntryReferences.registryEntry(MODID, id, blockRef);
+				}
+				else {
+					RegistryEntryReferences.registryEntry(MODID, id, new Block(STONE.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, id)))));
 				}
 			}
+		}
 	}
 	
 	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
 	{
-			final AbstractBlock.Settings WOOD = prop;
+		final AbstractBlock.Settings WOOD = prop;
 
-			for(String i : set)
-			{
-				try {
-				    if (AddonsLib.isLoaded(modid))
-				    {
-						final Block ACACIA_TERRACE_STAIRS = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.stair_types.TerraceStairs",
-								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_terrace_stairs")))
-						);
-						final Block ACACIA_SKYLINE_STAIRS = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.stair_types.SkylineStairs",
-								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_skyline_stairs")))
-						);
-						final Block ACACIA_COMPACT_STAIRS = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.stair_types.CompactStairs",
-								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_compact_stairs")))
-						);
-						final Block ACACIA_BULK_STAIRS = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.stair_types.BulkStairs",
-								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_bulk_stairs")))
-						);
-						final Block ACACIA_LOFT_STAIRS = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.stair_types.LoftStairs",
-								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_loft_stairs")))
-						);
-						final Block ACACIA_RAILING = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.StairRailing",
-								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_railing")))
-						);
-						final Block ACACIA_BALCONY = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.BalconyRailing",
-								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_balcony")))
-						);
-						final Block ACACIA_PLATFORM = Registration.getBlocksField(
-								"com.mcwstairs.kikoz.objects.StairPlatform",
-								WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i+"_platform")))
-						);
-				    	
-						registryEntry(MODID, i+"_terrace_stairs", ACACIA_TERRACE_STAIRS);
-						registryEntry(MODID, i+"_skyline_stairs", ACACIA_SKYLINE_STAIRS);
-						registryEntry(MODID, i+"_compact_stairs", ACACIA_COMPACT_STAIRS);
-						registryEntry(MODID, i+"_bulk_stairs", ACACIA_BULK_STAIRS);
-						registryEntry(MODID, i+"_loft_stairs", ACACIA_LOFT_STAIRS);
-						registryEntry(MODID, i+"_railing", ACACIA_RAILING);
-						registryEntry(MODID, i+"_balcony", ACACIA_BALCONY);
-						registryEntry(MODID, i+"_platform", ACACIA_PLATFORM);
-				    }
-				    else
-				    {
-						registryEntry(MODID, i + "_terrace_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_terrace_stairs")))));
-						registryEntry(MODID, i + "_skyline_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_skyline_stairs")))));
-						registryEntry(MODID, i + "_compact_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_compact_stairs")))));
-						registryEntry(MODID, i + "_bulk_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bulk_stairs")))));
-						registryEntry(MODID, i + "_loft_stairs", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_loft_stairs")))));
-						registryEntry(MODID, i + "_railing", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_railing")))));
-						registryEntry(MODID, i + "_balcony", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_balcony")))));
-						registryEntry(MODID, i + "_platform", new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_platform")))));
-				    }
-				} catch (Exception e) {
-					AddonsLib.LOGGER.error(e);
+		var modList = FabricLoader.getInstance();
+		boolean isModMcwLoaded = modList.isModLoaded(modid);
+
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.STAIRS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModMcwLoaded) {
+					final Block blockRef = Registration.getBlocksField(blockId.reflectedLocation(), WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, id))));
+					RegistryEntryReferences.registryEntry(MODID, id, blockRef);
+				}
+				else {
+					RegistryEntryReferences.registryEntry(MODID, id, new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, id)))));
 				}
 			}
+		}
 	}
-		
+
+	@Deprecated(forRemoval = true)
 	public static void fuelWood(String MODID, List<String> WOOD)
 	{
 		for (String i : WOOD)
@@ -219,14 +105,17 @@ public class Stairs
         }
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabWood(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab)
 	{
 		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab, String modLoaded)
 	{
-		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
+		var modList = FabricLoader.getInstance();
+		if(modList.isModLoaded(modid) && modList.isModLoaded(modLoaded))
 		{
 			for (String i : WOOD)
 			{

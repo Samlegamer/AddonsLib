@@ -1,12 +1,11 @@
 package fr.samlegamer.addonslib.door;
 
 import java.util.List;
-import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -15,16 +14,13 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class Doors
 {
@@ -45,19 +41,20 @@ public class Doors
 		final AbstractBlock.Properties JAPAN = AbstractBlock.Properties.of(Material.WOOD).noOcclusion().strength(1.5F, 1.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE);
 		final AbstractBlock.Properties DOOR_WOOD = AbstractBlock.Properties.copy(Blocks.ACACIA_DOOR);
 
-		boolean isModLoaded = ModList.get().isLoaded(modid);
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
+		boolean isModBaseLoaded = ModList.get().isLoaded(modLoaded);
 
 		for (String i : set) {
 			for (BlockId blockId : McwBlocksIdBase.DOORS_WOOD_BLOCKS.blocks()) {
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if (blockId.reflectedLocation().contains("DoorBlock")) {
-					createBlock(id, () -> new DoorBlock(DOOR_WOOD), block, item, tab, modLoaded);
-				} else if(isModLoaded) {
-					createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), JAPAN), block, item, tab, modLoaded);
+					CreateBlockReferences.createBlock(id, () -> new DoorBlock(DOOR_WOOD), block, item, tab, isModMcwLoaded, isModBaseLoaded);
+				} else if(isModMcwLoaded) {
+					CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), JAPAN), block, item, tab, true, isModBaseLoaded);
 				}
 				else {
-					createBlock(id, () -> new DoorBlock(DOOR_WOOD), block, item, tab, modLoaded);
+					CreateBlockReferences.createBlock(id, () -> new DoorBlock(DOOR_WOOD), block, item, tab, false, isModBaseLoaded);
 				}
 			}
 		}
@@ -125,20 +122,6 @@ public class Doors
         }
 	}
 
-	protected static void createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
-    {
-		ModList modList = ModList.get();
-        RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(modList.isLoaded(modid) && modList.isLoaded(modLoaded))
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
-        }
-        else
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-        }
-	}
-
 	public static void registryWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOODS, ItemGroup tab)
 	{
 		final AbstractBlock.Properties JAPAN = AbstractBlock.Properties.of(Material.WOOD).noOcclusion().strength(1.5F, 1.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE);
@@ -151,31 +134,14 @@ public class Doors
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if (blockId.reflectedLocation().contains("DoorBlock")) {
-					createBlockWoodOpti(Modid, id, new DoorBlock(DOOR_WOOD), tab);
+					CreateBlockReferences.createBlockWoodOpti(Modid, id, new DoorBlock(DOOR_WOOD), tab, isModLoaded);
 				} else if(isModLoaded) {
-					createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), JAPAN), tab);
+					CreateBlockReferences.createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), JAPAN), tab, true);
 				}
 				else {
-					createBlockWoodOpti(Modid, id, new DoorBlock(DOOR_WOOD), tab);
+					CreateBlockReferences.createBlockWoodOpti(Modid, id, new DoorBlock(DOOR_WOOD), tab, false);
 				}
 			}
 		}
-	}
-
-	protected static void createBlockWoodOpti(String Modid, String name, Block block, ItemGroup tab)
-	{
-		BlockItem itemBlock;
-		if(ModList.get().isLoaded(modid))
-		{
-			itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
-		}
-		else
-		{
-			itemBlock = new BlockItemFuel(block, new Item.Properties());
-		}
-		block.setRegistryName(Modid, name);
-		itemBlock.setRegistryName(Modid, name);
-		ForgeRegistries.BLOCKS.register(block);
-		ForgeRegistries.ITEMS.register(itemBlock);
 	}
 }

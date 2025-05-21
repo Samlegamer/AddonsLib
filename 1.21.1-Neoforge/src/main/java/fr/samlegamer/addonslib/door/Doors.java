@@ -1,21 +1,17 @@
 package fr.samlegamer.addonslib.door;
 
 import java.util.List;
-import java.util.function.Function;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class Doors
@@ -58,21 +54,15 @@ public class Doors
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if (blockId.reflectedLocation().contains("DoorBlock")) {
-					createBlock(id, registryName -> new DoorBlock(blockSetType, DOOR_WOOD), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> new DoorBlock(blockSetType, DOOR_WOOD), block, item);
 				} else if(isModLoaded) {
-					createBlock(id, registryName -> Registration.getBlocksFieldDoors(blockId.reflectedLocation(), JAPAN, blockSetType), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), JAPAN, blockSetType), block, item);
 				}
 				else {
-					createBlock(id, registryName -> new DoorBlock(blockSetType, DOOR_WOOD), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> new DoorBlock(blockSetType, DOOR_WOOD), block, item);
 				}
 			}
 		}
-	}
-	
-	protected static void createBlock(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
-		ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuel(block.get(), new Item.Properties()));
 	}
 
 	@Deprecated(forRemoval = true)

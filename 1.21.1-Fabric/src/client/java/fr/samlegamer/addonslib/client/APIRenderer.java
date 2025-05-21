@@ -7,15 +7,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.Block;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.world.ClientWorld;
 
+@Deprecated(forRemoval = true)
 @Environment(EnvType.CLIENT)
 public class APIRenderer
 {
-    public static ClientWorld serv = MinecraftClient.getInstance().world;
-
 	public static class Windows
 	{
 		public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
@@ -564,7 +561,7 @@ public class APIRenderer
 				bark_glass_door = Finder.findBlock(MODID, i + "_bark_glass_door");
 				waffle_door = Finder.findBlock(MODID, i + "_waffle_door");
 				whispering_door = Finder.findBlock(MODID, i + "_whispering_door");
-
+				
 				BlockRenderLayerMap.INSTANCE.putBlocks(renderSet, japanese_door
 				,japanese2_door
 				,barn_door

@@ -4,13 +4,11 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -23,8 +21,10 @@ import net.minecraftforge.registries.RegistryObject;
 /**
  * Used for easy registries
  */
-public class Registration
+public final class Registration
 {
+	private Registration() {}
+
 	/**
 	 * Block
 	 */
@@ -51,89 +51,58 @@ public class Registration
 	 */
 	public static RegistryObject<CreativeModeTab> tabs(DeferredRegister<CreativeModeTab> event, String MODID, String id, ItemLike icon)
 	{
-		RegistryObject<CreativeModeTab> tab = event.register(id, () -> CreativeModeTab.builder()
-		        .icon(() -> new ItemStack(icon))
-		        .title(Component.translatable(MODID+"."+id)).build());
-		return tab;
+        return event.register(id, () -> CreativeModeTab.builder()
+                .icon(() -> new ItemStack(icon))
+                .title(Component.translatable(MODID+"."+id)).build());
 	}
+
 	/**
 	 * register
 	 */
-	public static void init(FMLJavaModLoadingContext context, DeferredRegister<Block> b, DeferredRegister<Item> i, DeferredRegister<CreativeModeTab> t)
+	public static void init(FMLJavaModLoadingContext fmlJavaModLoadingContext, DeferredRegister<Block> b, DeferredRegister<Item> i, DeferredRegister<CreativeModeTab> t)
 	{
-		IEventBus bus = context.getModEventBus();
+		IEventBus bus = fmlJavaModLoadingContext.getModEventBus();
 		b.register(bus);
 		i.register(bus);
 		t.register(bus);
 	}
-	
-	public static Block getBlocksFieldForFences(String path, BlockBehaviour.Properties WOOD)
+
+	@Deprecated(forRemoval = true)
+	public static void init(DeferredRegister<Block> b, DeferredRegister<Item> i, DeferredRegister<CreativeModeTab> t)
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constructorBase;
-        
-		try {
-			classBase = Class.forName(path);
-			constructorBase = classBase.getConstructor(BlockBehaviour.Properties.class);
-			block = (Block) constructorBase.newInstance(WOOD);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new FenceBlock(WOOD);
-		}
-        return block;
+		init(FMLJavaModLoadingContext.get(), b, i, t);
 	}
 
+	public static Block getField(String path, BlockBehaviour.Properties prop, Class<?>[] params, Object... values)
+	{
+		Class<?> classBase;
+		Block block;
+		Constructor<?> constructorBase;
+
+		try {
+			classBase = Class.forName(path);
+			constructorBase = classBase.getConstructor(params);
+			block = (Block) constructorBase.newInstance(values);
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			AddonsLib.LOGGER.error(e);
+			block = new Block(prop);
+			//AddonsLib.LOGGER.error("Error while creating block " + path + " using default constructor");
+		}
+		return block;
+	}
 	
 	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD)
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constuctorBase;
-
-		try {
-			classBase = Class.forName(path);
-			constuctorBase = classBase.getConstructor(BlockBehaviour.Properties.class);
-			block = (Block) constuctorBase.newInstance(WOOD);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new Block(WOOD);
-		}
-        return block;
+		return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class}, WOOD);
 	}
 	
-	public static Block getBlocksFieldDoors(String path, BlockBehaviour.Properties WOOD, BlockSetType set)
+	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD, BlockSetType set)
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constuctorBase;
-
-		try {
-			classBase = Class.forName(path);
-			constuctorBase = classBase.getConstructor(BlockBehaviour.Properties.class, BlockSetType.class);
-			block = (Block) constuctorBase.newInstance(WOOD, set);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new Block(WOOD);
-		}
-        return block;
+		return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class, BlockSetType.class}, WOOD, set);
 	}
 
-	
 	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD, BlockState state)
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constuctorBase;
-
-		try {
-			classBase = Class.forName(path);
-			constuctorBase = classBase.getConstructor(BlockState.class, BlockBehaviour.Properties.class);
-			block = (Block) constuctorBase.newInstance(state, WOOD);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new Block(WOOD);
-		}
-        return block;
+		return getField(path, WOOD, new Class<?>[] {BlockState.class, BlockBehaviour.Properties.class}, state, WOOD);
 	}
 }

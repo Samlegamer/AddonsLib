@@ -1,36 +1,23 @@
 package fr.samlegamer.addonslib.trapdoor;
 
 import java.util.List;
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
+import fr.samlegamer.addonslib.data.RegistryEntryReferences;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class Trapdoors
 {
 	public static final String modid = "mcwtrpdoors";
-	
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
-	{
-    	Registry.register(Registry.BLOCK, new Identifier(MODID, name), b);
-    	if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
-    	{
-            Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings().group(tab)));
-    	}
-    	else {
-            Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-        }
-	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Trapdoors
@@ -45,30 +32,24 @@ public class Trapdoors
 	 */
 	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded)
 	{
-			final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR);
+		final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR);
 
-			for(String i : set)
+		var modList = FabricLoader.getInstance();
+		final boolean isModMcwLoaded = modList.isModLoaded(modid);
+		final boolean isModBaseLoaded = modList.isModLoaded(modLoaded);
+
+		for(String i : set)
+		{
+			for(BlockId blockId : McwBlocksIdBase.TRAPDOORS_WOOD_BLOCKS.blocks())
 			{
-				registryEntry(MODID, i+"_barn_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_cottage_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_barred_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_beach_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_four_panel_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_glass_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_mystic_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_paper_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_tropical_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_swamp_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_bamboo_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_classic_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_bark_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_ranch_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_blossom_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-		    	registryEntry(MODID, i+"_barrel_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
-				registryEntry(MODID, i+"_whispering_trapdoor", new TrapdoorBlock(WOOD), tab, modLoaded);
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				RegistryEntryReferences.registryEntry(MODID, id, new TrapdoorBlock(WOOD), tab, isModMcwLoaded, isModBaseLoaded);
 			}
+		}
 	}
-	
+
+	@Deprecated(forRemoval = true)
 	public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
 	{
 		Block barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, mystic_trapdoor, paper_trapdoor, 
@@ -98,12 +79,14 @@ public class Trapdoors
 			mystic_trapdoor, paper_trapdoor, tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor, whispering_trapdoor);
         }
 	}
-	
+
+	@Deprecated(forRemoval = true)
 	public static void clientWood(String MODID, List<String> WOOD)
 	{
 		clientWood(MODID, WOOD, RenderLayer.getCutout());
 	}
-	
+
+	@Deprecated(forRemoval = true)
 	public static void fuelWood(String MODID, List<String> WOOD)
 	{
 		Block barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, mystic_trapdoor, paper_trapdoor, 

@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.Block;
 import net.minecraft.client.render.RenderLayer;
 
+@Deprecated(forRemoval = true)
 @Environment(EnvType.CLIENT)
 public class APIRenderer
 {

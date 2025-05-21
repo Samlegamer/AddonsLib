@@ -1,29 +1,23 @@
 package fr.samlegamer.addonslib.bridges;
 
 import java.util.List;
-import java.util.function.Function;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
-import fr.samlegamer.addonslib.item.BlockItemFuelInfo;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class Bridges
 {
 	public static final String modid = "mcwbridges";
-	private static final String desc = "mcwbridges.bridges.desc";
+	public static final String desc = "mcwbridges.bridges.desc";
 
 	/**
 	 * Init all Wood Variants of Macaw's Bridges
@@ -48,7 +42,7 @@ public class Bridges
 	 */
 	public static void setRegistrationRockModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
-		 final BlockBehaviour.Properties STONE = prop;
+		final BlockBehaviour.Properties STONE = prop;
 
 		boolean isModLoaded = ModList.get().isLoaded(modid);
 
@@ -57,10 +51,10 @@ public class Bridges
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if(isModLoaded) {
-					createBlockStone(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item);
+					CreateBlockReferences.createBlockStone(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item);
 				}
 				else {
-					createBlockStone(id, registryName -> new Block(STONE), block, item);
+					CreateBlockReferences.createBlockStone(id, registryName -> new Block(STONE), block, item);
 				}
 			}
 		}
@@ -79,31 +73,14 @@ public class Bridges
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if(isModLoaded) {
-					createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item);
 				}
 				else {
-					createBlock(id, registryName -> new Block(WOOD), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> new Block(WOOD), block, item);
 				}
 			}
 		}
 	}
-	
-	protected static void createBlock(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
-		if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
-			ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuelInfo(block.get(), new Item.Properties(), desc));
-		}
-		else {
-			ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuel(block.get(), new Item.Properties()));
-		}
-	}
-
-	protected static void createBlockStone(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
-		ITEMS_REGISTRY.register(name, registryName -> new BlockItem(block.get(), new Item.Properties()));
-    }
 
 	@Deprecated(forRemoval = true)
 	public static void addToTab(BuildCreativeModeTabContentsEvent event, String MODID, List<String> WOOD, CreativeModeTab tab)

@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import fr.samlegamer.addonslib.item.BlockItemFuelInfo;
@@ -46,17 +47,18 @@ public class Stairs
 	{
 		 final AbstractBlock.Properties STONE = prop;
 
-		boolean isModLoaded = ModList.get().isLoaded(modid);
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
+		boolean isModBaseLoaded = ModList.get().isLoaded(modLoaded);
 
 		for (String i : set) {
 			for (BlockId blockId : McwBlocksIdBase.STAIRS_WOOD_BLOCKS.blocks()) {
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-				if(isModLoaded) {
-					createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item, tab, modLoaded);
+				if(isModMcwLoaded) {
+					CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item, tab, true, isModBaseLoaded);
 				}
 				else {
-					createBlockStone(id, () -> new Block(STONE), block, item, tab, modLoaded);
+					CreateBlockReferences.createBlockStone(id, () -> new Block(STONE), block, item, tab, false, isModBaseLoaded);
 				}
 			}
 		}
@@ -66,17 +68,18 @@ public class Stairs
 	{
 		final AbstractBlock.Properties WOOD = prop;
 
-		boolean isModLoaded = ModList.get().isLoaded(modid);
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
+		boolean isModBaseLoaded = ModList.get().isLoaded(modLoaded);
 
 		for (String i : set) {
 			for (BlockId blockId : McwBlocksIdBase.STAIRS_WOOD_BLOCKS.blocks()) {
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-				if(isModLoaded) {
-					createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item, tab, modLoaded);
+				if(isModMcwLoaded) {
+					CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item, tab, true, isModBaseLoaded);
 				}
 				else {
-					createBlock(id, () -> new Block(WOOD), block, item, tab, modLoaded);
+					CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item, tab, false, isModBaseLoaded);
 				}
 			}
 		}
@@ -148,58 +151,6 @@ public class Stairs
 		clientStone(event, MODID, STONE, RenderType.cutout());
 	}
 
-	protected static void createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
-    {
-        RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		ModList modList = ModList.get();
-        if(modList.isLoaded(modid) && modList.isLoaded(modLoaded))
-		{
-	        if(name.contains("railing")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.railing.desc"));
-	        }
-	        else if(name.contains("balcony")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.balcony.desc"));
-	        }
-	        else if(name.contains("platform")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.platform.desc"));
-	        }
-	        else {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
-	        }
-		}
-		else
-		{
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-		}
-	}
-
-	protected static void createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded)
-    {
-		RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		ModList modList = ModList.get();
-		if(modList.isLoaded(modid) && modList.isLoaded(modLoaded))
-		{
-	        if(name.contains("railing")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.railing.desc"));
-	        }
-	        else if(name.contains("balcony")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.balcony.desc"));
-	        }
-	        else if(name.contains("platform")) {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), new Item.Properties().tab(tab), "mcwstairs.platform.desc"));
-	        }
-	        else {
-	            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
-	        }
-		}
-		else
-		{
-            ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-		}
-	}
-	
-	//Start of new registration system
-	
 	public static void registryWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOODS, ItemGroup tab)
 	{
 		final AbstractBlock.Properties WOOD = AbstractBlock.Properties.of(Material.WOOD).strength(2.0F, 2.3F).sound(SoundType.WOOD).harvestTool(ToolType.AXE);
@@ -211,10 +162,10 @@ public class Stairs
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if(isModLoaded) {
-					createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), WOOD), tab);
+					CreateBlockReferences.createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), WOOD), tab, true);
 				}
 				else {
-					createBlockWoodOpti(Modid, id, new Block(WOOD), tab);
+					CreateBlockReferences.createBlockWoodOpti(Modid, id, new Block(WOOD), tab, false);
 				}
 			}
 		}
@@ -231,68 +182,12 @@ public class Stairs
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if(isModLoaded) {
-					createBlockStoneOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), STONE), tab);
+					CreateBlockReferences.createBlockStoneOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), STONE), tab, true);
 				}
 				else {
-					createBlockStoneOpti(Modid, id, new Block(STONE), tab);
+					CreateBlockReferences.createBlockStoneOpti(Modid, id, new Block(STONE), tab, false);
 				}
 			}
 		}
-	}
-
-	protected static void createBlockWoodOpti(String Modid, String name, Block block, ItemGroup tab)
-    {
-		BlockItem itemBlock;
-		if(ModList.get().isLoaded(modid))
-		{
-			if(name.contains("railing")) {
-				itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.railing.desc");
-			}
-			else if(name.contains("balcony")) {
-				itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.balcony.desc");
-			}
-			else if(name.contains("platform")) {
-				itemBlock = new BlockItemFuelInfo(block, new Item.Properties().tab(tab), "mcwstairs.platform.desc");
-			}
-			else {
-				itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
-			}
-		}
-		else
-		{
-			itemBlock = new BlockItemFuel(block, new Item.Properties());
-		}
-        block.setRegistryName(Modid, name);
-        itemBlock.setRegistryName(Modid, name);
-        ForgeRegistries.BLOCKS.register(block);
-        ForgeRegistries.ITEMS.register(itemBlock);
-	}
-
-	protected static void createBlockStoneOpti(String Modid, String name, Block block, ItemGroup tab)
-    {
-		BlockItem itemBlock;
-		if(ModList.get().isLoaded(modid))
-		{
-	        if(name.contains("railing")) {
-	        	itemBlock = new BlockItemInfo(block, new Item.Properties().tab(tab), "mcwstairs.railing.desc");
-	        }
-	        else if(name.contains("balcony")) {
-	        	itemBlock = new BlockItemInfo(block, new Item.Properties().tab(tab), "mcwstairs.balcony.desc");
-	        }
-	        else if(name.contains("platform")) {
-	        	itemBlock = new BlockItemInfo(block, new Item.Properties().tab(tab), "mcwstairs.platform.desc");
-	        }
-	        else {
-	        	itemBlock = new BlockItem(block, new Item.Properties().tab(tab));
-	        }
-		}
-		else
-		{
-			itemBlock = new BlockItemFuel(block, new Item.Properties());
-		}
-        block.setRegistryName(Modid, name);
-        itemBlock.setRegistryName(Modid, name);
-        ForgeRegistries.BLOCKS.register(block);
-        ForgeRegistries.ITEMS.register(itemBlock);
 	}
 }

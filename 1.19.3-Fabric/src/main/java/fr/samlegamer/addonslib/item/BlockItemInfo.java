@@ -6,14 +6,13 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 
 public class BlockItemInfo extends BlockItem
 {
-	private String desc;
+	private final String desc;
 	
 	public BlockItemInfo(Block p_40565_, Settings p_40566_, String desc)
 	{

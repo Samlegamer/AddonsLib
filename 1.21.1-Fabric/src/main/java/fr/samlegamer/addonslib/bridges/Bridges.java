@@ -1,149 +1,101 @@
 package fr.samlegamer.addonslib.bridges;
 
 import java.util.List;
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
-import fr.samlegamer.addonslib.item.BlockItemInfo;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
+import fr.samlegamer.addonslib.data.RegistryEntryReferences;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
 
-public class Bridges
-{
-	private static final AbstractBlock.Settings wood = AbstractBlock.Settings.create().strength(0.5F, 2.5F).sounds(BlockSoundGroup.WOOD);
-	private static final AbstractBlock.Settings stone = AbstractBlock.Settings.create().strength(3.0F, 5.0F).sounds(BlockSoundGroup.STONE);
-	
+public class Bridges {
 	public static final String modid = "mcwbridges";
-	private static final String desc = "mcwbridges.bridges.desc";
+	public static final String desc = "mcwbridges.bridges.desc";
 
-	private static void registryEntry(String MODID, String name, Block b)
-	{
-    	Registry.register(Registries.BLOCK, Identifier.of(MODID, name), b);
-		if(name.contains("log_bridge_middle") || name.startsWith("rope_") || name.endsWith("_bridge"))
-		{
-			Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, new Item.Settings(), desc));
-		}
-		else {
-			Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings()));
-		}
-	}
-	
 	/**
 	 * Init all Wood Variants of Macaw's Bridges
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set)
-	{
-			setRegistrationWoodModLoaded(MODID, set, wood);
+	public static void setRegistrationWood(String MODID, List<String> set) {
+		final AbstractBlock.Settings wood = AbstractBlock.Settings.create().strength(0.5F, 2.5F).sounds(BlockSoundGroup.WOOD);
+		setRegistrationWoodModLoaded(MODID, set, wood);
 	}
-	
+
 	/**
 	 * Init all Stone Variants of Macaw's Bridges
 	 */
-	public static void setRegistrationRock(String MODID, List<String> set)
-	{
-			setRegistrationRockModLoaded(MODID, set, stone);
+	public static void setRegistrationRock(String MODID, List<String> set) {
+		final AbstractBlock.Settings stone = AbstractBlock.Settings.create().strength(3.0F, 5.0F).sounds(BlockSoundGroup.STONE);
+		setRegistrationRockModLoaded(MODID, set, stone);
 	}
-		
+
 	/**
 	 * Init all Stone Variants of Macaw's Bridges with if Mod Loaded
 	 */
-	public static void setRegistrationRockModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
-	{
-		 final AbstractBlock.Settings STONE = prop;
+	public static void setRegistrationRockModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop) {
+		final AbstractBlock.Settings STONE = prop;
 
-			for(String i : set)
-			{		 
-				try {
-				    if (AddonsLib.isLoaded(modid))
-				    {
-				    	final Block cryptic_stone_bridge = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Block", STONE);
-				    	final Block cryptic_stone_bridge_pier = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Support", STONE);
-				    	final Block cryptic_stone_bridge_stair = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Stairs", STONE);
-				    	final Block balustrade_cryptic_stone_bridge = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Block", STONE);
-				    	
-				    	registryEntry(MODID, i+"_bridge", cryptic_stone_bridge);
-						registryEntry(MODID, i+"_bridge_pier", cryptic_stone_bridge_pier);
-						registryEntry(MODID, i+"_bridge_stair", cryptic_stone_bridge_stair);
-						registryEntry(MODID, "balustrade_"+i+"_bridge", balustrade_cryptic_stone_bridge);
-				    }
-				    else
-				    {
-						registryEntry(MODID, i+"_bridge", new Block(STONE));
-						registryEntry(MODID, i+"_bridge_pier", new Block(STONE));
-						registryEntry(MODID, i+"_bridge_stair", new Block(STONE));
-						registryEntry(MODID, "balustrade_"+i+"_bridge", new Block(STONE));
-				    }
-				} catch (Exception e) {
-					AddonsLib.LOGGER.error(e);
+		var modList = FabricLoader.getInstance();
+		final boolean isModMcwLoaded = modList.isModLoaded(modid);
+
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.BRIDGES_STONE_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModMcwLoaded) {
+					final Block cryptic_stone_bridge = Registration.getBlocksField(blockId.reflectedLocation(), STONE);
+					RegistryEntryReferences.registryEntry(MODID, id, cryptic_stone_bridge);
+				}
+				else {
+					RegistryEntryReferences.registryEntry(MODID, id, new Block(STONE));
 				}
 			}
+		}
 	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Bridges with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
-	{
-			final AbstractBlock.Settings WOOD = prop;
-			final AbstractBlock.Settings RAILS = prop.nonOpaque();
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop) {
+		final AbstractBlock.Settings WOOD = prop;
 
-			for(String i : set)
-			{
-				try {
-				    if (AddonsLib.isLoaded(modid))
-				    {
-				    	final Block log_bridge_middle = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Log_Bridge", WOOD);
-				    	final Block rope_bridge = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Block_Rope", WOOD);
-				    	final Block bridge_pier = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Support", WOOD);
-				    	final Block log_bridge_stair = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Stairs", WOOD);
-				    	final Block rope_bridge_stair = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Bridge_Stairs", WOOD);
-				    	final Block rail_bridge = Registration.getBlocksField("net.kikoz.mcwbridges.objects.Rail_Bridge", RAILS);
+		var modList = FabricLoader.getInstance();
+		final boolean isModMcwLoaded = modList.isModLoaded(modid);
 
-				    	registryEntry(MODID, i+"_log_bridge_middle", log_bridge_middle);
-						registryEntry(MODID, "rope_"+i+"_bridge", rope_bridge);
-						registryEntry(MODID, i+"_bridge_pier", bridge_pier);
-						registryEntry(MODID, i+"_log_bridge_stair", log_bridge_stair);
-						registryEntry(MODID, i+"_rope_bridge_stair", rope_bridge_stair);
-						registryEntry(MODID, i+"_rail_bridge", rail_bridge);
-				    }
-				    else
-				    {
-						registryEntry(MODID, i+"_log_bridge_middle", new Block(WOOD));
-						registryEntry(MODID, "rope_"+i+"_bridge", new Block(WOOD));
-						registryEntry(MODID, i+"_bridge_pier", new Block(WOOD));
-						registryEntry(MODID, i+"_log_bridge_stair", new Block(WOOD));
-						registryEntry(MODID, i+"_rope_bridge_stair", new Block(WOOD));
-						registryEntry(MODID, i+"_rail_bridge", new Block(RAILS));
-				    }
-				} catch (Exception e) {
-					AddonsLib.LOGGER.error(e);
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.BRIDGES_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModMcwLoaded) {
+					final Block blockRef = Registration.getBlocksField(blockId.reflectedLocation(), WOOD);
+
+					RegistryEntryReferences.registryEntry(MODID, id, blockRef);
+				}
+				else {
+					RegistryEntryReferences.registryEntry(MODID, id, new Block(WOOD));
 				}
 			}
+		}
 	}
-			
-	public static void fuelWood(String MODID, List<String> WOOD)
-	{
+
+	@Deprecated(forRemoval = true)
+	public static void fuelWood(String MODID, List<String> WOOD) {
 		Block log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
-		
-		for (String i : WOOD)
-		{				    	
-			log_bridge_middle = Finder.findBlock(MODID, i+"_log_bridge_middle");
-			rope_bridge = Finder.findBlock(MODID, "rope_"+i+"_bridge");
-			bridge_pier = Finder.findBlock(MODID, i+"_bridge_pier");
-			log_bridge_stair = Finder.findBlock(MODID, i+"_log_bridge_stair");
-			rope_bridge_stair = Finder.findBlock(MODID, i+"_rope_bridge_stair");
-			rail_bridge = Finder.findBlock(MODID, i+"_rail_bridge");
-			
+
+		for (String i : WOOD) {
+			log_bridge_middle = Finder.findBlock(MODID, i + "_log_bridge_middle");
+			rope_bridge = Finder.findBlock(MODID, "rope_" + i + "_bridge");
+			bridge_pier = Finder.findBlock(MODID, i + "_bridge_pier");
+			log_bridge_stair = Finder.findBlock(MODID, i + "_log_bridge_stair");
+			rope_bridge_stair = Finder.findBlock(MODID, i + "_rope_bridge_stair");
+			rail_bridge = Finder.findBlock(MODID, i + "_rail_bridge");
+
 			FuelRegistry.INSTANCE.add(log_bridge_middle, 300);
 			FuelRegistry.INSTANCE.add(rope_bridge, 300);
 			FuelRegistry.INSTANCE.add(bridge_pier, 300);
@@ -153,12 +105,11 @@ public class Bridges
 		}
 	}
 
-	public static void addToTabWood(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab) {
-		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
-	}
-
+	@Deprecated(forRemoval = true)
 	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab, String modLoaded) {
-		if (AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded)) {
+		FabricLoader modList = FabricLoader.getInstance();
+
+		if (modList.isModLoaded(modid) && modList.isModLoaded(modLoaded)) {
 			for (String i : WOOD) {
 				final Block log_bridge_middle = Finder.findBlock(MODID, i + "_log_bridge_middle");
 				final Block rope_bridge = Finder.findBlock(MODID, "rope_" + i + "_bridge");
@@ -179,14 +130,24 @@ public class Bridges
 		}
 	}
 
+	@Deprecated(forRemoval = true)
+	public static void addToTabWood(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab)
+	{
+		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
+	}
+
+	@Deprecated(forRemoval = true)
 	public static void addToTabStone(String MODID, List<String> ROCK, RegistryKey<ItemGroup> tab)
 	{
 		addToTabStoneModLoaded(MODID, ROCK, tab, "minecraft");
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabStoneModLoaded(String MODID, List<String> ROCK, RegistryKey<ItemGroup> tab, String modLoaded)
 	{
-		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
+		FabricLoader modList = FabricLoader.getInstance();
+
+		if(modList.isModLoaded(modid) && modList.isModLoaded(modLoaded))
 		{
 			for (String i : ROCK)
 			{

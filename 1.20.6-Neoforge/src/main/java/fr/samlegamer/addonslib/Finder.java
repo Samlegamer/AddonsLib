@@ -15,12 +15,12 @@ public class Finder
 	{
 		return BuiltInRegistries.BLOCK.get(new ResourceLocation(MODID, nameBlock));
 	}
-	
+
 	public static Item findItem(String MODID, String nameItem)
 	{
 		return BuiltInRegistries.ITEM.get(new ResourceLocation(MODID, nameItem));
 	}
-	
+
 	public static BlockEntityType<?> findTileEntity(String MODID, String nameTileEntity)
 	{
 		return BuiltInRegistries.BLOCK_ENTITY_TYPE.get(new ResourceLocation(MODID, nameTileEntity));

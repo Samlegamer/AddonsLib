@@ -1,37 +1,24 @@
 package fr.samlegamer.addonslib.windows;
 
 import java.util.List;
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
+import fr.samlegamer.addonslib.data.RegistryEntryReferences;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class Windows
 {
-	private static final String modid = "mcwwindows";
-	
-	private static void registryEntry(String MODID, String name, Block b, ItemGroup tab, String modLoaded)
-	{
-    	Registry.register(Registry.BLOCK, new Identifier(MODID, name), b);
-    	if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
-    	{
-            Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings().group(tab)));
-    	}
-    	else {
-            Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-        }
-	}
+	public static final String modid = "mcwwindows";
 
 	/**
 	 * Init all Wood Variants of Macaw's Windows
@@ -46,82 +33,55 @@ public class Windows
 	 */
 	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, ItemGroup tab, String modLoaded)
 	{
-			final AbstractBlock.Settings WOOD = AbstractBlock.Settings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(0.6F, 1.2F);
-			final AbstractBlock.Settings PARAPET = AbstractBlock.Settings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(0.2F, 1.0F);
-			final AbstractBlock.Settings BLINDS = AbstractBlock.Settings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(0.3F, 1.0F);
-			final AbstractBlock.Settings SHUTTER = AbstractBlock.Settings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(0.5F, 2.0F);
-			final AbstractBlock.Settings ROD = AbstractBlock.Settings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(0.3F, 0.7F);
-			  
-			for(String i : set)
-			{
-				try {
-				    if (AddonsLib.isLoaded(modid))
-				    {
-				    	final Block window = Registration.getBlocksField("net.kikoz.mcwwindows.objects.ConnectedWindow", WOOD);
-				    	final Block window2 = Registration.getBlocksField("net.kikoz.mcwwindows.objects.WindowBarred", WOOD);
-				    	final Block four_window = Registration.getBlocksField("net.kikoz.mcwwindows.objects.WindowBarred", WOOD);
-				    	final Block strippedlog_window = Registration.getBlocksField("net.kikoz.mcwwindows.objects.ConnectedWindow", WOOD);
-				    	final Block strippedlog_window2 = Registration.getBlocksField("net.kikoz.mcwwindows.objects.WindowBarred", WOOD);
-				    	final Block strippedlog_four_window = Registration.getBlocksField("net.kikoz.mcwwindows.objects.WindowBarred", WOOD);
-				    	final Block plank_window = Registration.getBlocksField("net.kikoz.mcwwindows.objects.ConnectedWindow", WOOD);
-				    	final Block plank_window2 = Registration.getBlocksField("net.kikoz.mcwwindows.objects.WindowBarred", WOOD);
-				    	final Block plank_four_window = Registration.getBlocksField("net.kikoz.mcwwindows.objects.WindowBarred", WOOD);
-				    	final Block log_parapet = Registration.getBlocksField("net.kikoz.mcwwindows.objects.Parapet", PARAPET);
-				    	final Block plank_parapet = Registration.getBlocksField("net.kikoz.mcwwindows.objects.Parapet", PARAPET);
-				    	final Block blinds = Registration.getBlocksField("net.kikoz.mcwwindows.objects.Blinds", BLINDS);
-				    	final Block shutter = Registration.getBlocksField("net.kikoz.mcwwindows.objects.Shutter", SHUTTER);
-				    	final Block louvered_shutter = Registration.getBlocksField("net.kikoz.mcwwindows.objects.Shutter", SHUTTER);
-				    	final Block pane_window = Registration.getBlocksField("net.kikoz.mcwwindows.objects.Window", WOOD);
-				    	final Block strippedpane_window = Registration.getBlocksField("net.kikoz.mcwwindows.objects.Window", WOOD);
-				    	final Block plank_pane_window = Registration.getBlocksField("net.kikoz.mcwwindows.objects.Window", WOOD);
-				    	final Block curtain_rod = Registration.getBlocksField("net.kikoz.mcwwindows.objects.CurtainRod", ROD);
-				    	
-				    	registryEntry(MODID, i+"_window", window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_window2", window2, tab, modLoaded);
-				    	registryEntry(MODID, i+"_four_window", four_window, tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_window", strippedlog_window, tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_window2", strippedlog_window2, tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_four_window", strippedlog_four_window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_window", plank_window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_window2", plank_window2, tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_four_window", plank_four_window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_log_parapet", log_parapet, tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_parapet", plank_parapet, tab, modLoaded);
-				    	registryEntry(MODID, i+"_blinds", blinds, tab, modLoaded);
-				    	registryEntry(MODID, i+"_shutter", shutter, tab, modLoaded);
-				    	registryEntry(MODID, i+"_louvered_shutter", louvered_shutter, tab, modLoaded);
-				    	registryEntry(MODID, i+"_pane_window", pane_window, tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_pane_window", strippedpane_window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_pane_window", plank_pane_window, tab, modLoaded);
-				    	registryEntry(MODID, i+"_curtain_rod", curtain_rod, tab, modLoaded);
-				    }
-				    else
-				    {
-				    	registryEntry(MODID, i+"_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_window2", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_four_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_window2", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_log_four_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_window2", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_four_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_log_parapet", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_parapet", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_blinds", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_shutter", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_louvered_shutter", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_pane_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, "stripped_"+i+"_pane_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_plank_pane_window", new Block(WOOD), tab, modLoaded);
-				    	registryEntry(MODID, i+"_curtain_rod", new Block(WOOD), tab, modLoaded);
-				    }
-				} catch (Exception e) {
-				    e.printStackTrace();
+		final AbstractBlock.Settings WOOD = AbstractBlock.Settings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(0.6F, 1.2F);
+		final AbstractBlock.Settings PARAPET = AbstractBlock.Settings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(0.2F, 1.0F);
+		final AbstractBlock.Settings BLINDS = AbstractBlock.Settings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(0.3F, 1.0F);
+		final AbstractBlock.Settings SHUTTER = AbstractBlock.Settings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(0.5F, 2.0F);
+		final AbstractBlock.Settings ROD = AbstractBlock.Settings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(0.3F, 0.7F);
+
+		var modList = FabricLoader.getInstance();
+		final boolean isModMcwLoaded = modList.isModLoaded(modid);
+		final boolean isModBaseLoaded = modList.isModLoaded(modLoaded);
+
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.WINDOWS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+				String relectedLocation = blockId.reflectedLocation();
+
+				if(isModMcwLoaded) {
+					final Block blockRef;
+					switch (relectedLocation)
+					{
+						case "Parapet":
+							blockRef = Registration.getBlocksField(relectedLocation, PARAPET);
+							RegistryEntryReferences.registryEntry(MODID, id, blockRef, tab, true, isModBaseLoaded);
+							break;
+						case "Blinds":
+							blockRef = Registration.getBlocksField(relectedLocation, BLINDS);
+							RegistryEntryReferences.registryEntry(MODID, id, blockRef, tab, true, isModBaseLoaded);
+							break;
+						case "Shutter":
+							blockRef = Registration.getBlocksField(relectedLocation, SHUTTER);
+							RegistryEntryReferences.registryEntry(MODID, id, blockRef, tab, true, isModBaseLoaded);
+							break;
+						case "CurtainRod":
+							blockRef = Registration.getBlocksField(relectedLocation, ROD);
+							RegistryEntryReferences.registryEntry(MODID, id, blockRef, tab, true, isModBaseLoaded);
+							break;
+						default:
+							blockRef = Registration.getBlocksField(relectedLocation, WOOD);
+							RegistryEntryReferences.registryEntry(MODID, id, blockRef, tab, true, isModBaseLoaded);
+							break;
+					}
+				}
+				else {
+					RegistryEntryReferences.registryEntry(MODID, id, new Block(WOOD), tab, false, isModBaseLoaded);
 				}
 			}
+		}
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
 	{
 		Block window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2,
@@ -153,12 +113,14 @@ public class Windows
 	    	plank_window2, plank_four_window, log_parapet, plank_parapet, blinds, shutter, louvered_shutter, pane_window, strippedpane_window, plank_pane_window, curtain_rod);
         }
 	}
-	
+
+	@Deprecated(forRemoval = true)
 	public static void clientWood(String MODID, List<String> WOOD)
 	{
 		clientWood(MODID, WOOD, RenderLayer.getCutout());
 	}
-	
+
+	@Deprecated(forRemoval = true)
 	public static void fuelWood(String MODID, List<String> WOOD)
 	{
 		Block window, window2, four_window, strippedlog_window, strippedlog_window2, strippedlog_four_window, plank_window, plank_window2,

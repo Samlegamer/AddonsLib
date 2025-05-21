@@ -1,27 +1,23 @@
 package fr.samlegamer.addonslib.windows;
 
 import java.util.List;
-import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class Windows {
 	public static final String modid = "mcwwindows";
@@ -43,45 +39,46 @@ public class Windows {
 		final AbstractBlock.Properties SHUTTER = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.5F, 2.0F);
 		final AbstractBlock.Properties ROD = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.3F, 0.7F);
 
-		boolean isModLoaded = ModList.get().isLoaded(modid);
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
+		boolean isModBaseLoaded = ModList.get().isLoaded(modLoaded);
 
 		for (String i : set) {
 			for (BlockId blockId : McwBlocksIdBase.WINDOWS_WOOD_BLOCKS.blocks()) {
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 				String relectedLocation = blockId.reflectedLocation();
 
-				if(isModLoaded) {
+				if(isModMcwLoaded) {
 					switch (relectedLocation)
 					{
 						case "Parapet":
-							createBlock(id, () ->
+							CreateBlockReferences.createBlock(id, () ->
 											Registration.getBlocksField(relectedLocation, PARAPET),
-									block, item, tab, modLoaded);
+									block, item, tab, true, isModBaseLoaded);
 							break;
 						case "Blinds":
-							createBlock(id, () ->
+							CreateBlockReferences.createBlock(id, () ->
 											Registration.getBlocksField(relectedLocation, BLINDS),
-									block, item, tab, modLoaded);
+									block, item, tab, true, isModBaseLoaded);
 							break;
 						case "Shutter":
-							createBlock(id, () ->
+							CreateBlockReferences.createBlock(id, () ->
 											Registration.getBlocksField(relectedLocation, SHUTTER),
-									block, item, tab, modLoaded);
+									block, item, tab, true, isModBaseLoaded);
 							break;
 						case "CurtainRod":
-							createBlock(id, () ->
+							CreateBlockReferences.createBlock(id, () ->
 											Registration.getBlocksField(relectedLocation, ROD),
-									block, item, tab, modLoaded);
+									block, item, tab, true, isModBaseLoaded);
 							break;
 						default:
-							createBlock(id, () ->
+							CreateBlockReferences.createBlock(id, () ->
 											Registration.getBlocksField(relectedLocation, WOOD),
-									block, item, tab, modLoaded);
+									block, item, tab, true, isModBaseLoaded);
 							break;
 					}
 				}
 				else {
-					createBlock(id, () -> new Block(WOOD), block, item, tab, modLoaded);
+					CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item, tab, false, isModBaseLoaded);
 				}
 			}
 		}
@@ -139,29 +136,6 @@ public class Windows {
 		clientWood(event, MODID, WOOD, RenderType.cutout());
 	}
 
-	protected static void createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded) {
-		RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		ModList modList = ModList.get();
-		if (modList.isLoaded(modid) && modList.isLoaded(modLoaded)) {
-			ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
-		} else {
-			ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-		}
-	}
-
-	protected static void createBlockWoodOpti(String Modid, String name, Block block, ItemGroup tab) {
-		BlockItem itemBlock;
-		if (ModList.get().isLoaded(modid)) {
-			itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
-		} else {
-			itemBlock = new BlockItemFuel(block, new Item.Properties());
-		}
-		block.setRegistryName(Modid, name);
-		itemBlock.setRegistryName(Modid, name);
-		ForgeRegistries.BLOCKS.register(block);
-		ForgeRegistries.ITEMS.register(itemBlock);
-	}
-
 	public static void registryWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOODS, ItemGroup tab)
 	{
 		final AbstractBlock.Properties WOOD = AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.6F, 1.2F);
@@ -181,34 +155,34 @@ public class Windows {
 					switch (relectedLocation)
 					{
 						case "Parapet":
-							createBlockWoodOpti(Modid, id,
+							CreateBlockReferences.createBlockWoodOpti(Modid, id,
 											Registration.getBlocksField(relectedLocation, PARAPET),
-									tab);
+									tab, true);
 							break;
 						case "Blinds":
-							createBlockWoodOpti(Modid, id,
+							CreateBlockReferences.createBlockWoodOpti(Modid, id,
 											Registration.getBlocksField(relectedLocation, BLINDS),
-									tab);
+									tab, true);
 							break;
 						case "Shutter":
-							createBlockWoodOpti(Modid, id,
+							CreateBlockReferences.createBlockWoodOpti(Modid, id,
 											Registration.getBlocksField(relectedLocation, SHUTTER),
-									tab);
+									tab, true);
 							break;
 						case "CurtainRod":
-							createBlockWoodOpti(Modid, id,
+							CreateBlockReferences.createBlockWoodOpti(Modid, id,
 											Registration.getBlocksField(relectedLocation, ROD),
-									tab);
+									tab, true);
 							break;
 						default:
-							createBlockWoodOpti(Modid, id,
+							CreateBlockReferences.createBlockWoodOpti(Modid, id,
 											Registration.getBlocksField(relectedLocation, WOOD),
-									tab);
+									tab, true);
 							break;
 					}
 				}
 				else {
-					createBlockWoodOpti(Modid, id, new Block(WOOD), tab);
+					CreateBlockReferences.createBlockWoodOpti(Modid, id, new Block(WOOD), tab, false);
 				}
 			}
 		}

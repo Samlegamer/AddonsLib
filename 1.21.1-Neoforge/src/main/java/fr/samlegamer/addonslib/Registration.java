@@ -55,15 +55,15 @@ public final class Registration
 		t.register(bus);
 	}
 
-	public static List<ModType> getAllModTypeWood()
+	public static ModType[] getAllModTypeWood()
 	{
-		return List.of(ModType.ROOFS, ModType.FENCES, ModType.BRIDGES, ModType.FURNITURES,
-		ModType.WINDOWS, ModType.DOORS, ModType.TRAPDOORS, ModType.PATHS, ModType.STAIRS);
+		return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES, ModType.FURNITURES,
+                ModType.WINDOWS, ModType.DOORS, ModType.TRAPDOORS, ModType.PATHS, ModType.STAIRS};
 	}
 
-	public static List<ModType> getAllModTypeStone()
+	public static ModType[] getAllModTypeStone()
 	{
-		return List.of(ModType.ROOFS, ModType.FENCES, ModType.BRIDGES);
+		return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
 	}
 
 	public static Block getField(String path, BlockBehaviour.Properties prop, Class<?>[] params, Object... values)
@@ -82,20 +82,13 @@ public final class Registration
 		}
 		return block;
 	}
-
-	@Deprecated
-	public static Block getBlocksFieldForFences(String path, BlockBehaviour.Properties WOOD)
-	{
-        return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class}, WOOD);
-	}
-
 	
 	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD)
 	{
         return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class}, WOOD);
 	}
 
-	public static Block getBlocksFieldDoors(String path, BlockBehaviour.Properties WOOD, BlockSetType set)
+	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD, BlockSetType set)
 	{
         return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class, BlockSetType.class}, WOOD, set);
 	}

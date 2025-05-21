@@ -1,26 +1,22 @@
 package fr.samlegamer.addonslib.trapdoor;
 
 import java.util.List;
-import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TrapDoorBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class Trapdoors {
 	public static final String modid = "mcwtrpdoors";
@@ -38,13 +34,16 @@ public class Trapdoors {
 	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, String modLoaded) {
 		final AbstractBlock.Properties WOOD = AbstractBlock.Properties.copy(Blocks.OAK_TRAPDOOR);
 
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
+		boolean isModBaseLoaded = ModList.get().isLoaded(modLoaded);
+
 		for(String i : set)
 		{
 			for(BlockId blockId : McwBlocksIdBase.TRAPDOORS_WOOD_BLOCKS.blocks())
 			{
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-				createBlock(id, () -> new TrapDoorBlock(WOOD), block, item, tab, modLoaded);
+				CreateBlockReferences.createBlock(id, () -> new TrapDoorBlock(WOOD), block, item, tab, isModMcwLoaded, isModBaseLoaded);
 			}
 		}
 	}
@@ -98,32 +97,11 @@ public class Trapdoors {
 		clientWood(event, MODID, WOOD, RenderType.cutout());
 	}
 
-	protected static void createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded) {
-		RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		ModList modList = ModList.get();
-		if (modList.isLoaded(modid) && modList.isLoaded(modLoaded)) {
-			ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
-		} else {
-			ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-		}
-	}
-
-	protected static void createBlockWoodOpti(String Modid, String name, Block block, ItemGroup tab) {
-		BlockItem itemBlock;
-		if (ModList.get().isLoaded(modid)) {
-			itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
-		} else {
-			itemBlock = new BlockItemFuel(block, new Item.Properties());
-		}
-		block.setRegistryName(Modid, name);
-		itemBlock.setRegistryName(Modid, name);
-		ForgeRegistries.BLOCKS.register(block);
-		ForgeRegistries.ITEMS.register(itemBlock);
-	}
-
 	public static void registryWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOODS, ItemGroup tab)
 	{
 		final AbstractBlock.Properties WOOD = AbstractBlock.Properties.copy(Blocks.OAK_TRAPDOOR);
+
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
 
 		for(String i : WOODS)
 		{
@@ -131,7 +109,7 @@ public class Trapdoors {
 			{
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-				createBlockWoodOpti(Modid, id, new TrapDoorBlock(WOOD), tab);
+				CreateBlockReferences.createBlockWoodOpti(Modid, id, new TrapDoorBlock(WOOD), tab, isModMcwLoaded);
 			}
 		}
 	}

@@ -1,9 +1,10 @@
 package fr.samlegamer.addonslib.path;
 
 import java.util.List;
-import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Registration;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -11,7 +12,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 
 public class Paths
 {
@@ -30,43 +30,22 @@ public class Paths
 	 */
 	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab, String modLoaded)
 	{
-			final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
+		final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
 
-			for(String i : set)
-			{
-				RegistryObject<Block> planks_path;
-				  
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-				    	planks_path = createBlock(i+"_planks_path", () -> Registration.getBlocksField("com.mcwpaths.kikoz.objects.FacingPathBlock", WOOD), block, item, tab, modLoaded);
-				    }
-				    else
-				    {
-				    	planks_path = createBlock(i+"_planks_path", () -> new Block(WOOD), block, item, tab, modLoaded);
-				    }
-				} catch (Exception e) {
-				    e.printStackTrace();
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
+		boolean isModBaseLoaded = ModList.get().isLoaded(modLoaded);
+
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.PATHS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModMcwLoaded) {
+					CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item, tab, true, isModBaseLoaded);
+				}
+				else {
+					CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item, tab, false, isModBaseLoaded);
 				}
 			}
+		}
 	}
-	
-	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, CreativeModeTab tab)
-    {
-        return createBlock(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
-	
-	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, CreativeModeTab tab, String modLoaded)
-    {
-        RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
-        }
-        else
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-        }
-        return block;
-    }
 }

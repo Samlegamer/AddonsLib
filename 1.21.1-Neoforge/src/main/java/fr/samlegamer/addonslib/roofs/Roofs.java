@@ -1,23 +1,18 @@
 package fr.samlegamer.addonslib.roofs;
 
 import java.util.List;
-import java.util.function.Function;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class Roofs
@@ -56,18 +51,18 @@ public class Roofs
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if(blockId.reflectedLocation().contains("StairBlock")) {
-					createBlock(id, registryName -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
 				}
 				else if(isModLoaded) {
 					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
-						createBlock(id, registryName ->
+						CreateBlockReferences.createBlock(id, registryName ->
 						Registration.getBlocksField(blockId.reflectedLocation(), WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
 					} else {
-						createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item);
+						CreateBlockReferences.createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item);
 					}
 				}
 				else {
-					createBlock(id, registryName -> new Block(WOOD), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> new Block(WOOD), block, item);
 				}
 			}
 		}
@@ -87,35 +82,22 @@ public class Roofs
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if (blockId.reflectedLocation().contains("StairBlock")) {
-					createBlockStone(id, registryName ->
+					CreateBlockReferences.createBlockStone(id, registryName ->
 									new StairBlock(Blocks.COBBLESTONE.defaultBlockState(), STONE), block, item);
 				}
-				if(isModLoaded) {
+				else if(isModLoaded) {
 					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
-						createBlockStone(id, registryName ->
+						CreateBlockReferences.createBlockStone(id, registryName ->
 						Registration.getBlocksField(blockId.reflectedLocation(), STONE, Blocks.COBBLESTONE.defaultBlockState()), block, item);
 					} else {
-						createBlockStone(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item);
+						CreateBlockReferences.createBlockStone(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item);
 					}
 				}
 				else {
-					createBlockStone(id, registryName -> new Block(STONE), block, item);
+					CreateBlockReferences.createBlockStone(id, registryName -> new Block(STONE), block, item);
 				}
 			}
 		}
-	}
-
-	
-	protected static void createBlock(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
-		ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuel(block.get(), new Item.Properties()));
-	}
-	
-	protected static void createBlockStone(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
-		ITEMS_REGISTRY.register(name, registryName -> new BlockItem(block.get(), new Item.Properties()));
 	}
 
 	@Deprecated(forRemoval = true)

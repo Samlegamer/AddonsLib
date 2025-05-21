@@ -1,20 +1,19 @@
 package fr.samlegamer.addonslib.trapdoor;
 
 import java.util.List;
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
+import fr.samlegamer.addonslib.data.RegistryEntryReferences;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSetType;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TrapdoorBlock;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
@@ -22,14 +21,6 @@ import net.minecraft.util.Identifier;
 public class Trapdoors
 {
 	public static final String modid = "mcwtrpdoors";
-	
-	private static void registryEntry(String MODID, String name, Block b)
-	{
-		final Identifier ID = Identifier.of(MODID, name);
-		final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, ID);
-		Registry.register(Registries.BLOCK, ID, b);
-		Registry.register(Registries.ITEM, ID, new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
-	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Trapdoors
@@ -39,36 +30,26 @@ public class Trapdoors
 		final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR);
 		setRegistrationWoodModLoaded(MODID, set, WOOD);
 	}
-	
+
 	/**
 	 * Init all Wood Variants of Macaw's Trapdoors with if Mod Loaded
 	 */
 	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
 	{
-			final AbstractBlock.Settings WOOD = prop;
-			
-			for(String i : set)
+		final AbstractBlock.Settings WOOD = prop;
+
+		for(String i : set)
+		{
+			for(BlockId blockId : McwBlocksIdBase.TRAPDOORS_WOOD_BLOCKS.blocks())
 			{
-				registryEntry(MODID, i + "_barn_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barn_trapdoor")))));
-				registryEntry(MODID, i + "_cottage_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_cottage_trapdoor")))));
-				registryEntry(MODID, i + "_barred_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barred_trapdoor")))));
-				registryEntry(MODID, i + "_beach_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_beach_trapdoor")))));
-				registryEntry(MODID, i + "_four_panel_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_four_panel_trapdoor")))));
-				registryEntry(MODID, i + "_glass_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_glass_trapdoor")))));
-				registryEntry(MODID, i + "_mystic_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_mystic_trapdoor")))));
-				registryEntry(MODID, i + "_paper_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_paper_trapdoor")))));
-				registryEntry(MODID, i + "_tropical_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_tropical_trapdoor")))));
-				registryEntry(MODID, i + "_swamp_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_swamp_trapdoor")))));
-				registryEntry(MODID, i + "_bamboo_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bamboo_trapdoor")))));
-				registryEntry(MODID, i + "_classic_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_classic_trapdoor")))));
-				registryEntry(MODID, i + "_bark_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_bark_trapdoor")))));
-				registryEntry(MODID, i + "_ranch_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_ranch_trapdoor")))));
-				registryEntry(MODID, i + "_blossom_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_blossom_trapdoor")))));
-				registryEntry(MODID, i + "_barrel_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_barrel_trapdoor")))));
-				registryEntry(MODID, i + "_whispering_trapdoor", new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, i + "_whispering_trapdoor")))));
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				RegistryEntryReferences.registryEntry(MODID, id, new TrapdoorBlock(BlockSetType.OAK, WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, id)))));
 			}
+		}
 	}
-	
+
+	@Deprecated(forRemoval = true)
 	public static void fuelWood(String MODID, List<String> WOOD)
 	{
 		for (String i : WOOD)
@@ -116,14 +97,17 @@ public class Trapdoors
         }
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabWood(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab)
 	{
 		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab, String modLoaded)
 	{
-		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
+		var modList = FabricLoader.getInstance();
+		if(modList.isModLoaded(modid) && modList.isModLoaded(modLoaded))
 		{
 			for (String i : WOOD)
 			{

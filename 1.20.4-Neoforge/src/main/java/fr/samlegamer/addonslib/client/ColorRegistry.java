@@ -1,6 +1,5 @@
 package fr.samlegamer.addonslib.client;
 
-import java.util.ArrayList;
 import java.util.List;
 import fr.samlegamer.addonslib.Finder;
 import net.minecraft.client.renderer.BiomeColors;

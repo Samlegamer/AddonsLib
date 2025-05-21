@@ -1,9 +1,10 @@
 package fr.samlegamer.addonslib.trapdoor;
 
 import java.util.List;
-import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -14,7 +15,6 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 
 public class Trapdoors
 {
@@ -34,39 +34,20 @@ public class Trapdoors
 	 */
 	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, BlockBehaviour.Properties prop)
 	{
-			final BlockBehaviour.Properties WOOD = prop;
-			RegistryObject<Block> barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, mystic_trapdoor, paper_trapdoor, 
-			tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor, whispering_trapdoor;
+		final BlockBehaviour.Properties WOOD = prop;
 
-			for(String i : set)
+		for(String i : set)
+		{
+			for(BlockId blockId : McwBlocksIdBase.TRAPDOORS_WOOD_BLOCKS.blocks())
 			{
-				barn_trapdoor = createBlock(i+"_barn_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_barn_trapdoor"))), block, item);
-		    	cottage_trapdoor = createBlock(i+"_cottage_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_cottage_trapdoor"))), block, item);
-		    	barred_trapdoor = createBlock(i+"_barred_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_barred_trapdoor"))), block, item);
-		    	beach_trapdoor = createBlock(i+"_beach_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_beach_trapdoor"))), block, item);
-		    	four_panel_trapdoor = createBlock(i+"_four_panel_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_four_panel_trapdoor"))), block, item);
-		    	glass_trapdoor = createBlock(i+"_glass_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_glass_trapdoor"))), block, item);
-		    	mystic_trapdoor = createBlock(i+"_mystic_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_mystic_trapdoor"))), block, item);
-		    	paper_trapdoor = createBlock(i+"_paper_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_paper_trapdoor"))), block, item);
-		    	tropical_trapdoor = createBlock(i+"_tropical_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_tropical_trapdoor"))), block, item);
-		    	swamp_trapdoor = createBlock(i+"_swamp_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_swamp_trapdoor"))), block, item);
-		    	bamboo_trapdoor = createBlock(i+"_bamboo_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_bamboo_trapdoor"))), block, item);
-		    	classic_trapdoor = createBlock(i+"_classic_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_classic_trapdoor"))), block, item);
-		    	bark_trapdoor = createBlock(i+"_bark_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_bark_trapdoor"))), block, item);
-		    	ranch_trapdoor = createBlock(i+"_ranch_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_ranch_trapdoor"))), block, item);
-		    	blossom_trapdoor = createBlock(i+"_blossom_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_blossom_trapdoor"))), block, item);
-		    	barrel_trapdoor = createBlock(i+"_barrel_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_barrel_trapdoor"))), block, item);
-				whispering_trapdoor = createBlock(i+"_whispering_trapdoor", () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(i+"_whispering_trapdoor"))), block, item);
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				CreateBlockReferences.createBlock(id, () -> new TrapDoorBlock(BlockSetType.OAK, WOOD.setId(block.key(id))), block, item);
 			}
+		}
 	}
 
-	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY)
-    {
-        RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().useBlockDescriptionPrefix().setId(ITEMS_REGISTRY.key(name))));
-        return block;
-    }
-	
+	@Deprecated(forRemoval = true)
 	public static void addToTab(BuildCreativeModeTabContentsEvent event, String MODID, List<String> WOOD, CreativeModeTab tab)
 	{
 		Block barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, mystic_trapdoor, paper_trapdoor, 

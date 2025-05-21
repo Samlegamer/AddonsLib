@@ -11,6 +11,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.world.ClientWorld;
 
+@Deprecated(forRemoval = true)
 @Environment(EnvType.CLIENT)
 public class APIRenderer
 {

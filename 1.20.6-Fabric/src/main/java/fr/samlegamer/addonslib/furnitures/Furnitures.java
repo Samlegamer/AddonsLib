@@ -1,38 +1,27 @@
 package fr.samlegamer.addonslib.furnitures;
 
 import java.util.List;
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
+import fr.samlegamer.addonslib.data.RegistryEntryReferences;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
 
-public class Furnitures
-{
+public class Furnitures {
 	public static final String modid = "mcwfurnitures";
-	
-	private static void registryEntry(String MODID, String name, Block b)
-	{
-    	Registry.register(Registries.BLOCK, new Identifier(MODID, name), b);
-		Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-	}
-	
+
 	/**
 	 * Init all Wood Variants of Macaw's Furnitures
 	 */
-	public static void setRegistrationWood(String MODID, List<String> set)
-	{
+	public static void setRegistrationWood(String MODID, List<String> set) {
 		final AbstractBlock.Settings WOOD = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
 		setRegistrationWoodModLoaded(MODID, set, WOOD);
 	}
@@ -40,217 +29,38 @@ public class Furnitures
 	/**
 	 * Init all Wood Variants of Macaw's Furnitures with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop)
-	{
-			final AbstractBlock.Settings WOOD = prop;
+	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop) {
+		final AbstractBlock.Settings WOOD = prop;
 
-			for(String i : set)
-			{				
-				try {
-				    if (AddonsLib.isLoaded(modid))
-				    {
-				    	final Block cherry_wardrobe = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TallFurnitureHinge", WOOD);
-				    	final Block cherry_modern_wardrobe = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TallFurnitureHinge", WOOD);
-				    	final Block cherry_double_wardrobe = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TallFurniture", WOOD);
-				    	final Block cherry_bookshelf = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TallFurniture", WOOD);
-				    	final Block cherry_bookshelf_cupboard = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TallFurnitureHinge", WOOD);
-				    	final Block cherry_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-				    	final Block cherry_double_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-				    	final Block cherry_bookshelf_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-				    	final Block cherry_lower_bookshelf_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-				    	final Block cherry_large_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-				    	final Block cherry_lower_triple_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-				    	final Block cherry_triple_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-				    	final Block cherry_desk = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.Desk", WOOD);
-				    	final Block cherry_covered_desk = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.Desk", WOOD);
-				    	final Block cherry_modern_desk = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.Desk", WOOD);
-				    	final Block cherry_table = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TableHitbox", WOOD);
-				    	final Block cherry_end_table = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TableHitbox", WOOD);
-				    	final Block cherry_coffee_table = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.Table", WOOD);
-				    	final Block cherry_glass_table = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TableHitbox", WOOD);
-				    	final Block cherry_chair = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.chairs.StripedChair", WOOD);
-				    	final Block cherry_modern_chair = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.chairs.ModernChair", WOOD);
-				    	final Block cherry_striped_chair = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.chairs.StripedChair", WOOD);
-				    	final Block cherry_stool_chair = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.Chair", WOOD);
-				    	final Block cherry_counter = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.counters.Counter", WOOD);
-				    	final Block cherry_drawer_counter = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.counters.StorageCounter", WOOD);
-				    	final Block cherry_double_drawer_counter = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.counters.StorageCounter", WOOD);
-				    	final Block cherry_cupboard_counter = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.counters.CupboardCounter", WOOD);
-				    	
-				    	final Block stripped_cherry_wardrobe = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TallFurnitureHinge", WOOD);
-				    	final Block stripped_cherry_modern_wardrobe = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TallFurnitureHinge", WOOD);
-				    	final Block stripped_cherry_double_wardrobe = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TallFurniture", WOOD);
-				    	final Block stripped_cherry_bookshelf = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TallFurniture", WOOD);
-				    	final Block stripped_cherry_bookshelf_cupboard = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TallFurnitureHinge", WOOD);
-				    	final Block stripped_cherry_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-						final Block stripped_cherry_double_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-						final Block stripped_cherry_bookshelf_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-						final Block stripped_cherry_lower_bookshelf_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-						final Block stripped_cherry_large_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-						final Block stripped_cherry_lower_triple_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-						final Block stripped_cherry_triple_drawer = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.WideFurniture", WOOD);
-						final Block stripped_cherry_desk = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.Desk", WOOD);
-						final Block stripped_cherry_covered_desk = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.Desk", WOOD);
-						final Block stripped_cherry_modern_desk = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.Desk", WOOD);
-						final Block stripped_cherry_table = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TableHitbox", WOOD);
-						final Block stripped_cherry_end_table = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TableHitbox", WOOD);
-						final Block stripped_cherry_coffee_table = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.Table", WOOD);
-						final Block stripped_cherry_glass_table = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.TableHitbox", WOOD);
-						final Block stripped_cherry_chair = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.chairs.StripedChair", WOOD);
-						final Block stripped_cherry_modern_chair = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.chairs.ModernChair", WOOD);
-						final Block stripped_cherry_striped_chair = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.chairs.StripedChair", WOOD);
-						final Block stripped_cherry_stool_chair = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.Chair", WOOD);
-						final Block stripped_cherry_counter = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.counters.Counter", WOOD);
-						final Block stripped_cherry_drawer_counter = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.counters.StorageCounter", WOOD);
-						final Block stripped_cherry_double_drawer_counter = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.counters.StorageCounter", WOOD);
-						final Block stripped_cherry_cupboard_counter = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.counters.CupboardCounter", WOOD);
-						final Block cherry_kitchen_cabinet = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.cabinets.CabinetHinge", WOOD);
-						final Block cherry_double_kitchen_cabinet = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.cabinets.Cabinet", WOOD);
-						final Block cherry_glass_kitchen_cabinet = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.cabinets.Cabinet", WOOD);
-						final Block stripped_cherry_kitchen_cabinet = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.cabinets.CabinetHinge", WOOD);
-						final Block stripped_cherry_double_kitchen_cabinet = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.cabinets.Cabinet", WOOD);
-						final Block stripped_cherry_glass_kitchen_cabinet = Registration.getBlocksField("net.kikoz.mcwfurnitures.objects.cabinets.Cabinet", WOOD);
+		var modList = FabricLoader.getInstance();
+		boolean isModMcwLoaded = modList.isModLoaded(modid);
 
-				    	registryEntry(MODID, i+"_wardrobe", cherry_wardrobe);
-						registryEntry(MODID, i+"_modern_wardrobe", cherry_modern_wardrobe);
-						registryEntry(MODID, i+"_double_wardrobe", cherry_double_wardrobe);
-						registryEntry(MODID, i+"_bookshelf", cherry_bookshelf);
-						registryEntry(MODID, i+"_bookshelf_cupboard", cherry_bookshelf_cupboard);
-						registryEntry(MODID, i+"_drawer", cherry_drawer);
-						registryEntry(MODID, i+"_double_drawer", cherry_double_drawer);
-						registryEntry(MODID, i+"_bookshelf_drawer", cherry_bookshelf_drawer);
-						registryEntry(MODID, i+"_lower_bookshelf_drawer", cherry_lower_bookshelf_drawer);
-						registryEntry(MODID, i+"_large_drawer", cherry_large_drawer);
-						registryEntry(MODID, i+"_lower_triple_drawer", cherry_lower_triple_drawer);
-						registryEntry(MODID, i+"_triple_drawer", cherry_triple_drawer);
-						registryEntry(MODID, i+"_desk", cherry_desk);
-						registryEntry(MODID, i+"_covered_desk", cherry_covered_desk);
-						registryEntry(MODID, i+"_modern_desk", cherry_modern_desk);
-						registryEntry(MODID, i+"_table", cherry_table);
-						registryEntry(MODID, i+"_end_table", cherry_end_table);
-						registryEntry(MODID, i+"_coffee_table", cherry_coffee_table);
-						registryEntry(MODID, i+"_glass_table", cherry_glass_table);
-						registryEntry(MODID, i+"_chair", cherry_chair);
-						registryEntry(MODID, i+"_modern_chair", cherry_modern_chair);
-						registryEntry(MODID, i+"_striped_chair", cherry_striped_chair);
-						registryEntry(MODID, i+"_stool_chair", cherry_stool_chair);
-						registryEntry(MODID, i+"_counter", cherry_counter);
-						registryEntry(MODID, i+"_drawer_counter", cherry_drawer_counter);
-						registryEntry(MODID, i+"_double_drawer_counter", cherry_double_drawer_counter);
-						registryEntry(MODID, i+"_cupboard_counter", cherry_cupboard_counter);
-						
-						registryEntry(MODID, "stripped_"+i+"_wardrobe", stripped_cherry_wardrobe);
-						registryEntry(MODID, "stripped_"+i+"_modern_wardrobe", stripped_cherry_modern_wardrobe);
-						registryEntry(MODID, "stripped_"+i+"_double_wardrobe", stripped_cherry_double_wardrobe);
-						registryEntry(MODID, "stripped_"+i+"_bookshelf", stripped_cherry_bookshelf);
-						registryEntry(MODID, "stripped_"+i+"_bookshelf_cupboard", stripped_cherry_bookshelf_cupboard);
-						registryEntry(MODID, "stripped_"+i+"_drawer", stripped_cherry_drawer);
-						registryEntry(MODID, "stripped_"+i+"_double_drawer", stripped_cherry_double_drawer);
-						registryEntry(MODID, "stripped_"+i+"_bookshelf_drawer", stripped_cherry_bookshelf_drawer);
-						registryEntry(MODID, "stripped_"+i+"_lower_bookshelf_drawer", stripped_cherry_lower_bookshelf_drawer);
-						registryEntry(MODID, "stripped_"+i+"_large_drawer", stripped_cherry_large_drawer);
-						registryEntry(MODID, "stripped_"+i+"_lower_triple_drawer", stripped_cherry_lower_triple_drawer);
-						registryEntry(MODID, "stripped_"+i+"_triple_drawer", stripped_cherry_triple_drawer);
-						registryEntry(MODID, "stripped_"+i+"_desk", stripped_cherry_desk);
-						registryEntry(MODID, "stripped_"+i+"_covered_desk", stripped_cherry_covered_desk);
-						registryEntry(MODID, "stripped_"+i+"_modern_desk", stripped_cherry_modern_desk);
-						registryEntry(MODID, "stripped_"+i+"_table", stripped_cherry_table);
-						registryEntry(MODID, "stripped_"+i+"_end_table", stripped_cherry_end_table);
-						registryEntry(MODID, "stripped_"+i+"_coffee_table", stripped_cherry_coffee_table);
-						registryEntry(MODID, "stripped_"+i+"_glass_table", stripped_cherry_glass_table);
-						registryEntry(MODID, "stripped_"+i+"_chair", stripped_cherry_chair);
-						registryEntry(MODID, "stripped_"+i+"_modern_chair", stripped_cherry_modern_chair);
-						registryEntry(MODID, "stripped_"+i+"_striped_chair", stripped_cherry_striped_chair);
-						registryEntry(MODID, "stripped_"+i+"_stool_chair", stripped_cherry_stool_chair);
-						registryEntry(MODID, "stripped_"+i+"_counter", stripped_cherry_counter);
-						registryEntry(MODID, "stripped_"+i+"_drawer_counter", stripped_cherry_drawer_counter);
-						registryEntry(MODID, "stripped_"+i+"_double_drawer_counter", stripped_cherry_double_drawer_counter);
-						registryEntry(MODID, "stripped_"+i+"_cupboard_counter", stripped_cherry_cupboard_counter);
-						registryEntry(MODID, i+"_kitchen_cabinet", cherry_kitchen_cabinet);
-						registryEntry(MODID, i+"_double_kitchen_cabinet", cherry_double_kitchen_cabinet);
-						registryEntry(MODID, i+"_glass_kitchen_cabinet", cherry_glass_kitchen_cabinet);
-						registryEntry(MODID, "stripped_"+i+"_kitchen_cabinet", stripped_cherry_kitchen_cabinet);
-						registryEntry(MODID, "stripped_"+i+"_double_kitchen_cabinet", stripped_cherry_double_kitchen_cabinet);
-						registryEntry(MODID, "stripped_"+i+"_glass_kitchen_cabinet", stripped_cherry_glass_kitchen_cabinet);
-				    }
-				    else
-				    {
-						registryEntry(MODID, i+"_wardrobe", new Block(WOOD));
-						registryEntry(MODID, i+"_modern_wardrobe", new Block(WOOD));
-						registryEntry(MODID, i+"_double_wardrobe", new Block(WOOD));
-						registryEntry(MODID, i+"_bookshelf", new Block(WOOD));
-						registryEntry(MODID, i+"_bookshelf_cupboard", new Block(WOOD));
-						registryEntry(MODID, i+"_drawer", new Block(WOOD));
-						registryEntry(MODID, i+"_double_drawer", new Block(WOOD));
-						registryEntry(MODID, i+"_bookshelf_drawer", new Block(WOOD));
-						registryEntry(MODID, i+"_lower_bookshelf_drawer", new Block(WOOD));
-						registryEntry(MODID, i+"_large_drawer", new Block(WOOD));
-						registryEntry(MODID, i+"_lower_triple_drawer", new Block(WOOD));
-						registryEntry(MODID, i+"_triple_drawer", new Block(WOOD));
-						registryEntry(MODID, i+"_desk", new Block(WOOD));
-						registryEntry(MODID, i+"_covered_desk", new Block(WOOD));
-						registryEntry(MODID, i+"_modern_desk", new Block(WOOD));
-						registryEntry(MODID, i+"_table", new Block(WOOD));
-						registryEntry(MODID, i+"_end_table", new Block(WOOD));
-						registryEntry(MODID, i+"_coffee_table", new Block(WOOD));
-						registryEntry(MODID, i+"_glass_table", new Block(WOOD));
-						registryEntry(MODID, i+"_chair", new Block(WOOD));
-						registryEntry(MODID, i+"_modern_chair", new Block(WOOD));
-						registryEntry(MODID, i+"_striped_chair", new Block(WOOD));
-						registryEntry(MODID, i+"_stool_chair", new Block(WOOD));
-						registryEntry(MODID, i+"_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, i+"_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, i+"_double_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, i+"_cupboard_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						
-						registryEntry(MODID, "stripped_"+i+"_wardrobe", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_modern_wardrobe", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_double_wardrobe", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_bookshelf", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_bookshelf_cupboard", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_drawer", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_double_drawer", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_bookshelf_drawer", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_lower_bookshelf_drawer", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_large_drawer", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_lower_triple_drawer", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_triple_drawer", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_desk", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_covered_desk", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_modern_desk", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_table", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_end_table", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_coffee_table", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_glass_table", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_chair", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_modern_chair", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_striped_chair", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_stool_chair", new Block(WOOD));
-						registryEntry(MODID, "stripped_"+i+"_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, "stripped_"+i+"_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, "stripped_"+i+"_double_drawer_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, "stripped_"+i+"_cupboard_counter", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, i+"_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, i+"_double_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, i+"_glass_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, "stripped_"+i+"_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, "stripped_"+i+"_double_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-						registryEntry(MODID, "stripped_"+i+"_glass_kitchen_cabinet", new StairsBlock(Blocks.OAK_LOG.getDefaultState(), WOOD));
-				    }
-				} catch (Exception e) {
-					AddonsLib.LOGGER.error(e);
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.FURNITURES_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModMcwLoaded) {
+					RegistryEntryReferences.registryEntry(MODID, id, Registration.getBlocksField(blockId.reflectedLocation(), WOOD));
+				}
+				else {
+					RegistryEntryReferences.registryEntry(MODID, id, new Block(WOOD));
 				}
 			}
+		}
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabWood(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab)
 	{
 		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab, String modLoaded)
 	{
-		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
+		var modList = FabricLoader.getInstance();
+
+		if(modList.isModLoaded(modid) && modList.isModLoaded(modLoaded))
 		{
 			for (String i : WOOD)
 			{
@@ -381,7 +191,8 @@ public class Furnitures
 			}
 		}
 	}
-	
+
+	@Deprecated(forRemoval = true)
 	public static void fuelWood(String MODID, List<String> WOOD)
 	{
 		for (String i : WOOD)

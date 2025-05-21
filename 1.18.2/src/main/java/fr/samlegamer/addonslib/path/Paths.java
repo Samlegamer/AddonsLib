@@ -1,13 +1,13 @@
 package fr.samlegamer.addonslib.path;
 
 import java.util.List;
-import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.BlockItem;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -17,113 +17,72 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
-public class Paths
-{
+public class Paths {
 	public static final String modid = "mcwpaths";
-	
+
 	/**
 	 * Init all Wood Variants of Macaw's Paths
 	 */
-	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab)
-	{
+	public static void setRegistrationWood(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab) {
 		setRegistrationWoodModLoaded(set, block, item, tab, "minecraft");
 	}
-	
+
 	/**
 	 * Init all Wood Variants of Macaw's Paths with if Mod Loaded
 	 */
-	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab, String modLoaded)
-	{
-			final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
+	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab, String modLoaded) {
+		final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
 
-			for(String i : set)
-			{
-				RegistryObject<Block> planks_path;
-				  
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-				    	planks_path = createBlock(i+"_planks_path", () -> Registration.getBlocksField("com.mcwpaths.kikoz.objects.FacingPathBlock", WOOD), block, item, tab, modLoaded);
-				    }
-				    else
-				    {
-				    	planks_path = createBlock(i+"_planks_path", () -> new Block(WOOD), block, item, tab, modLoaded);
-				    }
-				} catch (Exception e) {
-				    e.printStackTrace();
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
+		boolean isModBaseLoaded = ModList.get().isLoaded(modLoaded);
+
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.PATHS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModMcwLoaded) {
+					CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item, tab, true, isModBaseLoaded);
+				}
+				else {
+					CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item, tab, false, isModBaseLoaded);
 				}
 			}
+		}
 	}
-	
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD)
-	{
+
+	@Deprecated
+	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD) {
 		clientWood(event, MODID, WOOD, RenderType.cutout());
 	}
-	
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
-	{
-		for (String i : WOOD)
-		{					
-			Block planks_path;
-	    	
-			planks_path = Finder.findBlock(MODID, i+"_planks_path");
-			
-        	ItemBlockRenderTypes.setRenderLayer(planks_path, renderSet);
-        }
-	}
 
-	
-	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, CreativeModeTab tab)
-    {
-        return createBlock(name, supplier, BLOCKS_REGISTRY, ITEMS_REGISTRY, tab, "minecraft");
-    }
-	
-	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, CreativeModeTab tab, String modLoaded)
-    {
-        RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        if(ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab)));
-        }
-        else
-        {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-        }
-        return block;
-    }
+	@Deprecated
+	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet) {
+		Block planks_path;
 
-	protected static Block createBlockWoodOpti(String name, Block block, CreativeModeTab tab) {
-		BlockItem itemBlock;
-		if (ModList.get().isLoaded(modid)) {
-			itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab));
-		} else {
-			itemBlock = new BlockItemFuel(block, new Item.Properties());
+		for (String i : WOOD) {
+			planks_path = Finder.findBlock(MODID, i + "_planks_path");
+
+			ItemBlockRenderTypes.setRenderLayer(planks_path, renderSet);
 		}
-		block.setRegistryName(name);
-		itemBlock.setRegistryName(name);
-		ForgeRegistries.BLOCKS.register(block);
-		ForgeRegistries.ITEMS.register(itemBlock);
-		return block;
 	}
 
-	public static void registryWood(final RegistryEvent.Register<Block> event, List<String> WOODS, CreativeModeTab tab)
+	public static void registryWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOODS, CreativeModeTab tab)
 	{
 		final BlockBehaviour.Properties WOOD = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
 
-		for (String i : WOODS) {
-			Block planks_path;
+		boolean isModLoaded = ModList.get().isLoaded(modid);
 
-			try {
-				if (ModList.get().isLoaded(modid)) {
-					planks_path = createBlockWoodOpti(i + "_planks_path", Registration.getBlocksField("com.mcwpaths.kikoz.objects.FacingPathBlock", WOOD), tab);
-				} else {
-					planks_path = createBlockWoodOpti(i + "_planks_path", new Block(WOOD), tab);
+		for (String i : WOODS) {
+			for (BlockId blockId : McwBlocksIdBase.PATHS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModLoaded) {
+					CreateBlockReferences.createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), WOOD), tab, true);
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+				else {
+					CreateBlockReferences.createBlockWoodOpti(Modid, id, new Block(WOOD), tab, false);
+				}
 			}
 		}
 	}

@@ -2,8 +2,8 @@ package fr.samlegamer.addonslib.furnitures;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 
@@ -34,7 +34,7 @@ public class AddFurnituresStorage
 	
 	public static void addCompatibleBlocksToFurnitureStorage(String MODID, List<String> MAT)
 	{
-		if(AddonsLib.isLoaded(Furnitures.modid)) {
+		if(FabricLoader.getInstance().isModLoaded(Furnitures.modid)) {
 			for (String i : MAT) {
 				addCompatibleBlocks(Finder.findBlock(MODID, i + "_wardrobe"),
 						Finder.findBlock(MODID, i + "_modern_wardrobe"),

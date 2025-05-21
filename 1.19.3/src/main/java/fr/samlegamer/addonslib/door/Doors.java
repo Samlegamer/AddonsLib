@@ -1,12 +1,11 @@
 package fr.samlegamer.addonslib.door;
 
 import java.util.List;
-import java.util.function.Supplier;
-
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -19,7 +18,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 
 public class Doors
 {
@@ -39,83 +37,34 @@ public class Doors
 	 */
 	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, BlockBehaviour.Properties JAPAN_PROP, BlockBehaviour.Properties DOOR_PROP)
 	{
-			final BlockBehaviour.Properties JAPAN = JAPAN_PROP;
-			final BlockBehaviour.Properties DOOR_WOOD = DOOR_PROP;
+		final BlockBehaviour.Properties JAPAN = JAPAN_PROP;
+		final BlockBehaviour.Properties DOOR_WOOD = DOOR_PROP;
 
-			RegistryObject<Block> japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door, 
-			tropical_door, glass_door, stable_door, stable_head_door, western_door, mystic_door, nether_door, swamp_door, bamboo_door, bark_glass_door, waffle_door, whispering_door;
-			
-			for(String i : set)
-			{
-				try {
-				    if (ModList.get().isLoaded(modid))
-				    {
-				    	japanese_door = createBlock(i+"_japanese_door", () -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	japanese2_door = createBlock(i+"_japanese2_door", () -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.JapaneseDoors", JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	barn_door = createBlock(i+"_barn_door", () -> new DoorBlock(DOOR_WOOD, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	barn_glass_door = createBlock(i+"_barn_glass_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	modern_door = createBlock(i+"_modern_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	cottage_door = createBlock(i+"_cottage_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	classic_door = createBlock(i+"_classic_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	beach_door = createBlock(i+"_beach_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	paper_door = createBlock(i+"_paper_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	four_panel_door = createBlock(i+"_four_panel_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	tropical_door = createBlock(i+"_tropical_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	glass_door = createBlock(i+"_glass_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	stable_door = createBlock(i+"_stable_door", () -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.StableDoor", JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	stable_head_door = createBlock(i+"_stable_head_door", () -> Registration.getBlocksFieldDoors("com.mcwdoors.kikoz.objects.StableDoor", JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	western_door = createBlock(i+"_western_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	mystic_door = createBlock(i+"_mystic_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	nether_door = createBlock(i+"_nether_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	swamp_door = createBlock(i+"_swamp_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	bamboo_door = createBlock(i+"_bamboo_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	bark_glass_door = createBlock(i+"_bark_glass_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	waffle_door = createBlock(i+"_waffle_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-						whispering_door = createBlock(i+"_whispering_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    }
-				    else
-				    {
-				    	japanese_door = createBlock(i+"_japanese_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	japanese2_door = createBlock(i+"_japanese2_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	barn_door = createBlock(i+"_barn_door", () -> new DoorBlock(DOOR_WOOD, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	barn_glass_door = createBlock(i+"_barn_glass_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	modern_door = createBlock(i+"_modern_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	cottage_door = createBlock(i+"_cottage_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	classic_door = createBlock(i+"_classic_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	beach_door = createBlock(i+"_beach_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	paper_door = createBlock(i+"_paper_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	four_panel_door = createBlock(i+"_four_panel_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	tropical_door = createBlock(i+"_tropical_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	glass_door = createBlock(i+"_glass_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	stable_door = createBlock(i+"_stable_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	stable_head_door = createBlock(i+"_stable_head_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	western_door = createBlock(i+"_western_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	mystic_door = createBlock(i+"_mystic_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	nether_door = createBlock(i+"_nether_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	swamp_door = createBlock(i+"_swamp_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	bamboo_door = createBlock(i+"_bamboo_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	bark_glass_door = createBlock(i+"_bark_glass_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-				    	waffle_door = createBlock(i+"_waffle_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-						whispering_door = createBlock(i+"_whispering_door", () -> new DoorBlock(JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
-					}
-				} catch (Exception e) {
-					AddonsLib.LOGGER.error(e);
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
+
+		for (String i : set) {
+			for (BlockId blockId : McwBlocksIdBase.DOORS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if (blockId.reflectedLocation().contains("DoorBlock")) {
+					CreateBlockReferences.createBlock(id, () -> new DoorBlock(DOOR_WOOD, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
+				} else if(isModMcwLoaded) {
+					CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), JAPAN, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
+				}
+				else {
+					CreateBlockReferences.createBlock(id, () -> new DoorBlock(DOOR_WOOD, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
 				}
 			}
+		}
 	}
-	
-	protected static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY)
-    {
-        RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties()));
-        return block;
-    }
 
+	@Deprecated(forRemoval = true)
 	public static void addToTab(CreativeModeTabEvent.BuildContents event, String MODID, List<String> WOOD, CreativeModeTab tab)
 	{
 		addToTabModLoaded(event, MODID, WOOD, tab, "minecraft");
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabModLoaded(CreativeModeTabEvent.BuildContents event, String MODID, List<String> WOOD, CreativeModeTab tab, String modLoaded)
 	{
 		Block japanese_door, japanese2_door, barn_door, barn_glass_door, modern_door, cottage_door, classic_door, beach_door, paper_door, four_panel_door,

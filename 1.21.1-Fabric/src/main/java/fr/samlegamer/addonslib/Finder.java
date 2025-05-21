@@ -1,7 +1,6 @@
 package fr.samlegamer.addonslib;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -22,7 +21,7 @@ public class Finder
 		return Registries.ITEM.get(Identifier.of(MODID, nameItem));
 	}
 	
-	public static BlockEntityType<? extends BlockEntity> findTileEntity(String MODID, String nameTileEntity)
+	public static BlockEntityType<?> findTileEntity(String MODID, String nameTileEntity)
 	{
 		return Registries.BLOCK_ENTITY_TYPE.get(Identifier.of(MODID, nameTileEntity));
 	}

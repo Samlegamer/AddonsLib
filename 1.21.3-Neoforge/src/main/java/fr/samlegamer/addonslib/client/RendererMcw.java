@@ -10,6 +10,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.List;
 
+@Deprecated(forRemoval = true)
 @OnlyIn(value = Dist.CLIENT)
 public class RendererMcw
 {

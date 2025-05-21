@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.Block;
 import net.minecraft.client.render.RenderLayer;
 
+@Deprecated(forRemoval = true)
 @Environment(EnvType.CLIENT)
 public class APIRenderer
 {
@@ -77,7 +78,7 @@ public class APIRenderer
 				ranch_trapdoor = Finder.findBlock(MODID, i+"_ranch_trapdoor");
 				blossom_trapdoor = Finder.findBlock(MODID, i+"_blossom_trapdoor");
 				barrel_trapdoor = Finder.findBlock(MODID, i+"_barrel_trapdoor");
-				whispering_trapdoor  = Finder.findBlock(MODID, i+"_whispering_trapdoor");
+				whispering_trapdoor = Finder.findBlock(MODID, i+"_whispering_trapdoor");
 
 				BlockRenderLayerMap.INSTANCE.putBlocks(renderSet, barn_trapdoor, cottage_trapdoor, barred_trapdoor, beach_trapdoor, four_panel_trapdoor, glass_trapdoor, 
 				mystic_trapdoor, paper_trapdoor, tropical_trapdoor, swamp_trapdoor, bamboo_trapdoor, classic_trapdoor, bark_trapdoor, ranch_trapdoor, blossom_trapdoor, barrel_trapdoor, whispering_trapdoor);
@@ -560,7 +561,7 @@ public class APIRenderer
 				bark_glass_door = Finder.findBlock(MODID, i + "_bark_glass_door");
 				waffle_door = Finder.findBlock(MODID, i + "_waffle_door");
 				whispering_door = Finder.findBlock(MODID, i + "_whispering_door");
-
+				
 				BlockRenderLayerMap.INSTANCE.putBlocks(renderSet, japanese_door
 				,japanese2_door
 				,barn_door

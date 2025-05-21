@@ -353,7 +353,7 @@ public class NewIconRandom
 		
 		private boolean loaded(String modid)
 	    {
-	    	return AddonsLib.isLoaded(modid);
+	    	return FabricLoader.getInstance().isModLoaded(modid);
 	    }
 		
 	    private boolean loadedAllStone()

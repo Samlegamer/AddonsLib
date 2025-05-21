@@ -1,6 +1,7 @@
 package fr.samlegamer.addonslib.mapping;
 
 import java.util.List;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

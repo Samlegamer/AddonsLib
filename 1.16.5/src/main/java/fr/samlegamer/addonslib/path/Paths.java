@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.block.AbstractBlock;
@@ -38,17 +39,18 @@ public class Paths {
 	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, String modLoaded) {
 		final AbstractBlock.Properties WOOD = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
 
-		boolean isModLoaded = ModList.get().isLoaded(modid);
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
+		boolean isModBaseLoaded = ModList.get().isLoaded(modLoaded);
 
 		for (String i : set) {
 			for (BlockId blockId : McwBlocksIdBase.PATHS_WOOD_BLOCKS.blocks()) {
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-				if(isModLoaded) {
-					createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item, tab, modLoaded);
+				if(isModMcwLoaded) {
+					CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item, tab, true, isModBaseLoaded);
 				}
 				else {
-					createBlock(id, () -> new Block(WOOD), block, item, tab, modLoaded);
+					CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item, tab, false, isModBaseLoaded);
 				}
 			}
 		}
@@ -70,30 +72,6 @@ public class Paths {
 		}
 	}
 
-
-	protected static void createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY, ItemGroup tab, String modLoaded) {
-		RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-		ModList modList = ModList.get();
-		if (modList.isLoaded(modid) && modList.isLoaded(modLoaded)) {
-			ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties().tab(tab), 50));
-		} else {
-			ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), new Item.Properties(), 50));
-		}
-	}
-
-	protected static void createBlockWoodOpti(String Modid, String name, Block block, ItemGroup tab) {
-		BlockItem itemBlock;
-		if (ModList.get().isLoaded(modid)) {
-			itemBlock = new BlockItemFuel(block, new Item.Properties().tab(tab), 50);
-		} else {
-			itemBlock = new BlockItemFuel(block, new Item.Properties(), 50);
-		}
-		block.setRegistryName(Modid, name);
-		itemBlock.setRegistryName(Modid, name);
-		ForgeRegistries.BLOCKS.register(block);
-		ForgeRegistries.ITEMS.register(itemBlock);
-	}
-
 	public static void registryWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOODS, ItemGroup tab)
 	{
 		final AbstractBlock.Properties WOOD = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
@@ -105,10 +83,10 @@ public class Paths {
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if(isModLoaded) {
-					createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), WOOD), tab);
+					CreateBlockReferences.createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation(), WOOD), tab, true);
 				}
 				else {
-					createBlockWoodOpti(Modid, id, new Block(WOOD), tab);
+					CreateBlockReferences.createBlockWoodOpti(Modid, id, new Block(WOOD), tab, false);
 				}
 			}
 		}

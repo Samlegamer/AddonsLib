@@ -14,7 +14,7 @@ public class NewIconRandom
 
     public static class NewProperties {
         private EnumSet<BlockType> activeTypes = EnumSet.noneOf(BlockType.class);
-        private Block roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon, stairsIcon;
+        private final Block roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon, stairsIcon;
         private int dependencies = 0;
         public Block defaultIcon = Blocks.CRAFTING_TABLE;
 

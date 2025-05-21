@@ -1,36 +1,27 @@
 package fr.samlegamer.addonslib.roofs;
 
 import java.util.List;
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
+import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
+import fr.samlegamer.addonslib.data.RegistryEntryReferences;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
 public class Roofs {
-	private static final AbstractBlock.Settings wood = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
-	private static final AbstractBlock.Settings stone = AbstractBlock.Settings.copy(Blocks.COBBLESTONE);
 	public static final String modid = "mcwroofs";
-
-	private static void registryEntry(String MODID, String name, Block b) {
-		Registry.register(Registries.BLOCK, new Identifier(MODID, name), b);
-		Registry.register(Registries.ITEM, new Identifier(MODID, name), new BlockItem(b, new Item.Settings()));
-	}
 
 	/**
 	 * Init all Wood Variants of Macaw's Roofs
 	 */
 	public static void setRegistrationWood(String MODID, List<String> set) {
+		final AbstractBlock.Settings wood = AbstractBlock.Settings.copy(Blocks.OAK_PLANKS);
 		setRegistrationWoodModLoaded(MODID, set, wood);
 	}
 
@@ -38,6 +29,7 @@ public class Roofs {
 	 * Init all Stone Variants of Macaw's Roofs
 	 */
 	public static void setRegistrationRock(String MODID, List<String> rock) {
+		final AbstractBlock.Settings stone = AbstractBlock.Settings.copy(Blocks.COBBLESTONE);
 		setRegistrationRockModLoaded(MODID, rock, stone);
 	}
 
@@ -47,59 +39,25 @@ public class Roofs {
 	public static void setRegistrationWoodModLoaded(String MODID, List<String> set, AbstractBlock.Settings prop) {
 		final AbstractBlock.Settings WOOD = prop;
 
+		var modList = FabricLoader.getInstance();
+		boolean isModMcwLoaded = modList.isModLoaded(modid);
+
 		for (String i : set) {
-			try {
-				if (AddonsLib.isLoaded(modid)) {
-					final Block cherry_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.BaseRoof", WOOD, Blocks.OAK_PLANKS.getDefaultState());
-					final Block cherry_attic_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.RoofGlass", WOOD);
-					final Block cherry_top_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.RoofTopNew", WOOD);
-					final Block cherry_lower_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.BaseRoof", WOOD, Blocks.OAK_PLANKS.getDefaultState());
-					final Block cherry_steep_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.SteepRoof", WOOD, Blocks.OAK_PLANKS.getDefaultState());
-					final Block cherry_upper_lower_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.Lower", WOOD, Blocks.OAK_PLANKS.getDefaultState());
-					final Block cherry_upper_steep_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.Steep", WOOD, Blocks.OAK_PLANKS.getDefaultState());
+			for (BlockId blockId : McwBlocksIdBase.ROOFS_WOOD_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-					final Block cherry_planks_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.BaseRoof", WOOD, Blocks.OAK_PLANKS.getDefaultState());
-					final Block cherry_planks_attic_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.RoofGlass", WOOD);
-					final Block cherry_planks_top_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.RoofTopNew", WOOD);
-					final Block cherry_planks_lower_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.BaseRoof", WOOD, Blocks.OAK_PLANKS.getDefaultState());
-					final Block cherry_planks_steep_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.SteepRoof", WOOD, Blocks.OAK_PLANKS.getDefaultState());
-					final Block cherry_planks_upper_lower_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.Lower", WOOD, Blocks.OAK_PLANKS.getDefaultState());
-					final Block cherry_planks_upper_steep_roof = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.Steep", WOOD, Blocks.OAK_PLANKS.getDefaultState());
-
-					registryEntry(MODID, i + "_roof", cherry_roof);
-					registryEntry(MODID, i + "_attic_roof", cherry_attic_roof);
-					registryEntry(MODID, i + "_top_roof", cherry_top_roof);
-					registryEntry(MODID, i + "_lower_roof", cherry_lower_roof);
-					registryEntry(MODID, i + "_steep_roof", cherry_steep_roof);
-					registryEntry(MODID, i + "_upper_lower_roof", cherry_upper_lower_roof);
-					registryEntry(MODID, i + "_upper_steep_roof", cherry_upper_steep_roof);
-
-					registryEntry(MODID, i + "_planks_roof", cherry_planks_roof);
-					registryEntry(MODID, i + "_planks_attic_roof", cherry_planks_attic_roof);
-					registryEntry(MODID, i + "_planks_top_roof", cherry_planks_top_roof);
-					registryEntry(MODID, i + "_planks_lower_roof", cherry_planks_lower_roof);
-					registryEntry(MODID, i + "_planks_steep_roof", cherry_planks_steep_roof);
-					registryEntry(MODID, i + "_planks_upper_lower_roof", cherry_planks_upper_lower_roof);
-					registryEntry(MODID, i + "_planks_upper_steep_roof", cherry_planks_upper_steep_roof);
-				} else {
-					registryEntry(MODID, i + "_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD));
-					registryEntry(MODID, i + "_attic_roof", new Block(WOOD));
-					registryEntry(MODID, i + "_top_roof", new Block(WOOD));
-					registryEntry(MODID, i + "_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD));
-					registryEntry(MODID, i + "_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD));
-					registryEntry(MODID, i + "_upper_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD));
-					registryEntry(MODID, i + "_upper_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD));
-
-					registryEntry(MODID, i + "_planks_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD));
-					registryEntry(MODID, i + "_planks_attic_roof", new Block(WOOD));
-					registryEntry(MODID, i + "_planks_top_roof", new Block(WOOD));
-					registryEntry(MODID, i + "_planks_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD));
-					registryEntry(MODID, i + "_planks_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD));
-					registryEntry(MODID, i + "_planks_upper_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD));
-					registryEntry(MODID, i + "_planks_upper_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), WOOD));
+				if(isModMcwLoaded) {
+					final Block blockRef;
+					if (blockId.reflectedLocation().contains("RoofGlass") || blockId.reflectedLocation().contains("RoofTopNew")) {
+						blockRef = Registration.getBlocksField(blockId.reflectedLocation(), WOOD);
+					} else {
+						blockRef = Registration.getBlocksField(blockId.reflectedLocation(), WOOD, Blocks.OAK_PLANKS.getDefaultState());
+					}
+					RegistryEntryReferences.registryEntry(MODID, id, blockRef);
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+				else {
+					RegistryEntryReferences.registryEntry(MODID, id, new Block(WOOD));
+				}
 			}
 		}
 	}
@@ -110,39 +68,30 @@ public class Roofs {
 	public static void setRegistrationRockModLoaded(String MODID, List<String> rock, AbstractBlock.Settings prop) {
 		final AbstractBlock.Settings STONE = prop;
 
-		for (String i : rock) {
-			try {
-				if (AddonsLib.isLoaded(modid)) {
-					final Block ROOF = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.BaseRoof", STONE, Blocks.COBBLESTONE.getDefaultState());
-					final Block ATTIC_ROOF = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.RoofGlass", STONE);
-					final Block TOP_ROOF = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.RoofTopNew", STONE);
-					final Block LOWER_ROOF = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.BaseRoof", STONE, Blocks.COBBLESTONE.getDefaultState());
-					final Block STEEP_ROOF = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.SteepRoof", STONE, Blocks.COBBLESTONE.getDefaultState());
-					final Block UPPER_LOWER_ROOF = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.Lower", STONE, Blocks.COBBLESTONE.getDefaultState());
-					final Block UPPER_STEEP_ROOF = Registration.getBlocksField("net.kikoz.mcwroofs.objects.roofs.Steep", STONE, Blocks.COBBLESTONE.getDefaultState());
+		var modList = FabricLoader.getInstance();
+		boolean isModMcwLoaded = modList.isModLoaded(modid);
 
-					registryEntry(MODID, i + "_roof", ROOF);
-					registryEntry(MODID, i + "_attic_roof", ATTIC_ROOF);
-					registryEntry(MODID, i + "_top_roof", TOP_ROOF);
-					registryEntry(MODID, i + "_lower_roof", LOWER_ROOF);
-					registryEntry(MODID, i + "_steep_roof", STEEP_ROOF);
-					registryEntry(MODID, i + "_upper_lower_roof", UPPER_LOWER_ROOF);
-					registryEntry(MODID, i + "_upper_steep_roof", UPPER_STEEP_ROOF);
-				} else {
-					registryEntry(MODID, i + "_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE));
-					registryEntry(MODID, i + "_attic_roof", new Block(STONE));
-					registryEntry(MODID, i + "_top_roof", new Block(STONE));
-					registryEntry(MODID, i + "_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE));
-					registryEntry(MODID, i + "_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE));
-					registryEntry(MODID, i + "_upper_lower_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE));
-					registryEntry(MODID, i + "_upper_steep_roof", new StairsBlock(Blocks.OAK_PLANKS.getDefaultState(), STONE));
+		for (String i : rock) {
+			for (BlockId blockId : McwBlocksIdBase.ROOFS_STONE_BLOCKS.blocks()) {
+				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+
+				if(isModMcwLoaded) {
+					final Block blockRef;
+					if (blockId.reflectedLocation().contains("RoofGlass") || blockId.reflectedLocation().contains("RoofTopNew")) {
+						blockRef = Registration.getBlocksField(blockId.reflectedLocation(), STONE);
+					} else {
+						blockRef = Registration.getBlocksField(blockId.reflectedLocation(), STONE, Blocks.OAK_PLANKS.getDefaultState());
+					}
+					RegistryEntryReferences.registryEntry(MODID, id, blockRef);
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+				else {
+					RegistryEntryReferences.registryEntry(MODID, id, new Block(STONE));
+				}
 			}
 		}
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void fuelWood(String MODID, List<String> WOOD) {
 		Block cherry_roof,
 				cherry_attic_roof,
@@ -193,14 +142,18 @@ public class Roofs {
 		}
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabWood(String MODID, List<String> WOOD, ItemGroup tab)
 	{
 		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, ItemGroup tab, String modLoaded)
 	{
-		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
+		var modList = FabricLoader.getInstance();
+
+		if(modList.isModLoaded(modid) && modList.isModLoaded(modLoaded))
 		{
 			for (String i : WOOD)
 			{
@@ -239,14 +192,19 @@ public class Roofs {
 			}
 		}
 	}
+
+	@Deprecated(forRemoval = true)
 	public static void addToTabStone(String MODID, List<String> ROCK, ItemGroup tab)
 	{
 		addToTabStoneModLoaded(MODID, ROCK, tab, "minecraft");
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void addToTabStoneModLoaded(String MODID, List<String> ROCK, ItemGroup tab, String modLoaded)
 	{
-		if(AddonsLib.isLoaded(modid) && AddonsLib.isLoaded(modLoaded))
+		var modList = FabricLoader.getInstance();
+
+		if(modList.isModLoaded(modid) && modList.isModLoaded(modLoaded))
 		{
 			for (String i : ROCK)
 			{

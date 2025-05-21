@@ -1,21 +1,17 @@
 package fr.samlegamer.addonslib.windows;
 
 import java.util.List;
-import java.util.function.Function;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class Windows
@@ -52,43 +48,37 @@ public class Windows
 					switch (relectedLocation)
 					{
 						case "Parapet":
-							createBlock(id, registryName ->
+							CreateBlockReferences.createBlock(id, registryName ->
 											Registration.getBlocksField(relectedLocation, PARAPET),
 									block, item);
 							break;
 						case "Blinds":
-							createBlock(id, registryName ->
+							CreateBlockReferences.createBlock(id, registryName ->
 											Registration.getBlocksField(relectedLocation, BLINDS),
 									block, item);
 							break;
 						case "Shutter":
-							createBlock(id, registryName ->
+							CreateBlockReferences.createBlock(id, registryName ->
 											Registration.getBlocksField(relectedLocation, SHUTTER),
 									block, item);
 							break;
 						case "CurtainRod":
-							createBlock(id, registryName ->
+							CreateBlockReferences.createBlock(id, registryName ->
 											Registration.getBlocksField(relectedLocation, ROD),
 									block, item);
 							break;
 						default:
-							createBlock(id, registryName ->
+							CreateBlockReferences.createBlock(id, registryName ->
 											Registration.getBlocksField(relectedLocation, WOOD),
 									block, item);
 							break;
 					}
 				}
 				else {
-					createBlock(id, registryName -> new Block(WOOD), block, item);
+					CreateBlockReferences.createBlock(id, registryName -> new Block(WOOD), block, item);
 				}
 			}
 		}
-	}
-	
-	protected static void createBlock(String name, Function<ResourceLocation, ? extends Block> func, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
-    {
-        DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, func);
-		ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuel(block.get(), new Item.Properties()));
 	}
 
 	@Deprecated(forRemoval = true)

@@ -10,7 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -22,8 +21,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 /**
  * Used for easy registries
  */
-public class Registration
+public final class Registration
 {
+	private Registration() {}
+
 	/**
 	 * Block
 	 */
@@ -45,10 +46,9 @@ public class Registration
 	 */
 	public static CreativeModeTab tabs(CreativeModeTabEvent.Register event, String MODID, String id, ItemLike icon)
 	{
-		CreativeModeTab tab = event.registerCreativeModeTab(new ResourceLocation(MODID, id), builder -> builder
-		        .icon(() -> new ItemStack(icon))
-		        .title(Component.translatable(MODID+"."+id)));
-		return tab;
+        return event.registerCreativeModeTab(new ResourceLocation(MODID, id), builder -> builder
+                .icon(() -> new ItemStack(icon))
+                .title(Component.translatable(MODID+"."+id)));
 	}
 	/**
 	 * register
@@ -59,74 +59,38 @@ public class Registration
 		b.register(bus);
 		i.register(bus);
 	}
-	
-	public static Block getBlocksFieldForFences(String path, BlockBehaviour.Properties WOOD)
+
+	public static Block getField(String path, BlockBehaviour.Properties prop, Class<?>[] params, Object... values)
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constructorBase;
-        
+		Class<?> classBase;
+		Block block;
+		Constructor<?> constructorBase;
+
 		try {
 			classBase = Class.forName(path);
-			constructorBase = classBase.getConstructor(BlockBehaviour.Properties.class);
-			block = (Block) constructorBase.newInstance(WOOD);
+			constructorBase = classBase.getConstructor(params);
+			block = (Block) constructorBase.newInstance(values);
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new FenceBlock(WOOD);
+			AddonsLib.LOGGER.error(e);
+			block = new Block(prop);
+			//AddonsLib.LOGGER.error("Error while creating block " + path + " using default constructor");
 		}
-        return block;
+		return block;
 	}
-
 	
 	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD)
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constuctorBase;
-
-		try {
-			classBase = Class.forName(path);
-			constuctorBase = classBase.getConstructor(BlockBehaviour.Properties.class);
-			block = (Block) constuctorBase.newInstance(WOOD);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new Block(WOOD);
-		}
-        return block;
+		return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class}, WOOD);
 	}
 	
-	public static Block getBlocksFieldDoors(String path, BlockBehaviour.Properties WOOD, SoundEvent close, SoundEvent open)
+	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD, SoundEvent close, SoundEvent open)
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constuctorBase;
-
-		try {
-			classBase = Class.forName(path);
-			constuctorBase = classBase.getConstructor(BlockBehaviour.Properties.class, SoundEvent.class, SoundEvent.class);
-			block = (Block) constuctorBase.newInstance(WOOD, close, open);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new Block(WOOD);
-		}
-        return block;
+		return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class, SoundEvent.class, SoundEvent.class}, WOOD, close, open);
 	}
 
 	
 	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD, BlockState state)
 	{
-        Class<?> classBase;
-        Block block;
-        Constructor<?> constuctorBase;
-
-		try {
-			classBase = Class.forName(path);
-			constuctorBase = classBase.getConstructor(BlockState.class, BlockBehaviour.Properties.class);
-			block = (Block) constuctorBase.newInstance(state, WOOD);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
-			block = new Block(WOOD);
-		}
-        return block;
+		return getField(path, WOOD, new Class<?>[] {BlockState.class, BlockBehaviour.Properties.class}, state, WOOD);
 	}
 }

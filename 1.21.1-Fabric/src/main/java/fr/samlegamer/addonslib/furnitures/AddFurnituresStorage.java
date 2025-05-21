@@ -1,8 +1,13 @@
 package fr.samlegamer.addonslib.furnitures;
 
 import java.lang.reflect.Field;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
+import fr.samlegamer.addonslib.data.McwBlocksIdBase;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 
@@ -13,11 +18,11 @@ import net.minecraft.block.entity.BlockEntityType;
 public class AddFurnituresStorage
 {
 	
-	private static void addCompatibleBlocks(Block... blocks) {
+	private static void addCompatibleBlocks(Set<Block> blocks) {
 		try {
 		    Class<?> furnitureClass = Class.forName("net.kikoz.mcwfurnitures.MacawsFurniture");
 
-		    Field blockEntityField = furnitureClass.getField("FURNITURE_BLOCK_ENTITY"); // Pas besoin de setAccessible
+		    Field blockEntityField = furnitureClass.getField("FURNITURE_BLOCK_ENTITY");
 
 		    BlockEntityType<?> furnitureBlockEntity = (BlockEntityType<?>) blockEntityField.get(null);
 
@@ -28,53 +33,71 @@ public class AddFurnituresStorage
 		        }
 		    }
 		} catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+			AddonsLib.LOGGER.error(e);
 		}
 
     }
 	
 	public static void addCompatibleBlocksToFurnitureStorage(String MODID, List<String> MAT)
 	{
-		for(String i : MAT)
-		{
-	        addCompatibleBlocks(Finder.findBlock(MODID, i+"_wardrobe"),
-	        		Finder.findBlock(MODID, i+"_modern_wardrobe"),
-	        		Finder.findBlock(MODID, i+"_double_wardrobe"),
-	        		Finder.findBlock(MODID, i+"_bookshelf"),
-	        		Finder.findBlock(MODID, i+"_bookshelf_cupboard"),
-					Finder.findBlock(MODID, i+"_drawer"),
-					Finder.findBlock(MODID, i+"_double_drawer"),
-					Finder.findBlock(MODID, i+"_bookshelf_drawer"),
-					Finder.findBlock(MODID, i+"_lower_bookshelf_drawer"),
-					Finder.findBlock(MODID, i+"_large_drawer"),
-					Finder.findBlock(MODID, i+"_lower_triple_drawer"),
-					Finder.findBlock(MODID, i+"_triple_drawer"),
-					Finder.findBlock(MODID, i+"_drawer_counter"),
-					Finder.findBlock(MODID, i+"_double_drawer_counter"),
-					Finder.findBlock(MODID, i+"_cupboard_counter"),
-					Finder.findBlock(MODID, "stripped_"+i+"_wardrobe"),
-					Finder.findBlock(MODID, "stripped_"+i+"_modern_wardrobe"),
-					Finder.findBlock(MODID, "stripped_"+i+"_double_wardrobe"),
-					Finder.findBlock(MODID, "stripped_"+i+"_bookshelf"),
-					Finder.findBlock(MODID, "stripped_"+i+"_bookshelf_cupboard"),
-					Finder.findBlock(MODID, "stripped_"+i+"_drawer"),
-					Finder.findBlock(MODID, "stripped_"+i+"_double_drawer"),
-					Finder.findBlock(MODID, "stripped_"+i+"_bookshelf_drawer"),
-					Finder.findBlock(MODID, "stripped_"+i+"_lower_bookshelf_drawer"),
-					Finder.findBlock(MODID, "stripped_"+i+"_large_drawer"),
-					Finder.findBlock(MODID, "stripped_"+i+"_lower_triple_drawer"),
-					Finder.findBlock(MODID, "stripped_"+i+"_triple_drawer"),
-					Finder.findBlock(MODID, "stripped_"+i+"_counter"),
-					Finder.findBlock(MODID, "stripped_"+i+"_drawer_counter"),
-					Finder.findBlock(MODID, "stripped_"+i+"_double_drawer_counter"),
-					Finder.findBlock(MODID, "stripped_"+i+"_cupboard_counter"),
-					Finder.findBlock(MODID, i+"_kitchen_cabinet"),
-					Finder.findBlock(MODID, i+"_double_kitchen_cabinet"),
-					Finder.findBlock(MODID, i+"_glass_kitchen_cabinet"),
-					Finder.findBlock(MODID, "stripped_"+i+"_kitchen_cabinet"),
-					Finder.findBlock(MODID, "stripped_"+i+"_double_kitchen_cabinet"),
-					Finder.findBlock(MODID, "stripped_"+i+"_glass_kitchen_cabinet"),
-					Finder.findBlock(MODID, i+"_counter"),
-					Finder.findBlock(MODID, "stripped_"+i+"_counter"));
+		List<String> PATTERNS = List.of(
+		"%material%_wardrobe",
+				"%material%_modern_wardrobe",
+				"%material%_double_wardrobe",
+				"%material%_bookshelf",
+				"%material%_bookshelf_cupboard",
+				"%material%_drawer",
+				"%material%_double_drawer",
+				"%material%_bookshelf_drawer",
+				"%material%_lower_bookshelf_drawer",
+				"%material%_large_drawer",
+				"%material%_lower_triple_drawer",
+				"%material%_triple_drawer",
+				"%material%_drawer_counter",
+				"%material%_double_drawer_counter",
+				"%material%_cupboard_counter",
+				"stripped_%material%_wardrobe",
+				"stripped_%material%_modern_wardrobe",
+				"stripped_%material%_double_wardrobe",
+				"stripped_%material%_bookshelf",
+				"stripped_%material%_bookshelf_cupboard",
+				"stripped_%material%_drawer",
+				"stripped_%material%_double_drawer",
+				"stripped_%material%_bookshelf_drawer",
+				"stripped_%material%_lower_bookshelf_drawer",
+				"stripped_%material%_large_drawer",
+				"stripped_%material%_lower_triple_drawer",
+				"stripped_%material%_triple_drawer",
+				"stripped_%material%_counter",
+				"stripped_%material%_drawer_counter",
+				"stripped_%material%_double_drawer_counter",
+				"stripped_%material%_cupboard_counter",
+				"%material%_kitchen_cabinet",
+				"%material%_double_kitchen_cabinet",
+				"%material%_glass_kitchen_cabinet",
+				"stripped_%material%_kitchen_cabinet",
+				"stripped_%material%_double_kitchen_cabinet",
+				"stripped_%material%_glass_kitchen_cabinet",
+				"%material%_counter",
+				"stripped_%material%_counter");
+
+		Set<Block> BLOCKS = new HashSet<>();
+
+		if (FabricLoader.getInstance().isModLoaded(Furnitures.modid)) {
+			try {
+				final Class<?> clss = Class.forName("net.kikoz.mcwfurnitures.objects.FurnitureObject");
+
+				for (String i : MAT) {
+					for (String j : PATTERNS) {
+						if (clss.isInstance(Finder.findBlock(MODID, McwBlocksIdBase.replacement(j, i)))) {
+							BLOCKS.add(Finder.findBlock(MODID, j.replace("%material%", i)));
+						}
+					}
+				}
+			} catch (ClassNotFoundException e) {
+				AddonsLib.LOGGER.error(e);
+			}
 		}
+		addCompatibleBlocks(BLOCKS);
 	}
 }

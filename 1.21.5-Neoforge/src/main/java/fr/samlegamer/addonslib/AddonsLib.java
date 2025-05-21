@@ -15,7 +15,7 @@ public class AddonsLib
 {
 	public static final String MODID = "addonslib";
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
-	
+
 	public AddonsLib(ModContainer container)
 	{
 		container.registerConfig(ModConfig.Type.STARTUP, Cfg.SPEC, "addonslib-common.toml");

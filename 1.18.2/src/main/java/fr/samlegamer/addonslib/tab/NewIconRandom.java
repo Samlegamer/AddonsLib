@@ -119,6 +119,7 @@ public class NewIconRandom
         }
     }
 	
+    @Deprecated
 	public static class Properties
 	{
 		private boolean roofs = false;
@@ -129,8 +130,7 @@ public class NewIconRandom
 		private boolean doors = false;
 		private boolean trapdoors = false;
 		private boolean paths = false;
-		private boolean stairs = false;
-		private Block roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon, stairsIcon;
+		private Block roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon;
 		private int depedencies = 0;
 
 		/**
@@ -139,7 +139,7 @@ public class NewIconRandom
 		 * Use Finder.findBlock(String MODID, String nameBlock); for set blocks
 		 */
 		public Properties(Block roofsIcon, Block fencesIcon, Block furnituresIcon, Block bridgesIcon, 
-		Block windowsIcon, Block doorsIcon, Block trapdoorsIcon, Block pathsIcon, Block stairsIcon)
+		Block windowsIcon, Block doorsIcon, Block trapdoorsIcon, Block pathsIcon)
 		{
 			this.roofsIcon = roofsIcon;
 			this.fencesIcon = fencesIcon;
@@ -149,17 +149,6 @@ public class NewIconRandom
 			this.doorsIcon = doorsIcon;
 			this.trapdoorsIcon = trapdoorsIcon;
 			this.pathsIcon = pathsIcon;
-			this.stairsIcon = stairsIcon;
-		}
-
-		/*
-		 * Use new Parameter with stairsIcon
-		 */
-		@Deprecated
-		public Properties(Block roofsIcon, Block fencesIcon, Block furnituresIcon, Block bridgesIcon, 
-		Block windowsIcon, Block doorsIcon, Block trapdoorsIcon, Block pathsIcon)
-		{
-			this(roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon, Blocks.CRAFTING_TABLE);
 		}
 		
 		/**
@@ -171,12 +160,6 @@ public class NewIconRandom
 			this.roofsIcon = roofsIcon;
 			this.fencesIcon = fencesIcon;
 			this.bridgesIcon = bridgesIcon;
-		}
-		
-		public Properties stairs()
-		{
-			stairs=true;
-			return this;
 		}
 		
 		public Properties windows()
@@ -237,7 +220,6 @@ public class NewIconRandom
 			loadedBool(trapdoors);
 			loadedBool(doors);
 			loadedBool(windows);
-			loadedBool(stairs);
 			if(loadedAllWood())
 			{
 				Random rand = new Random();
@@ -259,8 +241,6 @@ public class NewIconRandom
 		    		return doorsIcon;
 				case 7:
 		    		return windowsIcon;
-				case 8:
-		    		return stairsIcon;
 				default:
 					break;
 				}
@@ -298,10 +278,6 @@ public class NewIconRandom
 				else if(loaded("mcwwindows"))
 				{
 					return windowsIcon;
-				}
-				else if(loaded("mcwstairs"))
-				{
-					return stairsIcon;
 				}
 			}
 			return Blocks.CRAFTING_TABLE;
