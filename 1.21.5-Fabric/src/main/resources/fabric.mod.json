@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "${archives_base_name}",
+	"version": "${version}",
+	"name": "${mod_name}",
+	"description": "${mod_description}",
+	"authors": [
+		"${mod_authors}"
+	],
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/addonslib",
+		"sources": "https://github.com/Samlegamer/AddonsLib"
+	},
+	"license": "${mod_license}",
+	"icon": "logo.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"${mod_init}"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21.5",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
