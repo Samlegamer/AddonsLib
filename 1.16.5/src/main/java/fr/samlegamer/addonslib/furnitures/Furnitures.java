@@ -44,7 +44,11 @@ public class Furnitures
 				String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
 				if(isModMcwLoaded) {
-					if(blockId.reflectedLocation().contains("StorageCounter") || blockId.reflectedLocation().equals("com.mcwfurnitures.kikoz.objects.cabinets.Cabinet")) {
+					if(blockId.reflectedLocation().contains("StorageCounter") ||
+							blockId.reflectedLocation().equals("com.mcwfurnitures.kikoz.objects.cabinets.Cabinet")||
+							blockId.reflectedLocation().equals("com.mcwfurnitures.kikoz.objects.counters.Counter")||
+							blockId.reflectedLocation().equals("com.mcwfurnitures.kikoz.objects.counters.CupboardCounter")||
+							blockId.reflectedLocation().equals("com.mcwfurnitures.kikoz.objects.cabinets.CabinetHinge")) {
 						CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
 					}
 					else {
