@@ -89,7 +89,7 @@ public class Roofs
 					CreateBlockReferences.createBlockStone(id, () ->
 							new StairBlock(Blocks.COBBLESTONE::defaultBlockState, STONE), block, item, tab, isModMcwLoaded, isModBaseLoaded);
 				}
-				if(isModMcwLoaded) {
+				else if(isModMcwLoaded) {
 					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
 						CreateBlockReferences.createBlockStone(id, () ->
 								Registration.getBlocksField(blockId.reflectedLocation(), STONE, Blocks.COBBLESTONE.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
