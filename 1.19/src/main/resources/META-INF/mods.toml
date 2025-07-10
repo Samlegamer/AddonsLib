@@ -10,11 +10,10 @@ version="${mod_version}"
 displayName="${mod_name}"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/addonslib"
 logoFile="logo.png"
-#credits=""
 authors="${mod_authors}"
 description='''${mod_description}'''
 
-[[dependencies.${mod_id}]] #optional
+[[dependencies.${mod_id}]]
     modId="forge"
     mandatory=true
     versionRange="[41,)"

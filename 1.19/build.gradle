@@ -147,6 +147,7 @@ dependencies {
 processResources {
     filesMatching("META-INF/mods.toml") {
         expand project.properties
+        expand "mod_version": project.properties.version
     }
     filesMatching("pack.mcmeta") {
         expand project.properties
