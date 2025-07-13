@@ -68,7 +68,6 @@ public final class Registration
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			AddonsLib.LOGGER.error(e);
 			block = new Block(prop);
-			//AddonsLib.LOGGER.error("Error while creating block " + path + " using default constructor");
 		}
 		return block;
 	}
