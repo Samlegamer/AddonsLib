@@ -9,7 +9,9 @@ public class CustomLogFilter extends AbstractFilter {
         if (event.getMessage().getFormattedMessage().contains("Exception loading blockstate definition")
                 || event.getMessage().getFormattedMessage().contains("Failed to load blockstate definition")
         || event.getMessage().getFormattedMessage().contains("Missing block model")
-                || event.getMessage().getFormattedMessage().contains("Missing model for variant")){
+                || event.getMessage().getFormattedMessage().contains("Missing model for variant")
+                || event.getMessage().getFormattedMessage().contains("Unable to load model")
+                || event.getMessage().getFormattedMessage().contains("Unable to resolve texture reference")){
             return Result.DENY;
         }
         return Result.NEUTRAL;

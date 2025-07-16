@@ -146,7 +146,7 @@ public class Roofs
 					CreateBlockReferences.createBlockStoneOpti(Modid, id,
 							new StairsBlock(Blocks.COBBLESTONE::defaultBlockState, STONE), tab, isModLoaded);
 				}
-				if(isModLoaded) {
+				else if(isModLoaded) {
 					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
 						CreateBlockReferences.createBlockStoneOpti(Modid, id,
 								Registration.getBlocksField(blockId.reflectedLocation(), STONE, Blocks.COBBLESTONE.defaultBlockState()), tab, true);

@@ -2,6 +2,8 @@ package fr.samlegamer.addonslib;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+
+import fr.samlegamer.addonslib.data.ModType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -24,6 +26,17 @@ import net.minecraftforge.registries.ForgeRegistries;
 public final class Registration
 {
 	private Registration() {}
+
+	public static ModType[] getAllModTypeWood()
+	{
+		return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES, ModType.FURNITURES,
+				ModType.STAIRS, ModType.PATHS, ModType.TRAPDOORS, ModType.DOORS, ModType.WINDOWS};
+	}
+
+	public static ModType[] getAllModTypeStone()
+	{
+		return new ModType[] {ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+	}
 
 	/**
 	 * Block
