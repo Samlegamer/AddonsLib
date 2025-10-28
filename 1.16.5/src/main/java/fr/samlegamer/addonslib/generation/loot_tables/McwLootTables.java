@@ -5,7 +5,6 @@ import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.McwBlockIdBase;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.data.ModType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;

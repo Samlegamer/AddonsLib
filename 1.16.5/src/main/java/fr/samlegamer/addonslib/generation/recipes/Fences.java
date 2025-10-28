@@ -1,14 +1,13 @@
 package fr.samlegamer.addonslib.generation.recipes;
 
 import fr.samlegamer.addonslib.Finder;
+import fr.samlegamer.addonslib.generation.recipes.mat.McwStoneMat;
+import fr.samlegamer.addonslib.generation.recipes.mat.McwWoodMat;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-
-import java.util.Map;
-import java.util.Objects;
+import java.util.List;
 import java.util.function.Consumer;
 
 class Fences extends AbstractType {
@@ -19,7 +18,7 @@ class Fences extends AbstractType {
         super(modid, originalMod, id);
     }
 
-    private void wood_variants(Consumer<IFinishedRecipe> consumer, String mat, Block log, Block planks, Block slab)
+    private void wood_variants(Consumer<IFinishedRecipe> consumer, String mat, Block log, Block planks)
     {
         Block curved_gate = Finder.findBlock(modid, mat + "_curved_gate");
         Block highley_gate = Finder.findBlock(modid, mat + "_highley_gate");
@@ -43,7 +42,7 @@ class Fences extends AbstractType {
         mcwRecipes.mkRpW1Item(consumer, leave, new String[]{"AA", "AA"}, hedge, 4, leave, "hedge");
     }
 
-    private void stone_variants(Consumer<IFinishedRecipe> consumer, String mat, Block stone)
+    private void stone_variants(Consumer<IFinishedRecipe> consumer, String mat, Block stone, Block smoothStone)
     {
         Block modern_wall = Finder.findBlock(modid, "modern_" + mat + "_wall");
         Block railing_wall = Finder.findBlock(modid, "railing_" + mat + "_wall");
@@ -51,30 +50,51 @@ class Fences extends AbstractType {
         Block pillar_wall = Finder.findBlock(modid, mat + "_pillar_wall");
         Block railing_gate = Finder.findBlock(modid, mat + "_railing_gate");
 
-//        mcwRecipes.mkRpW2Items(consumer, stone, new String[]{"B A", "BAA"}, curved_gate, 4, planks, log, "curved_gate");
-
+        mcwRecipes.mkRpW2Items(consumer, stone, new String[]{"ABA", "AAA"}, modern_wall, 6, smoothStone, stone, "modern");
+        mcwRecipes.mkScW1Item(consumer, modern_wall, stone);
+        mcwRecipes.mkRpW2Items(consumer, stone, new String[]{"ABA", "AAA"}, railing_wall, 6, smoothStone, Blocks.IRON_BARS, "railing_wall");
+        mcwRecipes.mkScW1Item(consumer, railing_wall, stone);
+        mcwRecipes.mkRpW3Items(consumer, stone, new String[]{"BCB", "AAA"}, grass_topped_wall, 6, smoothStone, stone, Blocks.DIRT, "grass_topped");
+        mcwRecipes.mkRpW2Items(consumer, stone, new String[]{"AAA", "B B"}, pillar_wall, 5, smoothStone, stone, "pillarwall");
+        mcwRecipes.mkRpW2Items(consumer, stone, new String[]{"ABA", "ABA"}, railing_gate, 1, Blocks.IRON_BARS, stone, "railing_gate");
+        mcwRecipes.mkScW1Item(consumer, railing_gate, stone);
     }
 
-    public void buildWood(Consumer<IFinishedRecipe> consumer, Map<String, Boolean> MAT)
+    @Override
+    public void buildWood(Consumer<IFinishedRecipe> consumer, List<String> MAT, List<McwWoodMat> woodMat)
     {
-        for(Map.Entry<String, Boolean> idAndIsStem : MAT.entrySet())
+        if(MAT.size() == woodMat.size()) {
+            for (int i = 0; i < MAT.size(); i++) {
+                Block log = woodMat.get(i).getLog();
+                Block planks = woodMat.get(i).getPlanks();
+
+                wood_variants(consumer, MAT.get(i), log, planks);
+            }
+        }
+    }
+
+    @Override
+    public void buildStone(Consumer<IFinishedRecipe> consumer, List<String> MAT, List<McwStoneMat> stoneMat)
+    {
+        if(MAT.size() == stoneMat.size())
         {
-            Block log = Finder.findBlock(originalMod, idAndIsStem.getKey() + (idAndIsStem.getValue() ? "_stem" : "_log"));
-            Block planks = Finder.findBlock(originalMod, idAndIsStem.getKey() + "_planks");
-            Block slab = Finder.findBlock(originalMod, idAndIsStem.getKey() + "_slab");
-
-//            other_door(consumer, idAndIsStem.getKey(), log, planks, slab);
-
-            String[] variants = new String[]{"bamboo", "jungle", "oak", "spruce",
-            "dark_oak", "mystic", "nether", "birch", "swamp", "acacia",
-            "waffle", "whispering"};
-
-            for(String variant : variants)
+            for (int i = 0; i < MAT.size(); i++)
             {
-                Item print = Finder.findItem(id, "print_" + variant);
-                Block door_var = Finder.findBlock(modid,  idAndIsStem.getKey() + "_" + variant + "_door");
+                stone_variants(consumer, MAT.get(i), stoneMat.get(i).getStoneBase(), stoneMat.get(i).getSmoothStone());
+            }
+        }
+    }
 
-                //door_variant(consumer, door_var, planks, print);
+    @Override
+    public void buildHedge(Consumer<IFinishedRecipe> consumer, List<String> MAT, List<Block> leave)
+    {
+        if(MAT.size() == leave.size())
+        {
+            for (int i = 0; i < MAT.size(); i++)
+            {
+                Block hedge = Finder.findBlock(modid, MAT.get(i) + "_hedge");
+
+                hedge(consumer, hedge, leave.get(i));
             }
         }
     }
