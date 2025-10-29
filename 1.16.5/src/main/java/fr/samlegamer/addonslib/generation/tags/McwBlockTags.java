@@ -62,15 +62,15 @@ public abstract class McwBlockTags extends BlockTagsProvider
         addBlocks(modid, WOOD, blocksWood, McwBlocksIdBase.WINDOWS_WOOD_BLOCKS);
 
         this.tag(BlockTags.WALLS)
-                .add((Block[]) getSetWithEndsWith(blocksWood, "_window2").toArray())
-                .add((Block[]) getSetWithEndsWith(blocksWood, "_window").toArray());
-        this.tag(getTag(Windows.modid, "blinds")).add((Block[]) getSetWithEndsWith(blocksWood, "_blinds").toArray());
-        this.tag(getTag(Windows.modid, "curtain_rods")).add((Block[]) getSetWithEndsWith(blocksWood, "_curtain_rod").toArray());
-        this.tag(getTag(Windows.modid, "parapets")).add((Block[]) getSetWithEndsWith(blocksWood, "_log_parapet").toArray());
-        this.tag(getTag(Windows.modid, "shutters")).add((Block[]) getSetWithEndsWith(blocksWood, "_shutter").toArray());
-        this.tag(getTag(Windows.modid, "windows_four")).add((Block[]) getSetWithEndsWith(blocksWood, "_four_window").toArray());
-        this.tag(getTag(Windows.modid, "windows_two")).add((Block[]) getSetWithEndsWith(blocksWood, "_window2").toArray());
-        this.tag(getTag(Windows.modid, "windows")).add((Block[]) getSetWithEndsWith(blocksWood, "_window").toArray());
+                .add(getSetWithEndsWith(blocksWood, "_window2"))
+                .add( getSetWithEndsWith(blocksWood, "_window"));
+        this.tag(getTag(Windows.modid, "blinds")).add(getSetWithEndsWith(blocksWood, "_blinds"));
+        this.tag(getTag(Windows.modid, "curtain_rods")).add(getSetWithEndsWith(blocksWood, "_curtain_rod"));
+        this.tag(getTag(Windows.modid, "parapets")).add(getSetWithEndsWith(blocksWood, "_log_parapet"));
+        this.tag(getTag(Windows.modid, "shutters")).add(getSetWithEndsWith(blocksWood, "_shutter"));
+        this.tag(getTag(Windows.modid, "windows_four")).add(getSetWithEndsWith(blocksWood, "_four_window"));
+        this.tag(getTag(Windows.modid, "windows_two")).add(getSetWithEndsWith(blocksWood, "_window2"));
+        this.tag(getTag(Windows.modid, "windows")).add(getSetWithEndsWith(blocksWood, "_window"));
     }
 
     public void mcwStairsTags(String modid, List<String> WOOD)
@@ -79,14 +79,14 @@ public abstract class McwBlockTags extends BlockTagsProvider
 
         addBlocks(modid, WOOD, blocksWood, McwBlocksIdBase.STAIRS_WOOD_BLOCKS);
 
-        this.tag(getTag(Stairs.modid, "balconies")).add((Block[]) getSetWithEndsWith(blocksWood, "_balcony").toArray());
-        this.tag(getTag(Stairs.modid, "bulk_stairs")).add((Block[]) getSetWithEndsWith(blocksWood, "_bulk_stairs").toArray());
-        this.tag(getTag(Stairs.modid, "compact_stairs")).add((Block[]) getSetWithEndsWith(blocksWood, "_compact_stairs").toArray());
-        this.tag(getTag(Stairs.modid, "loft_stairs")).add((Block[]) getSetWithEndsWith(blocksWood, "_loft_stairs").toArray());
-        this.tag(getTag(Stairs.modid, "platforms")).add((Block[]) getSetWithEndsWith(blocksWood, "_platform").toArray());
-        this.tag(getTag(Stairs.modid, "railings")).add((Block[]) getSetWithEndsWith(blocksWood, "_railing").toArray());
-        this.tag(getTag(Stairs.modid, "skyline_stairs")).add((Block[]) getSetWithEndsWith(blocksWood, "_skyline_stairs").toArray());
-        this.tag(getTag(Stairs.modid, "terrace_stairs")).add((Block[]) getSetWithEndsWith(blocksWood, "_terrace_stairs").toArray());
+        this.tag(getTag(Stairs.modid, "balconies")).add(getSetWithEndsWith(blocksWood, "_balcony"));
+        this.tag(getTag(Stairs.modid, "bulk_stairs")).add(getSetWithEndsWith(blocksWood, "_bulk_stairs"));
+        this.tag(getTag(Stairs.modid, "compact_stairs")).add(getSetWithEndsWith(blocksWood, "_compact_stairs"));
+        this.tag(getTag(Stairs.modid, "loft_stairs")).add(getSetWithEndsWith(blocksWood, "_loft_stairs"));
+        this.tag(getTag(Stairs.modid, "platforms")).add(getSetWithEndsWith(blocksWood, "_platform"));
+        this.tag(getTag(Stairs.modid, "railings")).add(getSetWithEndsWith(blocksWood, "_railing"));
+        this.tag(getTag(Stairs.modid, "skyline_stairs")).add(getSetWithEndsWith(blocksWood, "_skyline_stairs"));
+        this.tag(getTag(Stairs.modid, "terrace_stairs")).add(getSetWithEndsWith(blocksWood, "_terrace_stairs"));
     }
 
     public void mcwRoofsTags(String modid, List<String> WOOD, List<String> STONE)
@@ -100,11 +100,11 @@ public abstract class McwBlockTags extends BlockTagsProvider
 
     public void mcwPathsTags(String modid, List<String> WOOD)
     {
-        Set<Block> blocksWood = new HashSet<>();
+        List<Block> blocksWood = new ArrayList<>();
 
         addBlocks(modid, WOOD, blocksWood, McwBlocksIdBase.PATHS_WOOD_BLOCKS);
 
-        this.tag(getTag(Paths.modid, "wooden_paths")).add((Block[]) blocksWood.toArray());
+        this.tag(getTag(Paths.modid, "wooden_paths")).add(listToArray(blocksWood));
     }
 
     public void mcwFurnituresTags(String modid, List<String> WOOD)
@@ -154,36 +154,35 @@ public abstract class McwBlockTags extends BlockTagsProvider
                     blocks.add(Finder.findBlock(modid, "stripped_" + mat + i));
                 }
             }
-            this.tag(getTag(Furnitures.modid, mapEntry.getKey())).add((Block[]) blocks.toArray());
+            this.tag(getTag(Furnitures.modid, mapEntry.getKey())).add(listToArray(blocks));
         }
-//        this.tag(getTag(Furnitures.modid, "curved_double_gates")).add(curved_gates);
     }
 
     public void mcwFencesTags(String modid, List<String> WOOD, List<String> LEAVE, List<String> STONE)
     {
         Set<Block> blocksWood = new HashSet<>();
-        Set<Block> blocksLeave = new HashSet<>();
+        List<Block> blocksLeave = new ArrayList<>();
         Set<Block> blocksStone = new HashSet<>();
 
         addBlocks(modid, WOOD, blocksWood, McwBlocksIdBase.FENCES_WOOD_BLOCKS);
         addBlocks(modid, LEAVE, blocksLeave, McwBlocksIdBase.FENCES_LEAVE_BLOCKS);
         addBlocks(modid, STONE, blocksStone, McwBlocksIdBase.FENCES_STONE_BLOCKS);
 
-        Block[] picket_fences = (Block[]) getSetWithContain(blocksWood, "picket_fence").toArray();
-        Block[] stockade_fences = (Block[]) getSetWithContain(blocksWood, "stockade_fence").toArray();
-        Block[] horse_fences = (Block[]) getSetWithContain(blocksWood, "horse_fence").toArray();
-        Block[] wired_fences = (Block[]) getSetWithContain(blocksWood, "wired_fence").toArray();
-        Block[] highley_gates = (Block[]) getSetWithContain(blocksWood, "highley_gate").toArray();
-        Block[] pyramid_gates = (Block[]) getSetWithContain(blocksWood, "pyramid_gate").toArray();
-        Block[] curved_gates = (Block[]) getSetWithContain(blocksWood, "curved_gate").toArray();
+        Block[] picket_fences = getSetWithContain(blocksWood, "picket_fence");
+        Block[] stockade_fences = getSetWithContain(blocksWood, "stockade_fence");
+        Block[] horse_fences = getSetWithContain(blocksWood, "horse_fence");
+        Block[] wired_fences = getSetWithContain(blocksWood, "wired_fence");
+        Block[] highley_gates = getSetWithContain(blocksWood, "highley_gate");
+        Block[] pyramid_gates = getSetWithContain(blocksWood, "pyramid_gate");
+        Block[] curved_gates = getSetWithContain(blocksWood, "curved_gate");
 
-        Block[] hedges = (Block[]) blocksLeave.toArray();
+        Block[] hedges = listToArray(blocksLeave);
 
-        Block[] modern_wall = (Block[]) getSetWithStartsWith(blocksStone, "modern_").toArray();
-        Block[] railing_wall = (Block[]) getSetWithStartsWith(blocksStone, "railing_").toArray();
-        Block[] railing_gate = (Block[]) getSetWithEndsWith(blocksStone, "_railing_gate").toArray();
-        Block[] pillar_wall = (Block[]) getSetWithEndsWith(blocksStone, "_pillar_wall").toArray();
-        Block[] grass_topped_wall = (Block[]) getSetWithEndsWith(blocksStone, "_grass_topped_wall").toArray();
+        Block[] modern_wall = getSetWithStartsWith(blocksStone, "modern_");
+        Block[] railing_wall = getSetWithStartsWith(blocksStone, "railing_");
+        Block[] railing_gate = getSetWithEndsWith(blocksStone, "_railing_gate");
+        Block[] pillar_wall = getSetWithEndsWith(blocksStone, "_pillar_wall");
+        Block[] grass_topped_wall = getSetWithEndsWith(blocksStone, "_grass_topped_wall");
 
         this.tag(BlockTags.FENCE_GATES).add(highley_gates).add(pyramid_gates).add(curved_gates).add(railing_gate);
         this.tag(BlockTags.FENCES).add(hedges).add(modern_wall).add(pillar_wall).add(railing_wall).add(grass_topped_wall)
@@ -214,12 +213,12 @@ public abstract class McwBlockTags extends BlockTagsProvider
         Set<Block> blocks = new HashSet<>();
         addBlocks(modid, MAT, blocks, McwBlocksIdBase.BRIDGES_WOOD_BLOCKS);
 
-        this.tag(getTag(Bridges.modid, "log_bridges")).add((Block[]) getSetWithContain(blocks, "log_bridge_middle").toArray());
-        this.tag(getTag(Bridges.modid, "log_stairs")).add((Block[]) getSetWithContain(blocks, "log_bridge_stair").toArray());
-        this.tag(getTag(Bridges.modid, "rail_bridges")).add((Block[]) getSetWithContain(blocks, "rail_bridge").toArray());
-        this.tag(getTag(Bridges.modid, "rope_bridges")).add((Block[]) getSetWithStartsWith(blocks, "rope_").toArray());
-        this.tag(getTag(Bridges.modid, "rope_stairs")).add((Block[]) getSetWithContain(blocks, "rope_bridge_stair").toArray());
-        this.tag(getTag(Bridges.modid, "wooden_piers")).add((Block[]) getSetWithContain(blocks, "bridge_pier").toArray());
+        this.tag(getTag(Bridges.modid, "log_bridges")).add(getSetWithContain(blocks, "log_bridge_middle"));
+        this.tag(getTag(Bridges.modid, "log_stairs")).add(getSetWithContain(blocks, "log_bridge_stair"));
+        this.tag(getTag(Bridges.modid, "rail_bridges")).add(getSetWithContain(blocks, "rail_bridge"));
+        this.tag(getTag(Bridges.modid, "rope_bridges")).add(getSetWithStartsWith(blocks, "rope_"));
+        this.tag(getTag(Bridges.modid, "rope_stairs")).add(getSetWithContain(blocks, "rope_bridge_stair"));
+        this.tag(getTag(Bridges.modid, "wooden_piers")).add(getSetWithContain(blocks, "bridge_pier"));
     }
 
     public void mcwBridgesTagsStone(String modid, List<String> MAT)
@@ -227,21 +226,17 @@ public abstract class McwBlockTags extends BlockTagsProvider
         Set<Block> blocks = new HashSet<>();
         addBlocks(modid, MAT, blocks, McwBlocksIdBase.BRIDGES_STONE_BLOCKS);
 
-        List<Block> listBridgeBase = new ArrayList<>();
-        listBridgeBase.addAll(getSetWithEndsWith(blocks, "_bridge"));
-        listBridgeBase.addAll(getSetWithStartsWith(blocks, "balustrade_"));
-
-        this.tag(getTag(Bridges.modid, "stone_bridges")).add((Block[]) listBridgeBase.toArray());
-        this.tag(getTag(Bridges.modid, "stone_piers")).add((Block[]) getSetWithContain(blocks, "bridge_pier").toArray());
-        this.tag(getTag(Bridges.modid, "stone_stairs")).add((Block[]) getSetWithContain(blocks, "bridge_stair").toArray());
+        this.tag(getTag(Bridges.modid, "stone_bridges")).add(getSetWithEndsWith(blocks, "_bridge"));
+        this.tag(getTag(Bridges.modid, "stone_piers")).add(getSetWithContain(blocks, "bridge_pier"));
+        this.tag(getTag(Bridges.modid, "stone_stairs")).add(getSetWithContain(blocks, "bridge_stair"));
     }
 
     public void mcwDoorsTagsWood(String modid, List<String> MAT)
     {
-        Set<Block> blocks = new HashSet<>();
+        List<Block> blocks = new ArrayList<>();
         addBlocks(modid, MAT, blocks, McwBlocksIdBase.DOORS_WOOD_BLOCKS);
 
-        Block[] blockArray = (Block[]) blocks.toArray();
+        Block[] blockArray = listToArray(blocks);
         this.tag(BlockTags.WOODEN_DOORS).add(blockArray);
 
         Map<String, String> moddedTag = new HashMap<>();
@@ -282,10 +277,10 @@ public abstract class McwBlockTags extends BlockTagsProvider
 
     public void mcwTrapdoorsTagsWood(String modid, List<String> MAT)
     {
-        Set<Block> blocks = new HashSet<>();
+        List<Block> blocks = new ArrayList<>();
         addBlocks(modid, MAT, blocks, McwBlocksIdBase.TRAPDOORS_WOOD_BLOCKS);
 
-        Block[] blockArray = (Block[]) blocks.toArray();
+        Block[] blockArray = listToArray(blocks);
         this.tag(BlockTags.WOODEN_TRAPDOORS).add(blockArray);
 
         Map<String, String> moddedTag = new HashMap<>();
@@ -324,7 +319,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         return BlockTags.createOptional(new ResourceLocation(id, tagName));
     }
 
-    private List<Block> getSetWithContain(Set<Block> blocks, String contain)
+    private Block[] getSetWithContain(Set<Block> blocks, String contain)
     {
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
@@ -334,10 +329,10 @@ public abstract class McwBlockTags extends BlockTagsProvider
                 finalBlocks.add(block);
             }
         }
-        return finalBlocks;
+        return listToArray(finalBlocks);
     }
 
-    private List<Block> getSetWithEndsWith(Set<Block> blocks, String endsWith)
+    private Block[] getSetWithEndsWith(Set<Block> blocks, String endsWith)
     {
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
@@ -347,10 +342,10 @@ public abstract class McwBlockTags extends BlockTagsProvider
                 finalBlocks.add(block);
             }
         }
-        return finalBlocks;
+        return listToArray(finalBlocks);
     }
 
-    private List<Block> getSetWithStartsWith(Set<Block> blocks, String startsWith)
+    private Block[] getSetWithStartsWith(Set<Block> blocks, String startsWith)
     {
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
@@ -360,10 +355,21 @@ public abstract class McwBlockTags extends BlockTagsProvider
                 finalBlocks.add(block);
             }
         }
-        return finalBlocks;
+        return listToArray(finalBlocks);
     }
 
-    private void addBlocks(String modid, List<String> MAT, Set<Block> blockSet, McwBlockIdBase blocks)
+    private Block[] listToArray(List<Block> finalBlocks)
+    {
+        Block[] blockArray = new Block[finalBlocks.size()];
+
+        for(int i = 0; i < finalBlocks.size(); i++)
+        {
+            blockArray[i] = finalBlocks.get(i);
+        }
+        return blockArray;
+    }
+    
+    private void addBlocks(String modid, List<String> MAT, Collection<Block> blockSet, McwBlockIdBase blocks)
     {
         for(String mat : MAT)
         {
