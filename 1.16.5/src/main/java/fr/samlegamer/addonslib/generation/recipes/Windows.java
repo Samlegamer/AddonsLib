@@ -46,8 +46,8 @@ class Windows extends AbstractType {
         Block stripped_log_four_window = Finder.findBlock(modid, "stripped_" + mat + "_log_four_window");
 
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"ABA"}, curtain_rod, 5, Items.STICK, log, "curtain_rods");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"BAB", "BAB", "BAB"}, shutter, 3, trapdoor, Items.AIR, "shutters");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"BAB", "BAB", "BAB"}, louvered_shutter, 3, slab, Items.AIR, "shutters");
+        mcwRecipes.mkRpShapelessW1Item(consumer, log, shutter, 3, trapdoor, 3, "shutters", "");
+        mcwRecipes.mkRpShapelessW1Item(consumer, log, louvered_shutter, 3, slab, 3, "shutters", "");
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA"}, log_parapet, 5, Items.STICK, log, "parapets");
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA"}, plank_parapet, 5, Items.STICK, planks, "parapets");
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "BBB", "BBB"}, blinds, 3, slab, Items.STICK, "blinds");
