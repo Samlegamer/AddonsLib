@@ -32,7 +32,7 @@ public class McwLootTables extends LootModifier
     {
         for(String mat : MAT) {
             for(BlockId id : blocks.blocks()) {
-                String blockName = id.id().replace("%material%", mat);
+                String blockName = McwBlocksIdBase.replacement(id.id(), mat);
                 Block block = Finder.findBlock(modid, blockName);
 
                 if(block != null) {
