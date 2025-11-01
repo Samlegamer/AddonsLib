@@ -104,7 +104,7 @@ public class McwRecipes
     protected void mkScW1Item(Consumer<IFinishedRecipe> consumer, IItemProvider result, IItemProvider firstItem)
     {
         ConditionalRecipe.builder().addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod)).addRecipe(
-                        c -> SingleItemRecipeBuilder.stonecutting(Ingredient.of(result), firstItem)).generateAdvancement()
+                        c -> SingleItemRecipeBuilder.stonecutting(Ingredient.of(firstItem), result)).generateAdvancement()
                 .build(consumer, new ResourceLocation(this.modid, Objects.requireNonNull(result.asItem().getRegistryName()).getPath() + "_stonecutter"));
     }
 
