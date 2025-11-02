@@ -103,9 +103,16 @@ public class McwRecipes
 
     protected void mkScW1Item(Consumer<IFinishedRecipe> consumer, IItemProvider result, IItemProvider firstItem)
     {
-        ConditionalRecipe.builder().addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod)).addRecipe(
-                        c -> SingleItemRecipeBuilder.stonecutting(Ingredient.of(firstItem), result)).generateAdvancement()
-                .build(consumer, new ResourceLocation(this.modid, Objects.requireNonNull(result.asItem().getRegistryName()).getPath() + "_stonecutter"));
+        String recipeId = this.modid + ":" + Objects.requireNonNull(result.asItem().getRegistryName()).getPath() + "_stonecutter";
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition(this.mcwModid))
+                .addCondition(new ModLoadedCondition(this.originalMod))
+                .addRecipe((Consumer<IFinishedRecipe> finishedRecipeConsumer) -> {
+                    SingleItemRecipeBuilder.stonecutting(Ingredient.of(firstItem), result)
+                            .unlocks("has_stone", has(firstItem))
+                            .save(finishedRecipeConsumer, recipeId);
+                })
+                .build(consumer, new ResourceLocation(recipeId));
     }
 
     protected void mkRpW3Items(Consumer<IFinishedRecipe> consumer, IItemProvider planks, String[] pattern, IItemProvider result, int count, IItemProvider firstItem, IItemProvider secondItem, IItemProvider thirdItem, String group)
