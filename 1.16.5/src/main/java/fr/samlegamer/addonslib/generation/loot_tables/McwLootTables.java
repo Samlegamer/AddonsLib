@@ -7,10 +7,12 @@ import fr.samlegamer.addonslib.data.McwBlockIdBase;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DoorBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
 import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraftforge.common.loot.LootModifier;
 
 import javax.annotation.Nonnull;
@@ -18,7 +20,7 @@ import java.util.*;
 
 public class McwLootTables extends LootModifier
 {
-    private static Set<Block> blockSet = new HashSet<>();
+    private static final Set<Block> blockSet = new HashSet<>();
 
     protected McwLootTables(ILootCondition[] conditionsIn) {
         super(conditionsIn);
@@ -76,6 +78,20 @@ public class McwLootTables extends LootModifier
 
         if(state != null && blockSet.contains(state.getBlock()))
         {
+            if(state.getBlock() instanceof DoorBlock)
+            {
+                try {
+                    DoubleBlockHalf half = state.getValue(DoorBlock.HALF);
+                    if(half == DoubleBlockHalf.UPPER)
+                    {
+                        generatedLoot.clear();
+                        return generatedLoot;
+                    }
+                } catch (Exception e) {
+                    AddonsLib.LOGGER.error("[McwLootTables] ERROR: Can't get the double block half of the door: {}", e.getMessage());
+                }
+            }
+
             generatedLoot.clear();
             generatedLoot.add(new ItemStack(state.getBlock(), 1));
         }
