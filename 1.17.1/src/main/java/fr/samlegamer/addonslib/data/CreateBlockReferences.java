@@ -58,7 +58,7 @@ public class CreateBlockReferences
         if(isModMcwLoaded && isModBaseLoaded)
         {
             properties.tab(tab);
-            if(name.contains("railing")) {
+            if(name.contains("railing") && !name.contains("wall")) {
                 ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), properties, "mcwstairs.railing.desc"));
             }
             else if(name.contains("balcony")) {
@@ -120,7 +120,7 @@ public class CreateBlockReferences
         if(isModLoaded)
         {
             properties.tab(tab);
-            if(name.contains("railing")) {
+            if(name.contains("railing") && !name.contains("wall")) {
                 itemBlock = new BlockItemInfo(block, new Item.Properties().tab(tab), "mcwstairs.railing.desc");
             }
             else if(name.contains("balcony")) {
