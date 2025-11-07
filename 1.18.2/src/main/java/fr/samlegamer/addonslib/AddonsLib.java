@@ -1,8 +1,10 @@
 package fr.samlegamer.addonslib;
 
 import fr.samlegamer.addonslib.cfg.Cfg;
+import fr.samlegamer.addonslib.generation.loot_tables.LootModRegistry;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,7 +21,8 @@ public class AddonsLib
 
 	public AddonsLib()
 	{
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
+        LootModRegistry.SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
 		LOGGER.info("AddonsLib Forge !");
 		if(Cfg.filterLogs.get())
 		{
