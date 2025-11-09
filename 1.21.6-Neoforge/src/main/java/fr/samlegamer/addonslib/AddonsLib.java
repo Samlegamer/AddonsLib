@@ -1,6 +1,8 @@
 package fr.samlegamer.addonslib;
 
 import fr.samlegamer.addonslib.cfg.Cfg;
+import fr.samlegamer.addonslib.generation.loot_tables.LootModRegistry;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
@@ -16,8 +18,9 @@ public class AddonsLib
 	public static final String MODID = "addonslib";
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-	public AddonsLib(ModContainer container)
+	public AddonsLib(IEventBus bus, ModContainer container)
 	{
+        LootModRegistry.SERIALIZERS.register(bus);
 		container.registerConfig(ModConfig.Type.STARTUP, Cfg.SPEC, "addonslib-common.toml");
 		LOGGER.info("AddonsLib Neoforge !");
 		if(Cfg.filterLogs.get())

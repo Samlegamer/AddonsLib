@@ -8,12 +8,9 @@ import fr.samlegamer.addonslib.data.ModType;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import java.util.List;
 
-@OnlyIn(value = Dist.CLIENT)
 public class APIRenderTypes
 {
     public static void initAllWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, ModType... type)

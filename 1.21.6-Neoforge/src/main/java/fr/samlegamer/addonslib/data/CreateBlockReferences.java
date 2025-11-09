@@ -45,7 +45,7 @@ public class CreateBlockReferences
     {
         DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
         Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix();
-        if(name.contains("railing")) {
+        if(name.contains("railing") && !name.contains("wall")) {
             ITEMS_REGISTRY.register(name, registryName -> new BlockItemInfo(block.get(), properties.setId(ResourceKey.create(Registries.ITEM, registryName)), "mcwstairs.railing.desc"));
         }
         else if(name.contains("balcony")) {

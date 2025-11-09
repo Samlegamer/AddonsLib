@@ -1,7 +1,9 @@
 package fr.samlegamer.addonslib;
 
 import fr.samlegamer.addonslib.cfg.Cfg;
+import fr.samlegamer.addonslib.generation.loot_tables.LootModRegistry;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,13 +20,22 @@ public class AddonsLib
 
 	public AddonsLib(FMLJavaModLoadingContext fmlJavaModLoadingContext)
 	{
+        LootModRegistry.SERIALIZERS.register(fmlJavaModLoadingContext.getModBusGroup());
 		fmlJavaModLoadingContext.registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
 		LOGGER.info("AddonsLib Forge !");
-		if(Cfg.filterLogs.get())
-		{
-			addCustomFilter();
-		}
-	}
+        ModConfigEvent.Loading.getBus(fmlJavaModLoadingContext.getModBusGroup()).addListener(this::onConfigLoaded);
+    }
+
+    private void onConfigLoaded(final ModConfigEvent.Loading event)
+    {
+        if (event.getConfig().getSpec() == Cfg.SPEC)
+        {
+            if (Cfg.filterLogs.get())
+            {
+                addCustomFilter();
+            }
+        }
+    }
 
 	private void addCustomFilter() {
 		LoggerContext context = (LoggerContext) LogManager.getContext(false);

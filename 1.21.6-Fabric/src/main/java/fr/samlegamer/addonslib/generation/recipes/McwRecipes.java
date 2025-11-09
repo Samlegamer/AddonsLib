@@ -15,7 +15,6 @@ import net.minecraft.registry.RegistryWrapper;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-
 import static net.minecraft.data.recipe.RecipeGenerator.hasItem;
 
 public class McwRecipes extends FabricRecipeProvider {
@@ -108,6 +107,51 @@ public class McwRecipes extends FabricRecipeProvider {
         builder.offerTo(recipeExporter, recipeId);
     }
 
+    protected void mkRpW4Items(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, ItemConvertible secondItem, ItemConvertible thirdItem, ItemConvertible fourItem, String group)
+    {
+        var recipeExporter = withConditions(exporter, ResourceConditions.allModsLoaded(this.mcwModid, this.originalMod));
+        ShapedRecipeJsonBuilder shapedRecipeJsonBuilder;
+
+        if(pattern.length == 3)
+        {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(generator.itemLookup, RecipeCategory.BUILDING_BLOCKS, result, count)
+                    .pattern(pattern[0])
+                    .pattern(pattern[1])
+                    .pattern(pattern[2])
+                    .input('A', firstItem)
+                    .input('B', secondItem)
+                    .input('C', thirdItem)
+                    .input('D', fourItem)
+                    .group(group)
+                    .criterion(hasItem(planks), generator.conditionsFromItem(planks));
+        }
+        else if(pattern.length == 2)
+        {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(generator.itemLookup, RecipeCategory.BUILDING_BLOCKS, result, count)
+                    .pattern(pattern[0])
+                    .pattern(pattern[1])
+                    .input('A', firstItem)
+                    .input('B', secondItem)
+                    .input('C', thirdItem)
+                    .input('D', fourItem)
+                    .group(group)
+                    .criterion(hasItem(planks), generator.conditionsFromItem(planks));
+        }
+        else
+        {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(generator.itemLookup, RecipeCategory.BUILDING_BLOCKS, result, count)
+                    .pattern(pattern[0])
+                    .input('A', firstItem)
+                    .input('B', secondItem)
+                    .input('C', thirdItem)
+                    .input('D', fourItem)
+                    .group(group)
+                    .criterion(hasItem(planks), generator.conditionsFromItem(planks));
+        }
+
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
+    }
+
     protected void mkRpW3Items(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, ItemConvertible secondItem, ItemConvertible thirdItem, String group)
     {
         var recipeExporter = withConditions(exporter, ResourceConditions.allModsLoaded(this.mcwModid, this.originalMod));
@@ -147,7 +191,7 @@ public class McwRecipes extends FabricRecipeProvider {
                     .criterion(hasItem(planks), generator.conditionsFromItem(planks));
         }
 
-        shapedRecipeJsonBuilder.offerTo(recipeExporter, result.asItem().toString());
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
     protected void mkRpW2Items(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, ItemConvertible secondItem, String group)
@@ -186,7 +230,7 @@ public class McwRecipes extends FabricRecipeProvider {
                     .criterion(hasItem(planks), generator.conditionsFromItem(planks));
         }
 
-        shapedRecipeJsonBuilder.offerTo(recipeExporter, result.asItem().toString());
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
     protected void mkRpW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, String group, String suffix)
@@ -198,7 +242,7 @@ public class McwRecipes extends FabricRecipeProvider {
                 .group(group)
                 .criterion(hasItem(planks), generator.conditionsFromItem(planks));
 
-        shapedRecipeJsonBuilder.offerTo(recipeExporter, result.asItem().toString() + suffix);
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
     protected void mkRpShapelessW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, int required, String group, String suffix)
@@ -211,6 +255,23 @@ public class McwRecipes extends FabricRecipeProvider {
 
         shapelessRecipeJsonBuilder.offerTo(recipeExporter, result.asItem().toString() + suffix);
     }
+
+    protected void mkRpShapelessW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, int require, String group)
+    {
+        var recipeExporter = withConditions(exporter, ResourceConditions.allModsLoaded(this.mcwModid, this.originalMod));
+        ShapelessRecipeJsonBuilder shapelessRecipeJsonBuilder =
+                ShapelessRecipeJsonBuilder.create(generator.itemLookup, RecipeCategory.BUILDING_BLOCKS, result, count)
+                        .input(firstItem, require)
+                        .group(group).criterion(hasItem(planks), generator.conditionsFromItem(planks));
+
+        shapelessRecipeJsonBuilder.offerTo(recipeExporter);
+    }
+
+    protected void mkRpShapelessW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, String group)
+    {
+        mkRpShapelessW1Item(generator, exporter, planks, result, count, firstItem, 1, group);
+    }
+
 
     protected void mkRpShapelessW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, String group, String suffix)
     {

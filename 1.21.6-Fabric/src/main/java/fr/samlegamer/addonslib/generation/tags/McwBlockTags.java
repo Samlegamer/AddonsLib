@@ -125,6 +125,7 @@ public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider
         addBlocks(modid, WOOD, blocksWood, McwBlocksIdBase.FURNITURES_WOOD_BLOCKS);
 
         this.valueLookupBuilder(BlockTags.AXE_MINEABLE).add(listToArray(blocksWood.stream().toList()));
+        this.valueLookupBuilder(BlockTags.ENCHANTMENT_POWER_PROVIDER).add(getSetWithContain(blocksWood, "bookshelf"));
 
         Map<String, List<String>> map = new HashMap<>();
         map.put("bookshelf_cupboard", Collections.singletonList("_bookshelf_cupboard"));
@@ -154,6 +155,7 @@ public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider
         map.put("table", Collections.singletonList("_table"));
         map.put("triple_drawer", Collections.singletonList("_triple_drawer"));
         map.put("wadrobe", Collections.singletonList("_wardrobe"));
+        map.put("kitchen_sink", Collections.singletonList("_kitchen_sink"));
 
         for(Map.Entry<String, List<String>> mapEntry : map.entrySet())
         {

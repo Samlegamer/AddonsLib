@@ -22,14 +22,12 @@ public class BlockItemInfo extends BlockItem
 		this.desc = desc;
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag)
 	{
 		tooltipAdder.accept(this.getDescription().withStyle(ChatFormatting.GRAY));
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public MutableComponent getDescription()
 	{
 		return (MutableComponent) Component.translatable(this.desc);
