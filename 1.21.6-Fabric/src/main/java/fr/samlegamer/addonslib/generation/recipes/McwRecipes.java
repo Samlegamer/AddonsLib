@@ -98,7 +98,7 @@ public class McwRecipes extends FabricRecipeProvider {
 
     protected void mkScW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible result, ItemConvertible firstItem)
     {
-        String recipeId = this.modid + ":" + Objects.requireNonNull(result.asItem().toString()) + "_stonecutter";
+        String recipeId = Objects.requireNonNull(result.asItem().toString()) + "_stonecutter";
         var recipeExporter = withConditions(exporter, ResourceConditions.allModsLoaded(this.mcwModid, this.originalMod));
 
         StonecuttingRecipeJsonBuilder builder = StonecuttingRecipeJsonBuilder.createStonecutting(Ingredient.ofItems(firstItem), RecipeCategory.BUILDING_BLOCKS, result)
