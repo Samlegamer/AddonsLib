@@ -24,7 +24,7 @@ class Paths extends AbstractType {
     {
         Block planks_path = Finder.findBlock(modid, mat + "_planks_path");
 
-        mcwRecipes.mkRpShapelessW1Item(generator, exporter, planks, planks_path, 3, slab, "planks_paths", "");
+        mcwRecipes.mkRpShapelessW1Item(generator, exporter, planks, planks_path, 3, slab, "planks_paths");
     }
 
     @Override

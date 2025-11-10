@@ -9,6 +9,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
+
 import java.util.List;
 import java.util.Objects;
 

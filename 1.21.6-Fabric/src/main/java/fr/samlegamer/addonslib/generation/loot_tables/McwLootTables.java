@@ -8,6 +8,7 @@ import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
+import net.minecraft.block.DoorBlock;
 import net.minecraft.registry.RegistryWrapper;
 import java.util.HashSet;
 import java.util.List;
@@ -70,7 +71,18 @@ public abstract class McwLootTables extends FabricBlockLootTableProvider
 
     protected void makeLootTables() {
         for (Block block : blockSet) {
-            this.addDrop(block);
+            if(block instanceof DoorBlock)
+            {
+                this.addDoorDrop(block);
+            }
+            else
+            {
+                this.addDrop(block);
+            }
         }
+    }
+
+    protected void addDoorDrop(Block block) {
+        this.addDrop(block, blockLootTable -> doorDrops(block));
     }
 }

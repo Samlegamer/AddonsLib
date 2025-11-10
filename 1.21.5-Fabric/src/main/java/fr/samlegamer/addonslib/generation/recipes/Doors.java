@@ -44,7 +44,7 @@ class Doors extends AbstractType {
         Block western_door = Finder.findBlock(modid, mat + "_western_door");
 
         mcwRecipes.mkRpW2Items(generator, exporter, planks, new String[]{"  A", "ABA", "AAA"}, western_door, 3, planks, slab, "western");
-        mcwRecipes.mkRpShapelessW1Item(generator, exporter, planks, stable_head_door, 1, stable_door, "stable_head", "");
+        mcwRecipes.mkRpShapelessW1Item(generator, exporter, planks, stable_head_door, 1, stable_door, "stable_head");
         mcwRecipes.mkRpW2Items(generator, exporter, planks, new String[]{"BB", "AA", "AA"}, stable_door, 3, planks, Blocks.IRON_BARS, "stable");
         mcwRecipes.mkRpW2Items(generator, exporter, planks, new String[]{"AB", "AA", "AB"}, modern_door, 3, planks, Blocks.GLASS_PANE, "modern");
         mcwRecipes.mkRpW2Items(generator, exporter, slab, new String[]{"BB", "BB", "AA"}, japanese2_door, 3, slab, Items.PAPER, "shoji_two");

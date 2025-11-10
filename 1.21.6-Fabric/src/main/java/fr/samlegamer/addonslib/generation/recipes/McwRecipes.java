@@ -233,15 +233,37 @@ public class McwRecipes extends FabricRecipeProvider {
         shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
-    protected void mkRpW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, String group, String suffix)
+    protected void mkRpW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, String group)
     {
         var recipeExporter = withConditions(exporter, ResourceConditions.allModsLoaded(this.mcwModid, this.originalMod));
-        ShapedRecipeJsonBuilder shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(generator.itemLookup, RecipeCategory.BUILDING_BLOCKS, result, count)
-                .pattern(pattern[0])
-                .input('A', firstItem)
-                .group(group)
-                .criterion(hasItem(planks), generator.conditionsFromItem(planks));
+        ShapedRecipeJsonBuilder shapedRecipeJsonBuilder;
 
+        if(pattern.length == 3)
+        {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(generator.itemLookup, RecipeCategory.BUILDING_BLOCKS, result, count)
+                    .pattern(pattern[0])
+                    .pattern(pattern[1])
+                    .pattern(pattern[2])
+                    .input('A', firstItem)
+                    .group(group)
+                    .criterion(hasItem(planks), generator.conditionsFromItem(planks));
+        }
+        else if(pattern.length == 2)
+        {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(generator.itemLookup, RecipeCategory.BUILDING_BLOCKS, result, count)
+                    .pattern(pattern[0])
+                    .pattern(pattern[1])
+                    .input('A', firstItem)
+                    .group(group)
+                    .criterion(hasItem(planks), generator.conditionsFromItem(planks));
+        }
+        else {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(generator.itemLookup, RecipeCategory.BUILDING_BLOCKS, result, count)
+                    .pattern(pattern[0])
+                    .input('A', firstItem)
+                    .group(group)
+                    .criterion(hasItem(planks), generator.conditionsFromItem(planks));
+        }
         shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
@@ -276,11 +298,6 @@ public class McwRecipes extends FabricRecipeProvider {
     protected void mkRpShapelessW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, String group, String suffix)
     {
         mkRpShapelessW1Item(generator, exporter, planks, result, count, firstItem, 1, group, suffix);
-    }
-
-    protected void mkRpW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, String group)
-    {
-        mkRpW1Item(generator, exporter, planks, pattern, result, count, firstItem, group, "");
     }
 
     @Override

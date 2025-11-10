@@ -15,7 +15,6 @@ import net.minecraft.registry.RegistryWrapper;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-
 import static net.minecraft.data.recipe.RecipeGenerator.hasItem;
 
 public class McwRecipes extends FabricRecipeProvider {
@@ -99,7 +98,7 @@ public class McwRecipes extends FabricRecipeProvider {
 
     protected void mkScW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible result, ItemConvertible firstItem)
     {
-        String recipeId = this.modid + ":" + Objects.requireNonNull(result.asItem().toString()) + "_stonecutter";
+        String recipeId = Objects.requireNonNull(result.asItem().toString()) + "_stonecutter";
         var recipeExporter = withConditions(exporter, ResourceConditions.allModsLoaded(this.mcwModid, this.originalMod));
 
         StonecuttingRecipeJsonBuilder builder = StonecuttingRecipeJsonBuilder.createStonecutting(Ingredient.ofItems(firstItem), RecipeCategory.BUILDING_BLOCKS, result)
@@ -150,7 +149,7 @@ public class McwRecipes extends FabricRecipeProvider {
                     .criterion(hasItem(planks), generator.conditionsFromItem(planks));
         }
 
-        shapedRecipeJsonBuilder.offerTo(recipeExporter, result.asItem().toString());
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
     protected void mkRpW3Items(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, ItemConvertible secondItem, ItemConvertible thirdItem, String group)
@@ -192,7 +191,7 @@ public class McwRecipes extends FabricRecipeProvider {
                     .criterion(hasItem(planks), generator.conditionsFromItem(planks));
         }
 
-        shapedRecipeJsonBuilder.offerTo(recipeExporter, result.asItem().toString());
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
     protected void mkRpW2Items(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, ItemConvertible secondItem, String group)
@@ -231,7 +230,7 @@ public class McwRecipes extends FabricRecipeProvider {
                     .criterion(hasItem(planks), generator.conditionsFromItem(planks));
         }
 
-        shapedRecipeJsonBuilder.offerTo(recipeExporter, result.asItem().toString());
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
     protected void mkRpW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, String group, String suffix)
@@ -243,7 +242,7 @@ public class McwRecipes extends FabricRecipeProvider {
                 .group(group)
                 .criterion(hasItem(planks), generator.conditionsFromItem(planks));
 
-        shapedRecipeJsonBuilder.offerTo(recipeExporter, result.asItem().toString() + suffix);
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
     protected void mkRpShapelessW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, int required, String group, String suffix)
@@ -256,6 +255,23 @@ public class McwRecipes extends FabricRecipeProvider {
 
         shapelessRecipeJsonBuilder.offerTo(recipeExporter, result.asItem().toString() + suffix);
     }
+
+    protected void mkRpShapelessW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, int require, String group)
+    {
+        var recipeExporter = withConditions(exporter, ResourceConditions.allModsLoaded(this.mcwModid, this.originalMod));
+        ShapelessRecipeJsonBuilder shapelessRecipeJsonBuilder =
+                ShapelessRecipeJsonBuilder.create(generator.itemLookup, RecipeCategory.BUILDING_BLOCKS, result, count)
+                        .input(firstItem, require)
+                        .group(group).criterion(hasItem(planks), generator.conditionsFromItem(planks));
+
+        shapelessRecipeJsonBuilder.offerTo(recipeExporter);
+    }
+
+    protected void mkRpShapelessW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, String group)
+    {
+        mkRpShapelessW1Item(generator, exporter, planks, result, count, firstItem, 1, group);
+    }
+
 
     protected void mkRpShapelessW1Item(RecipeGenerator generator, RecipeExporter exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, String group, String suffix)
     {

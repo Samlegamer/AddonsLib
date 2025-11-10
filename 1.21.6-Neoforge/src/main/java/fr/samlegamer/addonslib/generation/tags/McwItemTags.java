@@ -22,6 +22,11 @@ public abstract class McwItemTags extends ItemTagsProvider
         super(output, lookupProvider, modId);
     }
 
+    // For Compat with old and new tags system
+    public McwItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, String modId) {
+        this(output, lookupProvider, modId);
+    }
+
     public void addAllMcwTags(String modid, List<String> WOOD, List<String> STONE, List<String> LEAVE)
     {
         mcwFencesTags(modid, WOOD, LEAVE, STONE);

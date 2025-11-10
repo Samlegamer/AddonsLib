@@ -286,14 +286,41 @@ public class McwRecipes extends RecipeProvider
 
     protected void mkRpW1Item(RecipeOutput output, ItemLike planks, String[] pattern, ItemLike result, int count, ItemLike firstItem, String group)
     {
-        ConditionalRecipe.builder()
-                .condition(new AndCondition(List.of(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod))))
-                .recipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
-            .pattern(pattern[0])
-            .define('A', firstItem)
-            .group(group)
-            .unlockedBy(getHasName(planks), has(planks))::save)
-                .save(output, ResourceLocation.fromNamespaceAndPath(this.modid, BuiltInRegistries.ITEM.getKey(result.asItem()).getPath()));
+        if(pattern.length == 3)
+        {
+            ConditionalRecipe.builder()
+                    .condition(new AndCondition(List.of(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod))))
+                    .recipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
+                            .pattern(pattern[0])
+                            .pattern(pattern[1])
+                            .pattern(pattern[2])
+                            .define('A', firstItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save)
+                    .save(output, ResourceLocation.fromNamespaceAndPath(this.modid, BuiltInRegistries.ITEM.getKey(result.asItem()).getPath()));
+        }
+        else if(pattern.length == 2)
+        {
+            ConditionalRecipe.builder()
+                    .condition(new AndCondition(List.of(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod))))
+                    .recipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
+                            .pattern(pattern[0])
+                            .pattern(pattern[1])
+                            .define('A', firstItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save)
+                    .save(output, ResourceLocation.fromNamespaceAndPath(this.modid, BuiltInRegistries.ITEM.getKey(result.asItem()).getPath()));
+        }
+        else {
+            ConditionalRecipe.builder()
+                    .condition(new AndCondition(List.of(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod))))
+                    .recipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
+                            .pattern(pattern[0])
+                            .define('A', firstItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save)
+                    .save(output, ResourceLocation.fromNamespaceAndPath(this.modid, BuiltInRegistries.ITEM.getKey(result.asItem()).getPath()));
+        }
     }
 
     @Override

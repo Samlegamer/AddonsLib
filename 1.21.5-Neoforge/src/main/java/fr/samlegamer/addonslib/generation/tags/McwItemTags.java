@@ -6,26 +6,21 @@ import fr.samlegamer.addonslib.data.McwBlockIdBase;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.VanillaItemTagsProvider;
+import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
+
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
-public abstract class McwItemTags extends VanillaItemTagsProvider
+public abstract class McwItemTags extends ItemTagsProvider
 {
-    public McwItemTags(PackOutput p_275657_, CompletableFuture<HolderLookup.Provider> p_275712_, String modId, @Nullable ExistingFileHelper existingFileHelper) {
-        super(p_275657_, p_275712_, modId, existingFileHelper);
-    }
-
-    public McwItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider, String modId, ExistingFileHelper existingFileHelper) {
-        this(output, lookupProvider, modId, existingFileHelper);
+    public McwItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, String modId) {
+        super(output, lookupProvider, blockTags, modId);
     }
 
     public void addAllMcwTags(String modid, List<String> WOOD, List<String> STONE, List<String> LEAVE)
