@@ -1,20 +1,17 @@
 package fr.samlegamer.addonslib.roofs;
 
 import java.util.List;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class Roofs
@@ -98,96 +95,5 @@ public class Roofs
 				}
 			}
 		}
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void addToTab(BuildCreativeModeTabContentsEvent event, String MODID, List<String> WOOD, CreativeModeTab tab)
-	{
-		Block cherry_roof,
-		cherry_attic_roof,
-		cherry_top_roof,
-		cherry_lower_roof,
-		cherry_steep_roof,
-		cherry_upper_lower_roof,
-		cherry_upper_steep_roof,
-		cherry_planks_roof,
-		cherry_planks_attic_roof,
-		cherry_planks_top_roof,
-		cherry_planks_lower_roof,
-		cherry_planks_steep_roof,
-		cherry_planks_upper_lower_roof,
-		cherry_planks_upper_steep_roof;
-
-		if (event.getTab() == tab && ModList.get().isLoaded(modid))
-   	 	{
-			for (String i : WOOD)
-			{
-				cherry_roof = Finder.findBlock(MODID, i+"_roof");
-				cherry_attic_roof = Finder.findBlock(MODID, i + "_attic_roof");
-				cherry_top_roof = Finder.findBlock(MODID, i + "_top_roof");
-				cherry_lower_roof = Finder.findBlock(MODID, i+"_lower_roof");
-				cherry_steep_roof = Finder.findBlock(MODID, i+"_steep_roof");
-				cherry_upper_lower_roof = Finder.findBlock(MODID, i + "_upper_lower_roof");
-				cherry_upper_steep_roof = Finder.findBlock(MODID, i + "_upper_steep_roof");
-				
-	        	event.accept(cherry_roof);
-	        	event.accept(cherry_attic_roof);
-	        	event.accept(cherry_top_roof);
-	        	event.accept(cherry_lower_roof);
-	        	event.accept(cherry_steep_roof);
-	        	event.accept(cherry_upper_lower_roof);
-	        	event.accept(cherry_upper_steep_roof);
-	        	
-	        	cherry_planks_roof = Finder.findBlock(MODID, i+"_planks_roof");
-				cherry_planks_attic_roof = Finder.findBlock(MODID, i + "_planks_attic_roof");
-				cherry_planks_top_roof = Finder.findBlock(MODID, i + "_planks_top_roof");
-				cherry_planks_lower_roof = Finder.findBlock(MODID, i+"_planks_lower_roof");
-				cherry_planks_steep_roof = Finder.findBlock(MODID, i+"_planks_steep_roof");
-				cherry_planks_upper_lower_roof = Finder.findBlock(MODID, i + "_planks_upper_lower_roof");
-				cherry_planks_upper_steep_roof = Finder.findBlock(MODID, i + "_planks_upper_steep_roof");
-				
-	        	event.accept(cherry_planks_roof);
-	        	event.accept(cherry_planks_attic_roof);
-	        	event.accept(cherry_planks_top_roof);
-	        	event.accept(cherry_planks_lower_roof);
-	        	event.accept(cherry_planks_steep_roof);
-	        	event.accept(cherry_planks_upper_lower_roof);
-	        	event.accept(cherry_planks_upper_steep_roof);
-	        }
-   	 	}
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void addToTabStone(BuildCreativeModeTabContentsEvent event, String MODID, List<String> STONE, CreativeModeTab tab)
-	{
-		Block ROOF,
-		ATTIC_ROOF,
-		TOP_ROOF,
-		LOWER_ROOF,
-		STEEP_ROOF,
-		UPPER_LOWER_ROOF,
-		UPPER_STEEP_ROOF;
-
-		if (event.getTab() == tab && ModList.get().isLoaded(modid))
-   	 	{
-			for (String i : STONE)
-			{
-				ROOF = Finder.findBlock(MODID, i + "_roof");
-				ATTIC_ROOF = Finder.findBlock(MODID, i + "_attic_roof");
-				TOP_ROOF = Finder.findBlock(MODID, i + "_top_roof");
-				LOWER_ROOF = Finder.findBlock(MODID, i + "_lower_roof");
-				STEEP_ROOF = Finder.findBlock(MODID, i + "_steep_roof");
-				UPPER_LOWER_ROOF = Finder.findBlock(MODID, i + "_upper_lower_roof");
-				UPPER_STEEP_ROOF = Finder.findBlock(MODID, i + "_upper_steep_roof");
-	
-	        	event.accept(ROOF);
-	        	event.accept(ATTIC_ROOF);
-	        	event.accept(TOP_ROOF);
-	        	event.accept(LOWER_ROOF);
-	        	event.accept(STEEP_ROOF);
-	        	event.accept(UPPER_LOWER_ROOF);
-	        	event.accept(UPPER_STEEP_ROOF);
-	        }
-   	 	}
 	}
 }
