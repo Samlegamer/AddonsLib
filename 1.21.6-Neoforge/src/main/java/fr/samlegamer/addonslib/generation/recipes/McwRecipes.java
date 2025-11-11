@@ -90,7 +90,7 @@ public class McwRecipes extends RecipeProvider
 
     protected void mkScW1Item(RecipeOutput output, ItemLike result, ItemLike firstItem)
     {
-        String recipeId = this.modid + ":" + Objects.requireNonNull(result.asItem().toString()) + "_stonecutter";
+        String recipeId = Objects.requireNonNull(result.asItem().toString()) + "_stonecutter";
 
         SingleItemRecipeBuilder.stonecutting(Ingredient.of(firstItem), RecipeCategory.BUILDING_BLOCKS, result)
                 .unlockedBy(getHasName(firstItem), has(firstItem)).save(output.withConditions(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)), recipeId);
