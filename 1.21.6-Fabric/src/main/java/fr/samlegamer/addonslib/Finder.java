@@ -26,4 +26,14 @@ public class Finder
 	{
 		return Registries.BLOCK_ENTITY_TYPE.get(Identifier.of(MODID, nameTileEntity));
 	}
+
+    public static String getIdOfBlock(Block block)
+    {
+        return Registries.BLOCK.getId(block).getPath();
+    }
+
+    public static String getIdOfItem(Item item)
+    {
+        return Registries.ITEM.getId(item).getPath();
+    }
 }

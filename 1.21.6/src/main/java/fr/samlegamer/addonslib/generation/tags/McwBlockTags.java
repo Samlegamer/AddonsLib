@@ -354,7 +354,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
         {
-            if(Objects.requireNonNull(block.asItem().toString()).contains(contain))
+            if(Finder.getIdOfBlock(block).contains(contain))
             {
                 finalBlocks.add(block);
             }
@@ -367,7 +367,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
         {
-            if(Objects.requireNonNull(block.asItem().toString()).endsWith(endsWith))
+            if(Finder.getIdOfBlock(block).endsWith(endsWith))
             {
                 finalBlocks.add(block);
             }
@@ -380,7 +380,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
         {
-            if(Objects.requireNonNull(block.asItem().toString()).startsWith(startsWith))
+            if(Finder.getIdOfBlock(block).startsWith(startsWith))
             {
                 finalBlocks.add(block);
             }

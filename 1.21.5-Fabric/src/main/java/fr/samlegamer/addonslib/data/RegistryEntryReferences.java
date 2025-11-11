@@ -22,7 +22,7 @@ public class RegistryEntryReferences
         {
             Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), Bridges.desc));
         }
-        else if(name.contains("railing") && !name.contains("wall") ) {
+        else if(name.contains("railing") && !name.contains("wall")) {
             Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.railing.desc"));
         }
         else if(name.contains("balcony")) {

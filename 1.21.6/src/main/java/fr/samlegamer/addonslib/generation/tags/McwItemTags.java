@@ -118,7 +118,7 @@ public abstract class McwItemTags extends VanillaItemTagsProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.asItem().toString()).contains(contain))
+            if(Finder.getIdOfItem(block).contains(contain))
             {
                 finalBlocks.add(block);
             }
@@ -131,7 +131,7 @@ public abstract class McwItemTags extends VanillaItemTagsProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.asItem().toString()).endsWith(endsWith))
+            if(Finder.getIdOfItem(block).endsWith(endsWith))
             {
                 finalBlocks.add(block);
             }
@@ -144,7 +144,7 @@ public abstract class McwItemTags extends VanillaItemTagsProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.asItem().toString()).startsWith(startsWith))
+            if(Finder.getIdOfItem(block).startsWith(startsWith))
             {
                 finalBlocks.add(block);
             }

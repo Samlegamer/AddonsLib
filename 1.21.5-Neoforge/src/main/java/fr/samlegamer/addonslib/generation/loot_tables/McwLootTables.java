@@ -81,27 +81,28 @@ public class McwLootTables extends LootModifier
     }
 
     @Override
-    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> objectArrayList, LootContext lootContext) {
-        BlockState state = lootContext.getParameter(LootContextParams.BLOCK_STATE);
+    protected @NotNull ObjectArrayList<ItemStack> doApply(@NotNull ObjectArrayList<ItemStack> objectArrayList, LootContext lootContext) {
+        BlockState state = lootContext.hasParameter(LootContextParams.BLOCK_STATE) ? lootContext.getParameter(LootContextParams.BLOCK_STATE) : null;
 
-        if(blockSet.contains(state.getBlock()))
-        {
-            if(state.getBlock() instanceof DoorBlock)
-            {
-                try {
-                    DoubleBlockHalf half = state.getValue(DoorBlock.HALF);
-                    if(half == DoubleBlockHalf.UPPER)
-                    {
-                        objectArrayList.clear();
-                        return objectArrayList;
+        if(state != null) {
+            if (state instanceof BlockState) {
+                if (blockSet.contains(state.getBlock())) {
+                    if (state.getBlock() instanceof DoorBlock) {
+                        try {
+                            DoubleBlockHalf half = state.getValue(DoorBlock.HALF);
+                            if (half == DoubleBlockHalf.UPPER) {
+                                objectArrayList.clear();
+                                return objectArrayList;
+                            }
+                        } catch (Exception e) {
+                            AddonsLib.LOGGER.error("[McwLootTables] ERROR: Can't get the double block half of the door: {}", e.getMessage());
+                        }
                     }
-                } catch (Exception e) {
-                    AddonsLib.LOGGER.error("[McwLootTables] ERROR: Can't get the double block half of the door: {}", e.getMessage());
+
+                    objectArrayList.clear();
+                    objectArrayList.add(new ItemStack(state.getBlock(), 1));
                 }
             }
-
-            objectArrayList.clear();
-            objectArrayList.add(new ItemStack(state.getBlock(), 1));
         }
         return objectArrayList;
     }

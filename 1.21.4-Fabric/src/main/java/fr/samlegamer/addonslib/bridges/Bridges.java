@@ -1,13 +1,10 @@
 package fr.samlegamer.addonslib.bridges;
 
 import java.util.List;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.data.RegistryEntryReferences;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -88,91 +85,6 @@ public class Bridges
 				else {
 					RegistryEntryReferences.registryEntry(MODID, id, new Block(WOOD.registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MODID, id)))));
 				}
-			}
-		}
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void fuelWood(String MODID, List<String> WOOD)
-	{
-		for (String i : WOOD)
-		{
-			Block log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
-
-			log_bridge_middle = Finder.findBlock(MODID, i+"_log_bridge_middle");
-			rope_bridge = Finder.findBlock(MODID, "rope_"+i+"_bridge");
-			bridge_pier = Finder.findBlock(MODID, i+"_bridge_pier");
-			log_bridge_stair = Finder.findBlock(MODID, i+"_log_bridge_stair");
-			rope_bridge_stair = Finder.findBlock(MODID, i+"_rope_bridge_stair");
-			rail_bridge = Finder.findBlock(MODID, i+"_rail_bridge");
-
-			FuelRegistryEvents.BUILD.register((builder, context) -> {
-				builder.add(log_bridge_middle, 300);
-				builder.add(rope_bridge, 300);
-				builder.add(bridge_pier, 300);
-				builder.add(log_bridge_stair, 300);
-				builder.add(rope_bridge_stair, 300);
-				builder.add(rail_bridge, 300);
-			});
-		}
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void addToTabWood(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab) {
-		addToTabWoodModLoaded(MODID, WOOD, tab, "minecraft");
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void addToTabWoodModLoaded(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab, String modLoaded) {
-
-		var modList = FabricLoader.getInstance();
-		if (modList.isModLoaded(modid) && modList.isModLoaded(modLoaded)) {
-			for (String i : WOOD) {
-				final Block log_bridge_middle = Finder.findBlock(MODID, i + "_log_bridge_middle");
-				final Block rope_bridge = Finder.findBlock(MODID, "rope_" + i + "_bridge");
-				final Block bridge_pier = Finder.findBlock(MODID, i + "_bridge_pier");
-				final Block log_bridge_stair = Finder.findBlock(MODID, i + "_log_bridge_stair");
-				final Block rope_bridge_stair = Finder.findBlock(MODID, i + "_rope_bridge_stair");
-				final Block rail_bridge = Finder.findBlock(MODID, i + "_rail_bridge");
-
-				ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
-					content.add(log_bridge_middle);
-					content.add(rope_bridge);
-					content.add(bridge_pier);
-					content.add(log_bridge_stair);
-					content.add(rope_bridge_stair);
-					content.add(rail_bridge);
-				});
-			}
-		}
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void addToTabStone(String MODID, List<String> ROCK, RegistryKey<ItemGroup> tab)
-	{
-		addToTabStoneModLoaded(MODID, ROCK, tab, "minecraft");
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void addToTabStoneModLoaded(String MODID, List<String> ROCK, RegistryKey<ItemGroup> tab, String modLoaded)
-	{
-		var modList = FabricLoader.getInstance();
-
-		if(modList.isModLoaded(modid) && modList.isModLoaded(modLoaded))
-		{
-			for (String i : ROCK)
-			{
-				final Block stone_bridge = Finder.findBlock(MODID, i+"_bridge");
-				final Block stone_bridge_pier = Finder.findBlock(MODID, i+"_bridge_pier");
-				final Block stone_bridge_stair = Finder.findBlock(MODID, i+"_bridge_stair");
-				final Block balustrade_stone_bridge = Finder.findBlock(MODID, "balustrade_"+i+"_bridge");
-
-				ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
-					content.add(stone_bridge);
-					content.add(stone_bridge_pier);
-					content.add(stone_bridge_stair);
-					content.add(balustrade_stone_bridge);
-				});
 			}
 		}
 	}

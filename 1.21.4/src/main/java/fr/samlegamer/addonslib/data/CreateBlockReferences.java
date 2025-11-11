@@ -42,7 +42,7 @@ public class CreateBlockReferences
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
         Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix().setId(ITEMS_REGISTRY.key(name));
-        if(name.contains("railing")) {
+        if(name.contains("railing") && !name.contains("wall")) {
             ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), properties, "mcwstairs.railing.desc"));
         }
         else if(name.contains("balcony")) {

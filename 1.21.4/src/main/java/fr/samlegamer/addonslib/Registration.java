@@ -2,6 +2,8 @@ package fr.samlegamer.addonslib;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+
+import fr.samlegamer.addonslib.data.ModType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -56,7 +58,18 @@ public final class Registration
                 .title(Component.translatable(MODID+"."+id)).build());
 	}
 
-	/**
+    public static ModType[] getAllModTypeWood()
+    {
+        return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES, ModType.FURNITURES,
+                ModType.WINDOWS, ModType.DOORS, ModType.TRAPDOORS, ModType.PATHS, ModType.STAIRS};
+    }
+
+    public static ModType[] getAllModTypeStone()
+    {
+        return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+    }
+
+    /**
 	 * register
 	 */
 	public static void init(FMLJavaModLoadingContext context, DeferredRegister<Block> b, DeferredRegister<Item> i, DeferredRegister<CreativeModeTab> t)
