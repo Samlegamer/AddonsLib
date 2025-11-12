@@ -39,4 +39,14 @@ public class Finder
 		}
 		return BlockEntityType.BEEHIVE;
 	}
+
+    public static String getIdOfBlock(Block block)
+    {
+        return BuiltInRegistries.BLOCK.getKey(block).getPath();
+    }
+
+    public static String getIdOfItem(Item item)
+    {
+        return BuiltInRegistries.ITEM.getKey(item).getPath();
+    }
 }

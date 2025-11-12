@@ -41,11 +41,11 @@ public class CreateBlockReferences
         }
     }
 
-    public static DeferredBlock<Block> createBlockStone(String name, Function<ResourceLocation, ? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
+    public static void createBlockStone(String name, Function<ResourceLocation, ? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
         DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
         Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix();
-        if(name.contains("railing")) {
+        if(name.contains("railing") && !name.contains("wall")) {
             ITEMS_REGISTRY.register(name, registryName -> new BlockItemInfo(block.get(), properties.setId(ResourceKey.create(Registries.ITEM, registryName)), "mcwstairs.railing.desc"));
         }
         else if(name.contains("balcony")) {
@@ -57,6 +57,5 @@ public class CreateBlockReferences
         else {
             ITEMS_REGISTRY.register(name, registryName -> new BlockItem(block.get(), properties.setId(ResourceKey.create(Registries.ITEM, registryName))));
         }
-        return block;
     }
 }
