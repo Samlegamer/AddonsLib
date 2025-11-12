@@ -58,7 +58,18 @@ public final class Registration
                 .title(Component.translatable(MODID+"."+id)).build());
 	}
 
-	/**
+    public static ModType[] getAllModTypeWood()
+    {
+        return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES, ModType.FURNITURES,
+                ModType.WINDOWS, ModType.DOORS, ModType.TRAPDOORS, ModType.PATHS, ModType.STAIRS};
+    }
+
+    public static ModType[] getAllModTypeStone()
+    {
+        return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+    }
+
+    /**
 	 * register
 	 */
 	public static void init(FMLJavaModLoadingContext context, DeferredRegister<Block> b, DeferredRegister<Item> i, DeferredRegister<CreativeModeTab> t)
@@ -68,18 +79,6 @@ public final class Registration
 		i.register(bus);
 		t.register(bus);
 	}
-
-	public static ModType[] getAllModTypeWood()
-	{
-		return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES, ModType.FURNITURES,
-				ModType.WINDOWS, ModType.DOORS, ModType.TRAPDOORS, ModType.PATHS, ModType.STAIRS};
-	}
-
-	public static ModType[] getAllModTypeStone()
-	{
-		return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
-	}
-
 
 	public static Block getField(String path, BlockBehaviour.Properties prop, Class<?>[] params, Object... values)
 	{

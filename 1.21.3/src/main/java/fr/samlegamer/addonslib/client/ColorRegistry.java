@@ -32,19 +32,19 @@ public class ColorRegistry
 			event.register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getAverageFoliageColor(view, pos) : FoliageColor.get(0.5D, 1.0D), hedges);
 		}
 	}
-	
-	@OnlyIn(value = Dist.CLIENT)
-	public void colorsItem(RegisterColorHandlersEvent.Item event)
-	{
-		for(String i : NoColorLeaves)
-		{
-			Block hedges = ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath(this.MODID, i+"_hedge"));
-			event.register((stack, tintIndex) -> {
-	            Block block = ((BlockItem) stack.getItem()).getBlock();
-	            return event.getBlockColors().getColor(block.defaultBlockState(), null, null, tintIndex);
-	        }, hedges);
-		}
-	}
+
+    @OnlyIn(value = Dist.CLIENT)
+    public void colorsItem(RegisterColorHandlersEvent.Item event)
+    {
+        for(String i : NoColorLeaves)
+        {
+            Block hedges = ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath(this.MODID, i+"_hedge"));
+            event.register((stack, tintIndex) -> {
+                Block block = ((BlockItem) stack.getItem()).getBlock();
+                return event.getBlockColors().getColor(block.defaultBlockState(), null, null, tintIndex);
+            }, hedges);
+        }
+    }
 
 	public List<String> getNoColorLeaves()
 	{

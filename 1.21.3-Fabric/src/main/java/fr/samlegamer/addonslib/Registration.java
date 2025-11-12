@@ -9,8 +9,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSetType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
 
 /**
  * Used for easy registries

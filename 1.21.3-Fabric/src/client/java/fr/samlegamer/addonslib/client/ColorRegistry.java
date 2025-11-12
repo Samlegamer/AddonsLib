@@ -29,16 +29,16 @@ public class ColorRegistry
 			ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> FoliageColors.getDefaultColor(), hedges);
 		}
 	}
-	
-	@Environment(EnvType.CLIENT)
-	public void colorsItem()
-	{
-		for(String i : NoColorLeaves)
-		{
-			Block hedges = Finder.findBlock(this.MODID, i+"_hedge");
-			ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getDefaultColor(), hedges);
-		}
-	}
+
+    @Environment(EnvType.CLIENT)
+    public void colorsItem()
+    {
+        for(String i : NoColorLeaves)
+        {
+            Block hedges = Finder.findBlock(this.MODID, i+"_hedge");
+            ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getDefaultColor(), hedges);
+        }
+    }
 
 	public List<String> getNoColorLeaves()
 	{
