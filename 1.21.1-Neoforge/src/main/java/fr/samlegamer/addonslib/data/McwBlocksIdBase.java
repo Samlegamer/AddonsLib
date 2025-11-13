@@ -137,7 +137,9 @@ public class McwBlocksIdBase
             new BlockId("stripped_%material%_cupboard_counter", "com.mcwfurnitures.kikoz.objects.counters.CupboardCounter"),
             new BlockId("stripped_%material%_kitchen_cabinet", "com.mcwfurnitures.kikoz.objects.cabinets.CabinetHinge"),
             new BlockId("stripped_%material%_double_kitchen_cabinet", "com.mcwfurnitures.kikoz.objects.cabinets.Cabinet"),
-            new BlockId("stripped_%material%_glass_kitchen_cabinet", "com.mcwfurnitures.kikoz.objects.cabinets.Cabinet")
+            new BlockId("stripped_%material%_glass_kitchen_cabinet", "com.mcwfurnitures.kikoz.objects.cabinets.Cabinet"),
+            new BlockId("%material%_kitchen_sink", "com.mcwfurnitures.kikoz.objects.counters.SinkCounter"),
+            new BlockId("stripped_%material%_kitchen_sink", "com.mcwfurnitures.kikoz.objects.counters.SinkCounter")
     ));
 
     public static final McwBlockIdBase PATHS_WOOD_BLOCKS = new McwBlockIdBase(Paths.modid, List.of(

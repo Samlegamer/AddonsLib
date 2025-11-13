@@ -6,7 +6,6 @@ import java.util.List;
 
 import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.fml.ModList;
