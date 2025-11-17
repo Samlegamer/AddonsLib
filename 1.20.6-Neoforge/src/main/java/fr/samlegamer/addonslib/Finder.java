@@ -25,4 +25,14 @@ public class Finder
 	{
 		return BuiltInRegistries.BLOCK_ENTITY_TYPE.get(new ResourceLocation(MODID, nameTileEntity));
 	}
+
+    public static String getIdOfBlock(Block block)
+    {
+        return BuiltInRegistries.BLOCK.getKey(block).getPath();
+    }
+
+    public static String getIdOfItem(Item item)
+    {
+        return BuiltInRegistries.ITEM.getKey(item).getPath();
+    }
 }
