@@ -45,22 +45,19 @@ public class Roofs
 
 		for (String i : set) {
 			for (BlockId blockId : McwBlocksIdBase.ROOFS_WOOD_BLOCKS.blocks()) {
-				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+                String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-				if(blockId.reflectedLocation().contains("StairsBlock")) {
-					CreateBlockReferences.createBlock(id, () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD), block, item);
-				}
-				else if(isModMcwLoaded) {
-					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
-						CreateBlockReferences.createBlock(id, () ->
-								Registration.getBlocksField(blockId.reflectedLocation(), WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
-					} else {
-						CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item);
-					}
-				}
-				else {
-					CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item);
-				}
+                if(isModMcwLoaded) {
+                    if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep") || blockId.reflectedLocation().contains("BaseRoof")) {
+                        CreateBlockReferences.createBlock(id, () ->
+                                Registration.getBlocksField(blockId.reflectedLocation(), WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item);
+                    } else {
+                        CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item);
+                    }
+                }
+                else {
+                    CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item);
+                }
 			}
 		}
 	}
@@ -76,24 +73,18 @@ public class Roofs
 
 		for (String i : rock) {
 			for (BlockId blockId : McwBlocksIdBase.ROOFS_STONE_BLOCKS.blocks()) {
-				final RegistryObject<Block> blockObj;
-				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+                String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-				if (blockId.reflectedLocation().contains("StairsBlock")) {
-					blockObj = CreateBlockReferences.createBlockStone(id, () ->
-							new StairBlock(Blocks.COBBLESTONE.defaultBlockState(), STONE), block, item);
-				}
-				else if(isModMcwLoaded) {
-					final Block blockRef;
-					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
-						blockObj = CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE, Blocks.COBBLESTONE.defaultBlockState()), block, item);
-					} else {
-						blockObj = CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item);
-					}
-				}
-				else {
-					blockObj = CreateBlockReferences.createBlockStone(id, () -> new Block(STONE), block, item);
-				}
+                if(isModMcwLoaded) {
+                    if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep") || blockId.reflectedLocation().contains("BaseRoof")) {
+                        CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE, Blocks.COBBLESTONE.defaultBlockState()), block, item);
+                    } else {
+                        CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item);
+                    }
+                }
+                else {
+                    CreateBlockReferences.createBlockStone(id, () -> new Block(STONE), block, item);
+                }
 			}
 		}
 	}

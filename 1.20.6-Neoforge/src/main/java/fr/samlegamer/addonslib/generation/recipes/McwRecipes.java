@@ -23,7 +23,7 @@ public class McwRecipes extends RecipeProvider
     private final String modid;
     private final String mcwModid;
     private final String originalMod;
-    private static PackOutput output;
+    private final PackOutput output;
 
     public McwRecipes(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pRegistries, String modid, String mcwModid, String originalMod) {
         super(pOutput, pRegistries);

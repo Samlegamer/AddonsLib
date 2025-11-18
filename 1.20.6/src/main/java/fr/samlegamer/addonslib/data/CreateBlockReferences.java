@@ -38,7 +38,7 @@ public class CreateBlockReferences
         }
     }
 
-    public static RegistryObject<Block> createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY)
+    public static void createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY)
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
         Item.Properties properties = new Item.Properties();
@@ -54,6 +54,5 @@ public class CreateBlockReferences
         else {
             ITEMS_REGISTRY.register(name, () -> new BlockItem(block.get(), properties));
         }
-        return block;
     }
 }

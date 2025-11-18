@@ -42,26 +42,23 @@ public class Roofs
 	public static void setRegistrationWoodModLoaded(List<String> set, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
 		final BlockBehaviour.Properties WOOD = prop;
-		boolean isModLoaded = ModList.get().isLoaded(modid);
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
 
 		for (String i : set) {
 			for (BlockId blockId : McwBlocksIdBase.ROOFS_WOOD_BLOCKS.blocks()) {
-				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+                String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-				if(blockId.reflectedLocation().contains("StairBlock")) {
-					CreateBlockReferences.createBlock(id, registryName -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
-				}
-				else if(isModLoaded) {
-					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
-						CreateBlockReferences.createBlock(id, registryName ->
-								Registration.getBlocksField(blockId.reflectedLocation(), WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName)), Blocks.OAK_PLANKS.defaultBlockState()), block, item);
-					} else {
-						CreateBlockReferences.createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
-					}
-				}
-				else {
-					CreateBlockReferences.createBlock(id, registryName -> new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
-				}
+                if(isModMcwLoaded) {
+                    if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep") || blockId.reflectedLocation().contains("BaseRoof")) {
+                        CreateBlockReferences.createBlock(id, registryName ->
+                                Registration.getBlocksField(blockId.reflectedLocation(), WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName)), Blocks.OAK_PLANKS.defaultBlockState()), block, item);
+                    } else {
+                        CreateBlockReferences.createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+                    }
+                }
+                else {
+                    CreateBlockReferences.createBlock(id, registryName -> new Block(WOOD.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+                }
 			}
 		}
 	}
@@ -72,27 +69,22 @@ public class Roofs
 	public static void setRegistrationRockModLoaded(List<String> rock, DeferredRegister.Blocks block, DeferredRegister.Items item, BlockBehaviour.Properties prop)
 	{
 		final BlockBehaviour.Properties STONE = prop;
-		boolean isModLoaded = ModList.get().isLoaded(modid);
+		boolean isModMcwLoaded = ModList.get().isLoaded(modid);
 
 		for (String i : rock) {
 			for (BlockId blockId : McwBlocksIdBase.ROOFS_STONE_BLOCKS.blocks()) {
-				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+                String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-				if (blockId.reflectedLocation().contains("StairBlock")) {
-					CreateBlockReferences.createBlockStone(id, registryName ->
-							new StairBlock(Blocks.COBBLESTONE.defaultBlockState(), STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
-				}
-				else if(isModLoaded) {
-					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
-						CreateBlockReferences.createBlockStone(id, registryName ->
-								Registration.getBlocksField(blockId.reflectedLocation(), STONE.setId(ResourceKey.create(Registries.BLOCK, registryName)), Blocks.COBBLESTONE.defaultBlockState()), block, item);
-					} else {
-						CreateBlockReferences.createBlockStone(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
-					}
-				}
-				else {
-					CreateBlockReferences.createBlockStone(id, registryName -> new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
-				}
+                if(isModMcwLoaded) {
+                    if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep") || blockId.reflectedLocation().contains("BaseRoof")) {
+                        CreateBlockReferences.createBlockStone(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), STONE.setId(ResourceKey.create(Registries.BLOCK, registryName)), Blocks.COBBLESTONE.defaultBlockState()), block, item);
+                    } else {
+                        CreateBlockReferences.createBlockStone(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation(), STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+                    }
+                }
+                else {
+                    CreateBlockReferences.createBlockStone(id, registryName -> new Block(STONE.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
+                }
 			}
 		}
 	}
