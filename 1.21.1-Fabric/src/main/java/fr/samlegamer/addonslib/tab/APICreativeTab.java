@@ -5,8 +5,6 @@ import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.McwBlockIdBase;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.data.ModType;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
@@ -15,7 +13,6 @@ import net.minecraft.registry.RegistryKey;
 
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
 public class APICreativeTab
 {
     public static void initAllWood(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab, ModType... type)

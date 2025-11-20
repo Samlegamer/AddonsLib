@@ -102,7 +102,7 @@ public class McwLootTables extends LootModifier
                     generatedLoot.add(new ItemStack(state.getBlock(), 1));
                 }
             }
-            }
+        }
         return generatedLoot;
     }
 
