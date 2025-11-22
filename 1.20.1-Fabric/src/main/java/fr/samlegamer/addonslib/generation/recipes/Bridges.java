@@ -72,7 +72,7 @@ class Bridges extends AbstractType {
     }
 
     @Override
-    public void buildStone(Consumer<RecipeJsonProvider> exporter, List<String> MAT, List<McwStoneMat> stoneMat)
+    public void buildStone(Consumer<RecipeJsonProvider> consumer, List<String> MAT, List<McwStoneMat> stoneMat)
     {
         if(MAT.size() == stoneMat.size()) {
             for (int i = 0; i < MAT.size(); i++) {
@@ -80,13 +80,15 @@ class Bridges extends AbstractType {
                 Block wall = stoneMat.get(i).getWall();
                 Block slab = stoneMat.get(i).getSlab();
 
-                Block log_bridge = Finder.findBlock(modid, MAT.get(i) + "_bridge");
-                Block pier_bridge = Finder.findBlock(modid, MAT.get(i) + "_bridge_pier");
-                Block log_bridge_stair = Finder.findBlock(modid, MAT.get(i) + "_bridge_stair");
+                Block stone_bridge = Finder.findBlock(modid, MAT.get(i) + "_bridge");
+                Block stone_pier_bridge = Finder.findBlock(modid, MAT.get(i) + "_bridge_pier");
+                Block stone_bridge_stair = Finder.findBlock(modid, MAT.get(i) + "_bridge_stair");
+                Block balustrade_stone_bridge = Finder.findBlock(modid, "balustrade_" + MAT.get(i) + "_bridge");
 
-                pier(exporter, pier_bridge, stoneB, wall);
-                log_bridge(exporter, log_bridge, stoneB, slab, wall);
-                log_bridge_stair(exporter, log_bridge_stair, stoneB, log_bridge);
+                pier(consumer, stone_pier_bridge, stoneB, wall);
+                log_bridge(consumer, stone_bridge, stoneB, slab, wall);
+                log_bridge_stair(consumer, stone_bridge_stair, stoneB, stone_bridge);
+                mcwRecipes.mkRpW2Items(consumer, stoneB, new String[]{"BBB", "AAA"}, balustrade_stone_bridge, 5, slab, wall, "balustrade_bridges");
             }
         }
     }
