@@ -1,17 +1,14 @@
 package fr.samlegamer.addonslib.path;
 
 import java.util.List;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 
@@ -49,27 +46,5 @@ public class Paths
 				}
 			}
 		}
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void addToTab(CreativeModeTabEvent.BuildContents event, String MODID, List<String> WOOD, CreativeModeTab tab)
-	{
-		addToTabModLoaded(event, MODID, WOOD, tab, "minecraft");
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void addToTabModLoaded(CreativeModeTabEvent.BuildContents event, String MODID, List<String> WOOD, CreativeModeTab tab, String modLoaded)
-	{
-		if (event.getTab() == tab && ModList.get().isLoaded(modid) && ModList.get().isLoaded(modLoaded))
-   	 	{
-			for (String i : WOOD)
-			{					
-				Block planks_path;
-		    	
-				planks_path = Finder.findBlock(MODID, i+"_planks_path");
-				
-				event.accept(planks_path);
-	        }
-   	 	}
 	}
 }
