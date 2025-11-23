@@ -11,7 +11,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.AndCondition;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import java.util.List;
 import java.util.Objects;
@@ -102,7 +101,7 @@ public class McwRecipes extends RecipeProvider
     {
         String recipeId = this.modid + ":" + Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(result.asItem()).getPath()) + "_stonecutter";
         ConditionalRecipe.builder()
-                .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                 .addRecipe(SingleItemRecipeBuilder.stonecutting(Ingredient.of(firstItem), RecipeCategory.BUILDING_BLOCKS, result)
                         .unlockedBy(getHasName(firstItem), has(firstItem))::save).generateAdvancement()
                 .build(output, ResourceLocation.parse(recipeId));
@@ -113,7 +112,7 @@ public class McwRecipes extends RecipeProvider
         if(pattern.length == 3)
         {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                             .pattern(pattern[0])
                             .pattern(pattern[1])
@@ -129,7 +128,7 @@ public class McwRecipes extends RecipeProvider
         else if(pattern.length == 2)
         {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                             .pattern(pattern[0])
                             .pattern(pattern[1])
@@ -144,7 +143,7 @@ public class McwRecipes extends RecipeProvider
         else
         {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                             .pattern(pattern[0])
                             .define('A', firstItem)
@@ -162,7 +161,7 @@ public class McwRecipes extends RecipeProvider
         if(pattern.length == 3)
         {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                     .pattern(pattern[0])
                     .pattern(pattern[1])
@@ -177,7 +176,7 @@ public class McwRecipes extends RecipeProvider
         else if(pattern.length == 2)
         {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                             .pattern(pattern[0])
                             .pattern(pattern[1])
@@ -191,7 +190,7 @@ public class McwRecipes extends RecipeProvider
         else
         {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                             .pattern(pattern[0])
                             .define('A', firstItem)
@@ -208,7 +207,7 @@ public class McwRecipes extends RecipeProvider
         if(pattern.length == 3)
         {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                                     .pattern(pattern[0])
                                     .pattern(pattern[1])
@@ -222,7 +221,7 @@ public class McwRecipes extends RecipeProvider
         else if(pattern.length == 2)
         {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                             .pattern(pattern[0])
                             .pattern(pattern[1])
@@ -235,7 +234,7 @@ public class McwRecipes extends RecipeProvider
         else
         {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                             .pattern(pattern[0])
                             .define('A', firstItem)
@@ -249,7 +248,7 @@ public class McwRecipes extends RecipeProvider
     protected void mkRpW1Item(Consumer<FinishedRecipe> output, ItemLike planks, String[] pattern, ItemLike result, int count, ItemLike firstItem, String group, String suffix)
     {
         ConditionalRecipe.builder()
-                .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                 .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                 .pattern(pattern[0])
                 .define('A', firstItem)
@@ -261,7 +260,7 @@ public class McwRecipes extends RecipeProvider
     protected void mkRpShapelessW1Item(Consumer<FinishedRecipe> output, ItemLike planks, ItemLike result, int count, ItemLike firstItem, int required, String group, String suffix)
     {
         ConditionalRecipe.builder()
-                .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                 .addRecipe(shapeless(RecipeCategory.BUILDING_BLOCKS, result, count)
                 .requires(firstItem, required)
                 .group(group)
@@ -272,7 +271,7 @@ public class McwRecipes extends RecipeProvider
     protected void mkRpShapelessW1Item(Consumer<FinishedRecipe> output, ItemLike planks, ItemLike result, int count, ItemLike firstItem, int required, String group)
     {
         ConditionalRecipe.builder()
-                .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                 .addRecipe(shapeless(RecipeCategory.BUILDING_BLOCKS, result, count)
                 .requires(firstItem, required)
                 .group(group)
@@ -295,7 +294,7 @@ public class McwRecipes extends RecipeProvider
         if(pattern.length == 3)
         {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                             .pattern(pattern[0])
                             .pattern(pattern[1])
@@ -308,7 +307,7 @@ public class McwRecipes extends RecipeProvider
         else if(pattern.length == 2)
         {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                             .pattern(pattern[0])
                             .pattern(pattern[1])
@@ -319,7 +318,7 @@ public class McwRecipes extends RecipeProvider
         }
         else {
             ConditionalRecipe.builder()
-                    .addCondition(new AndCondition(new ModLoadedCondition(this.mcwModid), new ModLoadedCondition(this.originalMod)))
+                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
                     .addRecipe(shaped(RecipeCategory.BUILDING_BLOCKS, result, count)
                             .pattern(pattern[0])
                             .define('A', firstItem)

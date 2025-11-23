@@ -136,7 +136,9 @@ public class McwBlocksIdBase
             new BlockId("stripped_%material%_cupboard_counter", "com.mcwfurnitures.kikoz.objects.counters.CupboardCounter"),
             new BlockId("stripped_%material%_kitchen_cabinet", "com.mcwfurnitures.kikoz.objects.cabinets.CabinetHinge"),
             new BlockId("stripped_%material%_double_kitchen_cabinet", "com.mcwfurnitures.kikoz.objects.cabinets.Cabinet"),
-            new BlockId("stripped_%material%_glass_kitchen_cabinet", "com.mcwfurnitures.kikoz.objects.cabinets.Cabinet")
+            new BlockId("stripped_%material%_glass_kitchen_cabinet", "com.mcwfurnitures.kikoz.objects.cabinets.Cabinet"),
+            new BlockId("%material%_kitchen_sink", "com.mcwfurnitures.kikoz.objects.counters.SinkCounter"),
+            new BlockId("stripped_%material%_kitchen_sink", "com.mcwfurnitures.kikoz.objects.counters.SinkCounter")
     ));
 
     public static final McwBlockIdBase PATHS_WOOD_BLOCKS = new McwBlockIdBase(Paths.modid, List.of(
@@ -144,28 +146,28 @@ public class McwBlocksIdBase
     ));
 
     public static final McwBlockIdBase ROOFS_WOOD_BLOCKS = new McwBlockIdBase(Roofs.modid, List.of(
-            new BlockId("%material%_roof", "net.minecraft.block.StairsBlock"),
+            new BlockId("%material%_roof", "com.mcwroofs.kikoz.objects.roofs.BaseRoof"),
             new BlockId("%material%_attic_roof", "com.mcwroofs.kikoz.objects.roofs.RoofGlass"),
             new BlockId("%material%_top_roof", "com.mcwroofs.kikoz.objects.roofs.RoofTopNew"),
-            new BlockId("%material%_lower_roof", "net.minecraft.block.StairsBlock"),
-            new BlockId("%material%_steep_roof", "net.minecraft.block.StairsBlock"),
+            new BlockId("%material%_lower_roof", "com.mcwroofs.kikoz.objects.roofs.BaseRoof"),
+            new BlockId("%material%_steep_roof", "com.mcwroofs.kikoz.objects.roofs.SteepRoof"),
             new BlockId("%material%_upper_lower_roof", "com.mcwroofs.kikoz.objects.roofs.Lower"),
             new BlockId("%material%_upper_steep_roof", "com.mcwroofs.kikoz.objects.roofs.Steep"),
-            new BlockId("%material%_planks_roof", "net.minecraft.block.StairsBlock"),
+            new BlockId("%material%_planks_roof", "com.mcwroofs.kikoz.objects.roofs.BaseRoof"),
             new BlockId("%material%_planks_attic_roof", "com.mcwroofs.kikoz.objects.roofs.RoofGlass"),
             new BlockId("%material%_planks_top_roof", "com.mcwroofs.kikoz.objects.roofs.RoofTopNew"),
-            new BlockId("%material%_planks_lower_roof", "net.minecraft.block.StairsBlock"),
-            new BlockId("%material%_planks_steep_roof", "net.minecraft.block.StairsBlock"),
+            new BlockId("%material%_planks_lower_roof", "com.mcwroofs.kikoz.objects.roofs.BaseRoof"),
+            new BlockId("%material%_planks_steep_roof", "com.mcwroofs.kikoz.objects.roofs.SteepRoof"),
             new BlockId("%material%_planks_upper_lower_roof", "com.mcwroofs.kikoz.objects.roofs.Lower"),
             new BlockId("%material%_planks_upper_steep_roof", "com.mcwroofs.kikoz.objects.roofs.Steep")
     ));
 
     public static final McwBlockIdBase ROOFS_STONE_BLOCKS = new McwBlockIdBase(Roofs.modid, List.of(
-            new BlockId("%material%_roof", "net.minecraft.block.StairsBlock"),
+            new BlockId("%material%_roof", "com.mcwroofs.kikoz.objects.roofs.BaseRoof"),
             new BlockId("%material%_attic_roof", "com.mcwroofs.kikoz.objects.roofs.RoofGlass"),
             new BlockId("%material%_top_roof", "com.mcwroofs.kikoz.objects.roofs.RoofTopNew"),
-            new BlockId("%material%_lower_roof", "net.minecraft.block.StairsBlock"),
-            new BlockId("%material%_steep_roof", "net.minecraft.block.StairsBlock"),
+            new BlockId("%material%_lower_roof", "com.mcwroofs.kikoz.objects.roofs.BaseRoof"),
+            new BlockId("%material%_steep_roof", "com.mcwroofs.kikoz.objects.roofs.SteepRoof"),
             new BlockId("%material%_upper_lower_roof", "com.mcwroofs.kikoz.objects.roofs.Lower"),
             new BlockId("%material%_upper_steep_roof", "com.mcwroofs.kikoz.objects.roofs.Steep")
     ));

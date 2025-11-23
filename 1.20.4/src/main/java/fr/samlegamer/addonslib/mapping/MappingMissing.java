@@ -426,7 +426,7 @@ public class MappingMissing
 	
 	protected static void addMissingBlock(MissingMappingsEvent event, String oldModid, String newModid, String nameMissing, String nameNew)
 	{
-		Block remapped = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(newModid, nameNew));
+		Block remapped = ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath(newModid, nameNew));
 
         if (remapped != null)
         {
@@ -442,7 +442,7 @@ public class MappingMissing
 	
 	protected static void addMissingItem(MissingMappingsEvent event, String oldModid, String newModid, String nameMissing, String nameNew)
 	{
-		Item remapped = ForgeRegistries.ITEMS.getValue(new ResourceLocation(newModid, nameNew));
+		Item remapped = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath(newModid, nameNew));
 		
 		if (remapped != null)
         {
