@@ -75,7 +75,6 @@ public class Roofs
 
 		for (String i : rock) {
 			for (BlockId blockId : McwBlocksIdBase.ROOFS_STONE_BLOCKS.blocks()) {
-				final RegistryObject<Block> blockObj;
                 String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
                 if(isModMcwLoaded) {

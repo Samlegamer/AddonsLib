@@ -9,11 +9,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 
 public class Roofs
 {
@@ -47,22 +45,19 @@ public class Roofs
 
 		for (String i : set) {
 			for (BlockId blockId : McwBlocksIdBase.ROOFS_WOOD_BLOCKS.blocks()) {
-				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+                String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-				if(blockId.reflectedLocation().contains("StairsBlock")) {
-					CreateBlockReferences.createBlock(id, () -> new StairBlock(Blocks.OAK_PLANKS::defaultBlockState, WOOD), block, item, tab, isModMcwLoaded, isModBaseLoaded);
-				}
-				else if(isModMcwLoaded) {
-					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
-						CreateBlockReferences.createBlock(id, () ->
-								Registration.getBlocksField(blockId.reflectedLocation(), WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
-					} else {
-						CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item, tab, true, isModBaseLoaded);
-					}
-				}
-				else {
-					CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item, tab, false, isModBaseLoaded);
-				}
+                if(isModMcwLoaded) {
+                    if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep") || blockId.reflectedLocation().contains("BaseRoof")) {
+                        CreateBlockReferences.createBlock(id, () ->
+                                Registration.getBlocksField(blockId.reflectedLocation(), WOOD, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
+                    } else {
+                        CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), WOOD), block, item, tab, true, isModBaseLoaded);
+                    }
+                }
+                else {
+                    CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item, tab, false, isModBaseLoaded);
+                }
 			}
 		}
 	}
@@ -79,27 +74,18 @@ public class Roofs
 
 		for (String i : rock) {
 			for (BlockId blockId : McwBlocksIdBase.ROOFS_STONE_BLOCKS.blocks()) {
-				final RegistryObject<Block> blockObj;
-				String id = McwBlocksIdBase.replacement(blockId.id(), i);
+                String id = McwBlocksIdBase.replacement(blockId.id(), i);
 
-				if (blockId.reflectedLocation().contains("StairsBlock")) {
-					blockObj = CreateBlockReferences.createBlockStone(id, () ->
-							new StairBlock(Blocks.COBBLESTONE::defaultBlockState, STONE), block, item, tab, isModMcwLoaded, isModBaseLoaded);
-				}
-				else if(isModMcwLoaded) {
-					final Block blockRef;
-					if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep")) {
-						blockObj = CreateBlockReferences.createBlockStone(id, () ->
-								Registration.getBlocksField(blockId.reflectedLocation(), STONE, Blocks.COBBLESTONE.defaultBlockState())
-								, block, item, tab, true, isModBaseLoaded);
-					} else {
-						blockObj = CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE)
-								, block, item, tab, true, isModBaseLoaded);
-					}
-				}
-				else {
-					blockObj = CreateBlockReferences.createBlockStone(id, () -> new Block(STONE), block, item, tab, false, isModBaseLoaded);
-				}
+                if(isModMcwLoaded) {
+                    if (blockId.reflectedLocation().contains("Lower") || blockId.reflectedLocation().contains("Steep") || blockId.reflectedLocation().contains("BaseRoof")) {
+                        CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE, Blocks.COBBLESTONE.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
+                    } else {
+                        CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation(), STONE), block, item, tab, true, isModBaseLoaded);
+                    }
+                }
+                else {
+                    CreateBlockReferences.createBlockStone(id, () -> new Block(STONE), block, item, tab, false, isModBaseLoaded);
+                }
 			}
 		}
 	}

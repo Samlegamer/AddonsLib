@@ -15,10 +15,22 @@ import net.minecraftforge.registries.ForgeRegistries;
 /**
  * Used for easy registries
  */
-public class Registration
+public final class Registration
 {
 	private Registration() {}
-	/**
+
+    public static ModType[] getAllModTypeWood()
+    {
+        return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES, ModType.FURNITURES,
+                ModType.STAIRS, ModType.PATHS, ModType.TRAPDOORS, ModType.DOORS, ModType.WINDOWS};
+    }
+
+    public static ModType[] getAllModTypeStone()
+    {
+        return new ModType[] {ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+    }
+
+    /**
 	 * Block
 	 */
 	public static DeferredRegister<Block> blocks(String MODID)
@@ -42,17 +54,6 @@ public class Registration
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		b.register(bus);
 		i.register(bus);
-	}
-
-	public static ModType[] getAllModTypeWood()
-	{
-		return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES, ModType.FURNITURES,
-				ModType.STAIRS, ModType.PATHS, ModType.TRAPDOORS, ModType.DOORS, ModType.WINDOWS};
-	}
-
-	public static ModType[] getAllModTypeStone()
-	{
-		return new ModType[] {ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
 	}
 
 	public static Block getField(String path, BlockBehaviour.Properties prop, Class<?>[] params, Object... values)
