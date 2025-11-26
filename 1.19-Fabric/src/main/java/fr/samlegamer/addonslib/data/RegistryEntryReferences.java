@@ -20,7 +20,7 @@ public class RegistryEntryReferences
             {
                 Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItemInfo(b, new Item.Settings().group(tab), Bridges.desc));
             }
-            else if(name.contains("railing")) {
+            else if(name.contains("railing") && !name.contains("wall")) {
                 Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItemInfo(b, new Item.Settings().group(tab), "mcwstairs.railing.desc"));
             }
             else if(name.contains("balcony")) {

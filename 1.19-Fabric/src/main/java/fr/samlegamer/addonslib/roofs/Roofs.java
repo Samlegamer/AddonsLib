@@ -1,12 +1,10 @@
 package fr.samlegamer.addonslib.roofs;
 
 import java.util.List;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.data.RegistryEntryReferences;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -93,58 +91,5 @@ public class Roofs
 				}
 			}
 		}
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void fuelWood(String MODID, List<String> WOOD)
-	{
-	    Block cherry_roof,
-		cherry_attic_roof,
-		cherry_top_roof,
-		cherry_lower_roof,
-		cherry_steep_roof,
-		cherry_upper_lower_roof,
-		cherry_upper_steep_roof,
-		cherry_planks_roof,
-		cherry_planks_attic_roof,
-		cherry_planks_top_roof,
-		cherry_planks_lower_roof,
-		cherry_planks_steep_roof,
-		cherry_planks_upper_lower_roof,
-		cherry_planks_upper_steep_roof;
-
-		for (String i : WOOD)
-		{
-			cherry_roof = Finder.findBlock(MODID, i+"_roof");
-			cherry_attic_roof = Finder.findBlock(MODID, i + "_attic_roof");
-			cherry_top_roof = Finder.findBlock(MODID, i + "_top_roof");
-			cherry_lower_roof = Finder.findBlock(MODID, i+"_lower_roof");
-			cherry_steep_roof = Finder.findBlock(MODID, i+"_steep_roof");
-			cherry_upper_lower_roof = Finder.findBlock(MODID, i + "_upper_lower_roof");
-			cherry_upper_steep_roof = Finder.findBlock(MODID, i + "_upper_steep_roof");
-
-        	cherry_planks_roof = Finder.findBlock(MODID, i+"_planks_roof");
-			cherry_planks_attic_roof = Finder.findBlock(MODID, i + "_planks_attic_roof");
-			cherry_planks_top_roof = Finder.findBlock(MODID, i + "_planks_top_roof");
-			cherry_planks_lower_roof = Finder.findBlock(MODID, i+"_planks_lower_roof");
-			cherry_planks_steep_roof = Finder.findBlock(MODID, i+"_planks_steep_roof");
-			cherry_planks_upper_lower_roof = Finder.findBlock(MODID, i + "_planks_upper_lower_roof");
-			cherry_planks_upper_steep_roof = Finder.findBlock(MODID, i + "_planks_upper_steep_roof");
-
-        	FuelRegistry.INSTANCE.add(cherry_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_attic_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_top_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_lower_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_steep_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_upper_lower_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_upper_steep_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_attic_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_top_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_lower_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_steep_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_upper_lower_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_upper_steep_roof, 300);
-        }
 	}
 }

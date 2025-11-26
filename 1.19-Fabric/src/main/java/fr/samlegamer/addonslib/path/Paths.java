@@ -1,12 +1,10 @@
 package fr.samlegamer.addonslib.path;
 
 import java.util.List;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.data.RegistryEntryReferences;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -49,18 +47,5 @@ public class Paths
 				}
 			}
 		}
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void fuelWood(String MODID, List<String> WOOD)
-	{
-		Block planks_path;
-		
-		for (String i : WOOD)
-		{				    	
-			planks_path = Finder.findBlock(MODID, i+"_planks_path");
-			
-			FuelRegistry.INSTANCE.add(planks_path, 50);
-        }
 	}
 }
