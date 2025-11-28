@@ -12,13 +12,13 @@ import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-
+import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public abstract class McwItemTags extends FabricTagProvider.ItemTagProvider
 {
-    public McwItemTags(FabricDataGenerator dataGenerator) {
-        super(dataGenerator);
+    public McwItemTags(FabricDataGenerator dataGenerator, @Nullable BlockTagProvider blockTagProvider) {
+        super(dataGenerator, blockTagProvider);
     }
 
     public void addAllMcwTags(String modid, List<String> WOOD, List<String> STONE, List<String> LEAVE)
@@ -111,7 +111,7 @@ public abstract class McwItemTags extends FabricTagProvider.ItemTagProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.toString()).contains(contain))
+            if(Finder.getIdOfItem(block).contains(contain))
             {
                 finalBlocks.add(block);
             }
@@ -124,7 +124,7 @@ public abstract class McwItemTags extends FabricTagProvider.ItemTagProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.toString()).endsWith(endsWith))
+            if(Finder.getIdOfItem(block).endsWith(endsWith))
             {
                 finalBlocks.add(block);
             }
@@ -137,7 +137,7 @@ public abstract class McwItemTags extends FabricTagProvider.ItemTagProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.toString()).startsWith(startsWith))
+            if(Finder.getIdOfItem(block).startsWith(startsWith))
             {
                 finalBlocks.add(block);
             }

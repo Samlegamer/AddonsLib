@@ -9,7 +9,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,17 +18,17 @@ import java.util.function.Consumer;
 class Doors extends AbstractType {
     private static final String id = "mcwdoors";
 
-    public Doors(FabricDataGenerator output, String modid, String originalMod)
+    public Doors(FabricDataGenerator dataGenerator, String modid, String originalMod)
     {
-        super(output, modid, originalMod, id);
+        super(dataGenerator, modid, originalMod, id);
     }
 
-    private void door_variant(Consumer<RecipeJsonProvider> consumer, Block door_var, Block planks, Item print)
+    private void door_variant(Consumer<RecipeJsonProvider> exporter, Block door_var, Block planks, Item print)
     {
-        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"A", "B", "A"}, door_var, 1, planks, print, Objects.requireNonNull(print.toString()).replace("print_", ""));
+        mcwRecipes.mkRpW2Items(exporter, planks, new String[]{"A", "B", "A"}, door_var, 1, planks, print, Objects.requireNonNull(print.toString()).replace("print_", ""));
     }
 
-    private void other_door(Consumer<RecipeJsonProvider> consumer, String mat, Block log, Block planks, Block slab)
+    private void other_door(Consumer<RecipeJsonProvider> exporter, String mat, Block log, Block planks, Block slab)
     {
         Block bark_glass_door = Finder.findBlock(modid, mat + "_bark_glass_door");
         Block barn_door = Finder.findBlock(modid, mat + "_barn_door");
@@ -42,20 +41,20 @@ class Doors extends AbstractType {
         Block stable_head_door = Finder.findBlock(modid, mat + "_stable_head_door");
         Block western_door = Finder.findBlock(modid, mat + "_western_door");
 
-        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"  A", "ABA", "AAA"}, western_door, 3, planks, slab, "western");
-        mcwRecipes.mkRpShapelessW1Item(consumer, planks, stable_head_door, 1, stable_door, "stable_head", "");
-        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"BB", "AA", "AA"}, stable_door, 3, planks, Blocks.IRON_BARS, "stable");
-        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"AB", "AA", "AB"}, modern_door, 3, planks, Blocks.GLASS_PANE, "modern");
-        mcwRecipes.mkRpW2Items(consumer, slab, new String[]{"BB", "BB", "AA"}, japanese2_door, 3, slab, Items.PAPER, "shoji_two");
-        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"BB", "BB", "AA"}, japanese_door, 3, planks, Items.PAPER, "shoji");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AB", "BB", "AB"}, bark_glass_door, 3, log, Blocks.GLASS, "bark");
-        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"AB", "BB", "AB"}, glass_door, 3, planks, Blocks.GLASS_PANE, "glassed");
-        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"BB", "AA", "AA"}, barn_door, 2, planks, Items.STICK, "barn");
-        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"BB", "AA", "AA"}, barn_glass_door, 3, planks, Blocks.GLASS_PANE, "barn_glass");
+        mcwRecipes.mkRpW2Items(exporter, planks, new String[]{"  A", "ABA", "AAA"}, western_door, 3, planks, slab, "western");
+        mcwRecipes.mkRpShapelessW1Item(exporter, planks, stable_head_door, 1, stable_door, "stable_head");
+        mcwRecipes.mkRpW2Items(exporter, planks, new String[]{"BB", "AA", "AA"}, stable_door, 3, planks, Blocks.IRON_BARS, "stable");
+        mcwRecipes.mkRpW2Items(exporter, planks, new String[]{"AB", "AA", "AB"}, modern_door, 3, planks, Blocks.GLASS_PANE, "modern");
+        mcwRecipes.mkRpW2Items(exporter, slab, new String[]{"BB", "BB", "AA"}, japanese2_door, 3, slab, Items.PAPER, "shoji_two");
+        mcwRecipes.mkRpW2Items(exporter, planks, new String[]{"BB", "BB", "AA"}, japanese_door, 3, planks, Items.PAPER, "shoji");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AB", "BB", "AB"}, bark_glass_door, 3, log, Blocks.GLASS, "bark");
+        mcwRecipes.mkRpW2Items(exporter, planks, new String[]{"AB", "BB", "AB"}, glass_door, 3, planks, Blocks.GLASS_PANE, "glassed");
+        mcwRecipes.mkRpW2Items(exporter, planks, new String[]{"BB", "AA", "AA"}, barn_door, 2, planks, Items.STICK, "barn");
+        mcwRecipes.mkRpW2Items(exporter, planks, new String[]{"BB", "AA", "AA"}, barn_glass_door, 3, planks, Blocks.GLASS_PANE, "barn_glass");
     }
 
     @Override
-    public void buildWood(Consumer<RecipeJsonProvider> consumer, List<String> MAT, List<McwWoodMat> woodMat)
+    public void buildWood(Consumer<RecipeJsonProvider> exporter, List<String> MAT, List<McwWoodMat> woodMat)
     {
         Map<String, String> variants = getStringStringMap();
 
@@ -65,14 +64,14 @@ class Doors extends AbstractType {
                 Block planks = woodMat.get(i).getPlanks();
                 Block slab = woodMat.get(i).getSlab();
 
-                other_door(consumer, MAT.get(i), log, planks, slab);
+                other_door(exporter, MAT.get(i), log, planks, slab);
 
                 for(Map.Entry<String, String> variant : variants.entrySet())
                 {
                     Item print = Finder.findItem(id, "print_" + variant.getValue());
                     Block door_var = Finder.findBlock(modid,  MAT.get(i) + "_" + variant.getKey() + "_door");
 
-                    door_variant(consumer, door_var, planks, print);
+                    door_variant(exporter, door_var, planks, print);
                 }
 
             }
@@ -80,12 +79,12 @@ class Doors extends AbstractType {
     }
 
     @Override
-    public void buildStone(Consumer<RecipeJsonProvider> consumer, List<String> MAT, List<McwStoneMat> stoneMat) {
+    public void buildStone(Consumer<RecipeJsonProvider> exporter, List<String> MAT, List<McwStoneMat> stoneMat) {
 
     }
 
     @Override
-    public void buildHedge(Consumer<RecipeJsonProvider> consumer, List<String> MAT, List<Block> leave) {
+    public void buildHedge(Consumer<RecipeJsonProvider> exporter, List<String> MAT, List<Block> leave) {
 
     }
 

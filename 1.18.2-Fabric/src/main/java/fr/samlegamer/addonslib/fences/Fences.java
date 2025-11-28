@@ -1,20 +1,16 @@
 package fr.samlegamer.addonslib.fences;
 
 import java.util.List;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.data.RegistryEntryReferences;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.ItemGroup;
 
 public class Fences
@@ -129,122 +125,5 @@ public class Fences
 				}
 			}
 		}
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
-	{
-		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
-		
-		for (String i : WOOD)
-		{
-			picket_fence = Finder.findBlock(MODID, i + "_picket_fence");
-			stockade_fence = Finder.findBlock(MODID, i + "_stockade_fence");
-			horse_fence = Finder.findBlock(MODID, i + "_horse_fence");
-			wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
-			highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
-			pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
-			curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
-
-			BlockRenderLayerMap.INSTANCE.putBlocks(renderSet
-        	, picket_fence
-        	, stockade_fence
-        	, horse_fence
-        	, wired_fence
-        	, highley_gate
-        	, pyramid_gate
-			, curved_gate);
-        }
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientWood(String MODID, List<String> WOOD)
-	{
-		clientWood(MODID, WOOD, RenderLayer.getCutout());
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientHedge(String MODID, List<String> WOOD, RenderLayer renderSet)
-	{
-		Block hedge;
-		
-		for (String i : WOOD)
-		{
-			hedge = Finder.findBlock(MODID, i + "_hedge");
-			
-			BlockRenderLayerMap.INSTANCE.putBlocks(renderSet,hedge);
-        }
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientHedge(String MODID, List<String> WOOD)
-	{
-		clientHedge(MODID, WOOD, RenderLayer.getCutout());
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientStone(String MODID, List<String> STONE, RenderLayer renderSet)
-	{
-		Block modern_wall, railing_wall, railing_gate, pillar_wall, grass_topped_wall;
-		
-		for (String i : STONE)
-		{
-			modern_wall = Finder.findBlock(MODID, "modern_"+i+"_wall");
-			railing_wall = Finder.findBlock(MODID, "railing_"+i+"_wall");
-			railing_gate = Finder.findBlock(MODID, i+"_railing_gate");
-			pillar_wall = Finder.findBlock(MODID, i+"_pillar_wall");
-			grass_topped_wall = Finder.findBlock(MODID, i + "_grass_topped_wall");
-			
-			BlockRenderLayerMap.INSTANCE.putBlocks(renderSet
-        	, modern_wall
-        	, railing_wall
-        	, railing_gate
-        	, pillar_wall
-        	, grass_topped_wall);
-        }
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientStone(String MODID, List<String> STONE)
-	{
-		clientStone(MODID, STONE, RenderLayer.getCutout());
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void fuelWood(String MODID, List<String> WOOD)
-	{
-		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
-		
-		for (String i : WOOD)
-		{
-			picket_fence = Finder.findBlock(MODID, i + "_picket_fence");
-			stockade_fence = Finder.findBlock(MODID, i + "_stockade_fence");
-			horse_fence = Finder.findBlock(MODID, i + "_horse_fence");
-			wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
-			highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
-			pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
-			curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
-			
-			FuelRegistry.INSTANCE.add(picket_fence, 300);
-			FuelRegistry.INSTANCE.add(stockade_fence, 300);
-			FuelRegistry.INSTANCE.add(horse_fence, 300);
-			FuelRegistry.INSTANCE.add(wired_fence, 300);
-			FuelRegistry.INSTANCE.add(highley_gate, 300);
-			FuelRegistry.INSTANCE.add(pyramid_gate, 300);
-			FuelRegistry.INSTANCE.add(curved_gate, 300);
-        }
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void fuelHedge(String MODID, List<String> WOOD)
-	{
-		Block hedge;
-		
-		for (String i : WOOD)
-		{
-			hedge = Finder.findBlock(MODID, i + "_hedge");
-			
-			FuelRegistry.INSTANCE.add(hedge, 300);
-        }
 	}
 }

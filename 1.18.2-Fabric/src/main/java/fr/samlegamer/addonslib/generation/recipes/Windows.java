@@ -8,19 +8,18 @@ import net.minecraft.block.Block;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-
 import java.util.List;
 import java.util.function.Consumer;
 
 class Windows extends AbstractType {
     private static final String id = "mcwwindows";
 
-    public Windows(FabricDataGenerator output, String modid, String originalMod)
+    public Windows(FabricDataGenerator dataGenerator, String modid, String originalMod)
     {
-        super(output, modid, originalMod, id);
+        super(dataGenerator, modid, originalMod, id);
     }
 
-    private void wood_variants(Consumer<RecipeJsonProvider> consumer, String mat, Block log, Block planks, Block slab, Block trapdoor, Block stripped_log)
+    private void wood_variants(Consumer<RecipeJsonProvider> exporter, String mat, Block log, Block planks, Block slab, Block trapdoor, Block stripped_log)
     {
         Item window_base = Finder.findItem(id, "window_base");
         Item window_half_bar_base = Finder.findItem(id, "window_half_bar_base");
@@ -45,28 +44,28 @@ class Windows extends AbstractType {
         Block stripped_log_window2 = Finder.findBlock(modid, "stripped_" + mat + "_log_window2");
         Block stripped_log_four_window = Finder.findBlock(modid, "stripped_" + mat + "_log_four_window");
 
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"ABA"}, curtain_rod, 5, Items.STICK, log, "curtain_rods");
-        mcwRecipes.mkRpShapelessW1Item(consumer, log, shutter, 3, trapdoor, 3, "shutters", "");
-        mcwRecipes.mkRpShapelessW1Item(consumer, log, louvered_shutter, 3, slab, 3, "shutters", "");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA"}, log_parapet, 5, Items.STICK, log, "parapets");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA"}, plank_parapet, 5, Items.STICK, planks, "parapets");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "BBB", "BBB"}, blinds, 3, slab, Items.STICK, "blinds");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{" A ", "ABA", " A "}, window, 4, window_base, log, "windows");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{" A ", "ABA", " A "}, plank_window, 4, window_base, planks, "windows");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA", "AAA"}, window2, 8, window_half_bar_base, log, "windows_two");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA", "AAA"}, plank_window2, 8, window_half_bar_base, planks, "windows_two");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA", "AAA"}, pane_window, 8, window_base, log, "windows_pane");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA", "AAA"}, plank_pane_window, 8, window_base, planks, "windows_pane");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA", "AAA"}, four_window, 8, window_centre_bar_base, log, "windows_four");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA", "AAA"}, plank_four_window, 8, window_centre_bar_base, planks, "windows_four");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{" A ", "ABA", " A "}, stripped_log_window, 4, window_base, stripped_log, "windows");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA", "AAA"}, stripped_pane_window, 8, window_base, stripped_log, "windows_pane");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA", "AAA"}, stripped_log_window2, 8, window_half_bar_base, stripped_log, "windows_two");
-        mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA", "AAA"}, stripped_log_four_window, 8, window_centre_bar_base, stripped_log, "windows_four");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"ABA"}, curtain_rod, 5, Items.STICK, log, "curtain_rods");
+        mcwRecipes.mkRpShapelessW1Item(exporter, log, shutter, 3, trapdoor, 3, "shutters");
+        mcwRecipes.mkRpShapelessW1Item(exporter, log, louvered_shutter, 3, slab, 3, "shutters");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "ABA"}, log_parapet, 5, Items.STICK, log, "parapets");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "ABA"}, plank_parapet, 5, Items.STICK, planks, "parapets");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "BBB", "BBB"}, blinds, 3, slab, Items.STICK, "blinds");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{" A ", "ABA", " A "}, window, 4, window_base, log, "windows");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{" A ", "ABA", " A "}, plank_window, 4, window_base, planks, "windows");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "ABA", "AAA"}, window2, 8, window_half_bar_base, log, "windows_two");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "ABA", "AAA"}, plank_window2, 8, window_half_bar_base, planks, "windows_two");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "ABA", "AAA"}, pane_window, 8, window_base, log, "windows_pane");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "ABA", "AAA"}, plank_pane_window, 8, window_base, planks, "windows_pane");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "ABA", "AAA"}, four_window, 8, window_centre_bar_base, log, "windows_four");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "ABA", "AAA"}, plank_four_window, 8, window_centre_bar_base, planks, "windows_four");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{" A ", "ABA", " A "}, stripped_log_window, 4, window_base, stripped_log, "windows");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "ABA", "AAA"}, stripped_pane_window, 8, window_base, stripped_log, "windows_pane");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "ABA", "AAA"}, stripped_log_window2, 8, window_half_bar_base, stripped_log, "windows_two");
+        mcwRecipes.mkRpW2Items(exporter, log, new String[]{"AAA", "ABA", "AAA"}, stripped_log_four_window, 8, window_centre_bar_base, stripped_log, "windows_four");
     }
 
     @Override
-    public void buildWood(Consumer<RecipeJsonProvider> consumer, List<String> MAT, List<McwWoodMat> woodMat)
+    public void buildWood(Consumer<RecipeJsonProvider> exporter, List<String> MAT, List<McwWoodMat> woodMat)
     {
         if(MAT.size() == woodMat.size()) {
             for (int i = 0; i < MAT.size(); i++) {
@@ -76,18 +75,18 @@ class Windows extends AbstractType {
                 Block trapdoor = woodMat.get(i).getTrapdoor();
                 Block slab = woodMat.get(i).getSlab();
 
-                wood_variants(consumer, MAT.get(i), log, planks, slab, trapdoor, stripped_log);
+                wood_variants(exporter, MAT.get(i), log, planks, slab, trapdoor, stripped_log);
             }
         }
     }
 
     @Override
-    public void buildStone(Consumer<RecipeJsonProvider> consumer, List<String> MAT, List<McwStoneMat> stone) {
+    public void buildStone(Consumer<RecipeJsonProvider> exporter, List<String> MAT, List<McwStoneMat> stone) {
 
     }
 
     @Override
-    public void buildHedge(Consumer<RecipeJsonProvider> consumer, List<String> MAT, List<Block> leave) {
+    public void buildHedge(Consumer<RecipeJsonProvider> exporter, List<String> MAT, List<Block> leave) {
 
     }
 }

@@ -1,25 +1,15 @@
 package fr.samlegamer.addonslib.roofs;
 
 import java.util.List;
-import fr.samlegamer.addonslib.AddonsLib;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.data.RegistryEntryReferences;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class Roofs
 {
@@ -101,149 +91,5 @@ public class Roofs
 				}
 			}
 		}
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientWood(String MODID, List<String> WOOD)
-	{
-		clientWood(MODID, WOOD, RenderLayer.getCutout());
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
-	{
-	    Block cherry_roof,
-		cherry_attic_roof,
-		cherry_top_roof,
-		cherry_lower_roof,
-		cherry_steep_roof,
-		cherry_upper_lower_roof,
-		cherry_upper_steep_roof,
-		cherry_planks_roof,
-		cherry_planks_attic_roof,
-		cherry_planks_top_roof,
-		cherry_planks_lower_roof,
-		cherry_planks_steep_roof,
-		cherry_planks_upper_lower_roof,
-		cherry_planks_upper_steep_roof;
-
-		for (String i : WOOD)
-		{
-			cherry_roof = Finder.findBlock(MODID, i+"_roof");
-			cherry_attic_roof = Finder.findBlock(MODID, i + "_attic_roof");
-			cherry_top_roof = Finder.findBlock(MODID, i + "_top_roof");
-			cherry_lower_roof = Finder.findBlock(MODID, i+"_lower_roof");
-			cherry_steep_roof = Finder.findBlock(MODID, i+"_steep_roof");
-			cherry_upper_lower_roof = Finder.findBlock(MODID, i + "_upper_lower_roof");
-			cherry_upper_steep_roof = Finder.findBlock(MODID, i + "_upper_steep_roof");
-
-        	cherry_planks_roof = Finder.findBlock(MODID, i+"_planks_roof");
-			cherry_planks_attic_roof = Finder.findBlock(MODID, i + "_planks_attic_roof");
-			cherry_planks_top_roof = Finder.findBlock(MODID, i + "_planks_top_roof");
-			cherry_planks_lower_roof = Finder.findBlock(MODID, i+"_planks_lower_roof");
-			cherry_planks_steep_roof = Finder.findBlock(MODID, i+"_planks_steep_roof");
-			cherry_planks_upper_lower_roof = Finder.findBlock(MODID, i + "_planks_upper_lower_roof");
-			cherry_planks_upper_steep_roof = Finder.findBlock(MODID, i + "_planks_upper_steep_roof");
-
-			BlockRenderLayerMap.INSTANCE.putBlocks(renderSet
-        	,cherry_roof
-        	,cherry_attic_roof
-        	,cherry_top_roof
-        	,cherry_lower_roof
-        	,cherry_steep_roof
-        	,cherry_upper_lower_roof
-        	,cherry_upper_steep_roof
-        	,cherry_planks_roof
-        	,cherry_planks_attic_roof
-        	,cherry_planks_top_roof
-        	,cherry_planks_lower_roof
-        	,cherry_planks_steep_roof
-        	,cherry_planks_upper_lower_roof
-        	,cherry_planks_upper_steep_roof);
-        }
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientStone(String MODID, List<String> STONE)
-	{
-		clientStone(MODID, STONE, RenderLayer.getCutout());
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientStone(String MODID, List<String> STONE, RenderLayer renderSet)
-	{
-		Block ROOF,
-		ATTIC_ROOF,
-		TOP_ROOF,
-		LOWER_ROOF,
-		STEEP_ROOF,
-		UPPER_LOWER_ROOF,
-		UPPER_STEEP_ROOF;
-
-		for (String i : STONE)
-		{
-			ROOF = Finder.findBlock(MODID, i + "_roof");
-			ATTIC_ROOF = Finder.findBlock(MODID, i + "_attic_roof");
-			TOP_ROOF = Finder.findBlock(MODID, i + "_top_roof");
-			LOWER_ROOF = Finder.findBlock(MODID, i + "_lower_roof");
-			STEEP_ROOF = Finder.findBlock(MODID, i + "_steep_roof");
-			UPPER_LOWER_ROOF = Finder.findBlock(MODID, i + "_upper_lower_roof");
-			UPPER_STEEP_ROOF = Finder.findBlock(MODID, i + "_upper_steep_roof");
-
-			BlockRenderLayerMap.INSTANCE.putBlocks(renderSet, ROOF, ATTIC_ROOF, TOP_ROOF, LOWER_ROOF, STEEP_ROOF, UPPER_LOWER_ROOF, UPPER_STEEP_ROOF);
-        }
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void fuelWood(String MODID, List<String> WOOD)
-	{
-	    Block cherry_roof,
-		cherry_attic_roof,
-		cherry_top_roof,
-		cherry_lower_roof,
-		cherry_steep_roof,
-		cherry_upper_lower_roof,
-		cherry_upper_steep_roof,
-		cherry_planks_roof,
-		cherry_planks_attic_roof,
-		cherry_planks_top_roof,
-		cherry_planks_lower_roof,
-		cherry_planks_steep_roof,
-		cherry_planks_upper_lower_roof,
-		cherry_planks_upper_steep_roof;
-
-		for (String i : WOOD)
-		{
-			cherry_roof = Finder.findBlock(MODID, i+"_roof");
-			cherry_attic_roof = Finder.findBlock(MODID, i + "_attic_roof");
-			cherry_top_roof = Finder.findBlock(MODID, i + "_top_roof");
-			cherry_lower_roof = Finder.findBlock(MODID, i+"_lower_roof");
-			cherry_steep_roof = Finder.findBlock(MODID, i+"_steep_roof");
-			cherry_upper_lower_roof = Finder.findBlock(MODID, i + "_upper_lower_roof");
-			cherry_upper_steep_roof = Finder.findBlock(MODID, i + "_upper_steep_roof");
-
-        	cherry_planks_roof = Finder.findBlock(MODID, i+"_planks_roof");
-			cherry_planks_attic_roof = Finder.findBlock(MODID, i + "_planks_attic_roof");
-			cherry_planks_top_roof = Finder.findBlock(MODID, i + "_planks_top_roof");
-			cherry_planks_lower_roof = Finder.findBlock(MODID, i+"_planks_lower_roof");
-			cherry_planks_steep_roof = Finder.findBlock(MODID, i+"_planks_steep_roof");
-			cherry_planks_upper_lower_roof = Finder.findBlock(MODID, i + "_planks_upper_lower_roof");
-			cherry_planks_upper_steep_roof = Finder.findBlock(MODID, i + "_planks_upper_steep_roof");
-
-        	FuelRegistry.INSTANCE.add(cherry_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_attic_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_top_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_lower_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_steep_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_upper_lower_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_upper_steep_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_attic_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_top_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_lower_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_steep_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_upper_lower_roof, 300);
-        	FuelRegistry.INSTANCE.add(cherry_planks_upper_steep_roof, 300);
-        }
 	}
 }

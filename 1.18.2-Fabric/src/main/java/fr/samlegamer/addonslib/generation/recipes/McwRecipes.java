@@ -7,13 +7,9 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 import net.minecraft.block.Block;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.SingleItemRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Identifier;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -22,89 +18,131 @@ public class McwRecipes extends FabricRecipeProvider {
     private final String modid;
     private final String mcwModid;
     private final String originalMod;
-    private static FabricDataGenerator dataGen;
 
-    public McwRecipes(FabricDataGenerator output, String modid, String mcwModid, String originalMod) {
-        super(output);
+    public McwRecipes(FabricDataGenerator dataGenerator, String modid, String mcwModid, String originalMod) {
+        super(dataGenerator);
         this.modid = modid;
         this.mcwModid = mcwModid;
         this.originalMod = originalMod;
-        dataGen = output;
     }
 
-    private static AbstractType getFromModType(ModType modType, String modid, String originalMod)
+    private AbstractType getFromModType(ModType modType, String modid, String originalMod)
     {
         return switch (modType) {
-            case BRIDGES -> new Bridges(dataGen, modid, originalMod);
-            case DOORS -> new Doors(dataGen, modid, originalMod);
-            case FENCES -> new Fences(dataGen, modid, originalMod);
-            case FURNITURES -> new Furnitures(dataGen, modid, originalMod);
-            case PATHS -> new Paths(dataGen, modid, originalMod);
-            case ROOFS -> new Roofs(dataGen, modid, originalMod);
-            case STAIRS -> new Stairs(dataGen, modid, originalMod);
-            case TRAPDOORS -> new Trapdoors(dataGen, modid, originalMod);
-            case WINDOWS -> new Windows(dataGen, modid, originalMod);
+            case BRIDGES -> new Bridges(dataGenerator, modid, originalMod);
+            case DOORS -> new Doors(dataGenerator, modid, originalMod);
+            case FENCES -> new Fences(dataGenerator, modid, originalMod);
+            case FURNITURES -> new Furnitures(dataGenerator, modid, originalMod);
+            case PATHS -> new Paths(dataGenerator, modid, originalMod);
+            case ROOFS -> new Roofs(dataGenerator, modid, originalMod);
+            case STAIRS -> new Stairs(dataGenerator, modid, originalMod);
+            case TRAPDOORS -> new Trapdoors(dataGenerator, modid, originalMod);
+            case WINDOWS -> new Windows(dataGenerator, modid, originalMod);
             default -> null;
         };
     }
 
-    public static void onRegisterMcwWood(ModType modType, Consumer<RecipeJsonProvider> consumer, String modid, String originalMod, List<String> MAT, List<McwWoodMat> woodMats)
+    public void onRegisterMcwWood(ModType modType, Consumer<RecipeJsonProvider> exporter, String modid, String originalMod, List<String> MAT, List<McwWoodMat> woodMats)
     {
         AbstractType abstractType = getFromModType(modType, modid, originalMod);
         if(abstractType != null)
         {
-            abstractType.buildWood(consumer, MAT, woodMats);
+            abstractType.buildWood(exporter, MAT, woodMats);
         }
     }
 
-    public static void onRegisterMcwStone(ModType modType, Consumer<RecipeJsonProvider> consumer, String modid, String originalMod, List<String> MAT, List<McwStoneMat> stoneMats)
+    public void onRegisterMcwStone(ModType modType, Consumer<RecipeJsonProvider> exporter, String modid, String originalMod, List<String> MAT, List<McwStoneMat> stoneMats)
     {
         AbstractType abstractType = getFromModType(modType, modid, originalMod);
         if(abstractType != null)
         {
-            abstractType.buildStone(consumer, MAT, stoneMats);
+            abstractType.buildStone(exporter, MAT, stoneMats);
         }
     }
 
-    public static void registerAllMcwWood(Consumer<RecipeJsonProvider> consumer, String modid, String originalMod, List<String> MAT, List<McwWoodMat> woodMats)
+    public void registerAllMcwWood(Consumer<RecipeJsonProvider> exporter, String modid, String originalMod, List<String> MAT, List<McwWoodMat> woodMats)
     {
-        onRegisterMcwWood(ModType.BRIDGES, consumer, modid, originalMod, MAT, woodMats);
-        onRegisterMcwWood(ModType.DOORS, consumer, modid, originalMod, MAT, woodMats);
-        onRegisterMcwWood(ModType.FENCES, consumer, modid, originalMod, MAT, woodMats);
-        onRegisterMcwWood(ModType.FURNITURES, consumer, modid, originalMod, MAT, woodMats);
-        onRegisterMcwWood(ModType.PATHS, consumer, modid, originalMod, MAT, woodMats);
-        onRegisterMcwWood(ModType.ROOFS, consumer, modid, originalMod, MAT, woodMats);
-        onRegisterMcwWood(ModType.STAIRS, consumer, modid, originalMod, MAT, woodMats);
-        onRegisterMcwWood(ModType.TRAPDOORS, consumer, modid, originalMod, MAT, woodMats);
-        onRegisterMcwWood(ModType.WINDOWS, consumer, modid, originalMod, MAT, woodMats);
+        onRegisterMcwWood(ModType.BRIDGES, exporter, modid, originalMod, MAT, woodMats);
+        onRegisterMcwWood(ModType.DOORS, exporter, modid, originalMod, MAT, woodMats);
+        onRegisterMcwWood(ModType.FENCES, exporter, modid, originalMod, MAT, woodMats);
+        onRegisterMcwWood(ModType.FURNITURES, exporter, modid, originalMod, MAT, woodMats);
+        onRegisterMcwWood(ModType.PATHS, exporter, modid, originalMod, MAT, woodMats);
+        onRegisterMcwWood(ModType.ROOFS, exporter, modid, originalMod, MAT, woodMats);
+        onRegisterMcwWood(ModType.STAIRS, exporter, modid, originalMod, MAT, woodMats);
+        onRegisterMcwWood(ModType.TRAPDOORS, exporter, modid, originalMod, MAT, woodMats);
+        onRegisterMcwWood(ModType.WINDOWS, exporter, modid, originalMod, MAT, woodMats);
     }
 
-    public static void registerAllMcwStone(Consumer<RecipeJsonProvider> consumer, String modid, String originalMod, List<String> MAT, List<McwStoneMat> stoneMats)
+    public void registerAllMcwStone(Consumer<RecipeJsonProvider> exporter, String modid, String originalMod, List<String> MAT, List<McwStoneMat> stoneMats)
     {
-        onRegisterMcwStone(ModType.BRIDGES, consumer, modid, originalMod, MAT, stoneMats);
-        onRegisterMcwStone(ModType.ROOFS, consumer, modid, originalMod, MAT, stoneMats);
-        onRegisterMcwStone(ModType.FENCES, consumer, modid, originalMod, MAT, stoneMats);
+        onRegisterMcwStone(ModType.BRIDGES, exporter, modid, originalMod, MAT, stoneMats);
+        onRegisterMcwStone(ModType.ROOFS, exporter, modid, originalMod, MAT, stoneMats);
+        onRegisterMcwStone(ModType.FENCES, exporter, modid, originalMod, MAT, stoneMats);
     }
 
-    public static void registerMcwHedge(Consumer<RecipeJsonProvider> consumer, String modid, String originalMod, List<String> MAT, List<Block> leave)
+    public void registerMcwHedge(Consumer<RecipeJsonProvider> exporter, String modid, String originalMod, List<String> MAT, List<Block> leave)
     {
         AbstractType abstractType = getFromModType(ModType.FENCES, modid, originalMod);
         if(abstractType != null)
         {
-            abstractType.buildHedge(consumer, MAT, leave);
+            abstractType.buildHedge(exporter, MAT, leave);
         }
     }
 
     protected void mkScW1Item(Consumer<RecipeJsonProvider> exporter, ItemConvertible result, ItemConvertible firstItem)
     {
-        String recipeId = this.modid + ":" + Objects.requireNonNull(result.asItem().toString()) + "_stonecutter";
+        String recipeId = Objects.requireNonNull(result.asItem().toString()) + "_stonecutter";
         var recipeExporter = withConditions(exporter, DefaultResourceConditions.allModsLoaded(this.mcwModid, this.originalMod));
 
-        SingleItemRecipeJsonBuilder builder = SingleItemRecipeJsonBuilder.createStonecutting(
-                Ingredient.ofItems(firstItem), result)
-                .criterion("has_stone", conditionsFromItem(firstItem));
+        SingleItemRecipeJsonBuilder builder = SingleItemRecipeJsonBuilder.createStonecutting(Ingredient.ofItems(firstItem), result)
+                .criterion(hasItem(firstItem), conditionsFromItem(firstItem));
 
-        builder.offerTo(recipeExporter, new Identifier(recipeId));
+        builder.offerTo(recipeExporter, recipeId);
+    }
+
+    protected void mkRpW4Items(Consumer<RecipeJsonProvider> exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, ItemConvertible secondItem, ItemConvertible thirdItem, ItemConvertible fourItem, String group)
+    {
+        var recipeExporter = withConditions(exporter, DefaultResourceConditions.allModsLoaded(this.mcwModid, this.originalMod));
+        ShapedRecipeJsonBuilder shapedRecipeJsonBuilder;
+
+        if(pattern.length == 3)
+        {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(result, count)
+                    .pattern(pattern[0])
+                    .pattern(pattern[1])
+                    .pattern(pattern[2])
+                    .input('A', firstItem)
+                    .input('B', secondItem)
+                    .input('C', thirdItem)
+                    .input('D', fourItem)
+                    .group(group)
+                    .criterion(hasItem(planks), conditionsFromItem(planks));
+        }
+        else if(pattern.length == 2)
+        {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(result, count)
+                    .pattern(pattern[0])
+                    .pattern(pattern[1])
+                    .input('A', firstItem)
+                    .input('B', secondItem)
+                    .input('C', thirdItem)
+                    .input('D', fourItem)
+                    .group(group)
+                    .criterion(hasItem(planks), conditionsFromItem(planks));
+        }
+        else
+        {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(result, count)
+                    .pattern(pattern[0])
+                    .input('A', firstItem)
+                    .input('B', secondItem)
+                    .input('C', thirdItem)
+                    .input('D', fourItem)
+                    .group(group)
+                    .criterion(hasItem(planks), conditionsFromItem(planks));
+        }
+
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
     protected void mkRpW3Items(Consumer<RecipeJsonProvider> exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, ItemConvertible secondItem, ItemConvertible thirdItem, String group)
@@ -122,7 +160,7 @@ public class McwRecipes extends FabricRecipeProvider {
                                     .input('B', secondItem)
                                     .input('C', thirdItem)
                                     .group(group)
-                                    .criterion("has_item", conditionsFromItem(planks));
+                                    .criterion(hasItem(planks), conditionsFromItem(planks));
         }
         else if(pattern.length == 2)
         {
@@ -133,7 +171,7 @@ public class McwRecipes extends FabricRecipeProvider {
                     .input('B', secondItem)
                     .input('C', thirdItem)
                     .group(group)
-                    .criterion("has_item", conditionsFromItem(planks));
+                    .criterion(hasItem(planks), conditionsFromItem(planks));
         }
         else
         {
@@ -143,10 +181,10 @@ public class McwRecipes extends FabricRecipeProvider {
                     .input('B', secondItem)
                     .input('C', thirdItem)
                     .group(group)
-                    .criterion("has_item", conditionsFromItem(planks));
+                    .criterion(hasItem(planks), conditionsFromItem(planks));
         }
 
-        shapedRecipeJsonBuilder.offerTo(recipeExporter, new Identifier(result.asItem().toString()));
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
     protected void mkRpW2Items(Consumer<RecipeJsonProvider> exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, ItemConvertible secondItem, String group)
@@ -163,7 +201,7 @@ public class McwRecipes extends FabricRecipeProvider {
                                     .input('A', firstItem)
                                     .input('B', secondItem)
                                     .group(group)
-                                    .criterion("has_item", conditionsFromItem(planks));
+                                    .criterion(hasItem(planks), conditionsFromItem(planks));
         }
         else if(pattern.length == 2)
         {
@@ -173,7 +211,7 @@ public class McwRecipes extends FabricRecipeProvider {
                     .input('A', firstItem)
                     .input('B', secondItem)
                     .group(group)
-                    .criterion("has_item", conditionsFromItem(planks));
+                    .criterion(hasItem(planks), conditionsFromItem(planks));
         }
         else
         {
@@ -182,22 +220,45 @@ public class McwRecipes extends FabricRecipeProvider {
                     .input('A', firstItem)
                     .input('B', secondItem)
                     .group(group)
-                    .criterion("has_item", conditionsFromItem(planks));
+                    .criterion(hasItem(planks), conditionsFromItem(planks));
         }
 
-        shapedRecipeJsonBuilder.offerTo(recipeExporter, new Identifier(result.asItem().toString()));
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
-    protected void mkRpW1Item(Consumer<RecipeJsonProvider> exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, String group, String suffix)
+    protected void mkRpW1Item(Consumer<RecipeJsonProvider> exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, String group)
     {
         var recipeExporter = withConditions(exporter, DefaultResourceConditions.allModsLoaded(this.mcwModid, this.originalMod));
-        ShapedRecipeJsonBuilder shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(result, count)
-                .pattern(pattern[0])
-                .input('A', firstItem)
-                .group(group)
-                .criterion("has_item", conditionsFromItem(planks));
+        ShapedRecipeJsonBuilder shapedRecipeJsonBuilder;
+        if(pattern.length == 3)
+        {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(result, count)
+                    .pattern(pattern[0])
+                    .pattern(pattern[1])
+                    .pattern(pattern[2])
+                    .input('A', firstItem)
+                    .group(group)
+                    .criterion(hasItem(planks), conditionsFromItem(planks));
+        }
+        else if(pattern.length == 2)
+        {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(result, count)
+                    .pattern(pattern[0])
+                    .pattern(pattern[1])
+                    .input('A', firstItem)
+                    .group(group)
+                    .criterion(hasItem(planks), conditionsFromItem(planks));
+        }
+        else
+        {
+            shapedRecipeJsonBuilder = ShapedRecipeJsonBuilder.create(result, count)
+                    .pattern(pattern[0])
+                    .input('A', firstItem)
+                    .group(group)
+                    .criterion(hasItem(planks), conditionsFromItem(planks));
+        }
 
-        shapedRecipeJsonBuilder.offerTo(recipeExporter, new Identifier(result.asItem().toString() + suffix));
+        shapedRecipeJsonBuilder.offerTo(recipeExporter);
     }
 
     protected void mkRpShapelessW1Item(Consumer<RecipeJsonProvider> exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, int required, String group, String suffix)
@@ -206,20 +267,36 @@ public class McwRecipes extends FabricRecipeProvider {
         ShapelessRecipeJsonBuilder shapelessRecipeJsonBuilder =
                 ShapelessRecipeJsonBuilder.create(result, count)
                 .input(firstItem, required)
-                .group(group)
-                .criterion("has_item", conditionsFromItem(planks));
+                .group(group).criterion(hasItem(planks), conditionsFromItem(planks));
 
-        shapelessRecipeJsonBuilder.offerTo(recipeExporter, new Identifier(result.asItem().toString() + suffix));
+        shapelessRecipeJsonBuilder.offerTo(recipeExporter, result.asItem().toString() + suffix);
     }
+
+    protected void mkRpShapelessW1Item(Consumer<RecipeJsonProvider> exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, int require, String group)
+    {
+        var recipeExporter = withConditions(exporter, DefaultResourceConditions.allModsLoaded(this.mcwModid, this.originalMod));
+        ShapelessRecipeJsonBuilder shapelessRecipeJsonBuilder =
+                ShapelessRecipeJsonBuilder.create(result, count)
+                        .input(firstItem, require)
+                        .group(group).criterion(hasItem(planks), conditionsFromItem(planks));
+
+        shapelessRecipeJsonBuilder.offerTo(recipeExporter);
+    }
+
+    protected void mkRpShapelessW1Item(Consumer<RecipeJsonProvider> exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, String group)
+    {
+        mkRpShapelessW1Item(exporter, planks, result, count, firstItem, 1, group);
+    }
+
 
     protected void mkRpShapelessW1Item(Consumer<RecipeJsonProvider> exporter, ItemConvertible planks, ItemConvertible result, int count, ItemConvertible firstItem, String group, String suffix)
     {
         mkRpShapelessW1Item(exporter, planks, result, count, firstItem, 1, group, suffix);
     }
 
-    protected void mkRpW1Item(Consumer<RecipeJsonProvider> exporter, ItemConvertible planks, String[] pattern, ItemConvertible result, int count, ItemConvertible firstItem, String group)
-    {
-        mkRpW1Item(exporter, planks, pattern, result, count, firstItem, group, "");
+    @Override
+    public String getName() {
+        return this.modid + " Recipe Generator";
     }
 
     @Override

@@ -14,11 +14,11 @@ abstract class AbstractType {
     protected final String originalMod;
     protected final McwRecipes mcwRecipes;
 
-    public AbstractType(FabricDataGenerator output, String modid, String originalMod, String id)
+    public AbstractType(FabricDataGenerator dataGenerator, String modid, String originalMod, String id)
     {
         this.modid = modid;
         this.originalMod = originalMod;
-        this.mcwRecipes = new McwRecipes(output, modid, id, originalMod);
+        this.mcwRecipes = new McwRecipes(dataGenerator, modid, id, originalMod);
     }
 
     public abstract void buildWood(Consumer<RecipeJsonProvider> exporter, List<String> MAT, List<McwWoodMat> woodMat);

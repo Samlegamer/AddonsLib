@@ -1,18 +1,14 @@
 package fr.samlegamer.addonslib.bridges;
 
 import java.util.List;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.data.RegistryEntryReferences;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 
@@ -87,75 +83,6 @@ public class Bridges
 					RegistryEntryReferences.registryEntry(MODID, id, new Block(WOOD), tab, false, isModBaseLoaded);
 				}
 			}
-		}
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientWood(String MODID, List<String> WOOD, RenderLayer renderSet)
-	{
-		Block log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
-		
-		for (String i : WOOD)
-		{				    	
-			log_bridge_middle = Finder.findBlock(MODID, i+"_log_bridge_middle");
-			rope_bridge = Finder.findBlock(MODID, "rope_"+i+"_bridge");
-			bridge_pier = Finder.findBlock(MODID, i+"_bridge_pier");
-			log_bridge_stair = Finder.findBlock(MODID, i+"_log_bridge_stair");
-			rope_bridge_stair = Finder.findBlock(MODID, i+"_rope_bridge_stair");
-			rail_bridge = Finder.findBlock(MODID, i+"_rail_bridge");
-			
-			BlockRenderLayerMap.INSTANCE.putBlocks(renderSet, log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge);
-        }
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientWood(String MODID, List<String> WOOD)
-	{
-		clientWood(MODID, WOOD, RenderLayer.getCutout());
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientStone(String MODID, List<String> STONE, RenderLayer renderSet)
-	{
-		Block stone_bridge, stone_bridge_pier, stone_bridge_stair, balustrade_stone_bridge;
-		
-		for (String i : STONE)
-		{
-			stone_bridge = Finder.findBlock(MODID, i+"_bridge");
-			stone_bridge_pier = Finder.findBlock(MODID, i+"_bridge_pier");
-			stone_bridge_stair = Finder.findBlock(MODID, i+"_bridge_stair");
-			balustrade_stone_bridge = Finder.findBlock(MODID, "balustrade_"+i+"_bridge");
-			
-			BlockRenderLayerMap.INSTANCE.putBlocks(renderSet, stone_bridge, stone_bridge_pier, stone_bridge_stair, balustrade_stone_bridge);
-        }
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void clientStone(String MODID, List<String> STONE)
-	{
-		clientStone(MODID, STONE, RenderLayer.getCutout());
-	}
-
-	@Deprecated(forRemoval = true)
-	public static void fuelWood(String MODID, List<String> WOOD)
-	{
-		Block log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
-		
-		for (String i : WOOD)
-		{				    	
-			log_bridge_middle = Finder.findBlock(MODID, i+"_log_bridge_middle");
-			rope_bridge = Finder.findBlock(MODID, "rope_"+i+"_bridge");
-			bridge_pier = Finder.findBlock(MODID, i+"_bridge_pier");
-			log_bridge_stair = Finder.findBlock(MODID, i+"_log_bridge_stair");
-			rope_bridge_stair = Finder.findBlock(MODID, i+"_rope_bridge_stair");
-			rail_bridge = Finder.findBlock(MODID, i+"_rail_bridge");
-			
-			FuelRegistry.INSTANCE.add(log_bridge_middle, 300);
-			FuelRegistry.INSTANCE.add(rope_bridge, 300);
-			FuelRegistry.INSTANCE.add(bridge_pier, 300);
-			FuelRegistry.INSTANCE.add(log_bridge_stair, 300);
-			FuelRegistry.INSTANCE.add(rope_bridge_stair, 300);
-			FuelRegistry.INSTANCE.add(rail_bridge, 300);
 		}
 	}
 }
