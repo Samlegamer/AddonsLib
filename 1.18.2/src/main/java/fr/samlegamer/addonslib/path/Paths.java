@@ -1,13 +1,10 @@
 package fr.samlegamer.addonslib.path;
 
 import java.util.List;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -15,7 +12,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 
 public class Paths {
@@ -48,22 +44,6 @@ public class Paths {
 					CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item, tab, false, isModBaseLoaded);
 				}
 			}
-		}
-	}
-
-	@Deprecated
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD) {
-		clientWood(event, MODID, WOOD, RenderType.cutout());
-	}
-
-	@Deprecated
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet) {
-		Block planks_path;
-
-		for (String i : WOOD) {
-			planks_path = Finder.findBlock(MODID, i + "_planks_path");
-
-			ItemBlockRenderTypes.setRenderLayer(planks_path, renderSet);
 		}
 	}
 

@@ -1,13 +1,10 @@
 package fr.samlegamer.addonslib.fences;
 
 import java.util.List;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -17,7 +14,6 @@ import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 
 public class Fences
@@ -203,82 +199,5 @@ public class Fences
 				}
 			}
 		}
-	}
-
-	@Deprecated
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
-	{
-		Block picket_fence, stockade_fence, horse_fence, wired_fence, highley_gate, pyramid_gate, curved_gate;
-		
-		for (String i : WOOD)
-		{
-			picket_fence = Finder.findBlock(MODID, i + "_picket_fence");
-			stockade_fence = Finder.findBlock(MODID, i + "_stockade_fence");
-			horse_fence = Finder.findBlock(MODID, i + "_horse_fence");
-			wired_fence = Finder.findBlock(MODID, i + "_wired_fence");
-			highley_gate = Finder.findBlock(MODID, i + "_highley_gate");
-			pyramid_gate = Finder.findBlock(MODID, i + "_pyramid_gate");
-			curved_gate = Finder.findBlock(MODID, i + "_curved_gate");
-			
-        	ItemBlockRenderTypes.setRenderLayer(picket_fence, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(stockade_fence, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(horse_fence, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(wired_fence, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(highley_gate, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(pyramid_gate, renderSet);
-			ItemBlockRenderTypes.setRenderLayer(curved_gate, renderSet);
-        }
-	}
-
-	@Deprecated
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD)
-	{
-		clientWood(event, MODID, WOOD, RenderType.cutout());
-	}
-
-	@Deprecated
-	public static void clientHedge(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
-	{
-		Block hedge;
-		
-		for (String i : WOOD)
-		{
-			hedge = Finder.findBlock(MODID, i + "_hedge");
-			
-        	ItemBlockRenderTypes.setRenderLayer(hedge, renderSet);
-        }
-	}
-
-	@Deprecated
-	public static void clientHedge(final FMLClientSetupEvent event, String MODID, List<String> WOOD)
-	{
-		clientHedge(event, MODID, WOOD, RenderType.cutout());
-	}
-
-	@Deprecated
-	public static void clientStone(final FMLClientSetupEvent event, String MODID, List<String> STONE, RenderType renderSet)
-	{
-		Block modern_wall, railing_wall, railing_gate, pillar_wall, grass_topped_wall;
-		
-		for (String i : STONE)
-		{
-			modern_wall = Finder.findBlock(MODID, "modern_"+i+"_wall");
-			railing_wall = Finder.findBlock(MODID, "railing_"+i+"_wall");
-			railing_gate = Finder.findBlock(MODID, i+"_railing_gate");
-			pillar_wall = Finder.findBlock(MODID, i+"_pillar_wall");
-			grass_topped_wall = Finder.findBlock(MODID, i + "_grass_topped_wall");
-			
-        	ItemBlockRenderTypes.setRenderLayer(modern_wall, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(railing_wall, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(railing_gate, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(pillar_wall, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(grass_topped_wall, renderSet);
-        }
-	}
-
-	@Deprecated
-	public static void clientStone(final FMLClientSetupEvent event, String MODID, List<String> STONE)
-	{
-		clientStone(event, MODID, STONE, RenderType.cutout());
 	}
 }

@@ -15,18 +15,16 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public abstract class McwBlockTags extends BlockTagsProvider
 {
-    public McwBlockTags(DataGenerator p_i48256_1_, String modid, @Nullable ExistingFileHelper existingFileHelper) {
-        super(p_i48256_1_, modid, existingFileHelper);
+    public McwBlockTags(DataGenerator p_126511_, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+        super(p_126511_, modId, existingFileHelper);
     }
 
     public void addAllMcwTags(String modid, List<String> WOOD, List<String> STONE, List<String> LEAVE)
@@ -155,6 +153,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         map.put("table", Collections.singletonList("_table"));
         map.put("triple_drawer", Collections.singletonList("_triple_drawer"));
         map.put("wadrobe", Collections.singletonList("_wardrobe"));
+        map.put("kitchen_sink", Collections.singletonList("_kitchen_sink"));
 
         for(Map.Entry<String, List<String>> mapEntry : map.entrySet())
         {
@@ -344,7 +343,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
 
     public static TagKey<Block> getTag(String id, String tagName)
     {
-        return BlockTags.create(new ResourceLocation(id, tagName));
+        return BlockTags.create(ResourceLocation.fromNamespaceAndPath(id, tagName));
     }
 
     private Block[] getSetWithContain(Set<Block> blocks, String contain)
@@ -352,7 +351,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().contains(contain))
+            if(Finder.getIdOfBlock(block).contains(contain))
             {
                 finalBlocks.add(block);
             }
@@ -365,7 +364,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().endsWith(endsWith))
+            if(Finder.getIdOfBlock(block).endsWith(endsWith))
             {
                 finalBlocks.add(block);
             }
@@ -378,7 +377,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().startsWith(startsWith))
+            if(Finder.getIdOfBlock(block).startsWith(startsWith))
             {
                 finalBlocks.add(block);
             }

@@ -3,20 +3,19 @@ package fr.samlegamer.addonslib.generation.recipes;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwStoneMat;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwWoodMat;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-
 import java.util.List;
 import java.util.function.Consumer;
 
 class Fences extends AbstractType {
     private static final String id = "mcwfences";
 
-    public Fences(String modid, String originalMod)
-    {
-        super(modid, originalMod, id);
+    public Fences(DataGenerator dataGenerator, String modid, String originalMod) {
+        super(dataGenerator, modid, originalMod, id);
     }
 
     private void wood_variants(Consumer<FinishedRecipe> consumer, String mat, Block log, Block planks)

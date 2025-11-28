@@ -1,13 +1,10 @@
 package fr.samlegamer.addonslib.stairs;
 
 import java.util.List;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -16,7 +13,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 
 public class Stairs
@@ -75,72 +71,6 @@ public class Stairs
 				}
 			}
 		}
-	}
-
-	@Deprecated
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
-	{
-		Block _terrace_stairs, _skyline_stairs, _compact_stairs, _bulk_stairs, _loft_stairs, _railing, _balcony, _platform;
-
-		for (String i : WOOD)
-		{		
-			_terrace_stairs = Finder.findBlock(MODID, i+"_terrace_stairs");
-			_skyline_stairs = Finder.findBlock(MODID, i+"_skyline_stairs");
-			_compact_stairs = Finder.findBlock(MODID, i+"_compact_stairs");
-			_bulk_stairs = Finder.findBlock(MODID, i+"_bulk_stairs");
-			_loft_stairs = Finder.findBlock(MODID, i+"_loft_stairs");
-			_railing = Finder.findBlock(MODID, i+"_railing");
-			_balcony = Finder.findBlock(MODID, i+"_balcony");
-			_platform = Finder.findBlock(MODID, i+"_platform");
-
-        	ItemBlockRenderTypes.setRenderLayer(_terrace_stairs, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_skyline_stairs, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_compact_stairs, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_bulk_stairs, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_loft_stairs, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_railing, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_balcony, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_platform, renderSet);
-        }
-	}
-
-	@Deprecated
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD)
-	{
-		clientWood(event, MODID, WOOD, RenderType.cutout());
-	}
-
-	@Deprecated
-	public static void clientStone(final FMLClientSetupEvent event, String MODID, List<String> STONE, RenderType renderSet)
-	{
-		Block _terrace_stairs, _skyline_stairs, _compact_stairs, _bulk_stairs, _loft_stairs, _railing, _balcony, _platform;
-
-		for (String i : STONE)
-		{
-			_terrace_stairs = Finder.findBlock(MODID, i+"_terrace_stairs");
-			_skyline_stairs = Finder.findBlock(MODID, i+"_skyline_stairs");
-			_compact_stairs = Finder.findBlock(MODID, i+"_compact_stairs");
-			_bulk_stairs = Finder.findBlock(MODID, i+"_bulk_stairs");
-			_loft_stairs = Finder.findBlock(MODID, i+"_loft_stairs");
-			_railing = Finder.findBlock(MODID, i+"_railing");
-			_balcony = Finder.findBlock(MODID, i+"_balcony");
-			_platform = Finder.findBlock(MODID, i+"_platform");
-
-        	ItemBlockRenderTypes.setRenderLayer(_terrace_stairs, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_skyline_stairs, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_compact_stairs, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_bulk_stairs, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_loft_stairs, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_railing, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_balcony, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(_platform, renderSet);
-        }
-	}
-
-	@Deprecated
-	public static void clientStone(final FMLClientSetupEvent event, String MODID, List<String> STONE)
-	{
-		clientStone(event, MODID, STONE, RenderType.cutout());
 	}
 
 	public static void registryWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOODS, CreativeModeTab tab)
