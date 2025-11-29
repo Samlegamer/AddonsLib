@@ -8,13 +8,11 @@ import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 public abstract class McwMod {
 
-    public McwMod() {}
-
     public abstract void clientSetup(FMLClientSetupEvent event);
     public abstract void commonSetup(FMLCommonSetupEvent event);
     public abstract void dataSetup(GatherDataEvent event);
 
-    public IEventBus getBus()
+    protected IEventBus bus()
     {
         return FMLJavaModLoadingContext.get().getModEventBus();
     }

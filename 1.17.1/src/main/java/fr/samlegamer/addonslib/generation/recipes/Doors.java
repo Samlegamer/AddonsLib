@@ -3,12 +3,12 @@ package fr.samlegamer.addonslib.generation.recipes;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwStoneMat;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwWoodMat;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,14 +18,13 @@ import java.util.function.Consumer;
 class Doors extends AbstractType {
     private static final String id = "mcwdoors";
 
-    public Doors(String modid, String originalMod)
-    {
-        super(modid, originalMod, id);
+    public Doors(DataGenerator dataGenerator, String modid, String originalMod) {
+        super(dataGenerator, modid, originalMod, id);
     }
 
     private void door_variant(Consumer<FinishedRecipe> consumer, Block door_var, Block planks, Item print)
     {
-        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"A", "B", "A"}, door_var, 1, planks, print, Objects.requireNonNull(print.getRegistryName()).getPath().replace("print_", ""));
+        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"A", "B", "A"}, door_var, 1, planks, print, Objects.requireNonNull(print.toString()).replace("print_", ""));
     }
 
     private void other_door(Consumer<FinishedRecipe> consumer, String mat, Block log, Block planks, Block slab)
@@ -42,7 +41,7 @@ class Doors extends AbstractType {
         Block western_door = Finder.findBlock(modid, mat + "_western_door");
 
         mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"  A", "ABA", "AAA"}, western_door, 3, planks, slab, "western");
-        mcwRecipes.mkRpShapelessW1Item(consumer, planks, stable_head_door, 1, stable_door, "stable_head", "");
+        mcwRecipes.mkRpShapelessW1Item(consumer, planks, stable_head_door, 1, stable_door, "stable_head");
         mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"BB", "AA", "AA"}, stable_door, 3, planks, Blocks.IRON_BARS, "stable");
         mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"AB", "AA", "AB"}, modern_door, 3, planks, Blocks.GLASS_PANE, "modern");
         mcwRecipes.mkRpW2Items(consumer, slab, new String[]{"BB", "BB", "AA"}, japanese2_door, 3, slab, Items.PAPER, "shoji_two");

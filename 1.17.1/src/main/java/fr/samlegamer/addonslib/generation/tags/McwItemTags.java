@@ -20,8 +20,8 @@ import java.util.*;
 
 public abstract class McwItemTags extends ItemTagsProvider
 {
-    public McwItemTags(DataGenerator p_i232552_1_, BlockTagsProvider p_i232552_2_, String modId, @Nullable ExistingFileHelper existingFileHelper) {
-        super(p_i232552_1_, p_i232552_2_, modId, existingFileHelper);
+    public McwItemTags(DataGenerator p_126530_, BlockTagsProvider p_126531_, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+        super(p_126530_, p_126531_, modId, existingFileHelper);
     }
 
     public void addAllMcwTags(String modid, List<String> WOOD, List<String> STONE, List<String> LEAVE)
@@ -114,7 +114,7 @@ public abstract class McwItemTags extends ItemTagsProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().contains(contain))
+            if(Finder.getIdOfItem(block).contains(contain))
             {
                 finalBlocks.add(block);
             }
@@ -127,7 +127,7 @@ public abstract class McwItemTags extends ItemTagsProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().endsWith(endsWith))
+            if(Finder.getIdOfItem(block).endsWith(endsWith))
             {
                 finalBlocks.add(block);
             }
@@ -140,7 +140,7 @@ public abstract class McwItemTags extends ItemTagsProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().startsWith(startsWith))
+            if(Finder.getIdOfItem(block).startsWith(startsWith))
             {
                 finalBlocks.add(block);
             }

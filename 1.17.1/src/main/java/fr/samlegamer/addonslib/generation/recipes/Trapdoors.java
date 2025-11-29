@@ -3,12 +3,12 @@ package fr.samlegamer.addonslib.generation.recipes;
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwStoneMat;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwWoodMat;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -16,14 +16,13 @@ import java.util.function.Consumer;
 class Trapdoors extends AbstractType {
     private static final String id = "mcwtrpdoors";
 
-    public Trapdoors(String modid, String originalMod)
-    {
-        super(modid, originalMod, id);
+    public Trapdoors(DataGenerator dataGenerator, String modid, String originalMod) {
+        super(dataGenerator, modid, originalMod, id);
     }
 
     private void trapdoor_variant(Consumer<FinishedRecipe> consumer, Block door_var, Block planks, Item print)
     {
-        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"A", "B", "A"}, door_var, 1, planks, print, Objects.requireNonNull(print.getRegistryName()).getPath().replace("print_", "")+"_trapdoors");
+        mcwRecipes.mkRpW2Items(consumer, planks, new String[]{"A", "B", "A"}, door_var, 1, planks, print, Objects.requireNonNull(print.toString()).replace("print_", "")+"_trapdoors");
     }
 
     private void other_traps(Consumer<FinishedRecipe> consumer, String mat, Block log, Block planks, Block slab)

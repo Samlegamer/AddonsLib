@@ -1,13 +1,10 @@
 package fr.samlegamer.addonslib.bridges;
 
 import java.util.List;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -15,7 +12,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 
 public class Bridges
@@ -87,60 +83,6 @@ public class Bridges
 				}
 			}
 		}
-	}
-
-	@Deprecated
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet)
-	{
-		Block log_bridge_middle, rope_bridge, bridge_pier, log_bridge_stair, rope_bridge_stair, rail_bridge;
-
-		for (String i : WOOD)
-		{				    	
-			log_bridge_middle = Finder.findBlock(MODID, i+"_log_bridge_middle");
-			rope_bridge = Finder.findBlock(MODID, "rope_"+i+"_bridge");
-			bridge_pier = Finder.findBlock(MODID, i+"_bridge_pier");
-			log_bridge_stair = Finder.findBlock(MODID, i+"_log_bridge_stair");
-			rope_bridge_stair = Finder.findBlock(MODID, i+"_rope_bridge_stair");
-			rail_bridge = Finder.findBlock(MODID, i+"_rail_bridge");
-			
-        	ItemBlockRenderTypes.setRenderLayer(log_bridge_middle, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(rope_bridge, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(bridge_pier, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(log_bridge_stair, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(rope_bridge_stair, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(rail_bridge, renderSet);
-        }
-	}
-
-	@Deprecated
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD)
-	{
-		clientWood(event, MODID, WOOD, RenderType.cutout());
-	}
-
-	@Deprecated
-	public static void clientStone(final FMLClientSetupEvent event, String MODID, List<String> STONE, RenderType renderSet)
-	{
-		Block stone_bridge, stone_bridge_pier, stone_bridge_stair, balustrade_stone_bridge;
-		
-		for (String i : STONE)
-		{
-			stone_bridge = Finder.findBlock(MODID, i+"_bridge");
-			stone_bridge_pier = Finder.findBlock(MODID, i+"_bridge_pier");
-			stone_bridge_stair = Finder.findBlock(MODID, i+"_bridge_stair");
-			balustrade_stone_bridge = Finder.findBlock(MODID, "balustrade_"+i+"_bridge");
-			
-        	ItemBlockRenderTypes.setRenderLayer(stone_bridge, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(stone_bridge_pier, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(stone_bridge_stair, renderSet);
-        	ItemBlockRenderTypes.setRenderLayer(balustrade_stone_bridge, renderSet);
-        }
-	}
-
-	@Deprecated
-	public static void clientStone(final FMLClientSetupEvent event, String MODID, List<String> STONE)
-	{
-		clientStone(event, MODID, STONE, RenderType.cutout());
 	}
 
 	public static void registryWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOODS, CreativeModeTab tab)

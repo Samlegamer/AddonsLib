@@ -73,29 +73,29 @@ public class McwLootTables extends LootModifier
 
     @Nonnull
     @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
+    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext lootContext) {
+        BlockState state = lootContext.hasParam(LootContextParams.BLOCK_STATE) ? lootContext.getParam(LootContextParams.BLOCK_STATE) : null;
 
-        if(state != null && blockSet.contains(state.getBlock()))
-        {
-            if(state.getBlock() instanceof DoorBlock)
-            {
-                try {
-                    DoubleBlockHalf half = state.getValue(DoorBlock.HALF);
-                    if(half == DoubleBlockHalf.UPPER)
-                    {
-                        generatedLoot.clear();
-                        return generatedLoot;
+        if (state != null) {
+            if (state instanceof BlockState) {
+                if (blockSet.contains(state.getBlock())) {
+                    if (state.getBlock() instanceof DoorBlock) {
+                        try {
+                            DoubleBlockHalf half = state.getValue(DoorBlock.HALF);
+                            if (half == DoubleBlockHalf.UPPER) {
+                                generatedLoot.clear();
+                                return generatedLoot;
+                            }
+                        } catch (Exception e) {
+                            AddonsLib.LOGGER.error("[McwLootTables] ERROR: Can't get the double block half of the door: {}", e.getMessage());
+                        }
                     }
-                } catch (Exception e) {
-                    AddonsLib.LOGGER.error("[McwLootTables] ERROR: Can't get the double block half of the door: {}", e.getMessage());
+
+                    generatedLoot.clear();
+                    generatedLoot.add(new ItemStack(state.getBlock(), 1));
                 }
             }
-
-            generatedLoot.clear();
-            generatedLoot.add(new ItemStack(state.getBlock(), 1));
         }
-
         return generatedLoot;
     }
 }

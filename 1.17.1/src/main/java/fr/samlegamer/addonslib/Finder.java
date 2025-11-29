@@ -6,6 +6,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Objects;
+
 /*
  * Search Item/Block/TileEntityType with ResourceLocation
  */
@@ -25,4 +27,14 @@ public class Finder
 	{
 		return ForgeRegistries.BLOCK_ENTITIES.getValue(new ResourceLocation(MODID, nameTileEntity));
 	}
+
+    public static String getIdOfBlock(Block block)
+    {
+        return Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
+    }
+
+    public static String getIdOfItem(Item item)
+    {
+        return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
+    }
 }
