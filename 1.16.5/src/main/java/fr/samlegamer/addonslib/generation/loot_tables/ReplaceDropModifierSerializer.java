@@ -14,5 +14,5 @@ public class ReplaceDropModifierSerializer extends GlobalLootModifierSerializer<
     @Override
     public JsonObject write(McwLootTables instance) {
         return makeConditions(instance.conditions());
-    }
+    }//    @Override
 }

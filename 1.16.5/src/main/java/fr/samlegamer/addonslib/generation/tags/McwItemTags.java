@@ -14,7 +14,6 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
-
 import javax.annotation.Nullable;
 import java.util.*;
 
@@ -114,7 +113,7 @@ public abstract class McwItemTags extends ItemTagsProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().contains(contain))
+            if(Finder.getIdOfItem(block).contains(contain))
             {
                 finalBlocks.add(block);
             }
@@ -127,7 +126,7 @@ public abstract class McwItemTags extends ItemTagsProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().endsWith(endsWith))
+            if(Finder.getIdOfItem(block).endsWith(endsWith))
             {
                 finalBlocks.add(block);
             }
@@ -140,7 +139,7 @@ public abstract class McwItemTags extends ItemTagsProvider
         List<Item> finalBlocks = new ArrayList<>();
         for(Item block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().startsWith(startsWith))
+            if(Finder.getIdOfItem(block).startsWith(startsWith))
             {
                 finalBlocks.add(block);
             }

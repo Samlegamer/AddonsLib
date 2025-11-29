@@ -1,27 +1,18 @@
 package fr.samlegamer.addonslib.path;
 
 import java.util.List;
-import java.util.function.Supplier;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.item.BlockItemFuel;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class Paths {
 	public static final String modid = "mcwpaths";
@@ -53,22 +44,6 @@ public class Paths {
 					CreateBlockReferences.createBlock(id, () -> new Block(WOOD), block, item, tab, false, isModBaseLoaded);
 				}
 			}
-		}
-	}
-
-	@Deprecated
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD) {
-		clientWood(event, MODID, WOOD, RenderType.cutout());
-	}
-
-	@Deprecated
-	public static void clientWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, RenderType renderSet) {
-		Block planks_path;
-
-		for (String i : WOOD) {
-			planks_path = Finder.findBlock(MODID, i + "_planks_path");
-
-			RenderTypeLookup.setRenderLayer(planks_path, renderSet);
 		}
 	}
 

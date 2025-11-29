@@ -4,18 +4,20 @@ import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwStoneMat;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwWoodMat;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+
 import java.util.List;
 import java.util.function.Consumer;
 
 class Furnitures extends AbstractType {
     private static final String id = "mcwfurnitures";
 
-    public Furnitures(String modid, String originalMod)
-    {
-        super(modid, originalMod, id);
+    public Furnitures(DataGenerator dataGenerator, String modid, String originalMod) {
+        super(dataGenerator, modid, originalMod, id);
     }
 
     private void wood_variants(Consumer<IFinishedRecipe> consumer, String mat, Block log, Block slab, Block fence, boolean isStripped)
@@ -54,6 +56,7 @@ class Furnitures extends AbstractType {
         Block drawer_counter = Finder.findBlock(modid, strippedMat + mat + "_drawer_counter");
         Block double_drawer_counter = Finder.findBlock(modid, strippedMat + mat + "_double_drawer_counter");
         Block cupboard_counter = Finder.findBlock(modid, strippedMat + mat + "_cupboard_counter");
+        Block kitchen_sink = Finder.findBlock(modid, strippedMat + mat + "_kitchen_sink");
 
         // Bibliothèques (Bookshelves)
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "BBB", "AAA"}, bookshelf, 4, log, Items.BOOK, "bookshelf");
@@ -100,6 +103,9 @@ class Furnitures extends AbstractType {
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"A", "B"}, drawer_counter, 1, slab, drawer, "drawer_counter");
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"A", "B"}, double_drawer_counter, 1, slab, double_drawer, "double_drawer_counter");
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"A", "B"}, cupboard_counter, 1, slab, wardrobe, "cupboard_counter");
+
+        // Furniture 3.4.0
+        mcwRecipes.mkRpW4Items(consumer, log, new String[]{"CDC", "ABA", "ABA"}, kitchen_sink, 1, log, Items.WATER_BUCKET, slab, Blocks.CAULDRON, "kitchen_sink");
     }
 
     @Override

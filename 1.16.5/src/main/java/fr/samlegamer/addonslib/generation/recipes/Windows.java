@@ -4,20 +4,19 @@ import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwStoneMat;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwWoodMat;
 import net.minecraft.block.Block;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 class Windows extends AbstractType {
     private static final String id = "mcwwindows";
 
-    public Windows(String modid, String originalMod)
-    {
-        super(modid, originalMod, id);
+    public Windows(DataGenerator dataGenerator, String modid, String originalMod) {
+        super(dataGenerator, modid, originalMod, id);
     }
 
     private void wood_variants(Consumer<IFinishedRecipe> consumer, String mat, Block log, Block planks, Block slab, Block trapdoor, Block stripped_log)
@@ -46,8 +45,8 @@ class Windows extends AbstractType {
         Block stripped_log_four_window = Finder.findBlock(modid, "stripped_" + mat + "_log_four_window");
 
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"ABA"}, curtain_rod, 5, Items.STICK, log, "curtain_rods");
-        mcwRecipes.mkRpShapelessW1Item(consumer, log, shutter, 3, trapdoor, 3, "shutters", "");
-        mcwRecipes.mkRpShapelessW1Item(consumer, log, louvered_shutter, 3, slab, 3, "shutters", "");
+        mcwRecipes.mkRpShapelessW1Item(consumer, log, shutter, 3, trapdoor, 3, "shutters");
+        mcwRecipes.mkRpShapelessW1Item(consumer, log, louvered_shutter, 3, slab, 3, "shutters");
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA"}, log_parapet, 5, Items.STICK, log, "parapets");
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "ABA"}, plank_parapet, 5, Items.STICK, planks, "parapets");
         mcwRecipes.mkRpW2Items(consumer, log, new String[]{"AAA", "BBB", "BBB"}, blinds, 3, slab, Items.STICK, "blinds");

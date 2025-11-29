@@ -23,8 +23,8 @@ import java.util.*;
 
 public abstract class McwBlockTags extends BlockTagsProvider
 {
-    public McwBlockTags(DataGenerator p_i48256_1_, String modid, @Nullable ExistingFileHelper existingFileHelper) {
-        super(p_i48256_1_, modid, existingFileHelper);
+    public McwBlockTags(DataGenerator p_126511_, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+        super(p_126511_, modId, existingFileHelper);
     }
 
     public void addAllMcwTags(String modid, List<String> WOOD, List<String> STONE, List<String> LEAVE)
@@ -141,6 +141,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         map.put("table", Collections.singletonList("_table"));
         map.put("triple_drawer", Collections.singletonList("_triple_drawer"));
         map.put("wadrobe", Collections.singletonList("_wardrobe"));
+        map.put("kitchen_sink", Collections.singletonList("_kitchen_sink"));
 
         for(Map.Entry<String, List<String>> mapEntry : map.entrySet())
         {
@@ -210,15 +211,15 @@ public abstract class McwBlockTags extends BlockTagsProvider
 
     public void mcwBridgesTagsWood(String modid, List<String> MAT)
     {
-        Set<Block> blocks = new HashSet<>();
-        addBlocks(modid, MAT, blocks, McwBlocksIdBase.BRIDGES_WOOD_BLOCKS);
+        Set<Block> blocksWood = new HashSet<>();
+        addBlocks(modid, MAT, blocksWood, McwBlocksIdBase.BRIDGES_WOOD_BLOCKS);
 
-        this.tag(getTag(Bridges.modid, "log_bridges")).add(getSetWithContain(blocks, "log_bridge_middle"));
-        this.tag(getTag(Bridges.modid, "log_stairs")).add(getSetWithContain(blocks, "log_bridge_stair"));
-        this.tag(getTag(Bridges.modid, "rail_bridges")).add(getSetWithContain(blocks, "rail_bridge"));
-        this.tag(getTag(Bridges.modid, "rope_bridges")).add(getSetWithStartsWith(blocks, "rope_"));
-        this.tag(getTag(Bridges.modid, "rope_stairs")).add(getSetWithContain(blocks, "rope_bridge_stair"));
-        this.tag(getTag(Bridges.modid, "wooden_piers")).add(getSetWithContain(blocks, "bridge_pier"));
+        this.tag(getTag(Bridges.modid, "log_bridges")).add(getSetWithContain(blocksWood, "log_bridge_middle"));
+        this.tag(getTag(Bridges.modid, "log_stairs")).add(getSetWithContain(blocksWood, "log_bridge_stair"));
+        this.tag(getTag(Bridges.modid, "rail_bridges")).add(getSetWithContain(blocksWood, "rail_bridge"));
+        this.tag(getTag(Bridges.modid, "rope_bridges")).add(getSetWithStartsWith(blocksWood, "rope_"));
+        this.tag(getTag(Bridges.modid, "rope_stairs")).add(getSetWithContain(blocksWood, "rope_bridge_stair"));
+        this.tag(getTag(Bridges.modid, "wooden_piers")).add(getSetWithContain(blocksWood, "bridge_pier"));
     }
 
     public void mcwBridgesTagsStone(String modid, List<String> MAT)
@@ -324,7 +325,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().contains(contain))
+            if(Finder.getIdOfBlock(block).contains(contain))
             {
                 finalBlocks.add(block);
             }
@@ -337,7 +338,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().endsWith(endsWith))
+            if(Finder.getIdOfBlock(block).endsWith(endsWith))
             {
                 finalBlocks.add(block);
             }
@@ -350,7 +351,7 @@ public abstract class McwBlockTags extends BlockTagsProvider
         List<Block> finalBlocks = new ArrayList<>();
         for(Block block : blocks)
         {
-            if(Objects.requireNonNull(block.getRegistryName()).getPath().startsWith(startsWith))
+            if(Finder.getIdOfBlock(block).startsWith(startsWith))
             {
                 finalBlocks.add(block);
             }

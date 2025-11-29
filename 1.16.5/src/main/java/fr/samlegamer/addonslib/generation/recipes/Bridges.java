@@ -4,16 +4,18 @@ import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwStoneMat;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwWoodMat;
 import net.minecraft.block.Block;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Items;
+
 import java.util.List;
 import java.util.function.Consumer;
 
 class Bridges extends AbstractType {
     private static final String id = "mcwbridges";
 
-    public Bridges(String modid, String originalMod) {
-        super(modid, originalMod, id);
+    public Bridges(DataGenerator dataGenerator, String modid, String originalMod) {
+        super(dataGenerator, modid, originalMod, id);
     }
 
     private void pier(Consumer<IFinishedRecipe> consumer, Block pier, Block log, Block fence) {
@@ -79,13 +81,15 @@ class Bridges extends AbstractType {
                 Block wall = stoneMat.get(i).getWall();
                 Block slab = stoneMat.get(i).getSlab();
 
-                Block log_bridge = Finder.findBlock(modid, MAT.get(i) + "_bridge");
-                Block pier_bridge = Finder.findBlock(modid, MAT.get(i) + "_bridge_pier");
-                Block log_bridge_stair = Finder.findBlock(modid, MAT.get(i) + "_bridge_stair");
+                Block stone_bridge = Finder.findBlock(modid, MAT.get(i) + "_bridge");
+                Block stone_pier_bridge = Finder.findBlock(modid, MAT.get(i) + "_bridge_pier");
+                Block stone_bridge_stair = Finder.findBlock(modid, MAT.get(i) + "_bridge_stair");
+                Block balustrade_stone_bridge = Finder.findBlock(modid, "balustrade_" + MAT.get(i) + "_bridge");
 
-                pier(consumer, pier_bridge, stoneB, wall);
-                log_bridge(consumer, log_bridge, stoneB, slab, wall);
-                log_bridge_stair(consumer, log_bridge_stair, stoneB, log_bridge);
+                pier(consumer, stone_pier_bridge, stoneB, wall);
+                log_bridge(consumer, stone_bridge, stoneB, slab, wall);
+                log_bridge_stair(consumer, stone_bridge_stair, stoneB, stone_bridge);
+                mcwRecipes.mkRpW2Items(consumer, stoneB, new String[]{"BBB", "AAA"}, balustrade_stone_bridge, 5, slab, wall, "balustrade_bridges");
             }
         }
     }
