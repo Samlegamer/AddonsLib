@@ -25,7 +25,7 @@ public class CreateBlockReferences
         {
             properties.tab(tab);
             if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
-                ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), properties, Bridges.desc));
+                ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), properties, "mcwbridges.bridges.desc"));
             }
             else if(name.endsWith("planks_path"))
             {
@@ -84,7 +84,7 @@ public class CreateBlockReferences
         {
             properties.tab(tab);
             if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
-                itemBlock = new BlockItemFuelInfo(block, properties, Bridges.desc);
+                itemBlock = new BlockItemFuelInfo(block, properties, "mcwbridges.bridges.desc");
             }
             else if(name.endsWith("planks_path"))
             {

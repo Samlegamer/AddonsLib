@@ -1,9 +1,8 @@
 package fr.samlegamer.addonslib.trapdoor;
 
 import java.util.List;
-import fr.samlegamer.addonslib.data.BlockId;
+
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;

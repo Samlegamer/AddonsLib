@@ -2,13 +2,10 @@ package fr.samlegamer.addonslib.roofs;
 
 import java.util.List;
 import fr.samlegamer.addonslib.Registration;
-import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.StairsBlock;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;

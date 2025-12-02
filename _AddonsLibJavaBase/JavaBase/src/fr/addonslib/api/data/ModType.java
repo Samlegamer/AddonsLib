@@ -1,4 +1,4 @@
-package fr.addonslib.api.data;
+package fr.addonslib.api.data.;
 
 public enum ModType {
     ROOFS("mcwroofs"), FENCES("mcwfences"), BRIDGES("mcwbridges"), FURNITURES("mcwfurnitures"),

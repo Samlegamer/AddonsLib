@@ -2,9 +2,7 @@ package fr.samlegamer.addonslib.stairs;
 
 import java.util.List;
 import fr.samlegamer.addonslib.Registration;
-import fr.samlegamer.addonslib.data.BlockId;
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;

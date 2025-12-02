@@ -2,9 +2,6 @@ package fr.samlegamer.addonslib.generation.tags;
 
 import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.bridges.Bridges;
-import fr.samlegamer.addonslib.data.BlockId;
-import fr.samlegamer.addonslib.data.McwBlockIdBase;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.door.Doors;
 import fr.samlegamer.addonslib.fences.Fences;
 import fr.samlegamer.addonslib.furnitures.Furnitures;

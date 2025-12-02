@@ -1,7 +1,6 @@
 package fr.samlegamer.addonslib.generation.recipes;
 
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.data.ModType;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwStoneMat;
 import fr.samlegamer.addonslib.generation.recipes.mat.McwWoodMat;
 import net.minecraft.block.Block;
