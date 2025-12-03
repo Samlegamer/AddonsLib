@@ -208,84 +208,84 @@ public final class McwRecipesBase
         new String[]{"A", "B", "A"},
         PLANKS, 1, "bamboo",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_bamboo")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_bamboo")
     );
 
     public static final RecipesBase BEACH_DOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "beach",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_jungle")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_jungle")
     );
 
     public static final RecipesBase CLASSIC_DOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "classic",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_oak")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_oak")
     );
 
     public static final RecipesBase COTTAGE_DOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "cottage",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_spruce")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_spruce")
     );
 
     public static final RecipesBase FOUR_PANEL_DOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "four_panel",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_dark_oak")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_dark_oak")
     );
 
     public static final RecipesBase MYSTIC_DOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "mystic",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_mystic")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_mystic")
     );
 
     public static final RecipesBase NETHER_DOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "nether",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_nether")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_nether")
     );
 
     public static final RecipesBase PAPER_DOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "paper",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_birch")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_birch")
     );
 
     public static final RecipesBase SWAMP_DOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "swamp",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_swamp")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_swamp")
     );
 
     public static final RecipesBase TROPICAL_DOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "tropical",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_acacia")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_acacia")
     );
 
     public static final RecipesBase WAFFLE_DOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "waffle",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_waffle")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_waffle")
     );
 
     public static final RecipesBase WHISPERING_DOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "whispering",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_whispering")
+        new CraftingIngredient('B', ModType.DOORS.getModid() + ":print_whispering")
     );
 
     // ================ FENCES ================
@@ -598,7 +598,7 @@ public final class McwRecipesBase
 
     // ================ TRAPDOORS ================
     public static final RecipesBase RANCH_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
-        new String[]{"ABA", "ABA"},
+        new String[]{"ABA", "BBB", "ABA"},
         LOG, 2, "ranch_trapdoors",
         new CraftingIngredient('A', LOG),
         new CraftingIngredient('B', STICK)
@@ -637,84 +637,84 @@ public final class McwRecipesBase
         new String[]{"A", "B", "A"},
         PLANKS, 1, "bamboo_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_bamboo")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_bamboo")
     );
 
     public static final RecipesBase BARRED_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "barred_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_barred")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_barred")
     );
 
     public static final RecipesBase BEACH_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "beach_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_beach")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_beach")
     );
 
     public static final RecipesBase BLOSSOM_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "blossom_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_blossom")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_blossom")
     );
 
     public static final RecipesBase CLASSIC_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "classic_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_classic")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_classic")
     );
 
     public static final RecipesBase COTTAGE_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "cottage_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_cottage")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_cottage")
     );
 
     public static final RecipesBase FOUR_PANEL_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "four_panel_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_four_panel")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_four_panel")
     );
 
     public static final RecipesBase MYSTIC_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "mystic_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_mystic")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_mystic")
     );
 
     public static final RecipesBase PAPER_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "paper_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_paper")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_paper")
     );
 
     public static final RecipesBase SWAMP_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "swamp_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_swamp")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_swamp")
     );
 
     public static final RecipesBase TROPICAL_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "tropical_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_tropical")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_tropical")
     );
 
     public static final RecipesBase WHISPERING_TRAPDOOR = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"A", "B", "A"},
         PLANKS, 1, "whispering_trapdoors",
         new CraftingIngredient('A', PLANKS),
-        new CraftingIngredient('B', "print_whispering")
+        new CraftingIngredient('B', ModType.TRAPDOORS.getModid() + ":print_whispering")
     );
 
     // ================ WINDOWS ================
@@ -728,13 +728,13 @@ public final class McwRecipesBase
     public static final RecipesBase SHUTTER = new RecipesBase(RECIPE_SHAPELESS_WITH_1_ITEM,
         new String[]{},
         LOG, 3, "shutters",
-        new CraftingIngredient('A', TRAPDOOR)
+        new CraftingIngredient('A', TRAPDOOR, 3)
     );
 
     public static final RecipesBase LOUVERED_SHUTTER = new RecipesBase(RECIPE_SHAPELESS_WITH_1_ITEM,
         new String[]{},
         LOG, 3, "shutters",
-        new CraftingIngredient('A', SLAB)
+        new CraftingIngredient('A', SLAB, 3)
     );
 
     public static final RecipesBase LOG_PARAPET = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,

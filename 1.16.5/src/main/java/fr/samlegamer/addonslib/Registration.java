@@ -28,7 +28,7 @@ public final class Registration
 
     public static ModType[] getAllModTypeStone()
     {
-        return new ModType[] {ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+        return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES};
     }
 
 	/**

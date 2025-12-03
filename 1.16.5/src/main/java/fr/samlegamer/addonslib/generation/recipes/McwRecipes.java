@@ -38,42 +38,42 @@ public class McwRecipes extends RecipeProvider
         {
             for(RecipesBase recipeBase : blockId.recipes())
             {
-                for(String mat : MAT)
+                for(int i = 0; i < MAT.size() && i < woodMats.size(); i++)
                 {
-                    for(McwWoodMat<Block> woodMat : woodMats)
-                    {
-                        Block result = Finder.findBlock(modid, McwBlocksIdBase.replacement(blockId.id(), mat));
+                    String mat = MAT.get(i);
+                    McwWoodMat<Block> woodMat = woodMats.get(i);
 
-                        if(result != null)
+                    Block result = Finder.findBlock(modid, McwBlocksIdBase.replacement(blockId.id(), mat));
+
+                    if(result != null)
+                    {
+                        switch(recipeBase.getMethod())
                         {
-                            switch(recipeBase.getMethod())
-                            {
-                                case McwRecipesBase.RECIPE_SHAPED_WITH_1_ITEM:
-                                    recipeShapedWith1Item(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM_RECYCLE:
-                                    recipeShapelessWith1ItemRecycle(output, woodMat.getLog(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM:
-                                    recipeShapelessWith1Item(output, woodMat.getLog(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                case McwRecipesBase.RECIPE_SHAPED_WITH_2_ITEMS:
-                                    recipeShapedWith2Items(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[1]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                case McwRecipesBase.RECIPE_SHAPED_WITH_3_ITEMS:
-                                    recipeShapedWith3Items(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[1]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[2]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                case McwRecipesBase.RECIPE_SHAPED_WITH_4_ITEMS:
-                                    recipeShapedWith4Items(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[1]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[2]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[3]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                default:
-                                    AddonsLib.LOGGER.error("Unknown recipe method: {} for {} item", recipeBase.getMethod(), modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
-                                    break;
-                            }
+                            case McwRecipesBase.RECIPE_SHAPED_WITH_1_ITEM:
+                                recipeShapedWith1Item(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[0]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM_RECYCLE:
+                                recipeShapelessWith1ItemRecycle(output, woodMat.getLog(), result, recipeBase.getCount(), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM:
+                                recipeShapelessWith1Item(output, woodMat.getLog(), result, recipeBase.getCount(), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            case McwRecipesBase.RECIPE_SHAPED_WITH_2_ITEMS:
+                                recipeShapedWith2Items(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[0]), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[1]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            case McwRecipesBase.RECIPE_SHAPED_WITH_3_ITEMS:
+                                recipeShapedWith3Items(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[0]), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[1]), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[2]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            case McwRecipesBase.RECIPE_SHAPED_WITH_4_ITEMS:
+                                recipeShapedWith4Items(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[0]), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[1]), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[2]), replaceTypeWood(modid, mat, woodMat, recipeBase.getCraftingItems()[3]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            default:
+                                AddonsLib.LOGGER.error("Unknown recipe method: {} for {} item", recipeBase.getMethod(), modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
+                                break;
                         }
-                        else {
-                            AddonsLib.LOGGER.error("Could not find block with id: {}", modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
-                        }
+                    }
+                    else {
+                        AddonsLib.LOGGER.error("Could not find block with id: {}", modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
                     }
                 }
             }
@@ -86,55 +86,91 @@ public class McwRecipes extends RecipeProvider
         {
             for(RecipesBase recipeBase : blockId.recipes())
             {
-                for(String mat : MAT)
+                for(int i = 0; i < MAT.size() && i < stoneMats.size(); i++)
                 {
-                    for(McwStoneMat<Block> stoneMat : stoneMats)
-                    {
-                        Block result = Finder.findBlock(modid, McwBlocksIdBase.replacement(blockId.id(), mat));
+                    String mat = MAT.get(i);
+                    McwStoneMat<Block> stoneMat = stoneMats.get(i);
 
-                        if(result != null)
+                    Block result = Finder.findBlock(modid, McwBlocksIdBase.replacement(blockId.id(), mat));
+
+                    if(result != null)
+                    {
+                        switch(recipeBase.getMethod())
                         {
-                            switch(recipeBase.getMethod())
-                            {
-                                case McwRecipesBase.RECIPE_SHAPED_WITH_1_ITEM:
-                                    recipeShapedWith1Item(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM_RECYCLE:
-                                    recipeShapelessWith1ItemRecycle(output, stoneMat.getStoneBase(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM:
-                                    recipeShapelessWith1Item(output, stoneMat.getStoneBase(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                case McwRecipesBase.RECIPE_SHAPED_WITH_2_ITEMS:
-                                    recipeShapedWith2Items(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[1]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                case McwRecipesBase.RECIPE_SHAPED_WITH_3_ITEMS:
-                                    recipeShapedWith3Items(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[1]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[2]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                case McwRecipesBase.RECIPE_SHAPED_WITH_4_ITEMS:
-                                    recipeShapedWith4Items(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[1]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[2]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[3]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                case McwRecipesBase.RECIPE_STONECUTTER:
-                                    recipeStonecutter(output, result, replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                default:
-                                    AddonsLib.LOGGER.error("Unknown recipe method: {} for {} item", recipeBase.getMethod(), modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
-                                    break;
-                            }
+                            case McwRecipesBase.RECIPE_SHAPED_WITH_1_ITEM:
+                                recipeShapedWith1Item(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM_RECYCLE:
+                                recipeShapelessWith1ItemRecycle(output, stoneMat.getStoneBase(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM:
+                                recipeShapelessWith1Item(output, stoneMat.getStoneBase(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            case McwRecipesBase.RECIPE_SHAPED_WITH_2_ITEMS:
+                                recipeShapedWith2Items(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[1]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            case McwRecipesBase.RECIPE_SHAPED_WITH_3_ITEMS:
+                                recipeShapedWith3Items(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[1]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[2]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            case McwRecipesBase.RECIPE_SHAPED_WITH_4_ITEMS:
+                                recipeShapedWith4Items(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[1]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[2]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[3]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            case McwRecipesBase.RECIPE_STONECUTTER:
+                                recipeStonecutter(output, result, replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            default:
+                                AddonsLib.LOGGER.error("Unknown recipe method: {} for {} item", recipeBase.getMethod(), modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
+                                break;
                         }
-                        else {
-                            AddonsLib.LOGGER.error("Could not find block with id: {}", modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
-                        }
+                    }
+                    else {
+                        AddonsLib.LOGGER.error("Could not find block with id: {}", modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
                     }
                 }
             }
         }
     }
 
-    private Item replaceTypeWood(McwWoodMat<Block> woodMat, CraftingIngredient type)
+    private Item replaceTypeWood(String MODID, String mat, McwWoodMat<Block> woodMat, CraftingIngredient type)
     {
         switch(type.getName())
         {
+            case "log_bridge":
+                return Finder.findItem(MODID, mat+"_log_bridge_middle");
+            case "log_bridge_stair":
+                return Finder.findItem(MODID, mat+"_log_bridge_stair");
+            case "wardrobe":
+                return Finder.findItem(MODID, mat+"_wardrobe");
+            case "stripped_wardrobe":
+                return Finder.findItem(MODID, "stripped_"+mat+"_wardrobe");
+            case "coffee_table":
+                return Finder.findItem(MODID, mat+"_coffee_table");
+            case "stripped_coffee_table":
+                return Finder.findItem(MODID, "stripped_"+mat+"_coffee_table");
+            case "stable_door":
+                return Finder.findItem(MODID, mat+"_stable_door");
+            case "rope_bridge":
+                return Finder.findItem(MODID, "rope_"+mat+"_bridge");
+            case "balcony":
+                return Finder.findItem(MODID, mat+"_balcony");
+            case "drawer":
+                return Finder.findItem(MODID, mat+"_drawer");
+            case "stripped_drawer":
+                return Finder.findItem(MODID, "stripped_"+mat+"_drawer");
+            case "double_drawer":
+                return Finder.findItem(MODID, mat+"_double_drawer");
+            case "stripped_double_drawer":
+                return Finder.findItem(MODID, "stripped_"+mat+"_double_drawer");
+            case "stripped_end_table":
+                return Finder.findItem(MODID, "stripped_"+mat+"_end_table");
+            case "table":
+                return Finder.findItem(MODID, mat+"_table");
+            case "end_table":
+                return Finder.findItem(MODID, mat+"_end_table");
+            case "rope_bridge_stair":
+                return Finder.findItem(MODID, mat+"_rope_bridge_stair");
+            case "glass_trapdoor":
+                return Finder.findItem(MODID, mat+"_glass_trapdoor");
             case McwRecipesBase.CABINET_DOOR:
                 return Finder.findItem(McwRecipesBase.CABINET_DOOR);
             case McwRecipesBase.CABINET_DRAWER:
@@ -145,6 +181,8 @@ public class McwRecipes extends RecipeProvider
                 return Finder.findItem(McwRecipesBase.WINDOW_HALF_BAR_BASE);
             case McwRecipesBase.WINDOW_CENTRE_BAR_BASE:
                 return Finder.findItem(McwRecipesBase.WINDOW_CENTRE_BAR_BASE);
+            case McwRecipesBase.STICK:
+                return Items.STICK;
             case McwRecipesBase.IRON_BARS:
                 return Items.IRON_BARS;
             case McwRecipesBase.CAULDRON:
@@ -176,7 +214,7 @@ public class McwRecipes extends RecipeProvider
             case McwRecipesBase.TRAPDOOR:
                 return woodMat.getTrapdoor().asItem();
             default:
-                return Items.AIR;
+                return Finder.findItem(type.getName());
         }
     }
 
@@ -230,27 +268,27 @@ public class McwRecipes extends RecipeProvider
         {
             for(RecipesBase recipeBase : blockId.recipes())
             {
-                for(String mat : MAT)
+                for(int i = 0; i < MAT.size() && i < blockLeave.size(); i++)
                 {
-                    for(Block leave : blockLeave)
-                    {
-                        Block result = Finder.findBlock(modid, McwBlocksIdBase.replacement(blockId.id(), mat));
+                    String mat = MAT.get(i);
+                    Block leave = blockLeave.get(i);
 
-                        if(result != null)
+                    Block result = Finder.findBlock(modid, McwBlocksIdBase.replacement(blockId.id(), mat));
+
+                    if(result != null)
+                    {
+                        switch(recipeBase.getMethod())
                         {
-                            switch(recipeBase.getMethod())
-                            {
-                                case McwRecipesBase.RECIPE_SHAPED_WITH_1_ITEM:
-                                    recipeShapedWith1Item(output, leave, recipeBase.getPattern(), result, recipeBase.getCount(), leave, recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
-                                    break;
-                                default:
-                                    AddonsLib.LOGGER.error("Unknown recipe method: {} for {} item", recipeBase.getMethod(), modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
-                                    break;
-                            }
+                            case McwRecipesBase.RECIPE_SHAPED_WITH_1_ITEM:
+                                recipeShapedWith1Item(output, leave, recipeBase.getPattern(), result, recipeBase.getCount(), leave, recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                break;
+                            default:
+                                AddonsLib.LOGGER.error("Unknown recipe method: {} for {} item", recipeBase.getMethod(), modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
+                                break;
                         }
-                        else {
-                            AddonsLib.LOGGER.error("Could not find block with id: {}", modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
-                        }
+                    }
+                    else {
+                        AddonsLib.LOGGER.error("Could not find block with id: {}", modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
                     }
                 }
             }

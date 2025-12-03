@@ -108,8 +108,11 @@ public class McwTags
     public static final Tags WHISPERING_DOORS_TAGS = new Tags(
             Arrays.asList(Tags.formatTag(ModType.DOORS.getModid(), "whispering_doors"), Tags.formatTag("minecraft", WOODEN_DOORS), Tags.formatTag("minecraft", MINEABLE_AXE)),
             Collections.singletonList(Tags.formatTag("minecraft", WOODEN_DOORS)));
+    public static final Tags BARK_GLASS_DOORS_TAGS = new Tags(
+            Arrays.asList(Tags.formatTag(ModType.DOORS.getModid(), "bark_glass_doors"), Tags.formatTag("minecraft", WOODEN_DOORS), Tags.formatTag("minecraft", MINEABLE_AXE)),
+            Collections.singletonList(Tags.formatTag("minecraft", WOODEN_DOORS)));
 
-        // Fences Wood Tags
+    // Fences Wood Tags
         public static final Tags PICKET_FENCE_TAGS = new Tags(
             Arrays.asList(Tags.formatTag(ModType.FENCES.getModid(), "picket_fences"), Tags.formatTag("minecraft", WOODEN_FENCES), Tags.formatTag("minecraft", FENCES), Tags.formatTag("minecraft", MINEABLE_AXE)),
             Arrays.asList(Tags.formatTag("minecraft", WOODEN_FENCES), Tags.formatTag("minecraft", FENCES)));

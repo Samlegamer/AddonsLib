@@ -7,6 +7,9 @@ public final class ConditionalsRegistry
     public static boolean isBlockDefaultState(String reflectedLocation)
     {
         return reflectedLocation.contains("StorageCounter") ||
+                reflectedLocation.endsWith("CupboardCounter") ||
+                !reflectedLocation.endsWith("BookCabinet") ||
+                reflectedLocation.endsWith("CabinetHinge") ||
                 reflectedLocation.endsWith("Cabinet") ||
                 reflectedLocation.contains("Lower") ||
                 reflectedLocation.contains("Steep") ||

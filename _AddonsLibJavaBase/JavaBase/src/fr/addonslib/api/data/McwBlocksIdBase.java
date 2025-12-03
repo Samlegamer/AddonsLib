@@ -46,7 +46,7 @@ public final class McwBlocksIdBase
             new BlockId("%material%_nether_door", McwReflected.DOOR_BLOCK, NETHER_DOORS_TAGS, NETHER_DOOR),
             new BlockId("%material%_swamp_door", McwReflected.DOOR_BLOCK, SWAMP_DOORS_TAGS, SWAMP_DOOR),
             new BlockId("%material%_bamboo_door", McwReflected.DOOR_BLOCK, BAMBOO_DOORS_TAGS, BAMBOO_DOOR),
-            new BlockId("%material%_bark_glass_door", McwReflected.DOOR_BLOCK, BARN_GLASS_DOORS_TAGS, BARK_GLASS_DOOR),
+            new BlockId("%material%_bark_glass_door", McwReflected.DOOR_BLOCK, BARK_GLASS_DOORS_TAGS, BARK_GLASS_DOOR),
             new BlockId("%material%_waffle_door", McwReflected.DOOR_BLOCK, WAFFLE_DOORS_TAGS, WAFFLE_DOOR),
             new BlockId("%material%_whispering_door", McwReflected.DOOR_BLOCK, WHISPERING_DOORS_TAGS, WHISPERING_DOOR)
     ));
@@ -150,13 +150,13 @@ public final class McwBlocksIdBase
             new BlockId("%material%_steep_roof", McwReflected.STEEP_ROOF, STEEP_ROOF_WOOD_TAGS, STEEP_ROOF),
             new BlockId("%material%_upper_lower_roof", McwReflected.LOWER_ROOF, UPPER_LOWER_ROOF_WOOD_TAGS, UPPER_LOWER_ROOF),
             new BlockId("%material%_upper_steep_roof", McwReflected.STEEP, UPPER_STEEP_ROOF_WOOD_TAGS, UPPER_STEEP_ROOF),
-            new BlockId("%material%_planks_roof", McwReflected.BASE_ROOF, ROOF_WOOD_TAGS, ROOF),
-            new BlockId("%material%_planks_attic_roof", McwReflected.ROOF_GLASS, ATTIC_ROOF_WOOD_TAGS, ATTIC_ROOF),
-            new BlockId("%material%_planks_top_roof", McwReflected.ROOF_TOP_NEW, TOP_ROOF_WOOD_TAGS, TOP_ROOF),
-            new BlockId("%material%_planks_lower_roof", McwReflected.BASE_ROOF, LOWER_ROOF_WOOD_TAGS, LOWER_ROOF),
-            new BlockId("%material%_planks_steep_roof", McwReflected.STEEP_ROOF, STEEP_ROOF_WOOD_TAGS, STEEP_ROOF),
-            new BlockId("%material%_planks_upper_lower_roof", McwReflected.LOWER_ROOF, UPPER_LOWER_ROOF_WOOD_TAGS, UPPER_LOWER_ROOF),
-            new BlockId("%material%_planks_upper_steep_roof", McwReflected.STEEP, UPPER_STEEP_ROOF_WOOD_TAGS, UPPER_STEEP_ROOF)
+            new BlockId("%material%_planks_roof", McwReflected.BASE_ROOF, ROOF_WOOD_TAGS, PLANKS_ROOF),
+            new BlockId("%material%_planks_attic_roof", McwReflected.ROOF_GLASS, ATTIC_ROOF_WOOD_TAGS, PLANKS_ATTIC_ROOF),
+            new BlockId("%material%_planks_top_roof", McwReflected.ROOF_TOP_NEW, TOP_ROOF_WOOD_TAGS, PLANKS_TOP_ROOF),
+            new BlockId("%material%_planks_lower_roof", McwReflected.BASE_ROOF, LOWER_ROOF_WOOD_TAGS, PLANKS_LOWER_ROOF),
+            new BlockId("%material%_planks_steep_roof", McwReflected.STEEP_ROOF, STEEP_ROOF_WOOD_TAGS, PLANKS_STEEP_ROOF),
+            new BlockId("%material%_planks_upper_lower_roof", McwReflected.LOWER_ROOF, UPPER_LOWER_ROOF_WOOD_TAGS, PLANKS_UPPER_LOWER_ROOF),
+            new BlockId("%material%_planks_upper_steep_roof", McwReflected.STEEP, UPPER_STEEP_ROOF_WOOD_TAGS, PLANKS_UPPER_STEEP_ROOF)
     ));
 
     public static final McwBlockIdBase ROOFS_STONE_BLOCKS = new McwBlockIdBase(ModType.ROOFS.getModid(), Arrays.asList(
