@@ -1,6 +1,8 @@
 package fr.addonslib.api.data;
 
 import java.util.Arrays;
+import java.util.Collections;
+
 import static fr.addonslib.api.recipes.McwRecipesBase.*;
 import static fr.addonslib.api.tags.McwTags.*;
 
@@ -246,7 +248,7 @@ public final class McwBlocksIdBase
             case WINDOWS:
                 return WINDOWS_WOOD_BLOCKS;
         }
-        return null;
+        return new McwBlockIdBase("none", Collections.emptyList());
     }
 
     public static McwBlockIdBase getBlocksWithModidLeave(ModType modType)
@@ -255,7 +257,7 @@ public final class McwBlocksIdBase
             case FENCES:
                 return FENCES_LEAVE_BLOCKS;
             default:
-                return null;
+                return new McwBlockIdBase("none", Collections.emptyList());
         }
     }
 
@@ -269,7 +271,7 @@ public final class McwBlocksIdBase
             case ROOFS:
                 return ROOFS_STONE_BLOCKS;
             default:
-                return null;
+                return new McwBlockIdBase("none", Collections.emptyList());
         }
     }
 }

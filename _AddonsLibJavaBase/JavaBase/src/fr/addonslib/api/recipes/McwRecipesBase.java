@@ -39,11 +39,11 @@ public final class McwRecipesBase
     public static final String DIRT = "minecraft:dirt";
 
     // MCW custom elements
-    private static final String CABINET_DOOR = ModType.FURNITURES.getModid() + ":cabinet_door";
-    private static final String CABINET_DRAWER = ModType.FURNITURES.getModid() + ":cabinet_drawer";
-    private static final String WINDOW_BASE = ModType.WINDOWS.getModid() + ":window_base";
-    private static final String WINDOW_HALF_BAR_BASE = ModType.WINDOWS.getModid() + ":window_half_bar_base";
-    private static final String WINDOW_CENTRE_BAR_BASE = ModType.WINDOWS.getModid() + ":window_centre_bar_base";
+    public static final String CABINET_DOOR = "mcwfurnitures:cabinet_door";
+    public static final String CABINET_DRAWER = "mcwfurnitures:cabinet_drawer";
+    public static final String WINDOW_BASE = "mcwwindows:window_base";
+    public static final String WINDOW_HALF_BAR_BASE = "mcwwindows:window_half_bar_base";
+    public static final String WINDOW_CENTRE_BAR_BASE = "mcwwindows:window_centre_bar_base";
 
     public static final String RECIPE_SHAPED_WITH_1_ITEM = "recipeShapedWith1Item";
     public static final String RECIPE_SHAPELESS_WITH_1_ITEM_RECYCLE = "recipeShapelessWith1ItemRecycle";
@@ -51,7 +51,7 @@ public final class McwRecipesBase
     public static final String RECIPE_SHAPED_WITH_2_ITEMS = "recipeShapedWith2Items";
     public static final String RECIPE_SHAPED_WITH_3_ITEMS = "recipeShapedWith3Items";
     public static final String RECIPE_SHAPED_WITH_4_ITEMS = "recipeShapedWith4Items";
-    public static final String RECIPE_STONECUTTER = "recipeStonecut";
+    public static final String RECIPE_STONECUTTER = "recipeStonecutter";
 
     // ================ BRIDGES ================
     public static final RecipesBase LOG_BRIDGE = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,

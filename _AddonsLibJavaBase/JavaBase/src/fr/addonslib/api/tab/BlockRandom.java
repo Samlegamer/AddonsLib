@@ -1,6 +1,5 @@
 package fr.addonslib.api.tab;
 
-public class BlockRandom
+public class BlockRandom<T>
 {
-
 }

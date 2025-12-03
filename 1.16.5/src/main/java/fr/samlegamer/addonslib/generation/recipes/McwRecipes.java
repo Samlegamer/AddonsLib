@@ -3,12 +3,15 @@ package fr.samlegamer.addonslib.generation.recipes;
 import fr.addonslib.api.data.BlockId;
 import fr.addonslib.api.data.McwBlockIdBase;
 import fr.addonslib.api.data.McwBlocksIdBase;
+import fr.addonslib.api.data.ModType;
 import fr.addonslib.api.recipes.CraftingIngredient;
 import fr.addonslib.api.recipes.McwRecipesBase;
 import fr.addonslib.api.recipes.RecipesBase;
+import fr.addonslib.api.recipes.material.McwStoneMat;
 import fr.addonslib.api.recipes.material.McwWoodMat;
 import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
+import fr.samlegamer.addonslib.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
@@ -18,17 +21,14 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
-import net.minecraftforge.registries.ForgeRegistries;
-
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 import static net.minecraft.data.ShapedRecipeBuilder.*;
 import static net.minecraft.data.ShapelessRecipeBuilder.*;
 
 public class McwRecipes extends RecipeProvider
 {
-    public McwRecipes(DataGenerator dataGenerator, String modid) {
+    public McwRecipes(DataGenerator dataGenerator) {
         super(dataGenerator);
     }
 
@@ -49,10 +49,76 @@ public class McwRecipes extends RecipeProvider
                             switch(recipeBase.getMethod())
                             {
                                 case McwRecipesBase.RECIPE_SHAPED_WITH_1_ITEM:
-                                    recipeShapedWith1Item(output, woodMat.getPlanks(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    recipeShapedWith1Item(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
                                     break;
                                 case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM_RECYCLE:
-                                    //recipeShapedWith1Item(output, woodMat.getPlanks(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    recipeShapelessWith1ItemRecycle(output, woodMat.getLog(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM:
+                                    recipeShapelessWith1Item(output, woodMat.getLog(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                case McwRecipesBase.RECIPE_SHAPED_WITH_2_ITEMS:
+                                    recipeShapedWith2Items(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[1]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                case McwRecipesBase.RECIPE_SHAPED_WITH_3_ITEMS:
+                                    recipeShapedWith3Items(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[1]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[2]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                case McwRecipesBase.RECIPE_SHAPED_WITH_4_ITEMS:
+                                    recipeShapedWith4Items(output, woodMat.getLog(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[0]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[1]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[2]), replaceTypeWood(woodMat, recipeBase.getCraftingItems()[3]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                default:
+                                    AddonsLib.LOGGER.error("Unknown recipe method: {} for {} item", recipeBase.getMethod(), modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
+                                    break;
+                            }
+                        }
+                        else {
+                            AddonsLib.LOGGER.error("Could not find block with id: {}", modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void makeRecipesStone(McwBlockIdBase mcwBlockIdBase, Consumer<IFinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<McwStoneMat<Block>> stoneMats)
+    {
+        for(BlockId blockId : mcwBlockIdBase.blocks())
+        {
+            for(RecipesBase recipeBase : blockId.recipes())
+            {
+                for(String mat : MAT)
+                {
+                    for(McwStoneMat<Block> stoneMat : stoneMats)
+                    {
+                        Block result = Finder.findBlock(modid, McwBlocksIdBase.replacement(blockId.id(), mat));
+
+                        if(result != null)
+                        {
+                            switch(recipeBase.getMethod())
+                            {
+                                case McwRecipesBase.RECIPE_SHAPED_WITH_1_ITEM:
+                                    recipeShapedWith1Item(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM_RECYCLE:
+                                    recipeShapelessWith1ItemRecycle(output, stoneMat.getStoneBase(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                case McwRecipesBase.RECIPE_SHAPELESS_WITH_1_ITEM:
+                                    recipeShapelessWith1Item(output, stoneMat.getStoneBase(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), recipeBase.getCraftingItems()[0].getRequiredCount(), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                case McwRecipesBase.RECIPE_SHAPED_WITH_2_ITEMS:
+                                    recipeShapedWith2Items(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[1]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                case McwRecipesBase.RECIPE_SHAPED_WITH_3_ITEMS:
+                                    recipeShapedWith3Items(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[1]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[2]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                case McwRecipesBase.RECIPE_SHAPED_WITH_4_ITEMS:
+                                    recipeShapedWith4Items(output, stoneMat.getStoneBase(), recipeBase.getPattern(), result, recipeBase.getCount(), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[1]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[2]), replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[3]), recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                case McwRecipesBase.RECIPE_STONECUTTER:
+                                    recipeStonecutter(output, result, replaceTypeStone(stoneMat, recipeBase.getCraftingItems()[0]), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                default:
+                                    AddonsLib.LOGGER.error("Unknown recipe method: {} for {} item", recipeBase.getMethod(), modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
                                     break;
                             }
                         }
@@ -69,6 +135,16 @@ public class McwRecipes extends RecipeProvider
     {
         switch(type.getName())
         {
+            case McwRecipesBase.CABINET_DOOR:
+                return Finder.findItem(McwRecipesBase.CABINET_DOOR);
+            case McwRecipesBase.CABINET_DRAWER:
+                return Finder.findItem(McwRecipesBase.CABINET_DRAWER);
+            case McwRecipesBase.WINDOW_BASE:
+                return Finder.findItem(McwRecipesBase.WINDOW_BASE);
+            case McwRecipesBase.WINDOW_HALF_BAR_BASE:
+                return Finder.findItem(McwRecipesBase.WINDOW_HALF_BAR_BASE);
+            case McwRecipesBase.WINDOW_CENTRE_BAR_BASE:
+                return Finder.findItem(McwRecipesBase.WINDOW_CENTRE_BAR_BASE);
             case McwRecipesBase.IRON_BARS:
                 return Items.IRON_BARS;
             case McwRecipesBase.CAULDRON:
@@ -104,265 +180,119 @@ public class McwRecipes extends RecipeProvider
         }
     }
 
-//    private AbstractType getFromModType(ModType modType, String modid, String originalMod)
-//    {
-//        switch (modType) {
-//            case BRIDGES: return new Bridges(dataGenerator, modid, originalMod);
-//            case DOORS: return new Doors(dataGenerator, modid, originalMod);
-//            case FENCES: return new Fences(dataGenerator, modid, originalMod);
-//            case FURNITURES: return new Furnitures(dataGenerator, modid, originalMod);
-//            case PATHS: return new Paths(dataGenerator, modid, originalMod);
-//            case ROOFS: return new Roofs(dataGenerator, modid, originalMod);
-//            case STAIRS: return new Stairs(dataGenerator, modid, originalMod);
-//            case TRAPDOORS: return new Trapdoors(dataGenerator, modid, originalMod);
-//            case WINDOWS: return new Windows(dataGenerator, modid, originalMod);
-//            default: return null;
-//        }
-//    }
-//
-//    public void onRegisterMcwWood(ModType modType, Consumer<IFinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<McwWoodMat> woodMats)
-//    {
-//        AbstractType abstractType = getFromModType(modType, modid, originalMod);
-//        if(abstractType != null)
-//        {
-//            abstractType.buildWood(output, MAT, woodMats);
-//        }
-//    }
-//
-//    public void onRegisterMcwStone(ModType modType, Consumer<IFinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<McwStoneMat> stoneMats)
-//    {
-//        AbstractType abstractType = getFromModType(modType, modid, originalMod);
-//        if(abstractType != null)
-//        {
-//            abstractType.buildStone(output, MAT, stoneMats);
-//        }
-//    }
-//
-//    public void registerAllMcwWood(Consumer<IFinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<McwWoodMat> woodMats)
-//    {
-//        onRegisterMcwWood(ModType.BRIDGES, output, modid, originalMod, MAT, woodMats);
-//        onRegisterMcwWood(ModType.DOORS, output, modid, originalMod, MAT, woodMats);
-//        onRegisterMcwWood(ModType.FENCES, output, modid, originalMod, MAT, woodMats);
-//        onRegisterMcwWood(ModType.FURNITURES, output, modid, originalMod, MAT, woodMats);
-//        onRegisterMcwWood(ModType.PATHS, output, modid, originalMod, MAT, woodMats);
-//        onRegisterMcwWood(ModType.ROOFS, output, modid, originalMod, MAT, woodMats);
-//        onRegisterMcwWood(ModType.STAIRS, output, modid, originalMod, MAT, woodMats);
-//        onRegisterMcwWood(ModType.TRAPDOORS, output, modid, originalMod, MAT, woodMats);
-//        onRegisterMcwWood(ModType.WINDOWS, output, modid, originalMod, MAT, woodMats);
-//    }
-//
-//    public void registerAllMcwStone(Consumer<IFinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<McwStoneMat> stoneMats)
-//    {
-//        onRegisterMcwStone(ModType.BRIDGES, output, modid, originalMod, MAT, stoneMats);
-//        onRegisterMcwStone(ModType.ROOFS, output, modid, originalMod, MAT, stoneMats);
-//        onRegisterMcwStone(ModType.FENCES, output, modid, originalMod, MAT, stoneMats);
-//    }
-//
-//    public void registerMcwHedge(Consumer<IFinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<Block> leave)
-//    {
-//        AbstractType abstractType = getFromModType(ModType.FENCES, modid, originalMod);
-//        if(abstractType != null)
-//        {
-//            abstractType.buildHedge(output, MAT, leave);
-//        }
-//    }
+    private Item replaceTypeStone(McwStoneMat<Block> woodMat, CraftingIngredient type)
+    {
+        switch(type.getName())
+        {
+            case McwRecipesBase.DIRT:
+                return Items.DIRT;
+            case McwRecipesBase.IRON_BARS:
+                return Items.IRON_BARS;
+            case McwRecipesBase.GLASS_PANE:
+                return Items.GLASS_PANE;
+            case McwRecipesBase.GLASS:
+                return Items.GLASS;
+            case McwRecipesBase.STONE_BASE:
+                return woodMat.getStoneBase().asItem();
+            case McwRecipesBase.STONE_SLAB:
+                return woodMat.getSlab().asItem();
+            case McwRecipesBase.STONE_WALL:
+                return woodMat.getWall().asItem();
+            case McwRecipesBase.SMOOTH_STONE:
+                return woodMat.getSmoothStone().asItem();
+            default:
+                return Items.AIR;
+        }
+    }
+
+    protected void registerMcwWood(Consumer<IFinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<McwWoodMat<Block>> woodMats, ModType... modType)
+    {
+        for(ModType mod : modType)
+        {
+            McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidWood(mod);
+            makeRecipesWood(mcwBlockIdBase, output, modid, originalMod, MAT, woodMats);
+        }
+    }
+
+    protected void registerMcwStone(Consumer<IFinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<McwStoneMat<Block>> stoneMats, ModType... modType)
+    {
+        for(ModType mod : modType)
+        {
+            McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidStone(mod);
+            makeRecipesStone(mcwBlockIdBase, output, modid, originalMod, MAT, stoneMats);
+        }
+    }
+
+    protected void registerMcwHedge(Consumer<IFinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<Block> blockLeave)
+    {
+        McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.FENCES_LEAVE_BLOCKS;
+        for(BlockId blockId : mcwBlockIdBase.blocks())
+        {
+            for(RecipesBase recipeBase : blockId.recipes())
+            {
+                for(String mat : MAT)
+                {
+                    for(Block leave : blockLeave)
+                    {
+                        Block result = Finder.findBlock(modid, McwBlocksIdBase.replacement(blockId.id(), mat));
+
+                        if(result != null)
+                        {
+                            switch(recipeBase.getMethod())
+                            {
+                                case McwRecipesBase.RECIPE_SHAPED_WITH_1_ITEM:
+                                    recipeShapedWith1Item(output, leave, recipeBase.getPattern(), result, recipeBase.getCount(), leave, recipeBase.getGroup(), originalMod, mcwBlockIdBase.modid());
+                                    break;
+                                default:
+                                    AddonsLib.LOGGER.error("Unknown recipe method: {} for {} item", recipeBase.getMethod(), modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
+                                    break;
+                            }
+                        }
+                        else {
+                            AddonsLib.LOGGER.error("Could not find block with id: {}", modid + ":" + McwBlocksIdBase.replacement(blockId.id(), mat));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void registerAllMcwWood(Consumer<IFinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<McwWoodMat<Block>> woodMats)
+    {
+        registerMcwWood(output, modid, originalMod, MAT, woodMats, Registration.getAllModTypeWood());
+    }
+
+    public void registerAllMcwStone(Consumer<IFinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<McwStoneMat<Block>> stoneMats)
+    {
+        registerMcwStone(output, modid, originalMod, MAT, stoneMats, Registration.getAllModTypeStone());
+    }
 
     private String getHasName(IItemProvider item)
     {
         return "has_" + Finder.getIdOfItem(item.asItem());
     }
 
-//    protected void mkScW1Item(Consumer<IFinishedRecipe> output, IItemProvider result, IItemProvider firstItem)
-//    {
-//        String recipeId = this.modid + ":" + Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(result.asItem()).getPath()) + "_stonecutter";
-//        ConditionalRecipe.builder()
-//                .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                .addRecipe(c -> SingleItemRecipeBuilder.stonecutting(Ingredient.of(firstItem), result)
-//                        .unlocks(getHasName(firstItem), has(firstItem)).save(c, recipeId)).generateAdvancement()
-//                .build(output, new ResourceLocation(recipeId));
-//    }
-//
-//    protected void mkRpW4Items(Consumer<IFinishedRecipe> output, IItemProvider planks, String[] pattern, IItemProvider result, int count, IItemProvider firstItem, IItemProvider secondItem, IItemProvider thirdItem, IItemProvider fourItem, String group)
-//    {
-//        if(pattern.length == 3)
-//        {
-//            ConditionalRecipe.builder()
-//                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                    .addRecipe(shaped(result, count)
-//                            .pattern(pattern[0])
-//                            .pattern(pattern[1])
-//                            .pattern(pattern[2])
-//                            .define('A', firstItem)
-//                            .define('B', secondItem)
-//                            .define('C', thirdItem)
-//                            .define('D', fourItem)
-//                            .group(group)
-//                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                    .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath()));
-//        }
-//        else if(pattern.length == 2)
-//        {
-//            ConditionalRecipe.builder()
-//                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                    .addRecipe(shaped(result, count)
-//                            .pattern(pattern[0])
-//                            .pattern(pattern[1])
-//                            .define('A', firstItem)
-//                            .define('B', secondItem)
-//                            .define('C', thirdItem)
-//                            .define('D', fourItem)
-//                            .group(group)
-//                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                    .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath()));
-//        }
-//        else
-//        {
-//            ConditionalRecipe.builder()
-//                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                    .addRecipe(shaped(result, count)
-//                            .pattern(pattern[0])
-//                            .define('A', firstItem)
-//                            .define('B', secondItem)
-//                            .define('C', thirdItem)
-//                            .define('D', fourItem)
-//                            .group(group)
-//                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                    .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath()));
-//        }
-//    }
-//
-//    protected void mkRpW3Items(Consumer<IFinishedRecipe> output, IItemProvider planks, String[] pattern, IItemProvider result, int count, IItemProvider firstItem, IItemProvider secondItem, IItemProvider thirdItem, String group)
-//    {
-//        if(pattern.length == 3)
-//        {
-//            ConditionalRecipe.builder()
-//                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                    .addRecipe(shaped(result, count)
-//                    .pattern(pattern[0])
-//                    .pattern(pattern[1])
-//                    .pattern(pattern[2])
-//                    .define('A', firstItem)
-//                    .define('B', secondItem)
-//                    .define('C', thirdItem)
-//                    .group(group)
-//                    .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                    .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath()));
-//        }
-//        else if(pattern.length == 2)
-//        {
-//            ConditionalRecipe.builder()
-//                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                    .addRecipe(shaped(result, count)
-//                            .pattern(pattern[0])
-//                            .pattern(pattern[1])
-//                            .define('A', firstItem)
-//                            .define('B', secondItem)
-//                            .define('C', thirdItem)
-//                            .group(group)
-//                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                    .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath()));
-//        }
-//        else
-//        {
-//            ConditionalRecipe.builder()
-//                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                    .addRecipe(shaped(result, count)
-//                            .pattern(pattern[0])
-//                            .define('A', firstItem)
-//                            .define('B', secondItem)
-//                            .define('C', thirdItem)
-//                            .group(group)
-//                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                    .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath()));
-//        }
-//    }
-//
-//    protected void mkRpW2Items(Consumer<IFinishedRecipe> output, IItemProvider planks, String[] pattern, IItemProvider result, int count, IItemProvider firstItem, IItemProvider secondItem, String group)
-//    {
-//        if(pattern.length == 3)
-//        {
-//            ConditionalRecipe.builder()
-//                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                    .addRecipe(shaped(result, count)
-//                                    .pattern(pattern[0])
-//                                    .pattern(pattern[1])
-//                                    .pattern(pattern[2])
-//                                    .define('A', firstItem)
-//                                    .define('B', secondItem)
-//                                    .group(group)
-//                                    .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                    .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath()));
-//        }
-//        else if(pattern.length == 2)
-//        {
-//            ConditionalRecipe.builder()
-//                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                    .addRecipe(shaped(result, count)
-//                            .pattern(pattern[0])
-//                            .pattern(pattern[1])
-//                            .define('A', firstItem)
-//                            .define('B', secondItem)
-//                            .group(group)
-//                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                    .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath()));
-//        }
-//        else
-//        {
-//            ConditionalRecipe.builder()
-//                    .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                    .addRecipe(shaped(result, count)
-//                            .pattern(pattern[0])
-//                            .define('A', firstItem)
-//                            .define('B', secondItem)
-//                            .group(group)
-//                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                    .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath()));
-//        }
-//    }
-//
-//    protected void mkRpW1Item(Consumer<IFinishedRecipe> output, IItemProvider planks, String[] pattern, IItemProvider result, int count, IItemProvider firstItem, String group, String suffix)
-//    {
-//        ConditionalRecipe.builder()
-//                .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                .addRecipe(shaped(result, count)
-//                .pattern(pattern[0])
-//                .define('A', firstItem)
-//                .group(group)
-//                .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath() + suffix));
-//    }
-//
-//    protected void mkRpShapelessW1Item(Consumer<IFinishedRecipe> output, IItemProvider planks, IItemProvider result, int count, IItemProvider firstItem, int required, String group, String suffix)
-//    {
-//        ConditionalRecipe.builder()
-//                .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                .addRecipe(shapeless(result, count)
-//                .requires(firstItem, required)
-//                .group(group)
-//                .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath() + suffix));
-//    }
-//
-//    protected void mkRpShapelessW1Item(Consumer<IFinishedRecipe> output, IItemProvider planks, IItemProvider result, int count, IItemProvider firstItem, int required, String group)
-//    {
-//        ConditionalRecipe.builder()
-//                .addCondition(new ModLoadedCondition(this.mcwModid)).addCondition(new ModLoadedCondition(this.originalMod))
-//                .addRecipe(shapeless(result, count)
-//                .requires(firstItem, required)
-//                .group(group)
-//                .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
-//                .build(output, new ResourceLocation(this.modid, ForgeRegistries.ITEMS.getKey(result.asItem()).getPath()));
-//    }
-//
-//    protected void mkRpShapelessW1Item(Consumer<IFinishedRecipe> output, IItemProvider planks, IItemProvider result, int count, IItemProvider firstItem, String group)
-//    {
-//        mkRpShapelessW1Item(output, planks, result, count, firstItem, 1, group);
-//    }
-//
-//    protected void mkRpShapelessW1Item(Consumer<IFinishedRecipe> output, IItemProvider planks, IItemProvider result, int count, IItemProvider firstItem, String group, String suffix)
-//    {
-//        mkRpShapelessW1Item(output, planks, result, count, firstItem, 1, group, suffix);
-//    }
+    protected void recipeShapelessWith1Item(Consumer<IFinishedRecipe> output, IItemProvider planks, IItemProvider result, int count, IItemProvider firstItem, int required, String group, String originalMod, String mcwMod)
+    {
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                .addRecipe(shapeless(result, count)
+                .requires(firstItem, required)
+                .group(group)
+                .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
+                .build(output, Finder.getRLOfItem(result.asItem()));
+    }
+
+    protected void recipeShapelessWith1ItemRecycle(Consumer<IFinishedRecipe> output, IItemProvider planks, IItemProvider result, int count, IItemProvider firstItem, int required, String group, String originalMod, String mcwMod)
+    {
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                .addRecipe(shapeless(result, count)
+                        .requires(firstItem, required)
+                        .group(group)
+                        .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
+                .build(output, new ResourceLocation(Finder.getModidOfItem(result.asItem()), Finder.getIdOfItem(result.asItem()) + "_recycle"));
+    }
 
     protected void recipeShapedWith1Item(Consumer<IFinishedRecipe> output, IItemProvider planks, String[] pattern, IItemProvider result, int count, IItemProvider firstItem, String group, String originalMod, String mcwMod)
     {
@@ -401,5 +331,150 @@ public class McwRecipes extends RecipeProvider
                             .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
                     .build(output, Finder.getRLOfItem(result.asItem()));
         }
+    }
+
+    protected void recipeShapedWith2Items(Consumer<IFinishedRecipe> output, IItemProvider planks, String[] pattern, IItemProvider result, int count, IItemProvider firstItem, IItemProvider secondItem, String group, String originalMod, String mcwMod)
+    {
+        if(pattern.length == 3)
+        {
+            ConditionalRecipe.builder()
+                    .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                    .addRecipe(shaped(result, count)
+                            .pattern(pattern[0])
+                            .pattern(pattern[1])
+                            .pattern(pattern[2])
+                            .define('A', firstItem)
+                            .define('B', secondItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
+                    .build(output, Finder.getRLOfItem(result.asItem()));
+        }
+        else if(pattern.length == 2)
+        {
+            ConditionalRecipe.builder()
+                    .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                    .addRecipe(shaped(result, count)
+                            .pattern(pattern[0])
+                            .pattern(pattern[1])
+                            .define('A', firstItem)
+                            .define('B', secondItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
+                    .build(output, Finder.getRLOfItem(result.asItem()));
+        }
+        else {
+            ConditionalRecipe.builder()
+                    .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                    .addRecipe(shaped(result, count)
+                            .pattern(pattern[0])
+                            .define('A', firstItem)
+                            .define('B', secondItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
+                    .build(output, Finder.getRLOfItem(result.asItem()));
+        }
+    }
+
+    protected void recipeShapedWith3Items(Consumer<IFinishedRecipe> output, IItemProvider planks, String[] pattern, IItemProvider result, int count, IItemProvider firstItem, IItemProvider secondItem, IItemProvider thirdItem, String group, String originalMod, String mcwMod)
+    {
+        if(pattern.length == 3)
+        {
+            ConditionalRecipe.builder()
+                    .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                    .addRecipe(shaped(result, count)
+                            .pattern(pattern[0])
+                            .pattern(pattern[1])
+                            .pattern(pattern[2])
+                            .define('A', firstItem)
+                            .define('B', secondItem)
+                            .define('C', thirdItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
+                    .build(output, Finder.getRLOfItem(result.asItem()));
+        }
+        else if(pattern.length == 2)
+        {
+            ConditionalRecipe.builder()
+                    .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                    .addRecipe(shaped(result, count)
+                            .pattern(pattern[0])
+                            .pattern(pattern[1])
+                            .define('A', firstItem)
+                            .define('B', secondItem)
+                            .define('C', thirdItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
+                    .build(output, Finder.getRLOfItem(result.asItem()));
+        }
+        else {
+            ConditionalRecipe.builder()
+                    .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                    .addRecipe(shaped(result, count)
+                            .pattern(pattern[0])
+                            .define('A', firstItem)
+                            .define('B', secondItem)
+                            .define('C', thirdItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
+                    .build(output, Finder.getRLOfItem(result.asItem()));
+        }
+    }
+
+    protected void recipeShapedWith4Items(Consumer<IFinishedRecipe> output, IItemProvider planks, String[] pattern, IItemProvider result, int count, IItemProvider firstItem, IItemProvider secondItem, IItemProvider thirdItem, IItemProvider fourItem, String group, String originalMod, String mcwMod)
+    {
+        if(pattern.length == 3)
+        {
+            ConditionalRecipe.builder()
+                    .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                    .addRecipe(shaped(result, count)
+                            .pattern(pattern[0])
+                            .pattern(pattern[1])
+                            .pattern(pattern[2])
+                            .define('A', firstItem)
+                            .define('B', secondItem)
+                            .define('C', thirdItem)
+                            .define('D', fourItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
+                    .build(output, Finder.getRLOfItem(result.asItem()));
+        }
+        else if(pattern.length == 2)
+        {
+            ConditionalRecipe.builder()
+                    .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                    .addRecipe(shaped(result, count)
+                            .pattern(pattern[0])
+                            .pattern(pattern[1])
+                            .define('A', firstItem)
+                            .define('B', secondItem)
+                            .define('C', thirdItem)
+                            .define('D', fourItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
+                    .build(output, Finder.getRLOfItem(result.asItem()));
+        }
+        else {
+            ConditionalRecipe.builder()
+                    .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                    .addRecipe(shaped(result, count)
+                            .pattern(pattern[0])
+                            .define('A', firstItem)
+                            .define('B', secondItem)
+                            .define('C', thirdItem)
+                            .define('D', fourItem)
+                            .group(group)
+                            .unlockedBy(getHasName(planks), has(planks))::save).generateAdvancement()
+                    .build(output, Finder.getRLOfItem(result.asItem()));
+        }
+    }
+
+    protected void recipeStonecutter(Consumer<IFinishedRecipe> output, IItemProvider result, IItemProvider firstItem, String originalMod, String mcwMod)
+    {
+        String recipeId = Finder.getModidOfItem(result.asItem()) + ":" + Finder.getIdOfItem(result.asItem()) + "_stonecutter";
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition(mcwMod)).addCondition(new ModLoadedCondition(originalMod))
+                .addRecipe(c -> SingleItemRecipeBuilder.stonecutting(Ingredient.of(firstItem), result)
+                        .unlocks(getHasName(firstItem), has(firstItem)).save(c, recipeId)).generateAdvancement()
+                .build(output, new ResourceLocation(recipeId));
     }
 }

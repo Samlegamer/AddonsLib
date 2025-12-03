@@ -22,6 +22,11 @@ public class Finder
 	{
 		return ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, nameItem));
 	}
+
+    public static Item findItem(String MODIDNameItem)
+    {
+        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODIDNameItem));
+    }
 	
 	public static TileEntityType<?> findTileEntity(String MODID, String nameTileEntity)
 	{
@@ -36,6 +41,11 @@ public class Finder
     public static String getIdOfItem(Item item)
     {
         return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
+    }
+
+    public static String getModidOfItem(Item item)
+    {
+        return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getNamespace();
     }
 
     public static ResourceLocation getRLOfItem(Item item)
