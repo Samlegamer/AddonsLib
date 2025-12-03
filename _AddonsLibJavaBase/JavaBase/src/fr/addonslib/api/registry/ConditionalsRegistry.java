@@ -8,9 +8,8 @@ public final class ConditionalsRegistry
     {
         return reflectedLocation.contains("StorageCounter") ||
                 reflectedLocation.endsWith("CupboardCounter") ||
-                !reflectedLocation.endsWith("BookCabinet") ||
-                reflectedLocation.endsWith("CabinetHinge") ||
-                reflectedLocation.endsWith("Cabinet") ||
+                ((!reflectedLocation.endsWith("BookCabinetHinge")) && reflectedLocation.endsWith("CabinetHinge")) ||
+                ((!reflectedLocation.endsWith("BookCabinet")) && reflectedLocation.endsWith("Cabinet")) ||
                 reflectedLocation.contains("Lower") ||
                 reflectedLocation.contains("Steep") ||
                 reflectedLocation.contains("BaseRoof");

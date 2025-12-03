@@ -77,13 +77,15 @@ public final class McwRegistry
 
                     if(isModLoaded)
                     {
-                        Block original = Finder.findBlock(mcwBlockIdBase.modid(), McwBlocksIdBase.replacement(blockId.id(), "oak"));
-                        prop = AbstractBlock.Properties.copy(original).sound(soundType);
+                        //Block original = Finder.findBlock(mcwBlockIdBase.modid(), McwBlocksIdBase.replacement(blockId.id(), "oak"));
+                        prop = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS).sound(soundType);
                     }
                     else
                     {
                         prop = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
                     }
+                    AddonsLib.LOGGER.info("Properties Block : {}", prop.toString());
+                    AddonsLib.LOGGER.info("Registering MCW Wood Block: " + id + " from mod: " + mcwBlockIdBase.modid() + " | isModLoaded: " + isModLoaded);
 
                     if(isModLoaded)
                     {
