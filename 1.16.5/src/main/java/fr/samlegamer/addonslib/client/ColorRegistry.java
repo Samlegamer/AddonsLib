@@ -11,6 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
+@Deprecated
 @OnlyIn(value = Dist.CLIENT)
 public class ColorRegistry
 {

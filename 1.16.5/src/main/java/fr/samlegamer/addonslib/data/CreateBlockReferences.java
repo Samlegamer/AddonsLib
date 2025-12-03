@@ -1,6 +1,5 @@
 package fr.samlegamer.addonslib.data;
 
-import fr.samlegamer.addonslib.bridges.Bridges;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import fr.samlegamer.addonslib.item.BlockItemFuelInfo;
 import fr.samlegamer.addonslib.item.BlockItemInfo;

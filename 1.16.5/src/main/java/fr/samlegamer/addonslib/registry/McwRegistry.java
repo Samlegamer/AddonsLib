@@ -11,6 +11,7 @@ import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 
@@ -215,20 +216,165 @@ public final class McwRegistry
                     if(isModLoaded)
                     {
                         if(isBlockDefaultState(reflectedLocation)) {
-                            CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.STONE.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
+                            CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.STONE.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
                         }
                         else {
                             if (isFence(reflectedLocation)) {
-                                CreateBlockReferences.createBlock(id, () -> new FenceBlock(prop), block, item, tab, true, isModBaseLoaded);
+                                CreateBlockReferences.createBlockStone(id, () -> new FenceBlock(prop), block, item, tab, true, isModBaseLoaded);
                             } else if (isFenceGate(reflectedLocation)) {
-                                CreateBlockReferences.createBlock(id, () -> new FenceGateBlock(prop), block, item, tab, true, isModBaseLoaded);
+                                CreateBlockReferences.createBlockStone(id, () -> new FenceGateBlock(prop), block, item, tab, true, isModBaseLoaded);
                             }  else {
-                                CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), block, item, tab, true, isModBaseLoaded);
+                                CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), block, item, tab, true, isModBaseLoaded);
                             }
                         }
                     }
                     else {
-                        CreateBlockReferences.createBlock(id, () -> new Block(prop), block, item, tab, false, isModBaseLoaded);
+                        CreateBlockReferences.createBlockStone(id, () -> new Block(prop), block, item, tab, false, isModBaseLoaded);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void registryEventWood(final RegistryEvent.Register<Block> event, String Modid, List<String> WOOD, ItemGroup tab, ModType... type)
+    {
+        ModList modList = ModList.get();
+
+        for(String mat : WOOD)
+        {
+            SoundType soundType = SoundType.WOOD;
+
+            for(ModType mod : type)
+            {
+                McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidWood(mod);
+                for(BlockId blockId : mcwBlockIdBase.blocks())
+                {
+                    String id = McwBlocksIdBase.replacement(blockId.id(), mat);
+                    String reflectedLocation = blockId.reflectedLocation().getForge();
+                    AbstractBlock.Properties prop;
+                    boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
+
+                    if(isModLoaded)
+                    {
+                        Block original = Finder.findBlock(mcwBlockIdBase.modid(), McwBlocksIdBase.replacement(blockId.id(), "oak"));
+                        prop = AbstractBlock.Properties.copy(original).sound(soundType);
+                    }
+                    else
+                    {
+                        prop = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
+                    }
+
+                    if(isModLoaded)
+                    {
+                        if(isBlockDefaultState(reflectedLocation)) {
+                            CreateBlockReferences.createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.OAK_PLANKS.defaultBlockState()), tab, true);
+                        }
+                        else if(isBlockSetType(reflectedLocation)) {
+                            CreateBlockReferences.createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), tab, true);
+                        }
+                        else {
+                            if (isFence(reflectedLocation)) {
+                                CreateBlockReferences.createBlockWoodOpti(Modid, id, new FenceBlock(prop), tab, true);
+                            } else if (isFenceGate(reflectedLocation)) {
+                                CreateBlockReferences.createBlockWoodOpti(Modid, id, new FenceGateBlock(prop), tab, true);
+                            } else if (isTrapdoor(id)) {
+                                CreateBlockReferences.createBlockWoodOpti(Modid, id, new TrapDoorBlock(prop), tab, true);
+                            } else if (isDoor(id)) {
+                                CreateBlockReferences.createBlockWoodOpti(Modid, id, new DoorBlock(prop), tab, true);
+                            } else {
+                                CreateBlockReferences.createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), tab, true);
+                            }
+                        }
+                    }
+                    else {
+                        CreateBlockReferences.createBlockWoodOpti(Modid, id, new Block(prop), tab, false);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void registryEventLeave(final RegistryEvent.Register<Block> event, String Modid, List<String> LEAVE, ItemGroup tab)
+    {
+        ModList modList = ModList.get();
+
+        for(String mat : LEAVE)
+        {
+            SoundType soundType = SoundType.GRASS;
+
+            McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
+            for(BlockId blockId : mcwBlockIdBase.blocks())
+            {
+                String id = McwBlocksIdBase.replacement(blockId.id(), mat);
+                AbstractBlock.Properties prop;
+                boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
+
+                if(isModLoaded)
+                {
+                    Block original = Finder.findBlock(mcwBlockIdBase.modid(), McwBlocksIdBase.replacement(blockId.id(), "oak"));
+                    prop = AbstractBlock.Properties.copy(original).sound(soundType);
+                }
+                else
+                {
+                    prop = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
+                }
+
+                if(isModLoaded)
+                {
+                    CreateBlockReferences.createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), tab, true);
+                }
+                else {
+                    CreateBlockReferences.createBlockWoodOpti(Modid, id, new FenceBlock(prop), tab, false);
+                }
+            }
+        }
+    }
+
+    public static void registryEventStone(final RegistryEvent.Register<Block> event, String Modid, List<String> STONE, ItemGroup tab, ModType... type)
+    {
+        ModList modList = ModList.get();
+
+        for(String mat : STONE)
+        {
+            SoundType soundType = SoundType.GRASS;
+
+            for(ModType mod : type)
+            {
+                McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidStone(mod);
+                for(BlockId blockId : mcwBlockIdBase.blocks())
+                {
+                    String id = McwBlocksIdBase.replacement(blockId.id(), mat);
+                    String reflectedLocation = blockId.reflectedLocation().getForge();
+                    AbstractBlock.Properties prop;
+                    boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
+
+                    if(isModLoaded)
+                    {
+                        Block original = Finder.findBlock(mcwBlockIdBase.modid(), McwBlocksIdBase.replacement(blockId.id(), "andesite"));
+                        prop = AbstractBlock.Properties.copy(original).sound(soundType);
+                    }
+                    else
+                    {
+                        prop = AbstractBlock.Properties.copy(Blocks.ANDESITE);
+                    }
+
+                    if(isModLoaded)
+                    {
+                        if(isBlockDefaultState(reflectedLocation)) {
+                            CreateBlockReferences.createBlockStoneOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.STONE.defaultBlockState()), tab, true);
+                        }
+                        else {
+                            if (isFence(reflectedLocation)) {
+                                CreateBlockReferences.createBlockStoneOpti(Modid, id, new FenceBlock(prop), tab, true);
+                            } else if (isFenceGate(reflectedLocation)) {
+                                CreateBlockReferences.createBlockStoneOpti(Modid, id, new FenceGateBlock(prop), tab, true);
+                            }  else {
+                                CreateBlockReferences.createBlockStoneOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), tab, true);
+                            }
+                        }
+                    }
+                    else {
+                        CreateBlockReferences.createBlockStoneOpti(Modid, id, new Block(prop), tab, false);
                     }
                 }
             }

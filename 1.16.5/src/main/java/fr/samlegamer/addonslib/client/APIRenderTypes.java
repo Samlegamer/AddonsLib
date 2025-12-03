@@ -1,5 +1,9 @@
 package fr.samlegamer.addonslib.client;
 
+import fr.addonslib.api.data.BlockId;
+import fr.addonslib.api.data.McwBlockIdBase;
+import fr.addonslib.api.data.McwBlocksIdBase;
+import fr.addonslib.api.data.ModType;
 import fr.samlegamer.addonslib.Finder;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;

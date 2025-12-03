@@ -37,4 +37,9 @@ public class Finder
     {
         return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
     }
+
+    public static ResourceLocation getRLOfItem(Item item)
+    {
+        return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item));
+    }
 }

@@ -1,5 +1,8 @@
 package fr.samlegamer.addonslib.generation.loot_tables;
 
+import fr.addonslib.api.data.BlockId;
+import fr.addonslib.api.data.McwBlockIdBase;
+import fr.addonslib.api.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
 import net.minecraft.block.Block;
@@ -33,7 +36,7 @@ public class McwLootTables extends LootModifier
                 String blockName = McwBlocksIdBase.replacement(id.id(), mat);
                 Block block = Finder.findBlock(modid, blockName);
 
-                if(block != null) {
+                if(block != null && Finder.getIdOfBlock(block).endsWith("_balcony")) {
                     blockSet.add(block);
                 } else {
                     AddonsLib.LOGGER.info("[McwLootTables] ERROR: Block not found: {}:{}", modid, blockName);
