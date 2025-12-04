@@ -5,7 +5,6 @@ import fr.addonslib.api.data.McwBlockIdBase;
 import fr.addonslib.api.data.McwBlocksIdBase;
 import fr.addonslib.api.data.ModType;
 import fr.samlegamer.addonslib.AddonsLib;
-import fr.samlegamer.addonslib.Finder;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
 import net.minecraft.block.*;
@@ -14,7 +13,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,17 +73,7 @@ public final class McwRegistry
                     AbstractBlock.Properties prop;
                     boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
 
-                    if(isModLoaded)
-                    {
-                        //Block original = Finder.findBlock(mcwBlockIdBase.modid(), McwBlocksIdBase.replacement(blockId.id(), "oak"));
-                        prop = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS).sound(soundType);
-                    }
-                    else
-                    {
-                        prop = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
-                    }
-                    AddonsLib.LOGGER.info("Properties Block : {}", prop.toString());
-                    AddonsLib.LOGGER.info("Registering MCW Wood Block: " + id + " from mod: " + mcwBlockIdBase.modid() + " | isModLoaded: " + isModLoaded);
+                    prop = McwProperties.getWoodProperties(mat, mod).sound(soundType);
 
                     if(isModLoaded)
                     {
@@ -149,15 +137,7 @@ public final class McwRegistry
                 AbstractBlock.Properties prop;
                 boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
 
-                if(isModLoaded)
-                {
-                    Block original = Finder.findBlock(mcwBlockIdBase.modid(), McwBlocksIdBase.replacement(blockId.id(), "oak"));
-                    prop = AbstractBlock.Properties.copy(original).sound(soundType);
-                }
-                else
-                {
-                    prop = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
-                }
+                prop = McwProperties.getLeaveProperties().sound(soundType);
 
                 if(isModLoaded)
                 {
@@ -205,15 +185,7 @@ public final class McwRegistry
                     AbstractBlock.Properties prop;
                     boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
 
-                    if(isModLoaded)
-                    {
-                        Block original = Finder.findBlock(mcwBlockIdBase.modid(), McwBlocksIdBase.replacement(blockId.id(), "andesite"));
-                        prop = AbstractBlock.Properties.copy(original).sound(soundType);
-                    }
-                    else
-                    {
-                        prop = AbstractBlock.Properties.copy(Blocks.ANDESITE);
-                    }
+                    prop = McwProperties.getStoneProperties(mod).sound(soundType);
 
                     if(isModLoaded)
                     {
@@ -256,15 +228,7 @@ public final class McwRegistry
                     AbstractBlock.Properties prop;
                     boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
 
-                    if(isModLoaded)
-                    {
-                        Block original = Finder.findBlock(mcwBlockIdBase.modid(), McwBlocksIdBase.replacement(blockId.id(), "oak"));
-                        prop = AbstractBlock.Properties.copy(original).sound(soundType);
-                    }
-                    else
-                    {
-                        prop = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
-                    }
+                    prop = McwProperties.getWoodProperties(mat, mod).sound(soundType);
 
                     if(isModLoaded)
                     {
@@ -311,15 +275,7 @@ public final class McwRegistry
                 AbstractBlock.Properties prop;
                 boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
 
-                if(isModLoaded)
-                {
-                    Block original = Finder.findBlock(mcwBlockIdBase.modid(), McwBlocksIdBase.replacement(blockId.id(), "oak"));
-                    prop = AbstractBlock.Properties.copy(original).sound(soundType);
-                }
-                else
-                {
-                    prop = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
-                }
+                prop = McwProperties.getLeaveProperties().sound(soundType);
 
                 if(isModLoaded)
                 {
@@ -350,15 +306,7 @@ public final class McwRegistry
                     AbstractBlock.Properties prop;
                     boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
 
-                    if(isModLoaded)
-                    {
-                        Block original = Finder.findBlock(mcwBlockIdBase.modid(), McwBlocksIdBase.replacement(blockId.id(), "andesite"));
-                        prop = AbstractBlock.Properties.copy(original).sound(soundType);
-                    }
-                    else
-                    {
-                        prop = AbstractBlock.Properties.copy(Blocks.ANDESITE);
-                    }
+                    prop = McwProperties.getStoneProperties(mod).sound(soundType);
 
                     if(isModLoaded)
                     {

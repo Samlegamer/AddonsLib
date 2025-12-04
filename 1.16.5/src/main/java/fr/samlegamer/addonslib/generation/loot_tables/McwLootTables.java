@@ -36,7 +36,7 @@ public class McwLootTables extends LootModifier
                 String blockName = McwBlocksIdBase.replacement(id.id(), mat);
                 Block block = Finder.findBlock(modid, blockName);
 
-                if(block != null && Finder.getIdOfBlock(block).endsWith("_balcony")) {
+                if(block != null && !Finder.getIdOfBlock(block).endsWith("_balcony")) {
                     blockSet.add(block);
                 } else {
                     AddonsLib.LOGGER.info("[McwLootTables] ERROR: Block not found: {}:{}", modid, blockName);
