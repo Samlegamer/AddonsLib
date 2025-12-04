@@ -14,6 +14,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public final class McwRegistry
 
     public static Map<String, SoundType> makeDefaultFromList(List<String> list, SoundType soundType)
     {
-        Map<String, SoundType> map = new HashMap<>();
+        Map<String, SoundType> map = new LinkedHashMap<>();
 
         for(String str : list)
         {
@@ -57,14 +58,15 @@ public final class McwRegistry
     {
         ModList modList = ModList.get();
         boolean isModBaseLoaded = ModList.get().isLoaded(modLoadedTab);
+        Map<String, SoundType> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
 
-        for(Map.Entry<String, SoundType> map : stringSoundTypeMap.entrySet())
+        for(ModType mod : type)
         {
-            String mat = map.getKey();
-            SoundType soundType = map.getValue();
-
-            for(ModType mod : type)
+            for(Map.Entry<String, SoundType> map : orderedMap.entrySet())
             {
+                String mat = map.getKey();
+                SoundType soundType = map.getValue();
+
                 McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidWood(mod);
                 for(BlockId blockId : mcwBlockIdBase.blocks())
                 {
@@ -124,15 +126,16 @@ public final class McwRegistry
     {
         ModList modList = ModList.get();
         boolean isModBaseLoaded = ModList.get().isLoaded(modLoadedTab);
+        Map<String, SoundType> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
 
-        for(Map.Entry<String, SoundType> map : stringSoundTypeMap.entrySet())
+        McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
+        for(BlockId blockId : mcwBlockIdBase.blocks())
         {
-            String mat = map.getKey();
-            SoundType soundType = map.getValue();
-
-            McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
-            for(BlockId blockId : mcwBlockIdBase.blocks())
+            for(Map.Entry<String, SoundType> map : orderedMap.entrySet())
             {
+                String mat = map.getKey();
+                SoundType soundType = map.getValue();
+
                 String id = McwBlocksIdBase.replacement(blockId.id(), mat);
                 AbstractBlock.Properties prop;
                 boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
@@ -169,14 +172,15 @@ public final class McwRegistry
     {
         ModList modList = ModList.get();
         boolean isModBaseLoaded = ModList.get().isLoaded(modLoadedTab);
+        Map<String, SoundType> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
 
-        for(Map.Entry<String, SoundType> map : stringSoundTypeMap.entrySet())
+        for(ModType mod : type)
         {
-            String mat = map.getKey();
-            SoundType soundType = map.getValue();
-
-            for(ModType mod : type)
+            for(Map.Entry<String, SoundType> map : orderedMap.entrySet())
             {
+                String mat = map.getKey();
+                SoundType soundType = map.getValue();
+
                 McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidStone(mod);
                 for(BlockId blockId : mcwBlockIdBase.blocks())
                 {
@@ -214,12 +218,12 @@ public final class McwRegistry
     {
         ModList modList = ModList.get();
 
-        for(String mat : WOOD)
+        for(ModType mod : type)
         {
-            SoundType soundType = SoundType.WOOD;
-
-            for(ModType mod : type)
+            for(String mat : WOOD)
             {
+                SoundType soundType = SoundType.WOOD;
+
                 McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidWood(mod);
                 for(BlockId blockId : mcwBlockIdBase.blocks())
                 {
@@ -263,14 +267,14 @@ public final class McwRegistry
     public static void registryEventLeave(final RegistryEvent.Register<Block> event, String Modid, List<String> LEAVE, ItemGroup tab)
     {
         ModList modList = ModList.get();
+        McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
 
-        for(String mat : LEAVE)
+        for(BlockId blockId : mcwBlockIdBase.blocks())
         {
-            SoundType soundType = SoundType.GRASS;
-
-            McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
-            for(BlockId blockId : mcwBlockIdBase.blocks())
+            for(String mat : LEAVE)
             {
+                SoundType soundType = SoundType.GRASS;
+
                 String id = McwBlocksIdBase.replacement(blockId.id(), mat);
                 AbstractBlock.Properties prop;
                 boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
@@ -292,12 +296,12 @@ public final class McwRegistry
     {
         ModList modList = ModList.get();
 
-        for(String mat : STONE)
+        for(ModType mod : type)
         {
-            SoundType soundType = SoundType.GRASS;
-
-            for(ModType mod : type)
+            for(String mat : STONE)
             {
+                SoundType soundType = SoundType.GRASS;
+
                 McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidStone(mod);
                 for(BlockId blockId : mcwBlockIdBase.blocks())
                 {

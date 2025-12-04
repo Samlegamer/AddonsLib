@@ -135,6 +135,10 @@ public class McwRecipes extends RecipeProvider
     {
         switch(type.getName())
         {
+            case "stripped_table":
+                return Finder.findItem(MODID, "stripped_"+mat+"_table");
+            case "table":
+                return Finder.findItem(MODID, mat+"_table");
             case "log_bridge":
                 return Finder.findItem(MODID, mat+"_log_bridge_middle");
             case "log_bridge_stair":
@@ -163,8 +167,6 @@ public class McwRecipes extends RecipeProvider
                 return Finder.findItem(MODID, "stripped_"+mat+"_double_drawer");
             case "stripped_end_table":
                 return Finder.findItem(MODID, "stripped_"+mat+"_end_table");
-            case "table":
-                return Finder.findItem(MODID, mat+"_table");
             case "end_table":
                 return Finder.findItem(MODID, mat+"_end_table");
             case "rope_bridge_stair":
