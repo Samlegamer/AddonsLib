@@ -357,7 +357,7 @@ public final class McwRecipesBase
     public static final RecipesBase MODERN_WALL_STONECUTTER = new RecipesBase(RECIPE_STONECUTTER,
         new String[]{},
         STONE_BASE, 1, "modern_stonecutter",
-        new CraftingIngredient('A', "modern_wall")
+        new CraftingIngredient('A', STONE_BASE)
     );
 
     public static final RecipesBase RAILING_WALL = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
@@ -370,7 +370,7 @@ public final class McwRecipesBase
     public static final RecipesBase RAILING_WALL_STONECUTTER = new RecipesBase(RECIPE_STONECUTTER,
         new String[]{},
         STONE_BASE, 1, "railing_wall_stonecutter",
-        new CraftingIngredient('A', "railing_wall")
+        new CraftingIngredient('A', STONE_BASE)
     );
 
     public static final RecipesBase GRASS_TOPPED_WALL = new RecipesBase(RECIPE_SHAPED_WITH_3_ITEMS,
@@ -398,7 +398,7 @@ public final class McwRecipesBase
     public static final RecipesBase RAILING_GATE_STONECUTTER = new RecipesBase(RECIPE_STONECUTTER,
         new String[]{},
         STONE_BASE, 1, "railing_gate_stonecutter",
-        new CraftingIngredient('A', "railing_gate")
+        new CraftingIngredient('A', STONE_BASE)
     );
 
     // ================ ROOFS ================
@@ -503,43 +503,43 @@ public final class McwRecipesBase
     public static final RecipesBase STONE_ROOF = new RecipesBase(RECIPE_STONECUTTER,
         new String[]{},
         STONE_BASE, 1, "stone_roof_stonecutter",
-        new CraftingIngredient('A', "stone_roof")
+        new CraftingIngredient('A', STONE_BASE)
     );
 
     public static final RecipesBase STONE_ATTIC_ROOF = new RecipesBase(RECIPE_STONECUTTER,
         new String[]{},
         STONE_BASE, 1, "stone_attic_roof_stonecutter",
-        new CraftingIngredient('A', "stone_attic_roof")
+        new CraftingIngredient('A', STONE_BASE)
     );
 
     public static final RecipesBase STONE_TOP_ROOF = new RecipesBase(RECIPE_STONECUTTER,
         new String[]{},
         STONE_BASE, 1, "stone_top_roof_stonecutter",
-        new CraftingIngredient('A', "stone_top_roof")
+        new CraftingIngredient('A', STONE_BASE)
     );
 
     public static final RecipesBase STONE_LOWER_ROOF = new RecipesBase(RECIPE_STONECUTTER,
         new String[]{},
         STONE_BASE, 1, "stone_lower_roof_stonecutter",
-        new CraftingIngredient('A', "stone_lower_roof")
+        new CraftingIngredient('A', STONE_BASE)
     );
 
     public static final RecipesBase STONE_STEEP_ROOF = new RecipesBase(RECIPE_STONECUTTER,
         new String[]{},
         STONE_BASE, 1, "stone_steep_roof_stonecutter",
-        new CraftingIngredient('A', "stone_steep_roof")
+        new CraftingIngredient('A', STONE_BASE)
     );
 
     public static final RecipesBase STONE_UPPER_LOWER_ROOF = new RecipesBase(RECIPE_STONECUTTER,
         new String[]{},
         STONE_BASE, 1, "stone_upper_lower_roof_stonecutter",
-        new CraftingIngredient('A', "stone_upper_lower_roof")
+        new CraftingIngredient('A', STONE_BASE)
     );
 
     public static final RecipesBase STONE_UPPER_STEEP_ROOF = new RecipesBase(RECIPE_STONECUTTER,
         new String[]{},
         STONE_BASE, 1, "stone_upper_steep_roof_stonecutter",
-        new CraftingIngredient('A', "stone_upper_steep_roof")
+        new CraftingIngredient('A', STONE_BASE)
     );
 
     // ================ STAIRS ================
