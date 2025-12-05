@@ -1,26 +1,31 @@
 package fr.addonslib.api.client;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
-public final class McwColors
+public class McwColors
 {
-    private static final Map<String, Integer> NoColorLeaves = new HashMap<>();
+    private final Map<String, Integer> NoColorLeaves;
+    public static final int DEFAULT_LEAVES_COLOR = -12012264;
 
-    McwColors() {}
-
-    public static void addColorLeaves(String modid, String name, int color)
-    {
-        String block = modid + ":" + name;
-        NoColorLeaves.put(block, color);
+    public McwColors(Map<String, Integer> NoColorLeaves) {
+        this.NoColorLeaves = NoColorLeaves;
     }
 
-    public static void addColorLeaves(String modid, String name)
-    {
-        addColorLeaves(modid, name, -12012264);
+    public McwColors(List<String> NoColorLeaves) {
+        this(listToMap(NoColorLeaves));
     }
 
-    public static Map<String, Integer> getNoColorLeaves() {
+    private static Map<String, Integer> listToMap(List<String> noColorLeaves) {
+        Map<String, Integer> map = new LinkedHashMap<>();
+        for(String str : noColorLeaves) {
+            map.put(str, DEFAULT_LEAVES_COLOR);
+        }
+        return map;
+    }
+
+    public Map<String, Integer> getNoColorLeaves() {
         return NoColorLeaves;
     }
 }

@@ -17,6 +17,16 @@ public class Finder
 	{
 		return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID, nameBlock));
 	}
+
+    public static Block findBlock(String MODIDNameBlock)
+    {
+        return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODIDNameBlock));
+    }
+
+    public static String makeIdHedge(String MODID, String nameBlock)
+    {
+        return MODID + ":" + nameBlock+"_hedge";
+    }
 	
 	public static Item findItem(String MODID, String nameItem)
 	{
