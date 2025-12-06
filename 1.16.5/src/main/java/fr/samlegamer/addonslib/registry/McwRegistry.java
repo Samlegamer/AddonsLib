@@ -13,7 +13,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +74,13 @@ public final class McwRegistry
                     AbstractBlock.Properties prop;
                     boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
 
-                    prop = McwProperties.getWoodProperties(mat, mod).sound(soundType);
+                    if(soundType == SoundType.GLASS)
+                    {
+                        prop = McwProperties.getWoodProperties(mat, mod).noOcclusion().sound(soundType);
+                    }
+                    else {
+                        prop = McwProperties.getWoodProperties(mat, mod).sound(soundType);
+                    }
 
                     if(isModLoaded)
                     {

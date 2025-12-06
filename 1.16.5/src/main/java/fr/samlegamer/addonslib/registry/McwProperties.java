@@ -54,11 +54,6 @@ public class McwProperties
         return AbstractBlock.Properties.copy(Blocks.ANDESITE);
     }
 
-    private static AbstractBlock.Properties getFencesLeavesProperties()
-    {
-        return AbstractBlock.Properties.copy(Blocks.OAK_LEAVES);
-    }
-
     private static AbstractBlock.Properties getRoofsWoodProperties()
     {
         return AbstractBlock.Properties.of(Material.WOOD).strength(2.0F, 2.3F).sound(SoundType.WOOD).harvestTool(ToolType.AXE);
