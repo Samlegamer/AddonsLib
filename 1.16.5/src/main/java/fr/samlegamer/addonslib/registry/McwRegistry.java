@@ -300,7 +300,7 @@ public final class McwRegistry
         {
             for(String mat : STONE)
             {
-                SoundType soundType = SoundType.GRASS;
+                SoundType soundType = SoundType.STONE;
 
                 McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidStone(mod);
                 for(BlockId blockId : mcwBlockIdBase.blocks())
