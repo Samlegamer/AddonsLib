@@ -16,8 +16,7 @@ public class NewIconRandom
         private int dependencies = 0;
         public Block defaultIcon = Blocks.CRAFTING_TABLE;
 
-        public NewProperties(Block bridgesIcon, Block roofsIcon, Block fencesIcon, Block furnituresIcon, Block windowsIcon, Block doorsIcon, Block trapdoorsIcon,
-        Block pathsIcon, Block stairsIcon) {
+        public NewProperties(Block roofsIcon, Block fencesIcon, Block furnituresIcon, Block bridgesIcon, Block windowsIcon, Block doorsIcon, Block trapdoorsIcon, Block pathsIcon, Block stairsIcon) {
             this.bridgesIcon = bridgesIcon;
             this.roofsIcon = roofsIcon;
             this.fencesIcon = fencesIcon;
