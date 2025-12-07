@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 
 public class BlockItemFuelInfo extends BlockItemInfo implements IForgeItem
 {
-	public BlockItemFuelInfo(Block p_40565_, Item.Properties p_40566_, String desc)
+	public BlockItemFuelInfo(Block p_40565_, Properties p_40566_, String desc)
 	{
 		super(p_40565_, p_40566_, desc);
 	}
