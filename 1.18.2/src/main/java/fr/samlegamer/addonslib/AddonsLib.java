@@ -22,7 +22,7 @@ public class AddonsLib
 	public AddonsLib()
 	{
         LootModRegistry.SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
 		LOGGER.info("AddonsLib Forge !");
 		if(Cfg.filterLogs.get())
 		{

@@ -2,7 +2,8 @@ package fr.samlegamer.addonslib;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import fr.samlegamer.addonslib.data.ModType;
+
+import fr.addonslib.api.data.ModType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -27,7 +28,7 @@ public final class Registration
 
     public static ModType[] getAllModTypeStone()
     {
-        return new ModType[] {ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+        return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES};
     }
 
 	/**
