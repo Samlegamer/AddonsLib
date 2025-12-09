@@ -154,7 +154,7 @@ public class McwTags
             Arrays.asList(Tags.formatTag(ModType.FENCES.getModid(), "pillar_walls"), Tags.formatTag("minecraft", FENCES), Tags.formatTag("minecraft", MINEABLE_PICKAXE)),
             Collections.singletonList(Tags.formatTag("minecraft", FENCES)));
         public static final Tags GRASS_TOPPED_WALL_TAGS = new Tags(
-            Arrays.asList(Tags.formatTag(ModType.FENCES.getModid(), "grass_topped_walls"), Tags.formatTag("minecraft", FENCES), Tags.formatTag("minecraft", WALLS), Tags.formatTag("minecraft", MINEABLE_PICKAXE)),
+            Arrays.asList(Tags.formatTag(ModType.FENCES.getModid(), "grass_topped_walls"), Tags.formatTag("minecraft", FENCES), Tags.formatTag("minecraft", WALLS), Tags.formatTag("minecraft", MINEABLE_PICKAXE), Tags.formatTag("diagonalfences", "non_diagonal_fences")),
             Collections.singletonList(Tags.formatTag("minecraft", WALLS)));
 
     // Furnitures Wood Tags

@@ -4,15 +4,25 @@ public final class ConditionalsRegistry
 {
     private ConditionalsRegistry() {}
 
-    public static boolean isBlockDefaultState(String reflectedLocation)
+    public static boolean isBlockDefaultState(String version, String reflectedLocation)
     {
-        return reflectedLocation.contains("StorageCounter") ||
-                reflectedLocation.endsWith("CupboardCounter") ||
-                ((!reflectedLocation.endsWith("BookCabinetHinge")) && reflectedLocation.endsWith("CabinetHinge")) ||
-                ((!reflectedLocation.endsWith("BookCabinet")) && reflectedLocation.endsWith("Cabinet")) ||
-                reflectedLocation.contains("Lower") ||
-                reflectedLocation.contains("Steep") ||
-                reflectedLocation.contains("BaseRoof");
+        boolean b1 = reflectedLocation.contains("StorageCounter") || reflectedLocation.endsWith("CupboardCounter");
+        boolean b2 = reflectedLocation.endsWith("CabinetHinge");
+        boolean b3 = ((!reflectedLocation.endsWith("BookCabinet")) && reflectedLocation.endsWith("Cabinet"));
+        boolean b4 = reflectedLocation.contains("Lower") || reflectedLocation.contains("Steep") || reflectedLocation.contains("BaseRoof");
+
+        boolean b5 = false;
+
+        if(version.startsWith("1.16.5"))
+        {
+            b5 = !reflectedLocation.endsWith("BookCabinetHinge");
+        }
+        else if(version.startsWith("1.17.1"))
+        {
+            b5 = !reflectedLocation.endsWith("CabinetHinge") && !reflectedLocation.endsWith("CupboardCounter");
+        }
+
+        return  (b1 || b2 || b3 || b4) && b5;
     }
 
     public static boolean isBlockSetType(String reflectedLocation)

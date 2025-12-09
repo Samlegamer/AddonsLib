@@ -85,7 +85,7 @@ public final class McwRegistry
 
                     if(isModLoaded)
                     {
-                        if(isBlockDefaultState(reflectedLocation)) {
+                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
                             CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
                         }
                         else if(isBlockSetType(reflectedLocation)) {
@@ -199,7 +199,7 @@ public final class McwRegistry
 
                     if(isModLoaded)
                     {
-                        if(isBlockDefaultState(reflectedLocation)) {
+                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
                             CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.STONE.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
                         }
                         else {
@@ -242,7 +242,7 @@ public final class McwRegistry
 
                     if(isModLoaded)
                     {
-                        if(isBlockDefaultState(reflectedLocation)) {
+                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
                             CreateBlockReferences.createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.OAK_PLANKS.defaultBlockState()), tab, true);
                         }
                         else if(isBlockSetType(reflectedLocation)) {
@@ -320,7 +320,7 @@ public final class McwRegistry
 
                     if(isModLoaded)
                     {
-                        if(isBlockDefaultState(reflectedLocation)) {
+                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
                             CreateBlockReferences.createBlockStoneOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.STONE.defaultBlockState()), tab, true);
                         }
                         else {

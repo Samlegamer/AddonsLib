@@ -85,36 +85,28 @@ public class McwProperties
 
     public static BlockBehaviour.Properties getWoodProperties(String mat, ModType modType)
     {
-        switch (modType) {
-            case BRIDGES:
-                return getBridgesWoodProperties();
-            case STAIRS:
-                return getStairsWoodProperties();
-            case DOORS:
-                if(mat.contains("japanese"))
-                {
-                    return getDoorsJapWoodProperties();
+        return switch (modType) {
+            case BRIDGES -> getBridgesWoodProperties();
+            case STAIRS -> getStairsWoodProperties();
+            case DOORS -> {
+                if (mat.contains("japanese")) {
+                    yield getDoorsJapWoodProperties();
                 }
-                return getDoorsNormalWoodProperties();
-            case FENCES:
-                if(mat.contains("curved_gate"))
-                {
-                    return getFencesCurvedWoodProperties();
+                yield getDoorsNormalWoodProperties();
+            }
+            case FENCES -> {
+                if (mat.contains("curved_gate")) {
+                    yield getFencesCurvedWoodProperties();
                 }
-                return getFencesNormalWoodProperties();
-            case ROOFS:
-                return getRoofsWoodProperties();
-            case PATHS:
-                return getPathsWoodProperties();
-            case WINDOWS:
-                return getWindowsWoodProperties();
-            case TRAPDOORS:
-                return getTrapdoorsWoodProperties();
-            case FURNITURES:
-                return getFurnituresWoodProperties();
-            default:
-                return BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
-        }
+                yield getFencesNormalWoodProperties();
+            }
+            case ROOFS -> getRoofsWoodProperties();
+            case PATHS -> getPathsWoodProperties();
+            case WINDOWS -> getWindowsWoodProperties();
+            case TRAPDOORS -> getTrapdoorsWoodProperties();
+            case FURNITURES -> getFurnituresWoodProperties();
+            default -> BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
+        };
     }
 
     public static BlockBehaviour.Properties getLeaveProperties()
@@ -124,17 +116,12 @@ public class McwProperties
 
     public static BlockBehaviour.Properties getStoneProperties(ModType modType)
     {
-        switch (modType) {
-            case BRIDGES:
-                return getBridgesStoneProperties();
-            case STAIRS:
-                return getStairsStoneProperties();
-            case FENCES:
-                return getFencesStoneProperties();
-            case ROOFS:
-                return getRoofsStoneProperties();
-            default:
-                return BlockBehaviour.Properties.copy(Blocks.ANDESITE);
-        }
+        return switch (modType) {
+            case BRIDGES -> getBridgesStoneProperties();
+            case STAIRS -> getStairsStoneProperties();
+            case FENCES -> getFencesStoneProperties();
+            case ROOFS -> getRoofsStoneProperties();
+            default -> BlockBehaviour.Properties.copy(Blocks.ANDESITE);
+        };
     }
 }
