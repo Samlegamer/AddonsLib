@@ -20,6 +20,7 @@ public final class McwLogFilterList {
         list.add("Missing blockstate definition");
         list.add("Unable to load model");
         list.add("Unable to resolve texture reference");
+        list.add("Tried to load unrecognized recipe");
         return list;
     }
 }
