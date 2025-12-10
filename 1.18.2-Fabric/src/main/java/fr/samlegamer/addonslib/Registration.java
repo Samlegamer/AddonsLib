@@ -1,7 +1,8 @@
 package fr.samlegamer.addonslib;
 
 import java.lang.reflect.Constructor;
-import fr.samlegamer.addonslib.data.ModType;
+
+import fr.addonslib.api.data.ModType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
 import net.minecraft.block.AbstractBlock;

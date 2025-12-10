@@ -1,6 +1,5 @@
 package fr.samlegamer.addonslib.data;
 
-import fr.samlegamer.addonslib.bridges.Bridges;
 import fr.samlegamer.addonslib.item.BlockItemInfo;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -18,7 +17,7 @@ public class RegistryEntryReferences
         {
             if(name.contains("log_bridge_middle") || name.startsWith("rope_") || name.endsWith("_bridge"))
             {
-                Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItemInfo(b, new Item.Settings().group(tab), Bridges.desc));
+                Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItemInfo(b, new Item.Settings().group(tab), "mcwbridges.bridges.desc"));
             }
             else if(name.contains("railing") && !name.contains("wall")) {
                 Registry.register(Registry.ITEM, new Identifier(MODID, name), new BlockItemInfo(b, new Item.Settings().group(tab), "mcwstairs.railing.desc"));

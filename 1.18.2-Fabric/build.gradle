@@ -18,6 +18,14 @@ repositories {
 	// for more information about repositories.
 }
 
+sourceSets {
+	main {
+		java {
+			srcDirs '../_AddonsLibJavaBase/JavaBase/src/'
+		}
+	}
+}
+
 loom {
 	splitEnvironmentSourceSets()
 
