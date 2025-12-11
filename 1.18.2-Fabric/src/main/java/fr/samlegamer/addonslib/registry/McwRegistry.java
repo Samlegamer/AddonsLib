@@ -67,18 +67,18 @@ public final class McwRegistry
                 for(BlockId blockId : mcwBlockIdBase.blocks())
                 {
                     String id = McwBlocksIdBase.replacement(blockId.id(), mat);
-                    String reflectedLocation = blockId.reflectedLocation().getForge();
+                    String reflectedLocation = blockId.reflectedLocation().getFabric();
                     AbstractBlock.Settings prop = McwProperties.getWoodProperties(mat, mod).sounds(soundType);;
                     boolean isModLoaded = modList.isModLoaded(mcwBlockIdBase.modid());
 
 
                     if(isModLoaded)
                     {
-                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
-                            RegistryEntryReferences.registryEntry(MODID, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.OAK_PLANKS.getDefaultState()), tab, true, isModBaseLoaded);
+                        if(isBlockDefaultState("1.18.2Fabric", reflectedLocation)) {
+                            RegistryEntryReferences.registryEntry(MODID, id, Registration.getBlocksField(blockId.reflectedLocation().getFabric(), prop, Blocks.OAK_PLANKS.getDefaultState()), tab, true, isModBaseLoaded);
                         }
                         else if(isBlockSetType(reflectedLocation)) {
-                            RegistryEntryReferences.registryEntry(MODID, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), tab, true, isModBaseLoaded);
+                            RegistryEntryReferences.registryEntry(MODID, id, Registration.getBlocksField(blockId.reflectedLocation().getFabric(), prop), tab, true, isModBaseLoaded);
                         }
                         else {
                             if (isFence(reflectedLocation)) {
@@ -90,7 +90,7 @@ public final class McwRegistry
                             } else if (isDoor(id)) {
                                 RegistryEntryReferences.registryEntry(MODID, id, new DoorBlock(prop), tab, true, isModBaseLoaded);
                             } else {
-                                RegistryEntryReferences.registryEntry(MODID, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), tab, true, isModBaseLoaded);
+                                RegistryEntryReferences.registryEntry(MODID, id, Registration.getBlocksField(blockId.reflectedLocation().getFabric(), prop), tab, true, isModBaseLoaded);
                             }
                         }
                     }
@@ -139,7 +139,7 @@ public final class McwRegistry
 
                 if(isModLoaded)
                 {
-                    RegistryEntryReferences.registryEntry(MODID, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), tab, true, isModBaseLoaded);
+                    RegistryEntryReferences.registryEntry(MODID, id, Registration.getBlocksField(blockId.reflectedLocation().getFabric(), prop), tab, true, isModBaseLoaded);
                 }
                 else {
                     RegistryEntryReferences.registryEntry(MODID, id, new FenceBlock(prop), tab, false, isModBaseLoaded);
@@ -180,7 +180,7 @@ public final class McwRegistry
                 for(BlockId blockId : mcwBlockIdBase.blocks())
                 {
                     String id = McwBlocksIdBase.replacement(blockId.id(), mat);
-                    String reflectedLocation = blockId.reflectedLocation().getForge();
+                    String reflectedLocation = blockId.reflectedLocation().getFabric();
                     AbstractBlock.Settings prop;
                     boolean isModLoaded = modList.isModLoaded(mcwBlockIdBase.modid());
 
@@ -188,8 +188,8 @@ public final class McwRegistry
 
                     if(isModLoaded)
                     {
-                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
-                            RegistryEntryReferences.registryEntry(MODID, id,  Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.STONE.getDefaultState()), tab, true, isModBaseLoaded);
+                        if(isBlockDefaultState("1.18.2Fabric", reflectedLocation)) {
+                            RegistryEntryReferences.registryEntry(MODID, id,  Registration.getBlocksField(blockId.reflectedLocation().getFabric(), prop, Blocks.STONE.getDefaultState()), tab, true, isModBaseLoaded);
                         }
                         else {
                             if (isFence(reflectedLocation)) {
@@ -197,7 +197,7 @@ public final class McwRegistry
                             } else if (isFenceGate(reflectedLocation)) {
                                 RegistryEntryReferences.registryEntry(MODID, id,  new FenceGateBlock(prop), tab, true, isModBaseLoaded);
                             }  else {
-                                RegistryEntryReferences.registryEntry(MODID, id,  Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), tab, true, isModBaseLoaded);
+                                RegistryEntryReferences.registryEntry(MODID, id,  Registration.getBlocksField(blockId.reflectedLocation().getFabric(), prop), tab, true, isModBaseLoaded);
                             }
                         }
                     }
