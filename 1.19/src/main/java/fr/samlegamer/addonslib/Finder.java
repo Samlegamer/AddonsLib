@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.Objects;
 
 /*
- * Search Item/Block/BlockEntityType with ResourceLocation
+ * Search Item/Block/TileEntityType with ResourceLocation
  */
 public class Finder
 {
@@ -17,11 +17,26 @@ public class Finder
 	{
 		return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODID, nameBlock));
 	}
+
+    public static Block findBlock(String MODIDNameBlock)
+    {
+        return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(MODIDNameBlock));
+    }
+
+    public static String makeIdHedge(String MODID, String nameBlock)
+    {
+        return MODID + ":" + nameBlock+"_hedge";
+    }
 	
 	public static Item findItem(String MODID, String nameItem)
 	{
 		return ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID, nameItem));
 	}
+
+    public static Item findItem(String MODIDNameItem)
+    {
+        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODIDNameItem));
+    }
 	
 	public static BlockEntityType<?> findTileEntity(String MODID, String nameTileEntity)
 	{
@@ -36,5 +51,15 @@ public class Finder
     public static String getIdOfItem(Item item)
     {
         return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
+    }
+
+    public static String getModidOfItem(Item item)
+    {
+        return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getNamespace();
+    }
+
+    public static ResourceLocation getRLOfItem(Item item)
+    {
+        return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item));
     }
 }

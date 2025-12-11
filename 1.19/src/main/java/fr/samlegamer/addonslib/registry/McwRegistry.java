@@ -1,0 +1,221 @@
+package fr.samlegamer.addonslib.registry;
+
+import fr.addonslib.api.data.BlockId;
+import fr.addonslib.api.data.McwBlockIdBase;
+import fr.addonslib.api.data.McwBlocksIdBase;
+import fr.addonslib.api.data.ModType;
+import fr.samlegamer.addonslib.AddonsLib;
+import fr.samlegamer.addonslib.Registration;
+import fr.samlegamer.addonslib.data.CreateBlockReferences;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.registries.DeferredRegister;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import static fr.addonslib.api.registry.ConditionalsRegistry.*;
+
+/*
+ * Registry helper for MCW based mods
+ */
+public final class McwRegistry
+{
+    private McwRegistry() {}
+
+    public static Map<String, SoundType> makeDefaultFromList(List<String> list, SoundType soundType)
+    {
+        Map<String, SoundType> map = new LinkedHashMap<>();
+
+        for(String str : list)
+        {
+            map.put(str, soundType);
+        }
+
+        return map;
+    }
+
+    public static void setRegistriesWood(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab, ModType... type)
+    {
+        setRegistriesWood(makeDefaultFromList(list, SoundType.WOOD), block, item, tab, type);
+    }
+
+    public static void setRegistriesWood(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab, ModType... type)
+    {
+        setRegistriesWood(stringSoundTypeMap, block, item, AddonsLib.MODID, tab, type);
+    }
+
+    public static void setRegistriesWood(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab, ModType... type)
+    {
+        setRegistriesWood(makeDefaultFromList(list, SoundType.WOOD), block, item, modLoadedTab, tab, type);
+    }
+
+    public static void setRegistriesWood(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab, ModType... type)
+    {
+        ModList modList = ModList.get();
+        boolean isModBaseLoaded = ModList.get().isLoaded(modLoadedTab);
+        Map<String, SoundType> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
+
+        for(ModType mod : type)
+        {
+            for(Map.Entry<String, SoundType> map : orderedMap.entrySet())
+            {
+                String mat = map.getKey();
+                SoundType soundType = map.getValue();
+
+                McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidWood(mod);
+                for(BlockId blockId : mcwBlockIdBase.blocks())
+                {
+                    String id = McwBlocksIdBase.replacement(blockId.id(), mat);
+                    String reflectedLocation = blockId.reflectedLocation().getForge();
+                    BlockBehaviour.Properties prop;
+                    boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
+
+                    if(soundType == SoundType.GLASS)
+                    {
+                        prop = McwProperties.getWoodProperties(mat, mod).noOcclusion().sound(soundType);
+                    }
+                    else {
+                        prop = McwProperties.getWoodProperties(mat, mod).sound(soundType);
+                    }
+
+                    if(isModLoaded)
+                    {
+                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
+                            CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
+                        }
+                        else if(isBlockSetType(reflectedLocation)) {
+                            CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), block, item, tab, true, isModBaseLoaded);
+                        }
+                        else {
+                            if (isFence(reflectedLocation)) {
+                                CreateBlockReferences.createBlock(id, () -> new FenceBlock(prop), block, item, tab, true, isModBaseLoaded);
+                            } else if (isFenceGate(reflectedLocation)) {
+                                CreateBlockReferences.createBlock(id, () -> new FenceGateBlock(prop), block, item, tab, true, isModBaseLoaded);
+                            } else if (isTrapdoor(id)) {
+                                CreateBlockReferences.createBlock(id, () -> new TrapDoorBlock(prop), block, item, tab, true, isModBaseLoaded);
+                            } else if (isDoor(id)) {
+                                CreateBlockReferences.createBlock(id, () -> new DoorBlock(prop), block, item, tab, true, isModBaseLoaded);
+                            } else {
+                                CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), block, item, tab, true, isModBaseLoaded);
+                            }
+                        }
+                    }
+                    else {
+                        CreateBlockReferences.createBlock(id, () -> new Block(prop), block, item, tab, false, isModBaseLoaded);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void setRegistriesLeave(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab)
+    {
+        setRegistriesLeave(stringSoundTypeMap, block, item, AddonsLib.MODID, tab);
+    }
+
+    public static void setRegistriesLeave(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab)
+    {
+        setRegistriesLeave(makeDefaultFromList(list, SoundType.GRASS), block, item, AddonsLib.MODID, tab);
+    }
+
+    public static void setRegistriesLeave(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab)
+    {
+        setRegistriesLeave(makeDefaultFromList(list, SoundType.GRASS), block, item, modLoadedTab, tab);
+    }
+
+    public static void setRegistriesLeave(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab)
+    {
+        ModList modList = ModList.get();
+        boolean isModBaseLoaded = ModList.get().isLoaded(modLoadedTab);
+        Map<String, SoundType> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
+
+        McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
+        for(BlockId blockId : mcwBlockIdBase.blocks())
+        {
+            for(Map.Entry<String, SoundType> map : orderedMap.entrySet())
+            {
+                String mat = map.getKey();
+                SoundType soundType = map.getValue();
+
+                String id = McwBlocksIdBase.replacement(blockId.id(), mat);
+                BlockBehaviour.Properties prop;
+                boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
+
+                prop = McwProperties.getLeaveProperties().sound(soundType);
+
+                if(isModLoaded)
+                {
+                    CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), block, item, tab, true, isModBaseLoaded);
+                }
+                else {
+                    CreateBlockReferences.createBlock(id, () -> new FenceBlock(prop), block, item, tab, false, isModBaseLoaded);
+                }
+            }
+        }
+    }
+
+    public static void setRegistriesStone(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab, ModType... type)
+    {
+        setRegistriesStone(stringSoundTypeMap, block, item, AddonsLib.MODID, tab, type);
+    }
+
+    public static void setRegistriesStone(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab, ModType... type)
+    {
+        setRegistriesStone(makeDefaultFromList(list, SoundType.STONE), block, item, modLoadedTab, tab, type);
+    }
+
+    public static void setRegistriesStone(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab, ModType... type)
+    {
+        setRegistriesStone(makeDefaultFromList(list, SoundType.STONE), block, item, AddonsLib.MODID, tab, type);
+    }
+
+    public static void setRegistriesStone(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab, ModType... type)
+    {
+        ModList modList = ModList.get();
+        boolean isModBaseLoaded = ModList.get().isLoaded(modLoadedTab);
+        Map<String, SoundType> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
+
+        for(ModType mod : type)
+        {
+            for(Map.Entry<String, SoundType> map : orderedMap.entrySet())
+            {
+                String mat = map.getKey();
+                SoundType soundType = map.getValue();
+
+                McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidStone(mod);
+                for(BlockId blockId : mcwBlockIdBase.blocks())
+                {
+                    String id = McwBlocksIdBase.replacement(blockId.id(), mat);
+                    String reflectedLocation = blockId.reflectedLocation().getForge();
+                    BlockBehaviour.Properties prop;
+                    boolean isModLoaded = modList.isLoaded(mcwBlockIdBase.modid());
+
+                    prop = McwProperties.getStoneProperties(mod).sound(soundType);
+
+                    if(isModLoaded)
+                    {
+                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
+                            CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.STONE.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
+                        }
+                        else {
+                            if (isFence(reflectedLocation)) {
+                                CreateBlockReferences.createBlockStone(id, () -> new FenceBlock(prop), block, item, tab, true, isModBaseLoaded);
+                            } else if (isFenceGate(reflectedLocation)) {
+                                CreateBlockReferences.createBlockStone(id, () -> new FenceGateBlock(prop), block, item, tab, true, isModBaseLoaded);
+                            }  else {
+                                CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), block, item, tab, true, isModBaseLoaded);
+                            }
+                        }
+                    }
+                    else {
+                        CreateBlockReferences.createBlockStone(id, () -> new Block(prop), block, item, tab, false, isModBaseLoaded);
+                    }
+                }
+            }
+        }
+    }
+}

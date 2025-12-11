@@ -1,6 +1,5 @@
 package fr.samlegamer.addonslib.data;
 
-import fr.samlegamer.addonslib.bridges.Bridges;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import fr.samlegamer.addonslib.item.BlockItemFuelInfo;
 import fr.samlegamer.addonslib.item.BlockItemInfo;
@@ -10,13 +9,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-
 import java.util.function.Supplier;
 
 public class CreateBlockReferences
 {
     public static void createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY,
-    CreativeModeTab tab, boolean isModMcwLoaded, boolean isModBaseLoaded)
+                                   CreativeModeTab tab, boolean isModMcwLoaded, boolean isModBaseLoaded)
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
         Item.Properties properties = new Item.Properties();
@@ -24,7 +22,7 @@ public class CreateBlockReferences
         {
             properties.tab(tab);
             if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
-                ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), properties, Bridges.desc));
+                ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), properties, "mcwbridges.bridges.desc"));
             }
             else if(name.endsWith("planks_path"))
             {
@@ -50,7 +48,7 @@ public class CreateBlockReferences
     }
 
     public static void createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY,
-    CreativeModeTab tab, boolean isModMcwLoaded, boolean isModBaseLoaded)
+                                        CreativeModeTab tab, boolean isModMcwLoaded, boolean isModBaseLoaded)
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
         Item.Properties properties = new Item.Properties();

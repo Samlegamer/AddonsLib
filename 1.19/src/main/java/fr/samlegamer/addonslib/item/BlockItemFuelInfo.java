@@ -5,6 +5,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.extensions.IForgeItem;
 
+import javax.annotation.Nullable;
+
 public class BlockItemFuelInfo extends BlockItemInfo implements IForgeItem
 {
 	public BlockItemFuelInfo(Block p_40565_, Properties p_40566_, String desc)
@@ -13,8 +15,7 @@ public class BlockItemFuelInfo extends BlockItemInfo implements IForgeItem
 	}
 
 	@Override
-	public int getBurnTime(ItemStack itemStack, RecipeType<?> recipeType)
-	{
+	public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
 		return 300;
 	}
 }

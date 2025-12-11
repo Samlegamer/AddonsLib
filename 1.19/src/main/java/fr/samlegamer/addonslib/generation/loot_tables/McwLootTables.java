@@ -3,11 +3,11 @@ package fr.samlegamer.addonslib.generation.loot_tables;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import fr.addonslib.api.data.BlockId;
+import fr.addonslib.api.data.McwBlockIdBase;
+import fr.addonslib.api.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.data.BlockId;
-import fr.samlegamer.addonslib.data.McwBlockIdBase;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -20,9 +20,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import org.jetbrains.annotations.NotNull;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import javax.annotation.Nonnull;
+import java.util.*;
 import java.util.function.Supplier;
 
 public class McwLootTables extends LootModifier
@@ -46,7 +46,10 @@ public class McwLootTables extends LootModifier
                 Block block = Finder.findBlock(modid, blockName);
 
                 if(block != null) {
-                    blockSet.add(block);
+                    if(!Finder.getIdOfBlock(block).endsWith("_balcony"))
+                    {
+                        blockSet.add(block);
+                    }
                 } else {
                     AddonsLib.LOGGER.info("[McwLootTables] ERROR: Block not found: {}:{}", modid, blockName);
                 }
@@ -79,11 +82,12 @@ public class McwLootTables extends LootModifier
         addBlock(modid, MAT_ROCK, McwBlocksIdBase.FENCES_STONE_BLOCKS);
     }
 
+    @Nonnull
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext lootContext) {
         BlockState state = lootContext.hasParam(LootContextParams.BLOCK_STATE) ? lootContext.getParam(LootContextParams.BLOCK_STATE) : null;
 
-        if(state != null) {
+        if (state != null) {
             if (state instanceof BlockState) {
                 if (blockSet.contains(state.getBlock())) {
                     if (state.getBlock() instanceof DoorBlock) {
@@ -107,7 +111,7 @@ public class McwLootTables extends LootModifier
     }
 
     @Override
-    public @NotNull Codec<? extends IGlobalLootModifier> codec() {
+    public Codec<? extends IGlobalLootModifier> codec() {
         return CODEC.get();
     }
 }

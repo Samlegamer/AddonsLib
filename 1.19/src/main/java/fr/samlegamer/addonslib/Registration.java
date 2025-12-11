@@ -2,7 +2,8 @@ package fr.samlegamer.addonslib;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import fr.samlegamer.addonslib.data.ModType;
+
+import fr.addonslib.api.data.ModType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -27,10 +28,10 @@ public final class Registration
 
     public static ModType[] getAllModTypeStone()
     {
-        return new ModType[] {ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+        return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES};
     }
 
-    /**
+	/**
 	 * Block
 	 */
 	public static DeferredRegister<Block> blocks(String MODID)
@@ -72,12 +73,12 @@ public final class Registration
 		}
 		return block;
 	}
-
+	
 	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD)
 	{
 		return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class}, WOOD);
 	}
-
+	
 	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD, BlockState state)
 	{
 		return getField(path, WOOD, new Class<?>[] {BlockState.class, BlockBehaviour.Properties.class}, state, WOOD);

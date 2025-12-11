@@ -125,6 +125,14 @@ repositories {
     // }
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs '../_AddonsLibJavaBase/JavaBase/src/'
+        }
+    }
+}
+
 dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.

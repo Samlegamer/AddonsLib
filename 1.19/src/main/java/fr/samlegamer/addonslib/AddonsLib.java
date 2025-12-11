@@ -21,25 +21,25 @@ public class AddonsLib
 	public static final String MODID = "addonslib";
 	public static final Logger LOGGER = LogManager.getLogger();
 
-    public AddonsLib()
-    {
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        LootModRegistry.SERIALIZERS.register(eventBus);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
-        LOGGER.info("AddonsLib Forge !");
-        eventBus.addListener(this::onConfigLoaded);
-    }
+	public AddonsLib()
+	{
+		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		LootModRegistry.SERIALIZERS.register(eventBus);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
+		LOGGER.info("AddonsLib Forge !");
+		eventBus.addListener(this::onConfigLoaded);
+	}
 
-    private void onConfigLoaded(final ModConfigEvent.Loading event)
-    {
-        if (event.getConfig().getSpec() == Cfg.SPEC)
-        {
-            if (Cfg.filterLogs.get())
-            {
-                addCustomFilter();
-            }
-        }
-    }
+	private void onConfigLoaded(final ModConfigEvent.Loading event)
+	{
+		if (event.getConfig().getSpec() == Cfg.SPEC)
+		{
+			if (Cfg.filterLogs.get())
+			{
+				addCustomFilter();
+			}
+		}
+	}
 
 	private void addCustomFilter() {
 		LoggerContext context = (LoggerContext) LogManager.getContext(false);

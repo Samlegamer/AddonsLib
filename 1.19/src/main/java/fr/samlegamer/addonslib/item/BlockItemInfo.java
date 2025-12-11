@@ -12,11 +12,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 public class BlockItemInfo extends BlockItem
 {
 	private final String desc;
-	
+
 	public BlockItemInfo(Block p_40565_, Properties p_40566_, String desc)
 	{
 		super(p_40565_, p_40566_);
@@ -24,14 +25,14 @@ public class BlockItemInfo extends BlockItem
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack p_43043_, @Nullable Level p_43044_, List<Component> p_43045_, TooltipFlag p_43046_)
+	public void appendHoverText(@NotNull ItemStack p_43043_, @Nullable Level p_43044_, List<Component> p_43045_, @NotNull TooltipFlag p_43046_)
 	{
 		p_43045_.add(this.getDescription().withStyle(ChatFormatting.GRAY));
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public MutableComponent getDescription()
+	public @NotNull MutableComponent getDescription()
 	{
-		return (MutableComponent) Component.translatable(this.desc);
+		return Component.translatable(this.desc);
 	}
 }
