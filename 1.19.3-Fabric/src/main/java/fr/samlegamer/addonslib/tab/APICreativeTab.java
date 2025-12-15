@@ -1,15 +1,18 @@
 package fr.samlegamer.addonslib.tab;
 
+import fr.addonslib.api.data.BlockId;
+import fr.addonslib.api.data.McwBlockIdBase;
+import fr.addonslib.api.data.McwBlocksIdBase;
+import fr.addonslib.api.data.ModType;
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.data.BlockId;
-import fr.samlegamer.addonslib.data.McwBlockIdBase;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.data.ModType;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class APICreativeTab
 {
@@ -22,6 +25,7 @@ public class APICreativeTab
     {
         FabricLoader modList = FabricLoader.getInstance();
         boolean BaseModLoaded = modList.isModLoaded(modLoaded);
+        Set<Block> blockSet = new HashSet<>();
 
         for(ModType mod : type) {
             final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidWood(mod);
@@ -30,14 +34,17 @@ public class APICreativeTab
                     if(modList.isModLoaded(mod.getModid()) && BaseModLoaded)
                     {
                         final Block block = Finder.findBlock(MODID, McwBlocksIdBase.replacement(id.id(), mat));
-
-                        ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
-                            content.add(block);
-                        });
+                        blockSet.add(block);
                     }
                 }
             }
         }
+
+        ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
+            for(Block block : blockSet) {
+                content.add(block);
+            }
+        });
     }
 
     public static void initAllLeave(String MODID, List<String> LEAVE, ItemGroup tab)
@@ -49,19 +56,23 @@ public class APICreativeTab
     {
         FabricLoader modList = FabricLoader.getInstance();
         boolean BaseModLoaded = modList.isModLoaded(modLoaded);
+        Set<Block> blockSet = new HashSet<>();
 
         final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
         for (String mat : LEAVE) {
             for (BlockId id : blocks.blocks()) {
                 if(modList.isModLoaded(ModType.FENCES.getModid()) && BaseModLoaded) {
                     final Block block = Finder.findBlock(MODID, McwBlocksIdBase.replacement(id.id(), mat));
-
-                    ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
-                        content.add(block);
-                    });
+                    blockSet.add(block);
                 }
             }
         }
+
+        ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
+            for(Block block : blockSet) {
+                content.add(block);
+            }
+        });
     }
 
     public static void initAllStone(String MODID, List<String> STONE, ItemGroup tab, ModType... type)
@@ -73,6 +84,7 @@ public class APICreativeTab
     {
         FabricLoader modList = FabricLoader.getInstance();
         boolean BaseModLoaded = modList.isModLoaded(modLoaded);
+        Set<Block> blockSet = new HashSet<>();
 
         for(ModType mod : type) {
             final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidStone(mod);
@@ -80,13 +92,16 @@ public class APICreativeTab
                 for (BlockId id : blocks.blocks()) {
                     if(modList.isModLoaded(mod.getModid()) && BaseModLoaded) {
                         final Block block = Finder.findBlock(MODID, McwBlocksIdBase.replacement(id.id(), mat));
-
-                        ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
-                            content.add(block);
-                        });
+                        blockSet.add(block);
                     }
                 }
             }
         }
+
+        ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
+            for(Block block : blockSet) {
+                content.add(block);
+            }
+        });
     }
 }
