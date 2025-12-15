@@ -12,14 +12,13 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class McwItemTags extends FabricTagProvider.ItemTagProvider
 {
-    public McwItemTags(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture, @Nullable BlockTagProvider blockTagProvider) {
-        super(output, completableFuture, blockTagProvider);
+    public McwItemTags(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+        super(output, completableFuture);
     }
 
     private void makeTags(McwBlockIdBase mcwBlockIdBase, String modid, List<String> MAT)

@@ -4,15 +4,12 @@ import fr.addonslib.api.data.BlockId;
 import fr.addonslib.api.data.McwBlockIdBase;
 import fr.addonslib.api.data.McwBlocksIdBase;
 import fr.addonslib.api.data.ModType;
-import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.RegistryEntryReferences;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,25 +34,14 @@ public final class McwRegistry
         return map;
     }
 
-    public static void setRegistriesWood(String MODID, List<String> list, ItemGroup tab, ModType... type)
+    public static void setRegistriesWood(String MODID, List<String> list, ModType... type)
     {
-        setRegistriesWood(MODID, makeDefaultFromList(list, BlockSoundGroup.WOOD), tab, type);
+        setRegistriesWood(MODID, makeDefaultFromList(list, BlockSoundGroup.WOOD), type);
     }
 
-    public static void setRegistriesWood(String MODID, Map<String, BlockSoundGroup> stringSoundTypeMap, ItemGroup tab, ModType... type)
-    {
-        setRegistriesWood(MODID, stringSoundTypeMap, AddonsLib.MODID, tab, type);
-    }
-
-    public static void setRegistriesWood(String MODID, List<String> list, String modLoadedTab, ItemGroup tab, ModType... type)
-    {
-        setRegistriesWood(MODID, makeDefaultFromList(list, BlockSoundGroup.WOOD), modLoadedTab, tab, type);
-    }
-
-    public static void setRegistriesWood(String MODID, Map<String, BlockSoundGroup> stringSoundTypeMap, String modLoadedTab, ItemGroup tab, ModType... type)
+    public static void setRegistriesWood(String MODID, Map<String, BlockSoundGroup> stringSoundTypeMap, ModType... type)
     {
         FabricLoader modList = FabricLoader.getInstance();
-        boolean isModBaseLoaded = modList.isModLoaded(modLoadedTab);
         Map<String, BlockSoundGroup> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
 
         for(ModType mod : type)
@@ -104,25 +90,14 @@ public final class McwRegistry
         }
     }
 
-    public static void setRegistriesLeave(String MODID, Map<String, BlockSoundGroup> stringSoundTypeMap, ItemGroup tab)
+    public static void setRegistriesLeave(String MODID, List<String> list)
     {
-        setRegistriesLeave(MODID, stringSoundTypeMap, AddonsLib.MODID, tab);
+        setRegistriesLeave(MODID, makeDefaultFromList(list, BlockSoundGroup.GRASS));
     }
 
-    public static void setRegistriesLeave(String MODID, List<String> list, ItemGroup tab)
-    {
-        setRegistriesLeave(MODID, makeDefaultFromList(list, BlockSoundGroup.GRASS), AddonsLib.MODID, tab);
-    }
-
-    public static void setRegistriesLeave(String MODID, List<String> list, String modLoadedTab, ItemGroup tab)
-    {
-        setRegistriesLeave(MODID, makeDefaultFromList(list, BlockSoundGroup.GRASS), modLoadedTab, tab);
-    }
-
-    public static void setRegistriesLeave(String MODID, Map<String, BlockSoundGroup> stringSoundTypeMap, String modLoadedTab, ItemGroup tab)
+    public static void setRegistriesLeave(String MODID, Map<String, BlockSoundGroup> stringSoundTypeMap)
     {
         FabricLoader modList = FabricLoader.getInstance();
-        boolean isModBaseLoaded = modList.isModLoaded(modLoadedTab);
         Map<String, BlockSoundGroup> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
 
         McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
@@ -150,25 +125,14 @@ public final class McwRegistry
         }
     }
 
-    public static void setRegistriesStone(String MODID, Map<String, BlockSoundGroup> stringSoundTypeMap, ItemGroup tab, ModType... type)
+    public static void setRegistriesStone(String MODID, List<String> list, ModType... type)
     {
-        setRegistriesStone(MODID, stringSoundTypeMap, AddonsLib.MODID, tab, type);
+        setRegistriesStone(MODID, makeDefaultFromList(list, BlockSoundGroup.STONE), type);
     }
 
-    public static void setRegistriesStone(String MODID, List<String> list, String modLoadedTab, ItemGroup tab, ModType... type)
-    {
-        setRegistriesStone(MODID, makeDefaultFromList(list, BlockSoundGroup.STONE), modLoadedTab, tab, type);
-    }
-
-    public static void setRegistriesStone(String MODID, List<String> list, ItemGroup tab, ModType... type)
-    {
-        setRegistriesStone(MODID, makeDefaultFromList(list, BlockSoundGroup.STONE), AddonsLib.MODID, tab, type);
-    }
-
-    public static void setRegistriesStone(String MODID, Map<String, BlockSoundGroup> stringSoundTypeMap, String modLoadedTab, ItemGroup tab, ModType... type)
+    public static void setRegistriesStone(String MODID, Map<String, BlockSoundGroup> stringSoundTypeMap, ModType... type)
     {
         FabricLoader modList = FabricLoader.getInstance();
-        boolean isModBaseLoaded = modList.isModLoaded(modLoadedTab);
         Map<String, BlockSoundGroup> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
 
         for(ModType mod : type)
