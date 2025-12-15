@@ -9,8 +9,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
-
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +24,7 @@ public class APICreativeTab
     {
         FabricLoader modList = FabricLoader.getInstance();
         boolean BaseModLoaded = modList.isModLoaded(modLoaded);
-        Set<Block> blockSet = new HashSet<>();
+        Set<Block> blockSet = new LinkedHashSet<>();
 
         for(ModType mod : type) {
             final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidWood(mod);
@@ -56,7 +55,7 @@ public class APICreativeTab
     {
         FabricLoader modList = FabricLoader.getInstance();
         boolean BaseModLoaded = modList.isModLoaded(modLoaded);
-        Set<Block> blockSet = new HashSet<>();
+        Set<Block> blockSet = new LinkedHashSet<>();
 
         final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
         for (String mat : LEAVE) {
@@ -84,7 +83,7 @@ public class APICreativeTab
     {
         FabricLoader modList = FabricLoader.getInstance();
         boolean BaseModLoaded = modList.isModLoaded(modLoaded);
-        Set<Block> blockSet = new HashSet<>();
+        Set<Block> blockSet = new LinkedHashSet<>();
 
         for(ModType mod : type) {
             final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidStone(mod);
