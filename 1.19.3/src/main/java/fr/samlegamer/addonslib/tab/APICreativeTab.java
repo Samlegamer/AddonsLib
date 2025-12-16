@@ -10,7 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.fml.ModList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +24,7 @@ public class APICreativeTab {
     public static void initAllWood(final CreativeModeTabEvent.BuildContents event, String MODID, List<String> WOOD, String modidCharged, CreativeModeTab tab, ModType... type)
     {
         ModList modList = ModList.get();
-        Set<ItemStack> blockSet = new HashSet<>();
+        Set<ItemStack> blockSet = new LinkedHashSet<>();
 
         for (ModType mod : type) {
             if (modList.isLoaded(mod.getModid()) && modList.isLoaded(modidCharged)) {
@@ -52,7 +52,7 @@ public class APICreativeTab {
     public static void initAllLeave(final CreativeModeTabEvent.BuildContents event, String MODID, List<String> LEAVE, String modidCharged, CreativeModeTab tab)
     {
         ModList modList = ModList.get();
-        Set<ItemStack> blockSet = new HashSet<>();
+        Set<ItemStack> blockSet = new LinkedHashSet<>();
 
         if (modList.isLoaded(ModType.FENCES.getModid()) && modList.isLoaded(modidCharged)) {
             final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
@@ -78,7 +78,7 @@ public class APICreativeTab {
     public static void initAllStone(final CreativeModeTabEvent.BuildContents event, String MODID, List<String> STONE, String modidCharged, CreativeModeTab tab, ModType... type)
     {
         ModList modList = ModList.get();
-        Set<ItemStack> blockSet = new HashSet<>();
+        Set<ItemStack> blockSet = new LinkedHashSet<>();
 
         for (ModType mod : type) {
             if (modList.isLoaded(mod.getModid()) && modList.isLoaded(modidCharged)) {

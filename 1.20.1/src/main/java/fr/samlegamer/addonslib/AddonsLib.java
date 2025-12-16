@@ -2,7 +2,6 @@ package fr.samlegamer.addonslib;
 
 import fr.samlegamer.addonslib.cfg.Cfg;
 import fr.samlegamer.addonslib.generation.loot_tables.LootModRegistry;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
