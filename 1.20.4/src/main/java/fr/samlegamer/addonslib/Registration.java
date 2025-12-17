@@ -3,7 +3,7 @@ package fr.samlegamer.addonslib;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import fr.samlegamer.addonslib.data.ModType;
+import fr.addonslib.api.data.ModType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
