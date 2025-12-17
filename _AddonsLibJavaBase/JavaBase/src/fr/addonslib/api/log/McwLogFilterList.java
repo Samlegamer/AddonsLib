@@ -21,6 +21,7 @@ public final class McwLogFilterList {
         list.add("Unable to load model");
         list.add("Unable to resolve texture reference");
         list.add("Tried to load unrecognized recipe");
+        list.add("as it's serializer returned null");
         return list;
     }
 }

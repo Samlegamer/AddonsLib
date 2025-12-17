@@ -20,7 +20,7 @@ public final class McwBlocksIdBase
     ));
 
     public static final McwBlockIdBase BRIDGES_STONE_BLOCKS = new McwBlockIdBase(ModType.BRIDGES.getModid(), Arrays.asList(
-            new BlockId("%material%_bridge", McwReflected.BRIDGE_BLOCK, STONE_BRIDGES_TAGS, STONE_BRIDGE),
+            new BlockId("%material%_bridge", McwReflected.BRIDGE_BLOCK, STONE_BRIDGES_TAGS, STONE_BRIDGE, STONE_BRIDGE_STAIR_RECYCLE),
             new BlockId("%material%_bridge_pier", McwReflected.BRIDGE_SUPPORT, BRIDGE_PIER_STONE_TAGS, STONE_PIER),
             new BlockId("%material%_bridge_stair", McwReflected.BRIDGE_STAIRS, STONE_BRIDGE_STAIR_TAGS, STONE_BRIDGE_STAIR),
             new BlockId("balustrade_%material%_bridge", McwReflected.BRIDGE_BLOCK, BALUSTRADE_BRIDGES_TAGS, BALUSTRADE_BRIDGE)

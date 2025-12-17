@@ -113,6 +113,13 @@ public final class McwRecipesBase
         new CraftingIngredient('B', STONE_WALL)
     );
 
+    public static final RecipesBase STONE_BRIDGE_STAIR_RECYCLE = new RecipesBase(RECIPE_SHAPELESS_WITH_1_ITEM_RECYCLE,
+            new String[]{},
+            LOG, 1, "recyclable_bridges_recycle",
+            new CraftingIngredient('A', "stone_bridge_stair")
+    );
+
+
     public static final RecipesBase STONE_PIER = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"ABA"},
         STONE_BASE, 3, "stone_piers",
