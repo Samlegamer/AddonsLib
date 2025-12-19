@@ -2,27 +2,25 @@ package fr.samlegamer.addonslib.tab;
 
 import java.util.EnumSet;
 import java.util.Random;
+
+import fr.addonslib.api.data.ModType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.fml.ModList;
 
 public class NewIconRandom
 {
-	public enum BlockType {
-        ROOFS, FENCES, BRIDGES, FURNITURES, WINDOWS, DOORS, TRAPDOORS, PATHS, STAIRS
-    }
-
-    public static class NewProperties {
-        private EnumSet<BlockType> activeTypes = EnumSet.noneOf(BlockType.class);
-        private Block roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon, stairsIcon;
+	public static class NewProperties {
+        private final EnumSet<ModType> activeTypes = EnumSet.noneOf(ModType.class);
+        private final Block roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon, stairsIcon;
         private int dependencies = 0;
         public Block defaultIcon = Blocks.CRAFTING_TABLE;
 
         public NewProperties(Block roofsIcon, Block fencesIcon, Block furnituresIcon, Block bridgesIcon, Block windowsIcon, Block doorsIcon, Block trapdoorsIcon, Block pathsIcon, Block stairsIcon) {
+            this.bridgesIcon = bridgesIcon;
             this.roofsIcon = roofsIcon;
             this.fencesIcon = fencesIcon;
             this.furnituresIcon = furnituresIcon;
-            this.bridgesIcon = bridgesIcon;
             this.windowsIcon = windowsIcon;
             this.doorsIcon = doorsIcon;
             this.trapdoorsIcon = trapdoorsIcon;
@@ -30,13 +28,13 @@ public class NewIconRandom
             this.stairsIcon = stairsIcon;
         }
 
-        public NewProperties addType(BlockType type) {
+        public NewProperties addType(ModType type) {
             activeTypes.add(type);
             return this;
         }
 
-        public Block buildIcon(BlockType... types) {
-            for (BlockType type : types) {
+        public Block buildIcon(ModType... types) {
+            for (ModType type : types) {
                 if (isTypeLoaded(type)) {
                     dependencies++;
                 }
@@ -49,7 +47,7 @@ public class NewIconRandom
             }
         }
 
-        private Block getRandomIcon(BlockType... types) {
+        private Block getRandomIcon(ModType... types) {
             Random rand = new Random();
             int i = rand.nextInt(dependencies);
             switch (types[i]) {
@@ -66,35 +64,35 @@ public class NewIconRandom
             }
         }
 
-        private boolean isTypeLoaded(BlockType type) {
+        private boolean isTypeLoaded(ModType type) {
             String modId = getModIdForType(type);
             return ModList.get().isLoaded(modId);
         }
 
-        private boolean allTypesLoaded(BlockType... types) {
-            for (BlockType type : types) {
+        private boolean allTypesLoaded(ModType... types) {
+            for (ModType type : types) {
                 if (!isTypeLoaded(type)) return false;
             }
             return true;
         }
 
-        private String getModIdForType(BlockType type) {
+        private String getModIdForType(ModType type) {
             switch (type) {
-                case ROOFS: return "mcwroofs";
-                case FENCES: return "mcwfences";
-                case BRIDGES: return "mcwbridges";
-                case FURNITURES: return "mcwfurnitures";
-                case WINDOWS: return "mcwwindows";
-                case DOORS: return "mcwdoors";
-                case TRAPDOORS: return "mcwtrpdoors";
-                case PATHS: return "mcwpaths";
-                case STAIRS: return "mcwstairs";
+                case ROOFS: return ModType.ROOFS.getModid();
+                case FENCES: return ModType.FENCES.getModid();
+                case BRIDGES: return ModType.BRIDGES.getModid();
+                case FURNITURES: return ModType.FURNITURES.getModid();
+                case WINDOWS: return ModType.WINDOWS.getModid();
+                case DOORS: return ModType.DOORS.getModid();
+                case TRAPDOORS: return ModType.TRAPDOORS.getModid();
+                case PATHS: return ModType.PATHS.getModid();
+                case STAIRS: return ModType.STAIRS.getModid();
                 default: return "";
             }
         }
 
-        private Block getFallbackIcon(BlockType... types) {
-            for (BlockType type : types) {
+        private Block getFallbackIcon(ModType... types) {
+            for (ModType type : types) {
                 if (isTypeLoaded(type)) {
                     return getIconForType(type);
                 }
@@ -102,7 +100,7 @@ public class NewIconRandom
             return defaultIcon;
         }
 
-        private Block getIconForType(BlockType type) {
+        private Block getIconForType(ModType type) {
             switch (type) {
                 case ROOFS: return roofsIcon;
                 case FENCES: return fencesIcon;
@@ -117,252 +115,4 @@ public class NewIconRandom
             }
         }
     }
-	
-	public static class Properties
-	{
-		private boolean roofs = false;
-		private boolean fences = false;
-		private boolean bridges = false;
-		private boolean furnitures = false;
-		private boolean windows = false;
-		private boolean doors = false;
-		private boolean trapdoors = false;
-		private boolean paths = false;
-		private boolean stairs = false;
-		private Block roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon, stairsIcon;
-		private int depedencies = 0;
-
-		/**
-		 * Is For Wood Compat ex:Macaw's BOP
-		 * Parameter : (roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon)
-		 * Use Finder.findBlock(String MODID, String nameBlock); for set blocks
-		 */
-		public Properties(Block roofsIcon, Block fencesIcon, Block furnituresIcon, Block bridgesIcon, 
-		Block windowsIcon, Block doorsIcon, Block trapdoorsIcon, Block pathsIcon, Block stairsIcon)
-		{
-			this.roofsIcon = roofsIcon;
-			this.fencesIcon = fencesIcon;
-			this.furnituresIcon = furnituresIcon;
-			this.bridgesIcon = bridgesIcon;
-			this.windowsIcon = windowsIcon;
-			this.doorsIcon = doorsIcon;
-			this.trapdoorsIcon = trapdoorsIcon;
-			this.pathsIcon = pathsIcon;
-			this.stairsIcon = stairsIcon;
-		}
-
-		/*
-		 * Use new Parameter with stairsIcon
-		 */
-		@Deprecated
-		public Properties(Block roofsIcon, Block fencesIcon, Block furnituresIcon, Block bridgesIcon, 
-		Block windowsIcon, Block doorsIcon, Block trapdoorsIcon, Block pathsIcon)
-		{
-			this(roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon, Blocks.CRAFTING_TABLE);
-		}
-		
-		/**
-		 * Is For Stone Compat ex:Macaw's Quark
-		 * Parameter : (roofsIcon, fencesIcon, bridgesIcon)
-		 */
-		public Properties(Block roofsIcon, Block fencesIcon, Block bridgesIcon)
-		{
-			this.roofsIcon = roofsIcon;
-			this.fencesIcon = fencesIcon;
-			this.bridgesIcon = bridgesIcon;
-		}
-		
-		public Properties stairs()
-		{
-			stairs=true;
-			return this;
-		}
-		
-		public Properties windows()
-		{
-			windows=true;
-			return this;
-		}
-		
-		public Properties doors()
-		{
-			doors=true;
-			return this;
-		}
-		
-		public Properties trapdoors()
-		{
-			trapdoors=true;
-			return this;
-		}
-		
-		public Properties paths()
-		{
-			paths=true;
-			return this;
-		}
-		
-		public Properties roofs()
-		{
-			roofs=true;
-			return this;
-		}
-		
-		public Properties fences()
-		{
-			fences=true;
-			return this;
-		}
-
-		public Properties bridges()
-		{
-			bridges=true;
-			return this;
-		}
-		
-		public Properties furnitures()
-		{
-			furnitures=true;
-			return this;
-		}
-		
-		public Block buildWood()
-		{
-			loadedBool(bridges);
-			loadedBool(fences);
-			loadedBool(roofs);
-			loadedBool(furnitures);
-			loadedBool(paths);
-			loadedBool(trapdoors);
-			loadedBool(doors);
-			loadedBool(windows);
-			loadedBool(stairs);
-			if(loadedAllWood())
-			{
-				Random rand = new Random();
-	    		int i = rand.nextInt(depedencies - 1);
-	    		switch (i) {
-				case 1:
-		    		return bridgesIcon;
-				case 2:
-		    		return fencesIcon;
-				case 0:
-		    		return roofsIcon;
-				case 3:
-		    		return furnituresIcon;
-				case 4:
-		    		return pathsIcon;
-				case 5:
-		    		return trapdoorsIcon;
-				case 6:
-		    		return doorsIcon;
-				case 7:
-		    		return windowsIcon;
-				case 8:
-		    		return stairsIcon;
-				default:
-					break;
-				}
-			}
-			else
-			{
-				if(loaded("mcwfurnitures"))
-				{
-					return furnituresIcon;
-				}
-				else if(loaded("mcwbridges"))
-				{
-					return bridgesIcon;
-				}
-				else if(loaded("mcwfences"))
-				{
-					return fencesIcon;
-				}
-				else if(loaded("mcwroofs"))
-				{
-					return roofsIcon;
-				}
-				else if(loaded("mcwpaths"))
-				{
-					return pathsIcon;
-				}
-				else if(loaded("mcwdoors"))
-				{
-					return doorsIcon;
-				}
-				else if(loaded("mcwtrpdoors"))
-				{
-					return trapdoorsIcon;
-				}
-				else if(loaded("mcwwindows"))
-				{
-					return windowsIcon;
-				}
-				else if(loaded("mcwstairs"))
-				{
-					return stairsIcon;
-				}
-			}
-			return Blocks.CRAFTING_TABLE;
-		}
-		
-		public Block buildStone()
-		{
-			loadedBool(bridges);
-			loadedBool(fences);
-			loadedBool(roofs);
-			if(loadedAllStone())
-			{
-				Random rand = new Random();
-	    		int i = rand.nextInt(depedencies - 1);
-	    		switch (i) {
-				case 1:
-		    		return bridgesIcon;
-				case 2:
-		    		return fencesIcon;
-				case 0:
-		    		return roofsIcon;
-				default:
-					break;
-				}
-			}
-			else
-			{
-				if(loaded("mcwbridges"))
-				{
-					return bridgesIcon;
-				}
-				else if(loaded("mcwfences"))
-				{
-					return fencesIcon;
-				}
-				else if(loaded("mcwroofs"))
-				{
-					return roofsIcon;
-				}
-			}
-			return Blocks.CRAFTING_TABLE;
-		}
-				
-		private void loadedBool(boolean b)
-		{
-			if(b) { this.depedencies=this.depedencies+1; }
-		}
-		
-		private boolean loaded(String modid)
-	    {
-	    	return ModList.get().isLoaded(modid);
-	    }
-		
-	    private boolean loadedAllStone()
-	    {
-	    	return loaded("mcwbridges") && loaded("mcwfences") && loaded("mcwroofs");
-	    }
-
-	    
-	    private boolean loadedAllWood()
-	    {
-	    	return loaded("mcwbridges") && loaded("mcwfences") && loaded("mcwroofs") && loaded("mcwfurnitures") && loaded("mcwpaths") && loaded("mcwdoors") && loaded("mcwtrpdoors") && loaded("mcwwindows");
-	    }
-	}
 }

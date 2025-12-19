@@ -2,11 +2,11 @@ package fr.samlegamer.addonslib.mapping;
 
 import java.util.List;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.registries.*;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
  * Converts your old block compat with the new registry
- * First used with McwBridgesAbnormals Registry#addAlias
+ * First used with McwBridgesAbnormals
  * Warning for convert long compatibility use changeOldModid
  */
 public class MappingMissing
@@ -23,7 +23,7 @@ public class MappingMissing
 			this.newModid = newModid;
 			this.mats = mats;
 		}
-	    
+
 		public void missingnoWoodBlock(DeferredRegister.Blocks blocks)
 		{
 			for(String i : this.mats)
@@ -56,7 +56,7 @@ public class MappingMissing
 				addMissingBlock(blocks, oldModid, newModid, i+"_double_drawer_counter", i+"_double_drawer_counter");
 				addMissingBlock(blocks, oldModid, newModid, i+"_cupboard_counter", i+"_cupboard_counter");
 				addMissingBlock(blocks, oldModid, newModid, "stripped_"+i+"_wardrobe", "stripped_"+i+"_wardrobe");
-				
+
 				addMissingBlock(blocks, oldModid, newModid, "stripped_"+i+"_modern_wardrobe", "stripped_"+i+"_modern_wardrobe");
 				addMissingBlock(blocks, oldModid, newModid, "stripped_"+i+"_double_wardrobe", "stripped_"+i+"_double_wardrobe");
 				addMissingBlock(blocks, oldModid, newModid, "stripped_"+i+"_bookshelf", "stripped_"+i+"_bookshelf");
@@ -91,7 +91,7 @@ public class MappingMissing
 				addMissingBlock(blocks, oldModid, newModid, "stripped_"+i+"_glass_kitchen_cabinet", "stripped_"+i+"_glass_kitchen_cabinet");
 			}
 		}
-		
+
 		public void missingnoWoodItem(DeferredRegister.Items items)
 		{
 			for(String i : this.mats)
@@ -124,7 +124,7 @@ public class MappingMissing
 				addMissingItem(items, oldModid, newModid, i+"_double_drawer_counter", i+"_double_drawer_counter");
 				addMissingItem(items, oldModid, newModid, i+"_cupboard_counter", i+"_cupboard_counter");
 				addMissingItem(items, oldModid, newModid, "stripped_"+i+"_wardrobe", "stripped_"+i+"_wardrobe");
-				
+
 				addMissingItem(items, oldModid, newModid, "stripped_"+i+"_modern_wardrobe", "stripped_"+i+"_modern_wardrobe");
 				addMissingItem(items, oldModid, newModid, "stripped_"+i+"_double_wardrobe", "stripped_"+i+"_double_wardrobe");
 				addMissingItem(items, oldModid, newModid, "stripped_"+i+"_bookshelf", "stripped_"+i+"_bookshelf");
@@ -159,12 +159,12 @@ public class MappingMissing
 				addMissingItem(items, oldModid, newModid, "stripped_"+i+"_glass_kitchen_cabinet", "stripped_"+i+"_glass_kitchen_cabinet");
 			}
 		}
-		
+
 		public void missingnoStoneBlock(DeferredRegister.Blocks blocks) {}
-		
+
 		public void missingnoStoneItem(DeferredRegister.Items items) {}
 	}
-	
+
 	public static class Roofs implements IMappings
 	{
 		protected String oldModid;
@@ -179,13 +179,13 @@ public class MappingMissing
 			this.newModid = newModid;
 			this.mats = mats;
 		}
-		
+
 		public Roofs(String oldModid, String newModid, List<String> mats_wooden, List<String> mat_rockable)
 		{
 			this(oldModid, newModid, mats_wooden);
 			this.mat_rockable  = mat_rockable;
 		}
-		
+
 		public void missingnoWoodBlock(DeferredRegister.Blocks blocks)
 		{
 			for(String i : this.mats)
@@ -207,7 +207,7 @@ public class MappingMissing
 				addMissingBlock(blocks, oldModid, newModid, i+"_planks_upper_steep_roof", i+"_planks_upper_steep_roof");
 			}
 		}
-		
+
 		public void missingnoWoodItem(DeferredRegister.Items items)
 		{
 			for(String i : this.mats)
@@ -229,9 +229,9 @@ public class MappingMissing
 				addMissingItem(items, oldModid, newModid, i+"_planks_upper_steep_roof", i+"_planks_upper_steep_roof");
 			}
 		}
-		
+
 		public void missingnoStoneBlock(DeferredRegister.Blocks blocks) {}
-		
+
 		public void missingnoStoneItem(DeferredRegister.Items items) {}
 	}
 
@@ -250,13 +250,13 @@ public class MappingMissing
 			this.newModid = newModid;
 			this.mats = mats;
 		}
-		
+
 		public Fences(String oldModid, String newModid, List<String> mats_wooden, List<String> mat_rockable)
 		{
 			this(oldModid, newModid, mats_wooden);
 			this.mat_rockable  = mat_rockable;
 		}
-		
+
 		/**
 		 * Activate Leaves to Mapping Wood
 		 */
@@ -267,7 +267,7 @@ public class MappingMissing
 		}
 
 		public void missingnoWoodBlock(DeferredRegister.Blocks blocks)
-		{		
+		{
 			for(String i : this.mats)
 			{
 				addMissingBlock(blocks, oldModid, newModid, i+"_picket_fence", i+"_picket_fence");
@@ -285,7 +285,7 @@ public class MappingMissing
 				}
 			}
 		}
-		
+
 		public void missingnoWoodItem(DeferredRegister.Items items)
 		{
 			for(String i : this.mats)
@@ -305,7 +305,7 @@ public class MappingMissing
 				}
 			}
 		}
-		
+
 		public void missingnoStoneBlock(DeferredRegister.Blocks blocks)
 		{
 			for(String i : this.mat_rockable)
@@ -317,7 +317,7 @@ public class MappingMissing
 				addMissingBlock(blocks, oldModid, newModid, i+"_grass_topped_wall", i+"_grass_topped_wall");
 			}
 		}
-		
+
 		public void missingnoStoneItem(DeferredRegister.Items items)
 		{
 			for(String i : this.mat_rockable)
@@ -330,7 +330,7 @@ public class MappingMissing
 			}
 		}
 	}
-	
+
 	public static class Bridges implements IMappings
 	{
 		protected String oldModid;
@@ -344,15 +344,15 @@ public class MappingMissing
 			this.newModid = newModid;
 			this.mats = mats;
 		}
-		
+
 		public Bridges(String oldModid, String newModid, List<String> mats_wooden, List<String> mat_rockable)
 		{
 			this(oldModid, newModid, mats_wooden);
 			this.mat_rockable  = mat_rockable;
 		}
-		
+
 		public void missingnoWoodBlock(DeferredRegister.Blocks blocks)
-		{		
+		{
 			for(String i : this.mats)
 			{
 				addMissingBlock(blocks, oldModid, newModid, i+"_log_bridge_middle", i+"_log_bridge_middle");
@@ -363,7 +363,7 @@ public class MappingMissing
 				addMissingBlock(blocks, oldModid, newModid, i+"_rail_bridge", i+"_rail_bridge");
 			}
 		}
-		
+
 		public void missingnoWoodItem(DeferredRegister.Items items)
 		{
 			for(String i : this.mats)
@@ -376,9 +376,9 @@ public class MappingMissing
 				addMissingItem(items, oldModid, newModid, i+"_rail_bridge", i+"_rail_bridge");
 			}
 		}
-		
+
 		public void missingnoStoneBlock(DeferredRegister.Blocks blocks, boolean balustrade)
-		{		
+		{
 			for(String i : this.mat_rockable)
 			{
 				addMissingBlock(blocks, oldModid, newModid, i+"_bridge", i+"_bridge");
@@ -390,14 +390,14 @@ public class MappingMissing
 				}
 			}
 		}
-		
+
 		/*use missingnoStoneBlock(IdMappingEvent event, boolean balustrade)*/
 		@Deprecated
 		public void missingnoStoneBlock(DeferredRegister.Blocks blocks)
 		{
 			missingnoStoneBlock(blocks, false);
 		}
-		
+
 		public void missingnoStoneItem(DeferredRegister.Items items, boolean balustrade)
 		{
 			for(String i : this.mat_rockable)
@@ -411,7 +411,7 @@ public class MappingMissing
 				}
 			}
 		}
-		
+
 		/*use missingnoStoneItem(IdMappingEvent event, boolean balustrade)*/
 		@Deprecated
 		public void missingnoStoneItem(DeferredRegister.Items items)

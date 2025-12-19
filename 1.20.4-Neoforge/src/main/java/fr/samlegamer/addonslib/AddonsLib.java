@@ -3,7 +3,6 @@ package fr.samlegamer.addonslib;
 import fr.samlegamer.addonslib.cfg.Cfg;
 import fr.samlegamer.addonslib.generation.loot_tables.LootModRegistry;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;

@@ -1,5 +1,6 @@
 package fr.samlegamer.addonslib.cfg;
 
+
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class Cfg

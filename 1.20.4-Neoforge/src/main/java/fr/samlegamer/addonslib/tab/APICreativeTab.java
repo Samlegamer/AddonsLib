@@ -1,16 +1,19 @@
 package fr.samlegamer.addonslib.tab;
 
+import fr.addonslib.api.data.BlockId;
+import fr.addonslib.api.data.McwBlockIdBase;
+import fr.addonslib.api.data.McwBlocksIdBase;
+import fr.addonslib.api.data.ModType;
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.data.BlockId;
-import fr.samlegamer.addonslib.data.McwBlockIdBase;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.data.ModType;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class APICreativeTab {
 
@@ -22,19 +25,23 @@ public class APICreativeTab {
     public static void initAllWood(final BuildCreativeModeTabContentsEvent event, String MODID, List<String> WOOD, String modidCharged, CreativeModeTab tab, ModType... type)
     {
         ModList modList = ModList.get();
+        Set<ItemStack> blockSet = new LinkedHashSet<>();
 
         for (ModType mod : type) {
-            if (event.getTab() == tab && modList.isLoaded(mod.getModid()) && modList.isLoaded(modidCharged)) {
+            if (modList.isLoaded(mod.getModid()) && modList.isLoaded(modidCharged)) {
                 final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidWood(mod);
 
                 for (String mat : WOOD) {
-                    assert blocks != null;
                     for (BlockId id : blocks.blocks()) {
-                        final Block block = Finder.findBlock(MODID, McwBlocksIdBase.replacement(id.id(), mat));
-                        event.accept(block);
+                        final Item block = Finder.findItem(MODID, McwBlocksIdBase.replacement(id.id(), mat));
+                        blockSet.add(block.getDefaultInstance());
                     }
                 }
             }
+        }
+
+        if (event.getTab() == tab) {
+            event.acceptAll(blockSet);
         }
     }
 
@@ -46,17 +53,21 @@ public class APICreativeTab {
     public static void initAllLeave(final BuildCreativeModeTabContentsEvent event, String MODID, List<String> LEAVE, String modidCharged, CreativeModeTab tab)
     {
         ModList modList = ModList.get();
+        Set<ItemStack> blockSet = new LinkedHashSet<>();
 
-        if (event.getTab() == tab && modList.isLoaded(ModType.FENCES.getModid()) && modList.isLoaded(modidCharged)) {
+        if (modList.isLoaded(ModType.FENCES.getModid()) && modList.isLoaded(modidCharged)) {
             final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
 
             for (String mat : LEAVE) {
-                assert blocks != null;
                 for (BlockId id : blocks.blocks()) {
-                    final Block block = Finder.findBlock(MODID, McwBlocksIdBase.replacement(id.id(), mat));
-                    event.accept(block);
+                    final Item block = Finder.findItem(MODID, McwBlocksIdBase.replacement(id.id(), mat));
+                    blockSet.add(block.getDefaultInstance());
                 }
             }
+        }
+
+        if (event.getTab() == tab) {
+            event.acceptAll(blockSet);
         }
     }
 
@@ -68,19 +79,23 @@ public class APICreativeTab {
     public static void initAllStone(final BuildCreativeModeTabContentsEvent event, String MODID, List<String> STONE, String modidCharged, CreativeModeTab tab, ModType... type)
     {
         ModList modList = ModList.get();
+        Set<ItemStack> blockSet = new LinkedHashSet<>();
 
         for (ModType mod : type) {
-            if (event.getTab() == tab && modList.isLoaded(mod.getModid()) && modList.isLoaded(modidCharged)) {
+            if (modList.isLoaded(mod.getModid()) && modList.isLoaded(modidCharged)) {
                 final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidStone(mod);
 
                 for (String mat : STONE) {
-                    assert blocks != null;
                     for (BlockId id : blocks.blocks()) {
-                        final Block block = Finder.findBlock(MODID, McwBlocksIdBase.replacement(id.id(), mat));
-                        event.accept(block);
+                        final Item block = Finder.findItem(MODID, McwBlocksIdBase.replacement(id.id(), mat));
+                        blockSet.add(block.getDefaultInstance());
                     }
                 }
             }
+        }
+
+        if (event.getTab() == tab) {
+            event.acceptAll(blockSet);
         }
     }
 }
