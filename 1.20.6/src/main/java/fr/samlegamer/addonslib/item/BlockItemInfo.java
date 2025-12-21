@@ -10,7 +10,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 public class BlockItemInfo extends BlockItem
 {
@@ -23,12 +22,13 @@ public class BlockItemInfo extends BlockItem
 	}
 
 	@Override
+	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack p_40572_, TooltipContext p_327780_, List<Component> p_40574_, TooltipFlag p_40575_) {
 		p_40574_.add(this.getDescription().withStyle(ChatFormatting.GRAY));
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public @NotNull MutableComponent getDescription()
+	public MutableComponent getDescription()
 	{
 		return (MutableComponent) Component.translatable(this.desc);
 	}
