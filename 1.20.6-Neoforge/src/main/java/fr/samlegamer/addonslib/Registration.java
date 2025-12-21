@@ -3,7 +3,7 @@ package fr.samlegamer.addonslib;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import fr.samlegamer.addonslib.data.ModType;
+import fr.addonslib.api.data.ModType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -24,6 +25,17 @@ import javax.annotation.Nonnull;
 public final class Registration
 {
 	private Registration() {}
+
+	public static ModType[] getAllModTypeWood()
+	{
+		return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES, ModType.FURNITURES,
+				ModType.STAIRS, ModType.PATHS, ModType.TRAPDOORS, ModType.DOORS, ModType.WINDOWS};
+	}
+
+	public static ModType[] getAllModTypeStone()
+	{
+		return new ModType[] {ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+	}
 
 	/**
 	 * Block
@@ -54,17 +66,6 @@ public final class Registration
 		return Item_Group.register(id, () -> CreativeModeTab.builder().title(Component.translatable(MODID+"."+id)).icon(()-> new ItemStack(icon)).build());
 	}
 
-    public static ModType[] getAllModTypeWood()
-    {
-        return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES, ModType.FURNITURES,
-                ModType.WINDOWS, ModType.DOORS, ModType.TRAPDOORS, ModType.PATHS, ModType.STAIRS};
-    }
-
-    public static ModType[] getAllModTypeStone()
-    {
-        return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
-    }
-
 	/**
 	 * register
 	 */
@@ -88,7 +89,6 @@ public final class Registration
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			AddonsLib.LOGGER.error(e);
 			block = new Block(prop);
-			//AddonsLib.LOGGER.error("Error while creating block " + path + " using default constructor");
 		}
 		return block;
 	}

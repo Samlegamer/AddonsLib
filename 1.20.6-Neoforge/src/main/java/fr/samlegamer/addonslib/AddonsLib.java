@@ -19,13 +19,13 @@ public class AddonsLib
 	public static final String MODID = "addonslib";
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	public AddonsLib(IEventBus bus, ModContainer container)
-	{
+    public AddonsLib(IEventBus bus, ModContainer container)
+    {
         LootModRegistry.SERIALIZERS.register(bus);
         container.registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
-		LOGGER.info("AddonsLib Forge !");
+        LOGGER.info("AddonsLib Forge !");
         bus.addListener(this::onConfigLoaded);
-	}
+    }
 
     private void onConfigLoaded(final ModConfigEvent.Loading event)
     {

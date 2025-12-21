@@ -1,12 +1,14 @@
 package fr.samlegamer.addonslib.item;
 
 import java.util.List;
+import javax.annotation.Nullable;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -21,7 +23,12 @@ public class BlockItemInfo extends BlockItem
 		this.desc = desc;
 	}
 
+	public void appendHoverText(ItemStack p_43043_, @Nullable Level p_43044_, List<Component> p_43045_, TooltipFlag p_43046_)
+	{
+	}
+
 	@Override
+	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
 		pTooltipComponents.add(this.getDescription().withStyle(ChatFormatting.GRAY));
 	}

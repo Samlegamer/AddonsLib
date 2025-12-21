@@ -1,5 +1,6 @@
 package fr.samlegamer.addonslib.util;
 
+
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
