@@ -9,7 +9,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class LootModRegistry {
 
-    public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.GLOBAL_LOOT_MODIFIER_SERIALIZERS, AddonsLib.MODID);
+    public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, AddonsLib.MODID);
 
     public static final RegistryObject<MapCodec<? extends IGlobalLootModifier>> ADD_LOOT_TABLE =
             SERIALIZERS.register("add_loot_table", McwLootTables.CODEC);
