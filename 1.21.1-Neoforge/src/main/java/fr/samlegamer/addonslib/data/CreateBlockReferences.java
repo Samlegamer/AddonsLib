@@ -1,25 +1,24 @@
 package fr.samlegamer.addonslib.data;
 
-import fr.samlegamer.addonslib.bridges.Bridges;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import fr.samlegamer.addonslib.item.BlockItemFuelInfo;
 import fr.samlegamer.addonslib.item.BlockItemInfo;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import java.util.function.Function;
+
+import java.util.function.Supplier;
 
 public class CreateBlockReferences
 {
-    public static void createBlock(String name, Function<ResourceLocation, ? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
+    public static void createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
         DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
         Item.Properties properties = new Item.Properties();
         if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), properties, Bridges.desc));
+            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), properties, "mcwbridges.bridges.desc"));
         }
         else if(name.endsWith("planks_path"))
         {
@@ -39,11 +38,11 @@ public class CreateBlockReferences
         }
     }
 
-    public static void createBlockStone(String name, Function<ResourceLocation, ? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
+    public static void createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister.Blocks BLOCKS_REGISTRY, DeferredRegister.Items ITEMS_REGISTRY)
     {
         DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
         Item.Properties properties = new Item.Properties();
-        if(name.contains("railing") && !name.contains("wall")) {
+        if(name.contains("railing") && !name.contains("wall") && !name.contains("gate")) {
             ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), properties, "mcwstairs.railing.desc"));
         }
         else if(name.contains("balcony")) {
