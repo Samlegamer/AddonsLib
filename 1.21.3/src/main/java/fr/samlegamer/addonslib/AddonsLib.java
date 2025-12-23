@@ -15,16 +15,16 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
 @Mod(AddonsLib.MODID)
 public class AddonsLib
 {
-	public static final String MODID = "addonslib";
-	public static final Logger LOGGER = LogManager.getLogger();
+    public static final String MODID = "addonslib";
+    public static final Logger LOGGER = LogManager.getLogger();
 
-	public AddonsLib(FMLJavaModLoadingContext fmlJavaModLoadingContext)
-	{
+    public AddonsLib(FMLJavaModLoadingContext fmlJavaModLoadingContext)
+    {
         LootModRegistry.SERIALIZERS.register(fmlJavaModLoadingContext.getModEventBus());
-		fmlJavaModLoadingContext.registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
-		LOGGER.info("AddonsLib Forge !");
+        fmlJavaModLoadingContext.registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
+        LOGGER.info("AddonsLib Forge !");
         fmlJavaModLoadingContext.getModEventBus().addListener(this::onConfigLoaded);
-	}
+    }
 
     private void onConfigLoaded(final ModConfigEvent.Loading event)
     {
@@ -37,7 +37,7 @@ public class AddonsLib
         }
     }
 
-    private void addCustomFilter() {
+	private void addCustomFilter() {
 		LoggerContext context = (LoggerContext) LogManager.getContext(false);
 		Configuration config = context.getConfiguration();
 		LoggerConfig loggerConfig = config.getLoggerConfig("net.minecraft.client");

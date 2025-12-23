@@ -21,16 +21,14 @@ public class BlockItemInfo extends BlockItem
 		super(p_40565_, p_40566_);
 		this.desc = desc;
 	}
-	
-	@OnlyIn(Dist.CLIENT)
+
 	@Override
-	public void appendHoverText(@NotNull ItemStack p_40572_, @NotNull TooltipContext p_327780_, List<Component> p_40574_, @NotNull TooltipFlag p_40575_)
-	{
+	public void appendHoverText(ItemStack p_40572_, TooltipContext p_327780_, List<Component> p_40574_, TooltipFlag p_40575_) {
 		p_40574_.add(this.getDescription().withStyle(ChatFormatting.GRAY));
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public MutableComponent getDescription()
+	public @NotNull MutableComponent getDescription()
 	{
 		return (MutableComponent) Component.translatable(this.desc);
 	}
