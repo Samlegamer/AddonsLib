@@ -15,7 +15,7 @@ public class CreateBlockReferences
     public static void createBlock(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY)
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        Item.Properties properties = new Item.Properties();
+        Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix().setId(ITEMS_REGISTRY.key(name));
         if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
             ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), properties, "mcwbridges.bridges.desc"));
         }
@@ -24,13 +24,13 @@ public class CreateBlockReferences
             ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), properties, 50));
         }
         else if(name.contains("railing")) {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties(), "mcwstairs.railing.desc"));
+            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), properties, "mcwstairs.railing.desc"));
         }
         else if(name.contains("balcony")) {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties(), "mcwstairs.balcony.desc"));
+            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), properties, "mcwstairs.balcony.desc"));
         }
         else if(name.contains("platform")) {
-            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), new Item.Properties(), "mcwstairs.platform.desc"));
+            ITEMS_REGISTRY.register(name, () -> new BlockItemFuelInfo(block.get(), properties, "mcwstairs.platform.desc"));
         }
         else {
             ITEMS_REGISTRY.register(name, () -> new BlockItemFuel(block.get(), properties));
@@ -40,7 +40,7 @@ public class CreateBlockReferences
     public static void createBlockStone(String name, Supplier<? extends Block> supplier, DeferredRegister<Block> BLOCKS_REGISTRY, DeferredRegister<Item> ITEMS_REGISTRY)
     {
         RegistryObject<Block> block = BLOCKS_REGISTRY.register(name, supplier);
-        Item.Properties properties = new Item.Properties();
+        Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix().setId(ITEMS_REGISTRY.key(name));
         if(name.contains("railing") && !name.contains("wall") && !name.contains("gate")) {
             ITEMS_REGISTRY.register(name, () -> new BlockItemInfo(block.get(), properties, "mcwstairs.railing.desc"));
         }
