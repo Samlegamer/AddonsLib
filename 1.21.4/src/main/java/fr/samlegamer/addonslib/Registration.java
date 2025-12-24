@@ -3,7 +3,7 @@ package fr.samlegamer.addonslib;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import fr.samlegamer.addonslib.data.ModType;
+import fr.addonslib.api.data.ModType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -26,6 +26,17 @@ import net.minecraftforge.registries.RegistryObject;
 public final class Registration
 {
 	private Registration() {}
+
+    public static ModType[] getAllModTypeWood()
+    {
+        return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES, ModType.FURNITURES,
+                ModType.WINDOWS, ModType.DOORS, ModType.TRAPDOORS, ModType.PATHS, ModType.STAIRS};
+    }
+
+    public static ModType[] getAllModTypeStone()
+    {
+        return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+    }
 
 	/**
 	 * Block
@@ -58,23 +69,12 @@ public final class Registration
                 .title(Component.translatable(MODID+"."+id)).build());
 	}
 
-    public static ModType[] getAllModTypeWood()
-    {
-        return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES, ModType.FURNITURES,
-                ModType.WINDOWS, ModType.DOORS, ModType.TRAPDOORS, ModType.PATHS, ModType.STAIRS};
-    }
-
-    public static ModType[] getAllModTypeStone()
-    {
-        return new ModType[]{ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
-    }
-
-    /**
+	/**
 	 * register
 	 */
-	public static void init(FMLJavaModLoadingContext context, DeferredRegister<Block> b, DeferredRegister<Item> i, DeferredRegister<CreativeModeTab> t)
+	public static void init(FMLJavaModLoadingContext fmlJavaModLoadingContext, DeferredRegister<Block> b, DeferredRegister<Item> i, DeferredRegister<CreativeModeTab> t)
 	{
-		IEventBus bus = context.getModEventBus();
+		IEventBus bus = fmlJavaModLoadingContext.getModEventBus();
 		b.register(bus);
 		i.register(bus);
 		t.register(bus);
@@ -97,12 +97,12 @@ public final class Registration
 		}
 		return block;
 	}
-
+	
 	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD)
 	{
 		return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class}, WOOD);
 	}
-
+	
 	public static Block getBlocksField(String path, BlockBehaviour.Properties WOOD, BlockSetType set)
 	{
 		return getField(path, WOOD, new Class<?>[] {BlockBehaviour.Properties.class, BlockSetType.class}, WOOD, set);
