@@ -1,29 +1,71 @@
 package fr.samlegamer.addonslib.tab;
 
+import fr.addonslib.api.data.BlockId;
+import fr.addonslib.api.data.McwBlockIdBase;
+import fr.addonslib.api.data.McwBlocksIdBase;
+import fr.addonslib.api.data.ModType;
+import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.data.BlockId;
-import fr.samlegamer.addonslib.data.McwBlockIdBase;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.data.ModType;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Supplier;
 
 public class APICreativeTab
 {
-    public static void initAllWood(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab, ModType... type)
+    public static ItemGroup initGroup(String MODID, Supplier<ItemStack> stack)
+    {
+        return FabricItemGroup.builder()
+                .icon(stack)
+                .displayName(Text.translatable(MODID+".tab"))
+                .build();
+    }
+
+    public static void registerGroup(String MODID, ItemGroup tab)
+    {
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MODID + ".tab"), tab);
+    }
+
+    private static void getAndSetInCreativeTab(String MODID, Set<Block> blockSet, ItemGroup tab) {
+        Optional<RegistryKey<ItemGroup>> key = Registries.ITEM_GROUP.getKey(tab);;
+
+        if(key.isEmpty())
+        {
+            AddonsLib.LOGGER.error("No ItemGroup found for {}", MODID);
+        }
+        else
+        {
+            ItemGroupEvents.modifyEntriesEvent(key.get()).register(content -> {
+                for(Block block : blockSet) {
+                    content.add(block);
+                }
+            });
+        }
+    }
+
+    public static void initAllWood(String MODID, List<String> WOOD, ItemGroup tab, ModType... type)
     {
         initAllWood(MODID, WOOD, tab, "minecraft", type);
     }
 
-    public static void initAllWood(String MODID, List<String> WOOD, RegistryKey<ItemGroup> tab, String modLoaded, ModType... type)
+    public static void initAllWood(String MODID, List<String> WOOD, ItemGroup tab, String modLoaded, ModType... type)
     {
         FabricLoader modList = FabricLoader.getInstance();
         boolean BaseModLoaded = modList.isModLoaded(modLoaded);
+        Set<Block> blockSet = new LinkedHashSet<>();
 
         for(ModType mod : type) {
             final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidWood(mod);
@@ -32,49 +74,47 @@ public class APICreativeTab
                     if(modList.isModLoaded(mod.getModid()) && BaseModLoaded)
                     {
                         final Block block = Finder.findBlock(MODID, McwBlocksIdBase.replacement(id.id(), mat));
-
-                        ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
-                            content.add(block);
-                        });
+                        blockSet.add(block);
                     }
                 }
             }
         }
+        getAndSetInCreativeTab(MODID, blockSet, tab);
     }
 
-    public static void initAllLeave(String MODID, List<String> LEAVE, RegistryKey<ItemGroup> tab)
+    public static void initAllLeave(String MODID, List<String> LEAVE, ItemGroup tab)
     {
         initAllLeave(MODID, LEAVE, tab, "minecraft");
     }
 
-    public static void initAllLeave(String MODID, List<String> LEAVE, RegistryKey<ItemGroup> tab, String modLoaded)
+    public static void initAllLeave(String MODID, List<String> LEAVE, ItemGroup tab, String modLoaded)
     {
         FabricLoader modList = FabricLoader.getInstance();
         boolean BaseModLoaded = modList.isModLoaded(modLoaded);
+        Set<Block> blockSet = new LinkedHashSet<>();
 
         final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
         for (String mat : LEAVE) {
             for (BlockId id : blocks.blocks()) {
                 if(modList.isModLoaded(ModType.FENCES.getModid()) && BaseModLoaded) {
                     final Block block = Finder.findBlock(MODID, McwBlocksIdBase.replacement(id.id(), mat));
-
-                    ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
-                        content.add(block);
-                    });
+                    blockSet.add(block);
                 }
             }
         }
+        getAndSetInCreativeTab(MODID, blockSet, tab);
     }
 
-    public static void initAllStone(String MODID, List<String> STONE, RegistryKey<ItemGroup> tab, ModType... type)
+    public static void initAllStone(String MODID, List<String> STONE, ItemGroup tab, ModType... type)
     {
         initAllStone(MODID, STONE, tab, "minecraft", type);
     }
 
-    public static void initAllStone(String MODID, List<String> STONE, RegistryKey<ItemGroup> tab, String modLoaded, ModType... type)
+    public static void initAllStone(String MODID, List<String> STONE, ItemGroup tab, String modLoaded, ModType... type)
     {
         FabricLoader modList = FabricLoader.getInstance();
         boolean BaseModLoaded = modList.isModLoaded(modLoaded);
+        Set<Block> blockSet = new LinkedHashSet<>();
 
         for(ModType mod : type) {
             final McwBlockIdBase blocks = McwBlocksIdBase.getBlocksWithModidStone(mod);
@@ -82,13 +122,11 @@ public class APICreativeTab
                 for (BlockId id : blocks.blocks()) {
                     if(modList.isModLoaded(mod.getModid()) && BaseModLoaded) {
                         final Block block = Finder.findBlock(MODID, McwBlocksIdBase.replacement(id.id(), mat));
-
-                        ItemGroupEvents.modifyEntriesEvent(tab).register(content -> {
-                            content.add(block);
-                        });
+                        blockSet.add(block);
                     }
                 }
             }
         }
+        getAndSetInCreativeTab(MODID, blockSet, tab);
     }
 }
