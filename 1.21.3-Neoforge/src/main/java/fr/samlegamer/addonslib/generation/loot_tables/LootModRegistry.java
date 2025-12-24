@@ -9,7 +9,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class LootModRegistry {
 
-    public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.GLOBAL_LOOT_MODIFIER_SERIALIZERS, AddonsLib.MODID);
+    public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, AddonsLib.MODID);
 
     public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<? extends IGlobalLootModifier>> ADD_LOOT_TABLE =
             SERIALIZERS.register("add_loot_table", McwLootTables.CODEC);

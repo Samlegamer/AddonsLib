@@ -1,19 +1,17 @@
 package fr.samlegamer.addonslib.client;
 
+import fr.addonslib.api.data.BlockId;
+import fr.addonslib.api.data.McwBlockIdBase;
+import fr.addonslib.api.data.McwBlocksIdBase;
+import fr.addonslib.api.data.ModType;
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.data.BlockId;
-import fr.samlegamer.addonslib.data.McwBlockIdBase;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
-import fr.samlegamer.addonslib.data.ModType;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+
 import java.util.List;
 
-@OnlyIn(value = Dist.CLIENT)
 public class APIRenderTypes
 {
     public static void initAllWood(final FMLClientSetupEvent event, String MODID, List<String> WOOD, ModType... type)

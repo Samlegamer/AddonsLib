@@ -12,7 +12,7 @@ public class AddonsLib implements ModInitializer
 {
 	public static final String MODID = "addonslib";
 	public static final Logger LOGGER = LogManager.getLogger();
-
+	
 	@Override
 	public void onInitialize()
 	{

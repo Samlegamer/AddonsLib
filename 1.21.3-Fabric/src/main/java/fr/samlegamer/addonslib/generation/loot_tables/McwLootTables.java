@@ -1,15 +1,16 @@
 package fr.samlegamer.addonslib.generation.loot_tables;
 
+import fr.addonslib.api.data.BlockId;
+import fr.addonslib.api.data.McwBlockIdBase;
+import fr.addonslib.api.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.data.BlockId;
-import fr.samlegamer.addonslib.data.McwBlockIdBase;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.registry.RegistryWrapper;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,8 +20,8 @@ public abstract class McwLootTables extends FabricBlockLootTableProvider
 {
     private final Set<Block> blockSet;
 
-    protected McwLootTables(FabricDataOutput dataGenerator, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-        super(dataGenerator, registryLookup);
+    protected McwLootTables(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
         this.blockSet = new HashSet<>();
     }
 
@@ -36,7 +37,9 @@ public abstract class McwLootTables extends FabricBlockLootTableProvider
                 Block block = Finder.findBlock(modid, blockName);
 
                 if(block != null) {
-                    blockSet.add(block);
+                    if(!Finder.getIdOfBlock(block).endsWith("_balcony")) {
+                        blockSet.add(block);
+                    }
                 } else {
                     AddonsLib.LOGGER.info("[McwLootTables] ERROR: Block not found: {}:{}", modid, blockName);
                 }
@@ -73,7 +76,7 @@ public abstract class McwLootTables extends FabricBlockLootTableProvider
         for (Block block : blockSet) {
             if(block instanceof DoorBlock)
             {
-                this.addDoorDrop(block);
+                this.doorDrop(block);
             }
             else
             {
@@ -82,7 +85,7 @@ public abstract class McwLootTables extends FabricBlockLootTableProvider
         }
     }
 
-    protected void addDoorDrop(Block block) {
+    protected void doorDrop(Block block) {
         this.addDrop(block, blockLootTable -> doorDrops(block));
     }
 }
