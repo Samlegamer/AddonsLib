@@ -7,6 +7,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import java.util.List;
+import java.util.Objects;
 
 /*
  * Search Item/Block/BlockEntityType with ResourceLocation
@@ -19,18 +21,41 @@ public class Finder
 		{
 			return BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(MODID, nameBlock)).get().value();
 		}
-		return Blocks.OAK_PLANKS;
+		return Blocks.AIR;
 	}
-	
+
+	public static Block findBlock(String MODIDNameBlock)
+	{
+		if(BuiltInRegistries.BLOCK.get(ResourceLocation.parse(MODIDNameBlock)).isPresent())
+		{
+			return BuiltInRegistries.BLOCK.get(ResourceLocation.parse(MODIDNameBlock)).get().value();
+		}
+		return Blocks.AIR;
+	}
+
+	public static String makeIdHedge(String MODID, String nameBlock)
+	{
+		return MODID + ":" + nameBlock+"_hedge";
+	}
+
 	public static Item findItem(String MODID, String nameItem)
 	{
 		if(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(MODID, nameItem)).isPresent())
 		{
 			return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(MODID, nameItem)).get().value();
 		}
-		return Items.GOLD_INGOT;
+		return Items.AIR;
 	}
-	
+
+	public static Item findItem(String MODIDNameItem)
+	{
+		if(BuiltInRegistries.ITEM.get(ResourceLocation.parse(MODIDNameItem)).isPresent())
+		{
+			return BuiltInRegistries.ITEM.get(ResourceLocation.parse(MODIDNameItem)).get().value();
+		}
+		return Items.AIR;
+	}
+
 	public static BlockEntityType<?> findTileEntity(String MODID, String nameTileEntity)
 	{
 		if(BuiltInRegistries.BLOCK_ENTITY_TYPE.get(ResourceLocation.fromNamespaceAndPath(MODID, nameTileEntity)).isPresent())
@@ -40,13 +65,34 @@ public class Finder
 		return BlockEntityType.BEEHIVE;
 	}
 
-    public static String getIdOfBlock(Block block)
-    {
-        return BuiltInRegistries.BLOCK.getKey(block).getPath();
-    }
+	public static String getIdOfBlock(Block block)
+	{
+		return Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block)).getPath();
+	}
 
-    public static String getIdOfItem(Item item)
-    {
-        return BuiltInRegistries.ITEM.getKey(item).getPath();
-    }
+	public static String getIdOfItem(Item item)
+	{
+		return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)).getPath();
+	}
+
+	public static String getModidOfItem(Item item)
+	{
+		return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)).getNamespace();
+	}
+
+	public static ResourceLocation getRLOfItem(Item item)
+	{
+		return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item));
+	}
+
+	public static Block[] listToArray(List<Block> finalBlocks)
+	{
+		Block[] blockArray = new Block[finalBlocks.size()];
+
+		for(int i = 0; i < finalBlocks.size(); i++)
+		{
+			blockArray[i] = finalBlocks.get(i);
+		}
+		return blockArray;
+	}
 }

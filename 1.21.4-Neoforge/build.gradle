@@ -111,6 +111,14 @@ configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs '../_AddonsLibJavaBase/JavaBase/src/'
+        }
+    }
+}
+
 dependencies {
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime

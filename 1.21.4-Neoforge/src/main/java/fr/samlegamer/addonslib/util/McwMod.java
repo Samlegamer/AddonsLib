@@ -12,6 +12,6 @@ public abstract class McwMod {
 
     public abstract void clientSetup(FMLClientSetupEvent event);
     public abstract void commonSetup(FMLCommonSetupEvent event);
-    public abstract void dataSetup(GatherDataEvent.Client event);
+    public abstract void dataSetup(GatherDataEvent event);
     public abstract void tabSetup(BuildCreativeModeTabContentsEvent event);
 }
