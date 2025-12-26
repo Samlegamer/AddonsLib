@@ -3,11 +3,11 @@ package fr.samlegamer.addonslib.generation.loot_tables;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import fr.addonslib.api.data.BlockId;
+import fr.addonslib.api.data.McwBlockIdBase;
+import fr.addonslib.api.data.McwBlocksIdBase;
 import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.data.BlockId;
-import fr.samlegamer.addonslib.data.McwBlockIdBase;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -47,7 +47,10 @@ public class McwLootTables extends LootModifier
                 Block block = Finder.findBlock(modid, blockName);
 
                 if(block != null) {
-                    blockSet.add(block);
+                    if(!Finder.getIdOfBlock(block).endsWith("_balcony"))
+                    {
+                        blockSet.add(block);
+                    }
                 } else {
                     AddonsLib.LOGGER.info("[McwLootTables] ERROR: Block not found: {}:{}", modid, blockName);
                 }
@@ -81,7 +84,7 @@ public class McwLootTables extends LootModifier
     }
 
     @Override
-    protected @NotNull ObjectArrayList<ItemStack> doApply(LootTable table, ObjectArrayList<ItemStack> generatedLoot, LootContext lootContext) {
+    protected @NotNull ObjectArrayList<ItemStack> doApply(LootTable lootTable, ObjectArrayList<ItemStack> generatedLoot, LootContext lootContext) {
         BlockState state = lootContext.hasParameter(LootContextParams.BLOCK_STATE) ? lootContext.getParameter(LootContextParams.BLOCK_STATE) : null;
 
         if(state != null) {

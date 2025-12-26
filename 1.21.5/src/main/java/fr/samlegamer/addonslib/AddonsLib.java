@@ -37,12 +37,12 @@ public class AddonsLib
         }
     }
 
-    private void addCustomFilter() {
-        LoggerContext context = (LoggerContext) LogManager.getContext(false);
-        Configuration config = context.getConfiguration();
-        LoggerConfig loggerConfig = config.getLoggerConfig("net.minecraft.client");
+	private void addCustomFilter() {
+		LoggerContext context = (LoggerContext) LogManager.getContext(false);
+		Configuration config = context.getConfiguration();
+		LoggerConfig loggerConfig = config.getLoggerConfig("net.minecraft.client");
 
-        loggerConfig.addFilter(new CustomLogFilter());
-        context.updateLoggers();
-    }
+		loggerConfig.addFilter(new CustomLogFilter());
+		context.updateLoggers();
+	}
 }

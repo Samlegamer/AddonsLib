@@ -1,39 +1,38 @@
 package fr.samlegamer.addonslib.client;
 
-import java.util.List;
+import java.util.Map;
+import fr.addonslib.api.client.McwColors;
+import fr.samlegamer.addonslib.Finder;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 
 @OnlyIn(value = Dist.CLIENT)
 public class ColorRegistry
 {
-	private final String MODID;
-	private final List<String> NoColorLeaves;
-	
-	public ColorRegistry(String MODID, List<String> LEAVES)
+	private final McwColors mcwColors;
+
+	public ColorRegistry(McwColors mcwColors)
 	{
-		this.MODID = MODID;
-		this.NoColorLeaves = LEAVES;
+		this.mcwColors = mcwColors;
 	}
-	
-	@OnlyIn(value = Dist.CLIENT)
-	public void colorsBlock(RegisterColorHandlersEvent.Block event)
-	{
-		for(String i : NoColorLeaves)
-		{
-			Block hedges = ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath(this.MODID, i+"_hedge"));
-			event.register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getAverageFoliageColor(view, pos) : FoliageColor.get(0.5D, 1.0D), hedges);
+
+	public void registryBlockColors(RegisterColorHandlersEvent.Block event) {
+		for(Map.Entry<String, Integer> entry : mcwColors.getNoColorLeaves().entrySet()) {
+			String value = entry.getKey();
+			Block block = Finder.findBlock(value);
+			event.register((state, view, pos, tintIndex) -> entry.getValue(), block);
 		}
 	}
 
-	public List<String> getNoColorLeaves()
-	{
-		return this.NoColorLeaves;
+	public void registryBlockColorsAverage(RegisterColorHandlersEvent.Block event) {
+		for(Map.Entry<String, Integer> entry : mcwColors.getNoColorLeaves().entrySet()) {
+			String value = entry.getKey();
+			Block block = Finder.findBlock(value);
+			event.register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getAverageFoliageColor(view, pos) : FoliageColor.get(0.5D, 1.0D), block);
+		}
 	}
 }

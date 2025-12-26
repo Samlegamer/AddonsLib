@@ -11,8 +11,10 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.extensions.IForgeItem;
+import org.jetbrains.annotations.NotNull;
 
-public class BlockItemInfo extends BlockItem
+public class BlockItemInfo extends BlockItem implements IForgeItem
 {
 	private final String desc;
 	
@@ -22,15 +24,13 @@ public class BlockItemInfo extends BlockItem
 		this.desc = desc;
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void appendHoverText(ItemStack p_41421_, TooltipContext p_333372_, TooltipDisplay p_396484_, Consumer<Component> p_392123_, TooltipFlag p_41424_)
-	{
+	public void appendHoverText(ItemStack p_41421_, TooltipContext p_333372_, TooltipDisplay p_396484_, Consumer<Component> p_392123_, TooltipFlag p_41424_) {
 		p_392123_.accept(this.getDescription().withStyle(ChatFormatting.GRAY));
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public MutableComponent getDescription()
+	public @NotNull MutableComponent getDescription()
 	{
 		return (MutableComponent) Component.translatable(this.desc);
 	}
