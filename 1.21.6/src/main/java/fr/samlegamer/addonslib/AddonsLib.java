@@ -15,14 +15,14 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
 @Mod(AddonsLib.MODID)
 public class AddonsLib
 {
-	public static final String MODID = "addonslib";
-	public static final Logger LOGGER = LogManager.getLogger();
+    public static final String MODID = "addonslib";
+    public static final Logger LOGGER = LogManager.getLogger();
 
-	public AddonsLib(FMLJavaModLoadingContext fmlJavaModLoadingContext)
-	{
+    public AddonsLib(FMLJavaModLoadingContext fmlJavaModLoadingContext)
+    {
         LootModRegistry.SERIALIZERS.register(fmlJavaModLoadingContext.getModBusGroup());
-		fmlJavaModLoadingContext.registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
-		LOGGER.info("AddonsLib Forge !");
+        fmlJavaModLoadingContext.registerConfig(ModConfig.Type.COMMON, Cfg.SPEC, "addonslib-common.toml");
+        LOGGER.info("AddonsLib Forge !");
         ModConfigEvent.Loading.getBus(fmlJavaModLoadingContext.getModBusGroup()).addListener(this::onConfigLoaded);
     }
 

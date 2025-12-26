@@ -2,27 +2,25 @@ package fr.samlegamer.addonslib.tab;
 
 import java.util.EnumSet;
 import java.util.Random;
+
+import fr.addonslib.api.data.ModType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.fml.ModList;
 
 public class NewIconRandom
 {
-	public enum BlockType {
-        ROOFS, FENCES, BRIDGES, FURNITURES, WINDOWS, DOORS, TRAPDOORS, PATHS, STAIRS
-    }
-
-    public static class NewProperties {
-        private EnumSet<BlockType> activeTypes = EnumSet.noneOf(BlockType.class);
+	public static class NewProperties {
+        private final EnumSet<ModType> activeTypes = EnumSet.noneOf(ModType.class);
         private final Block roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon, stairsIcon;
         private int dependencies = 0;
         public Block defaultIcon = Blocks.CRAFTING_TABLE;
 
         public NewProperties(Block roofsIcon, Block fencesIcon, Block furnituresIcon, Block bridgesIcon, Block windowsIcon, Block doorsIcon, Block trapdoorsIcon, Block pathsIcon, Block stairsIcon) {
+            this.bridgesIcon = bridgesIcon;
             this.roofsIcon = roofsIcon;
             this.fencesIcon = fencesIcon;
             this.furnituresIcon = furnituresIcon;
-            this.bridgesIcon = bridgesIcon;
             this.windowsIcon = windowsIcon;
             this.doorsIcon = doorsIcon;
             this.trapdoorsIcon = trapdoorsIcon;
@@ -30,13 +28,13 @@ public class NewIconRandom
             this.stairsIcon = stairsIcon;
         }
 
-        public NewProperties addType(BlockType type) {
+        public NewProperties addType(ModType type) {
             activeTypes.add(type);
             return this;
         }
 
-        public Block buildIcon(BlockType... types) {
-            for (BlockType type : types) {
+        public Block buildIcon(ModType... types) {
+            for (ModType type : types) {
                 if (isTypeLoaded(type)) {
                     dependencies++;
                 }
@@ -49,7 +47,7 @@ public class NewIconRandom
             }
         }
 
-        private Block getRandomIcon(BlockType... types) {
+        private Block getRandomIcon(ModType... types) {
             Random rand = new Random();
             int i = rand.nextInt(dependencies);
             switch (types[i]) {
@@ -66,35 +64,35 @@ public class NewIconRandom
             }
         }
 
-        private boolean isTypeLoaded(BlockType type) {
+        private boolean isTypeLoaded(ModType type) {
             String modId = getModIdForType(type);
             return ModList.get().isLoaded(modId);
         }
 
-        private boolean allTypesLoaded(BlockType... types) {
-            for (BlockType type : types) {
+        private boolean allTypesLoaded(ModType... types) {
+            for (ModType type : types) {
                 if (!isTypeLoaded(type)) return false;
             }
             return true;
         }
 
-        private String getModIdForType(BlockType type) {
+        private String getModIdForType(ModType type) {
             switch (type) {
-                case ROOFS: return "mcwroofs";
-                case FENCES: return "mcwfences";
-                case BRIDGES: return "mcwbridges";
-                case FURNITURES: return "mcwfurnitures";
-                case WINDOWS: return "mcwwindows";
-                case DOORS: return "mcwdoors";
-                case TRAPDOORS: return "mcwtrpdoors";
-                case PATHS: return "mcwpaths";
-                case STAIRS: return "mcwstairs";
+                case ROOFS: return ModType.ROOFS.getModid();
+                case FENCES: return ModType.FENCES.getModid();
+                case BRIDGES: return ModType.BRIDGES.getModid();
+                case FURNITURES: return ModType.FURNITURES.getModid();
+                case WINDOWS: return ModType.WINDOWS.getModid();
+                case DOORS: return ModType.DOORS.getModid();
+                case TRAPDOORS: return ModType.TRAPDOORS.getModid();
+                case PATHS: return ModType.PATHS.getModid();
+                case STAIRS: return ModType.STAIRS.getModid();
                 default: return "";
             }
         }
 
-        private Block getFallbackIcon(BlockType... types) {
-            for (BlockType type : types) {
+        private Block getFallbackIcon(ModType... types) {
+            for (ModType type : types) {
                 if (isTypeLoaded(type)) {
                     return getIconForType(type);
                 }
@@ -102,7 +100,7 @@ public class NewIconRandom
             return defaultIcon;
         }
 
-        private Block getIconForType(BlockType type) {
+        private Block getIconForType(ModType type) {
             switch (type) {
                 case ROOFS: return roofsIcon;
                 case FENCES: return fencesIcon;
