@@ -17,7 +17,7 @@ public class AddonsLib
 {
 	public static final String MODID = "addonslib";
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
-
+	
 	public AddonsLib(IEventBus bus, ModContainer container)
 	{
         LootModRegistry.SERIALIZERS.register(bus);
