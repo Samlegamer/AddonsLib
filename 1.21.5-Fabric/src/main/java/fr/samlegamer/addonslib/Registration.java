@@ -2,7 +2,7 @@ package fr.samlegamer.addonslib;
 
 import java.lang.reflect.Constructor;
 
-import fr.samlegamer.addonslib.data.ModType;
+import fr.addonslib.api.data.ModType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
 import net.minecraft.block.AbstractBlock;
@@ -25,7 +25,7 @@ public final class Registration
 
     public static ModType[] getAllModTypeStone()
     {
-        return new ModType[] {ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+        return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES};
     }
 
     public static Block getField(String path, AbstractBlock.Settings prop, Class<?>[] params, Object... values)

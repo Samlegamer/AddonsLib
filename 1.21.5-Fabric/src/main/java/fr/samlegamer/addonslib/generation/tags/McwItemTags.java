@@ -1,16 +1,15 @@
 package fr.samlegamer.addonslib.generation.tags;
 
+import fr.addonslib.api.data.BlockId;
+import fr.addonslib.api.data.McwBlockIdBase;
+import fr.addonslib.api.data.McwBlocksIdBase;
+import fr.addonslib.api.data.ModType;
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.data.BlockId;
-import fr.samlegamer.addonslib.data.McwBlockIdBase;
-import fr.samlegamer.addonslib.data.McwBlocksIdBase;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import java.util.*;
@@ -18,156 +17,52 @@ import java.util.concurrent.CompletableFuture;
 
 public abstract class McwItemTags extends FabricTagProvider.ItemTagProvider
 {
-    public McwItemTags(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output, registriesFuture);
+    public McwItemTags(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+        super(output, completableFuture);
     }
 
-    public void addAllMcwTags(String modid, List<String> WOOD, List<String> STONE, List<String> LEAVE)
+    private void makeTags(McwBlockIdBase mcwBlockIdBase, String modid, List<String> MAT)
     {
-        mcwFencesTags(modid, WOOD, LEAVE, STONE);
-        mcwDoorsTagsWood(modid, WOOD);
-        mcwTrapdoorsTagsWood(modid, WOOD);
-    }
-
-    public void addAllMcwTags(String modid, List<String> WOOD, List<String> LEAVE)
-    {
-        addAllMcwTags(modid, WOOD, new ArrayList<>(), LEAVE);
-    }
-
-    public void addAllMcwTags(String modid, List<String> WOOD)
-    {
-        addAllMcwTags(modid, WOOD, new ArrayList<>());
-    }
-
-    public void mcwFencesTags(String modid, List<String> WOOD, List<String> LEAVE, List<String> STONE)
-    {
-        Set<Item> blocksWood = new HashSet<>();
-        List<Item> blocksLeave = new ArrayList<>();
-        Set<Item> blocksStone = new HashSet<>();
-
-        addItems(modid, WOOD, blocksWood, McwBlocksIdBase.FENCES_WOOD_BLOCKS);
-        addItems(modid, LEAVE, blocksLeave, McwBlocksIdBase.FENCES_LEAVE_BLOCKS);
-        addItems(modid, STONE, blocksStone, McwBlocksIdBase.FENCES_STONE_BLOCKS);
-
-        Item[] picket_fences = getSetWithContain(blocksWood, "picket_fence");
-        Item[] stockade_fences = getSetWithContain(blocksWood, "stockade_fence");
-        Item[] horse_fences = getSetWithContain(blocksWood, "horse_fence");
-        Item[] wired_fences = getSetWithContain(blocksWood, "wired_fence");
-        Item[] curved_gates = getSetWithContain(blocksWood, "curved_gate");
-
-        Item[] hedges = listToArray(blocksLeave);
-
-        Item[] modern_wall = getSetWithStartsWith(blocksStone, "modern_");
-        Item[] railing_wall = getSetWithStartsWith(blocksStone, "railing_");
-        Item[] pillar_wall = getSetWithEndsWith(blocksStone, "_pillar_wall");
-        Item[] grass_topped_wall = getSetWithEndsWith(blocksStone, "_grass_topped_wall");
-
-        this.getOrCreateTagBuilder(ItemTags.FENCES).add(modern_wall).add(pillar_wall).add(railing_wall)
-                .add(picket_fences).add(stockade_fences).add(horse_fences).add(wired_fences).add(curved_gates);
-        this.getOrCreateTagBuilder(ItemTags.WALLS).add(hedges).add(grass_topped_wall);
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_FENCES).add(picket_fences).add(stockade_fences).add(horse_fences).add(wired_fences).add(curved_gates);
-    }
-
-    public void mcwDoorsTagsWood(String modid, List<String> MAT)
-    {
-        List<Item> items = new ArrayList<>();
-        for(String mat : MAT)
+        for(BlockId blockId : mcwBlockIdBase.blocks())
         {
-            for(BlockId blockId : McwBlocksIdBase.DOORS_WOOD_BLOCKS.blocks())
+            for(String tagBlock : blockId.tags().getTagsItem())
             {
-                String id = McwBlocksIdBase.replacement(blockId.id(), mat);
-                Item block = Finder.findItem(modid, id);
-                items.add(block);
+                for (String mat : MAT)
+                {
+                    Item result = Finder.findItem(modid, McwBlocksIdBase.replacement(blockId.id(), mat));
+
+                    this.getOrCreateTagBuilder(getTag(tagBlock)).add(result);
+                }
             }
         }
-
-        Item[] itemArray = listToArray(items);
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_DOORS).add(itemArray);
     }
 
-    public void mcwTrapdoorsTagsWood(String modid, List<String> MAT)
+    public void addAllMcwTagsWood(String modid, List<String> WOOD, ModType... types)
     {
-        List<Item> items = new ArrayList<>();
-        for(String mat : MAT)
+        for(ModType type : types)
         {
-            for(BlockId blockId : McwBlocksIdBase.TRAPDOORS_WOOD_BLOCKS.blocks())
-            {
-                String id = McwBlocksIdBase.replacement(blockId.id(), mat);
-                Item block = Finder.findItem(modid, id);
-                items.add(block);
-            }
+            McwBlockIdBase mcwWoodMat = McwBlocksIdBase.getBlocksWithModidWood(type);
+            makeTags(mcwWoodMat, modid, WOOD);
         }
-
-        Item[] itemArray = listToArray(items);
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_TRAPDOORS).add(itemArray);
     }
 
-    public static TagKey<Block> getTag(String id, String tagName)
+    public void addAllMcwTagsLeave(String modid, List<String> WOOD)
     {
-        return TagKey.of(RegistryKeys.BLOCK, Identifier.of(id, tagName));
+        McwBlockIdBase mcwWoodMat = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
+        makeTags(mcwWoodMat, modid, WOOD);
     }
 
-    private Item[] getSetWithContain(Set<Item> blocks, String contain)
+    public void addAllMcwTagsStone(String modid, List<String> STONE, ModType... types)
     {
-        List<Item> finalBlocks = new ArrayList<>();
-        for(Item block : blocks)
+        for(ModType type : types)
         {
-            if(Finder.getIdOfItem(block).contains(contain))
-            {
-                finalBlocks.add(block);
-            }
+            McwBlockIdBase mcwWoodMat = McwBlocksIdBase.getBlocksWithModidStone(type);
+            makeTags(mcwWoodMat, modid, STONE);
         }
-        return listToArray(finalBlocks);
     }
 
-    private Item[] getSetWithEndsWith(Set<Item> blocks, String endsWith)
+    public static TagKey<Item> getTag(String id)
     {
-        List<Item> finalBlocks = new ArrayList<>();
-        for(Item block : blocks)
-        {
-            if(Finder.getIdOfItem(block).endsWith(endsWith))
-            {
-                finalBlocks.add(block);
-            }
-        }
-        return listToArray(finalBlocks);
-    }
-
-    private Item[] getSetWithStartsWith(Set<Item> blocks, String startsWith)
-    {
-        List<Item> finalBlocks = new ArrayList<>();
-        for(Item block : blocks)
-        {
-            if(Finder.getIdOfItem(block).startsWith(startsWith))
-            {
-                finalBlocks.add(block);
-            }
-        }
-        return listToArray(finalBlocks);
-    }
-
-    private Item[] listToArray(List<Item> finalBlocks)
-    {
-        Item[] blockArray = new Item[finalBlocks.size()];
-
-        for(int i = 0; i < finalBlocks.size(); i++)
-        {
-            blockArray[i] = finalBlocks.get(i);
-        }
-        return blockArray;
-    }
-
-
-    private void addItems(String modid, List<String> MAT, Collection<Item> blockSet, McwBlockIdBase blocks)
-    {
-        for(String mat : MAT)
-        {
-            for(BlockId blockId : blocks.blocks())
-            {
-                String id = McwBlocksIdBase.replacement(blockId.id(), mat);
-                Item item = Finder.findItem(modid, id);
-                blockSet.add(item);
-            }
-        }
+        return TagKey.of(RegistryKeys.ITEM, Identifier.of(id));
     }
 }
