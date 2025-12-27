@@ -9,8 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public class BlockItemInfo extends BlockItem
@@ -28,7 +26,6 @@ public class BlockItemInfo extends BlockItem
 		tooltipAdder.accept(this.getDescription().withStyle(ChatFormatting.GRAY));
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public @NotNull MutableComponent getDescription()
 	{
 		return (MutableComponent) Component.translatable(this.desc);
