@@ -1,6 +1,5 @@
 package fr.samlegamer.addonslib.data;
 
-import fr.samlegamer.addonslib.bridges.Bridges;
 import fr.samlegamer.addonslib.item.BlockItemFuel;
 import fr.samlegamer.addonslib.item.BlockItemFuelInfo;
 import fr.samlegamer.addonslib.item.BlockItemInfo;
@@ -21,7 +20,7 @@ public class CreateBlockReferences
         DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
         Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix();
         if(name.contains("log_bridge_middle") || name.startsWith("rope_")) {
-            ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuelInfo(block.get(), properties.setId(ResourceKey.create(Registries.ITEM, registryName)), Bridges.desc));
+            ITEMS_REGISTRY.register(name, registryName -> new BlockItemFuelInfo(block.get(), properties.setId(ResourceKey.create(Registries.ITEM, registryName)), "mcwbridges.bridges.desc"));
         }
         else if(name.endsWith("planks_path"))
         {
@@ -45,7 +44,7 @@ public class CreateBlockReferences
     {
         DeferredBlock<Block> block = BLOCKS_REGISTRY.register(name, supplier);
         Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix();
-        if(name.contains("railing") && !name.contains("wall")) {
+        if(name.contains("railing") && !name.contains("wall") && !name.contains("gate")) {
             ITEMS_REGISTRY.register(name, registryName -> new BlockItemInfo(block.get(), properties.setId(ResourceKey.create(Registries.ITEM, registryName)), "mcwstairs.railing.desc"));
         }
         else if(name.contains("balcony")) {
