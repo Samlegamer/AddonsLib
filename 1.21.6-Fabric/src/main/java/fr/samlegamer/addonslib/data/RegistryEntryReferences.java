@@ -1,6 +1,5 @@
 package fr.samlegamer.addonslib.data;
 
-import fr.samlegamer.addonslib.bridges.Bridges;
 import fr.samlegamer.addonslib.item.BlockItemInfo;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -16,25 +15,26 @@ public class RegistryEntryReferences
     public static void registryEntry(String MODID, String name, Block b)
     {
         final Identifier ID = Identifier.of(MODID, name);
-        final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, ID);
         Registry.register(Registries.BLOCK, ID, b);
-        if(name.contains("log_bridge_middle") || name.startsWith("rope_") || name.endsWith("_bridge"))
+        final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, ID);
+        Item.Settings settings = new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()));
+        if(name.contains("log_bridge_middle") || name.startsWith("rope_"))
         {
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), Bridges.desc));
+            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, settings, "mcwbridges.bridges.desc"));
         }
-        else if(name.contains("railing") && !name.contains("wall") ) {
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.railing.desc"));
+        else if(name.contains("railing") && !name.contains("wall") && !name.contains("gate")) {
+            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, settings, "mcwstairs.railing.desc"));
         }
         else if(name.contains("balcony")) {
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.balcony.desc"));
+            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, settings, "mcwstairs.balcony.desc"));
 
         }
         else if(name.contains("platform")) {
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue())), "mcwstairs.platform.desc"));
+            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItemInfo(b, settings, "mcwstairs.platform.desc"));
 
         }
         else {
-            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, new Item.Settings().useBlockPrefixedTranslationKey().registryKey(RegistryKey.of(RegistryKeys.ITEM, registryKey.getValue()))));
+            Registry.register(Registries.ITEM, Identifier.of(MODID, name), new BlockItem(b, settings));
         }
     }
 

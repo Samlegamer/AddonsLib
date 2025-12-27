@@ -1,8 +1,6 @@
 package fr.samlegamer.addonslib.item;
 
 import java.util.function.Consumer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.BlockItem;
@@ -20,10 +18,8 @@ public class BlockItemInfo extends BlockItem
 		this.desc = desc;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type)
-	{
+	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
 		textConsumer.accept(Text.translatable(this.desc));
 	}
 }
