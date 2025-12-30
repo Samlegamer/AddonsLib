@@ -113,6 +113,12 @@ public final class McwRecipesBase
         new CraftingIngredient('B', STONE_WALL)
     );
 
+    public static final RecipesBase STONE_BRIDGE_CUTTER = new RecipesBase(RECIPE_STONECUTTER,
+            new String[]{},
+            STONE_BASE, 1, "stone_bridge_stonecutter",
+            new CraftingIngredient('A', STONE_BASE)
+    );
+
     public static final RecipesBase STONE_BRIDGE_STAIR_RECYCLE = new RecipesBase(RECIPE_SHAPELESS_WITH_1_ITEM_RECYCLE,
             new String[]{},
             LOG, 1, "recyclable_bridges_recycle",
@@ -127,17 +133,35 @@ public final class McwRecipesBase
         new CraftingIngredient('B', STONE_WALL)
     );
 
+    public static final RecipesBase STONE_PIER_CUTTER = new RecipesBase(RECIPE_STONECUTTER,
+            new String[]{},
+            STONE_BASE, 1, "stone_pier_stonecutter",
+            new CraftingIngredient('A', STONE_BASE)
+    );
+
     public static final RecipesBase STONE_BRIDGE_STAIR = new RecipesBase(RECIPE_SHAPED_WITH_1_ITEM,
         new String[]{"  A", " AA", "AAA"},
         STONE_BASE, 6, "stone_stairs",
         new CraftingIngredient('A', "stone_bridge")
     );
 
-    public static final RecipesBase BALUSTRADE_BRIDGE = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
+    public static final RecipesBase STONE_BRIDGE_STAIR_CUTTER = new RecipesBase(RECIPE_STONECUTTER,
+            new String[]{},
+            STONE_BASE, 1, "stone_bridge_stair_stonecutter",
+            new CraftingIngredient('A', STONE_BASE)
+    );
+
+    public static final RecipesBase STONE_BALUSTRADE_BRIDGE = new RecipesBase(RECIPE_SHAPED_WITH_2_ITEMS,
         new String[]{"BBB", "AAA"},
         STONE_BASE, 5, "balustrade_bridges",
         new CraftingIngredient('A', STONE_SLAB),
         new CraftingIngredient('B', STONE_WALL)
+    );
+
+    public static final RecipesBase STONE_BALUSTRADE_BRIDGE_CUTTER = new RecipesBase(RECIPE_STONECUTTER,
+            new String[]{},
+            STONE_BASE, 1, "stone_balustrade_bridge_stonecutter",
+            new CraftingIngredient('A', STONE_BASE)
     );
 
     // ================ DOORS ================

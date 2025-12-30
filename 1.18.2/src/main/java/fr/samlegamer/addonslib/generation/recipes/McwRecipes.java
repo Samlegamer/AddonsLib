@@ -230,6 +230,8 @@ public class McwRecipes extends RecipeProvider
         {
             case "stone_bridge":
                 return Finder.findItem(MODID, mat+"_bridge");
+            case "stone_bridge_stair":
+                return Finder.findItem(MODID, mat+"_bridge_stair");
             case McwRecipesBase.DIRT:
                 return Items.DIRT;
             case McwRecipesBase.IRON_BARS:

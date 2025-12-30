@@ -20,10 +20,10 @@ public final class McwBlocksIdBase
     ));
 
     public static final McwBlockIdBase BRIDGES_STONE_BLOCKS = new McwBlockIdBase(ModType.BRIDGES.getModid(), Arrays.asList(
-            new BlockId("%material%_bridge", McwReflected.BRIDGE_BLOCK, STONE_BRIDGES_TAGS, STONE_BRIDGE, STONE_BRIDGE_STAIR_RECYCLE),
-            new BlockId("%material%_bridge_pier", McwReflected.BRIDGE_SUPPORT, BRIDGE_PIER_STONE_TAGS, STONE_PIER),
-            new BlockId("%material%_bridge_stair", McwReflected.BRIDGE_STAIRS, STONE_BRIDGE_STAIR_TAGS, STONE_BRIDGE_STAIR),
-            new BlockId("balustrade_%material%_bridge", McwReflected.BRIDGE_BLOCK, BALUSTRADE_BRIDGES_TAGS, BALUSTRADE_BRIDGE)
+            new BlockId("%material%_bridge", McwReflected.BRIDGE_BLOCK, STONE_BRIDGES_TAGS, STONE_BRIDGE, STONE_BRIDGE_STAIR_RECYCLE, STONE_BRIDGE_CUTTER),
+            new BlockId("%material%_bridge_pier", McwReflected.BRIDGE_SUPPORT, BRIDGE_PIER_STONE_TAGS, STONE_PIER, STONE_PIER_CUTTER),
+            new BlockId("%material%_bridge_stair", McwReflected.BRIDGE_STAIRS, STONE_BRIDGE_STAIR_TAGS, STONE_BRIDGE_STAIR, STONE_BRIDGE_STAIR_CUTTER),
+            new BlockId("balustrade_%material%_bridge", McwReflected.BRIDGE_BLOCK, BALUSTRADE_BRIDGES_TAGS, STONE_BALUSTRADE_BRIDGE, STONE_BALUSTRADE_BRIDGE_CUTTER)
     ));
 
     public static final McwBlockIdBase DOORS_WOOD_BLOCKS = new McwBlockIdBase(ModType.DOORS.getModid(), Arrays.asList(
