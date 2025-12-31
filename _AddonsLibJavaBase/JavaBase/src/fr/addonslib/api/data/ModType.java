@@ -16,4 +16,15 @@ public enum ModType {
     {
         return this.modid;
     }
+
+    public static ModType[] getAllModTypeWood()
+    {
+        return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES, ModType.FURNITURES,
+                ModType.STAIRS, ModType.PATHS, ModType.TRAPDOORS, ModType.DOORS, ModType.WINDOWS};
+    }
+
+    public static ModType[] getAllModTypeStone()
+    {
+        return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES};
+    }
 }
