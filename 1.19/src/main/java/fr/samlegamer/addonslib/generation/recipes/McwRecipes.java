@@ -11,7 +11,6 @@ import fr.addonslib.api.recipes.material.McwStoneMat;
 import fr.addonslib.api.recipes.material.McwWoodMat;
 import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.Finder;
-import fr.samlegamer.addonslib.Registration;
 import net.minecraft.data.*;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -230,6 +229,8 @@ public class McwRecipes extends RecipeProvider
         {
             case "stone_bridge":
                 return Finder.findItem(MODID, mat+"_bridge");
+            case "stone_bridge_stair":
+                return Finder.findItem(MODID, mat+"_bridge_stair");
             case McwRecipesBase.DIRT:
                 return Items.DIRT;
             case McwRecipesBase.IRON_BARS:
@@ -305,12 +306,12 @@ public class McwRecipes extends RecipeProvider
 
     public void registerAllMcwWood(Consumer<FinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<McwWoodMat<Block>> woodMats)
     {
-        registerMcwWood(output, modid, originalMod, MAT, woodMats, Registration.getAllModTypeWood());
+        registerMcwWood(output, modid, originalMod, MAT, woodMats, ModType.getAllModTypeWood());
     }
 
     public void registerAllMcwStone(Consumer<FinishedRecipe> output, String modid, String originalMod, List<String> MAT, List<McwStoneMat<Block>> stoneMats)
     {
-        registerMcwStone(output, modid, originalMod, MAT, stoneMats, Registration.getAllModTypeStone());
+        registerMcwStone(output, modid, originalMod, MAT, stoneMats, ModType.getAllModTypeStone());
     }
 
     protected void recipeShapelessWith1Item(Consumer<FinishedRecipe> output, ItemLike planks, ItemLike result, int count, ItemLike firstItem, int required, String group, String originalMod, String mcwMod)

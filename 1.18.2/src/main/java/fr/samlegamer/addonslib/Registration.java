@@ -20,16 +20,17 @@ public final class Registration
 {
 	private Registration() {}
 
-    public static ModType[] getAllModTypeWood()
-    {
-        return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES, ModType.FURNITURES,
-                ModType.STAIRS, ModType.PATHS, ModType.TRAPDOORS, ModType.DOORS, ModType.WINDOWS};
-    }
+	@Deprecated(forRemoval = true)
+	public static ModType[] getAllModTypeWood()
+	{
+		return ModType.getAllModTypeWood();
+	}
 
-    public static ModType[] getAllModTypeStone()
-    {
-        return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES};
-    }
+	@Deprecated(forRemoval = true)
+	public static ModType[] getAllModTypeStone()
+	{
+		return ModType.getAllModTypeStone();
+	}
 
 	/**
 	 * Block
