@@ -27,15 +27,17 @@ public final class Registration
 {
 	private Registration() {}
 
+	@Deprecated(forRemoval = true)
 	public static ModType[] getAllModTypeWood()
 	{
-		return new ModType[] {ModType.BRIDGES, ModType.ROOFS, ModType.FENCES, ModType.FURNITURES,
-				ModType.STAIRS, ModType.PATHS, ModType.TRAPDOORS, ModType.DOORS, ModType.WINDOWS};
+		return ModType.getAllModTypeWood();
+
 	}
 
+	@Deprecated(forRemoval = true)
 	public static ModType[] getAllModTypeStone()
 	{
-		return new ModType[] {ModType.ROOFS, ModType.FENCES, ModType.BRIDGES};
+		return ModType.getAllModTypeStone();
 	}
 
 	/**

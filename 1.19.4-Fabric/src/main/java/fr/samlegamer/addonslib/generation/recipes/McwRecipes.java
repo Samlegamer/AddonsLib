@@ -227,6 +227,8 @@ public abstract class McwRecipes extends FabricRecipeProvider {
         {
             case "stone_bridge":
                 return Finder.findItem(MODID, mat+"_bridge");
+            case "stone_bridge_stair":
+                return Finder.findItem(MODID, mat+"_bridge_stair");
             case McwRecipesBase.DIRT:
                 return Items.DIRT;
             case McwRecipesBase.IRON_BARS:
@@ -302,12 +304,12 @@ public abstract class McwRecipes extends FabricRecipeProvider {
 
     public void registerAllMcwWood(Consumer<RecipeJsonProvider> output, String modid, String originalMod, List<String> MAT, List<McwWoodMat<Block>> woodMats)
     {
-        registerMcwWood(output, modid, originalMod, MAT, woodMats, Registration.getAllModTypeWood());
+        registerMcwWood(output, modid, originalMod, MAT, woodMats, ModType.getAllModTypeWood());
     }
 
     public void registerAllMcwStone(Consumer<RecipeJsonProvider> output, String modid, String originalMod, List<String> MAT, List<McwStoneMat<Block>> stoneMats)
     {
-        registerMcwStone(output, modid, originalMod, MAT, stoneMats, Registration.getAllModTypeStone());
+        registerMcwStone(output, modid, originalMod, MAT, stoneMats, ModType.getAllModTypeStone());
     }
 
 
