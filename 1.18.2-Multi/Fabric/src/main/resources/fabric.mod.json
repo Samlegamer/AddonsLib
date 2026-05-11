@@ -1,0 +1,32 @@
+{
+    "schemaVersion": 1,
+    "id": "${mod_id}",
+    "version": "${version}",
+    "name": "${mod_name}",
+    "description": "${mod_description}",
+    "authors": [
+      "${mod_author}"
+    ],
+    "contact": {
+      "homepage": "${website_link}",
+      "sources": "${issues_link}"
+    },
+    "license": "${mod_license}",
+    "icon": "logo.png",
+    "environment": "*",
+    "entrypoints": {
+      "main": [
+        "${mod_init}"
+      ]
+    },
+    "depends": {
+      "fabricloader": ">=0.13",
+      "fabric": "*",
+      "minecraft": "1.18.x",
+      "java": ">=17"
+    },
+    "suggests": {
+      "another-mod": "*"
+    }
+  }
+  
