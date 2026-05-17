@@ -4,18 +4,20 @@ import fr.addonslib.api.data.McwBlockIdBase;
 import fr.addonslib.api.data.ModType;
 import fr.addonslib.api.obj.DoubleObject;
 import fr.samlegamer.addonslib.Finder;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.core.Registry;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import javax.annotation.Nullable;
 import java.util.*;
 
-public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider implements ITag
+public abstract class McwBlockTags extends BlockTagsProvider implements ITag
 {
-    public McwBlockTags(FabricDataGenerator dataGenerator) {
-        super(dataGenerator);
+    public McwBlockTags(DataGenerator p_126511_, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+        super(p_126511_, modId, existingFileHelper);
     }
 
     @Override
@@ -52,6 +54,6 @@ public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider im
 
     public static TagKey<Block> getTag(String modidTagName)
     {
-        return TagKey.create(Registry.BLOCK_REGISTRY, TagsUtils.parseResourceLocation(modidTagName));
+        return BlockTags.create(TagsUtils.parseResourceLocation(modidTagName));
     }
 }

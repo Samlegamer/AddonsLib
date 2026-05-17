@@ -4,24 +4,29 @@ import fr.addonslib.api.data.McwBlockIdBase;
 import fr.addonslib.api.data.ModType;
 import fr.addonslib.api.obj.DoubleObject;
 import fr.samlegamer.addonslib.Finder;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.core.Registry;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import javax.annotation.Nullable;
 import java.util.*;
 
-public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider implements ITag
+public abstract class McwItemTags extends ItemTagsProvider implements ITag
 {
-    public McwBlockTags(FabricDataGenerator dataGenerator) {
-        super(dataGenerator);
+    public McwItemTags(DataGenerator p_i232552_1_, BlockTagsProvider p_i232552_2_, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+        super(p_i232552_1_, p_i232552_2_, modId, existingFileHelper);
     }
 
     @Override
     public void buildToTagSystem(McwBlockIdBase mcwBlockIdBase, String modid, List<String> MAT)
     {
-        Map<DoubleObject<String, String>, String> tags = TagsUtils.makeTags(mcwBlockIdBase, modid, MAT, true);
+        Map<DoubleObject<String, String>, String> tags = TagsUtils.makeTags(mcwBlockIdBase, modid, MAT, false);
 
         for(Map.Entry<DoubleObject<String, String>, String> entry : tags.entrySet())
         {
@@ -30,7 +35,7 @@ public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider im
 
             if(tagName != null && !tagName.isEmpty() && block != Blocks.AIR)
             {
-                this.tag(getTag(tagName)).add(block);
+                this.tag(getTag(tagName)).add(block.asItem());
             }
         }
     }
@@ -50,8 +55,13 @@ public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider im
         ITag.super.addAllMcwTagsStone(modid, STONE, types);
     }
 
-    public static TagKey<Block> getTag(String modidTagName)
+    /**
+     * Crée une TagKey pour un item à partir d'un nom de tag
+     * @param modidTagName Nom du tag au format "namespace:path" (ex: "minecraft:wooden_doors")
+     * @return TagKey pour l'item
+     */
+    public static TagKey<Item> getTag(String modidTagName)
     {
-        return TagKey.create(Registry.BLOCK_REGISTRY, TagsUtils.parseResourceLocation(modidTagName));
+        return ItemTags.create(TagsUtils.parseResourceLocation(modidTagName));
     }
 }
