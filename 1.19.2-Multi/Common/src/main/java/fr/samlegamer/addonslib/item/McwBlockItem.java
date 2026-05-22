@@ -48,7 +48,9 @@ public class McwBlockItem extends BlockItem
 
     public void appendHoverText(ItemStack p_43043_, @Nullable Level p_43044_, List<Component> p_43045_, TooltipFlag p_43046_)
     {
-        p_43045_.add(this.getDescription().withStyle(ChatFormatting.GRAY));
+        if(this.desc.isEmpty()) {
+            p_43045_.add(this.getDescription().withStyle(ChatFormatting.GRAY));
+        }
     }
 
     public MutableComponent getDescription()
