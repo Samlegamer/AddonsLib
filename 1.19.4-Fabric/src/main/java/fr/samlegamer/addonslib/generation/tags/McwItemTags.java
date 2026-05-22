@@ -9,21 +9,23 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
-public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider implements ITag
+public abstract class McwItemTags extends FabricTagProvider.ItemTagProvider implements ITag
 {
-    public McwBlockTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
+    public McwItemTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+        super(output, completableFuture);
     }
 
     @Override
     public void buildToTagSystem(McwBlockIdBase mcwBlockIdBase, String modid, List<String> MAT)
     {
-        Map<DoubleObject<String, String>, String> tags = TagsUtils.makeTags(mcwBlockIdBase, modid, MAT, true);
+        Map<DoubleObject<String, String>, String> tags = TagsUtils.makeTags(mcwBlockIdBase, modid, MAT, false);
 
         for(Map.Entry<DoubleObject<String, String>, String> entry : tags.entrySet())
         {
@@ -32,7 +34,7 @@ public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider im
 
             if(tagName != null && !tagName.isEmpty() && block != Blocks.AIR)
             {
-                this.getOrCreateTagBuilder(getTag(tagName)).add(block);
+                this.getOrCreateTagBuilder(getTag(tagName)).add(block.asItem());
             }
         }
     }
@@ -52,8 +54,8 @@ public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider im
         ITag.super.addAllMcwTagsStone(modid, STONE, types);
     }
 
-    public static TagKey<Block> getTag(String modidTagName)
+    public static TagKey<Item> getTag(String modidTagName)
     {
-        return TagKey.create(Registries.BLOCK, TagsUtils.parseResourceLocation(modidTagName));
+        return TagKey.create(Registries.ITEM, TagsUtils.parseResourceLocation(modidTagName));
     }
 }

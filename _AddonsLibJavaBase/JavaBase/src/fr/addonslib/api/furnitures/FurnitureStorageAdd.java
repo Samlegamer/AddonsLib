@@ -1,7 +1,5 @@
 package fr.addonslib.api.furnitures;
 
-import fr.samlegamer.addonslib.Finder;
-
 import java.util.ArrayList;
 import java.util.List;
 

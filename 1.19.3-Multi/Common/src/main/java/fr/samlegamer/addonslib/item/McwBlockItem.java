@@ -9,7 +9,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class McwBlockItem extends BlockItem
@@ -46,7 +45,7 @@ public class McwBlockItem extends BlockItem
         return desc;
     }
 
-    public void appendHoverText(ItemStack p_43043_, @Nullable Level p_43044_, List<Component> p_43045_, TooltipFlag p_43046_)
+    public void appendHoverText(ItemStack p_43043_, Level p_43044_, List<Component> p_43045_, TooltipFlag p_43046_)
     {
         if(this.desc.isEmpty()) {
             p_43045_.add(this.getDescription().withStyle(ChatFormatting.GRAY));

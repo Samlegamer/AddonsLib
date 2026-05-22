@@ -8,8 +8,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -27,7 +25,7 @@ public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider im
 
         for(Map.Entry<DoubleObject<String, String>, String> entry : tags.entrySet())
         {
-            Block block = Finder.findBlock(entry.getKey().getFirst(), entry.getKey().getSecond());
+            net.minecraft.world.level.block.Block block = Finder.findBlock(entry.getKey().getFirst(), entry.getKey().getSecond());
             String tagName = entry.getValue();
 
             if(tagName != null && !tagName.isEmpty() && block != Blocks.AIR)
@@ -52,8 +50,8 @@ public abstract class McwBlockTags extends FabricTagProvider.BlockTagProvider im
         ITag.super.addAllMcwTagsStone(modid, STONE, types);
     }
 
-    public static TagKey<Block> getTag(String modidTagName)
+    public static net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> getTag(String modidTagName)
     {
-        return TagKey.create(Registries.BLOCK, TagsUtils.parseResourceLocation(modidTagName));
+        return net.minecraft.tags.TagKey.create(Registries.BLOCK, TagsUtils.parseResourceLocation(modidTagName));
     }
 }
