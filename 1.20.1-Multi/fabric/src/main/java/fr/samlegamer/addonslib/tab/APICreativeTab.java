@@ -32,6 +32,11 @@ public class APICreativeTab
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(MODID + ".tab"), tab);
     }
 
+    public static void initAllWood(String MODID, List<String> WOOD, CreativeModeTab tab, ModType... type)
+    {
+        initAllWood(MODID, WOOD, tab, "minecraft", type);
+    }
+
     public static void initAllWood(String MODID, List<String> WOOD, CreativeModeTab tab, String modLoaded, ModType... type)
     {
         Set<ItemStack> blockSet = CreativeTabUtils.getWoodItemForCreativeTab(new ModListFabric(), MODID, WOOD, modLoaded, type);

@@ -30,17 +30,19 @@ configurations {
 }
 
 artifacts {
-    commonJava sourceSets.main.java.sourceDirectories.singleFile
-    commonResources sourceSets.main.resources.sourceDirectories.singleFile
+    commonJava file('src/main/java')
+    commonJava file('../../_AddonsLibJavaBase/JavaBase/src/')
+    commonResources file('src/main/resources')
+    commonResources file('../../_GlobalRsc/common/')
 }
 
 sourceSets {
     main {
         java {
-            srcDirs '../../_AddonsLibJavaBase/JavaBase/src/'
+            srcDirs 'src/main/java', '../../_AddonsLibJavaBase/JavaBase/src/'
         }
         resources {
-            srcDirs '../../_GlobalRsc/common/'
+            srcDirs 'src/main/resources', '../../_GlobalRsc/common/'
         }
     }
 }

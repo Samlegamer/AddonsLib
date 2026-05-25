@@ -132,3 +132,14 @@ publishing {
         }
     }
 }
+
+sourceSets {
+    main {
+        java {
+            srcDirs '../../_AddonsLibJavaBase/JavaBase/src/'
+        }
+        resources {
+            srcDirs '../../_GlobalRsc/common/'
+        }
+    }
+}
