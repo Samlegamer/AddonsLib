@@ -6,13 +6,13 @@ import fr.addonslib.api.data.McwBlocksIdBase;
 import fr.addonslib.api.data.ModType;
 import fr.samlegamer.addonslib.Registration;
 import fr.samlegamer.addonslib.data.CreateBlockReferences;
-import fr.samlegamer.addonslib.util.ModListNeoForge;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import net.neoforged.neoforge.registries.DeferredRegister;
-
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.registries.DeferredRegister;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,14 +26,14 @@ public final class McwRegistry
 {
     private McwRegistry() {}
 
-    public static void setRegistriesWood(List<String> list, DeferredRegister.Blocks block, DeferredRegister.Items item, ModType... type)
+    public static void setRegistriesWood(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, ModType... type)
     {
         setRegistriesWood(makeDefaultFromList(list, SoundType.WOOD), block, item, type);
     }
 
-    public static void setRegistriesWood(Map<String, SoundType> stringSoundTypeMap, DeferredRegister.Blocks block, DeferredRegister.Items item, ModType... type)
+    public static void setRegistriesWood(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, ModType... type)
     {
-        ModListNeoForge modList = new ModListNeoForge();
+        ModList modList = ModList.get();
         Map<String, SoundType> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
 
         for(ModType mod : type)
@@ -91,14 +91,14 @@ public final class McwRegistry
         }
     }
 
-    public static void setRegistriesLeave(List<String> list, DeferredRegister.Blocks block, DeferredRegister.Items item)
+    public static void setRegistriesLeave(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item)
     {
         setRegistriesLeave(makeDefaultFromList(list, SoundType.GRASS), block, item);
     }
 
-    public static void setRegistriesLeave(Map<String, SoundType> stringSoundTypeMap, DeferredRegister.Blocks block, DeferredRegister.Items item)
+    public static void setRegistriesLeave(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item)
     {
-        ModListNeoForge modList = new ModListNeoForge();
+        ModList modList = ModList.get();
         Map<String, SoundType> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
 
         McwBlockIdBase mcwBlockIdBase = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
@@ -126,14 +126,14 @@ public final class McwRegistry
         }
     }
 
-    public static void setRegistriesStone(List<String> list, DeferredRegister.Blocks block, DeferredRegister.Items item, ModType... type)
+    public static void setRegistriesStone(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, ModType... type)
     {
         setRegistriesStone(makeDefaultFromList(list, SoundType.STONE), block, item, type);
     }
 
-    public static void setRegistriesStone(Map<String, SoundType> stringSoundTypeMap, DeferredRegister.Blocks block, DeferredRegister.Items item, ModType... type)
+    public static void setRegistriesStone(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, ModType... type)
     {
-        ModListNeoForge modList = new ModListNeoForge();
+        ModList modList = ModList.get();
         Map<String, SoundType> orderedMap = new LinkedHashMap<>(stringSoundTypeMap);
 
         for(ModType mod : type)

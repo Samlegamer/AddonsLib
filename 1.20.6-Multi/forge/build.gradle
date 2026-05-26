@@ -1,0 +1,95 @@
+plugins {
+    id 'multiloader-loader'
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+}
+
+// Automatically enable Forge AccessTransformers if the file exists
+// This location is hardcoded in FML and can not be changed.
+def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+if (at.exists()) {
+    minecraft.accessTransformers.file at
+}
+
+minecraft {
+    mappings channel: mapping_channel, version: mapping_version
+
+    // Use Official mappings at runtime - no need to reobf
+    reobf = false
+
+    copyIdeResources = true
+
+    runs {
+        configureEach {
+            workingDirectory project.file('runs')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+        }
+
+        client {
+            property 'forge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        server {
+            property 'forge.enabledGameTestNamespaces', project.mod_id
+            args '--nogui'
+        }
+
+        gameTestServer {
+            property 'forge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            workingDirectory project.file('run-data')
+            args '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+// Fix: strip UTF-8 BOM from mods.toml after processResources, as the TOML parser rejects it
+tasks.named('processResources').configure {
+    doLast {
+        def toml = new File(sourceSets.main.output.resourcesDir, 'META-INF/mods.toml')
+        if (toml.exists()) {
+            def bytes = toml.bytes
+            if (bytes.length >= 3 && bytes[0] == (byte) 0xEF && bytes[1] == (byte) 0xBB && bytes[2] == (byte) 0xBF) {
+                toml.bytes = bytes[3..-1] as byte[]
+                logger.lifecycle("Stripped UTF-8 BOM from mods.toml")
+            }
+        }
+    }
+}
+
+repositories {
+    maven {
+        name = 'MinecraftForge'
+        url = 'https://maven.minecraftforge.net'
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    // Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version,
+    // but some transitive dependencies request 6.0+
+    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+}
+
+// Merge the resources and classes into the same directory.
+// This is done because java expects modules to be in a single directory.
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs '../../_GlobalRsc/forge/'
+        }
+    }
+}
+
