@@ -35,8 +35,7 @@ public abstract class McwRecipes extends RecipeProvider implements IRecipes
     public void recipeShapedWithItems(RecipeOutput exporter, ItemLike planks, String[] pattern, ItemLike result, int count, String group, String originalMod, String mcwModid, ItemLike... items) {
         DoubleObject<RecipeBuilder, ResourceLocation> doubleObject = recipesUtils.doubleObjectShapedWithItems(planks, pattern, result, count, group, items);
         doubleObject.getFirst().save(exporter.withConditions(new AndCondition(List.of(
-                new ModLoadedCondition(mcwModid), new ModLoadedCondition(originalMod)))),
-                doubleObject.getSecond().toString());
+                new ModLoadedCondition(mcwModid), new ModLoadedCondition(originalMod)))));
     }
 
     @Override
@@ -51,7 +50,6 @@ public abstract class McwRecipes extends RecipeProvider implements IRecipes
     public void recipeShapeless(RecipeOutput exporter, ItemLike planks, ItemLike result, int count, ItemLike firstItem, int required, String group, String originalMod, String mcwModid) {
         DoubleObject<RecipeBuilder, ResourceLocation> doubleObject = recipesUtils.doubleObjectShapeless(planks, result, count, firstItem, required, group);
         doubleObject.getFirst().save(exporter.withConditions(new AndCondition(List.of(
-                        new ModLoadedCondition(mcwModid), new ModLoadedCondition(originalMod)))),
-                doubleObject.getSecond().toString());
+                        new ModLoadedCondition(mcwModid), new ModLoadedCondition(originalMod)))));
     }
 }
