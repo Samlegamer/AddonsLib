@@ -18,7 +18,7 @@ public class RegistryEntryReferences
         final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(MODID, name);
         Registry.register(BuiltInRegistries.BLOCK, ID, block);
         final ResourceKey<Block> registryKey = ResourceKey.create(Registries.BLOCK, ID);
-        Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryKey.registry()));
+        Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryKey.location()));
         McwBlockItem mcwBlockItem = Registration.createBlockItemWood(name, block, properties);
         Registry.register(BuiltInRegistries.ITEM, ID, mcwBlockItem);
     }
@@ -28,7 +28,7 @@ public class RegistryEntryReferences
         final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(MODID, name);
         Registry.register(BuiltInRegistries.BLOCK, ID, block);
         final ResourceKey<Block> registryKey = ResourceKey.create(Registries.BLOCK, ID);
-        Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryKey.registry()));
+        Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registryKey.location()));
         McwBlockItem mcwBlockItem = Registration.createBlockItemStone(name, block, properties);
         Registry.register(BuiltInRegistries.ITEM, ID, mcwBlockItem);
     }
