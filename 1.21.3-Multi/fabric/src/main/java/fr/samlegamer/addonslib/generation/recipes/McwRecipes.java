@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 public abstract class McwRecipes extends FabricRecipeProvider implements IRecipes {
 
-    protected final RecipesUtils recipesUtils;
+    public final RecipesUtils recipesUtils;
     protected final CompletableFuture<HolderLookup.Provider> registriesFuture;
 
     public McwRecipes(FabricDataOutput fabricDataOutput, CompletableFuture<HolderLookup.Provider> registriesFuture, HolderLookup.Provider provider, RecipeOutput recipeOutput) {
