@@ -5,12 +5,9 @@ import fr.samlegamer.addonslib.Finder;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import java.util.List;
 
-@OnlyIn(value = Dist.CLIENT)
 public class ColorRegistry
 {
 	private final List<ObjectColor> objectColors;
