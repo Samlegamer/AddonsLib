@@ -2,14 +2,14 @@ package fr.samlegamer.addonslib.client;
 
 import fr.addonslib.api.client.ObjectColor;
 import fr.samlegamer.addonslib.Finder;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
 import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(value = Dist.CLIENT)
 public class ColorRegistry
 {
 	private final List<ObjectColor> objectColors;
@@ -19,7 +19,7 @@ public class ColorRegistry
 		this.objectColors = objectColors;
 	}
 
-	public void registryBlockColors() {
+	public void registryBlockColors(RegisterColorHandlersEvent.Block event) {
 		for(ObjectColor objectColor : objectColors) {
 			String MODID = objectColor.getMODID();
 			String name = objectColor.getName();
@@ -28,9 +28,9 @@ public class ColorRegistry
 
 			if(ColorUtils.isValidBlock(block)) {
 				if (color == ObjectColor.DEFAULT_COLOR) {
-					BlockColorRegistry.register(List.of(BlockTintSources.foliage()), block);
+					event.register(List.of(BlockTintSources.foliage()), block);
 				} else {
-					BlockColorRegistry.register(List.of(BlockTintSources.constant(color)), block);
+					event.register(List.of(BlockTintSources.constant(color)), block);
 				}
 			}
 		}

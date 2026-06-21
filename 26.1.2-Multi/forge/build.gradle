@@ -1,0 +1,115 @@
+plugins {
+    id 'multiloader-loader'
+    id 'net.minecraftforge.gradle'
+}
+
+base.archivesName.set("${mod_id}-forge")
+
+// Include generated resources
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+// ─── Fix: FML scans each classpath directory independently.
+// build/resources/main has mods.toml but no @Mod class → "mods not found".
+// Solution: generate expanded mods.toml directly into build/classes/java/main
+// (where @Mod lives), and exclude it from build/resources/main.
+tasks.register('generateModsToml') {
+    def inputFile  = file('src/main/resources/META-INF/mods.toml')
+    def outputFile = file("${buildDir}/classes/java/main/META-INF/mods.toml")
+    inputs.file inputFile
+    outputs.file outputFile
+    doLast {
+        outputFile.parentFile.mkdirs()
+        def content = inputFile.text
+        [
+            'version'                    : project.version.toString(),
+            'minecraft_version'          : minecraft_version,
+            'minecraft_version_range'    : minecraft_version_range,
+            'mod_id'                     : mod_id,
+            'mod_name'                   : mod_name,
+            'mod_license'                : mod_license,
+            'mod_authors'                : mod_authors,
+            'mod_description'            : mod_description,
+            'website_link'               : website_link,
+            'issues_link'                : issues_link,
+            'forge_version'              : forge_version,
+            'forge_loader_version_range' : forge_loader_version_range,
+            'java_version'               : java_version,
+        ].each { k, v -> content = content.replace('${' + k + '}', v.toString()) }
+        outputFile.text = content
+    }
+}
+
+tasks.named('classes').configure { dependsOn 'generateModsToml' }
+
+// Exclude mods.toml from processResources output so build/resources/main
+// does NOT have it → FML won't treat it as a standalone mod file.
+processResources { exclude 'META-INF/mods.toml' }
+
+minecraft {
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers = files('src/main/resources/META-INF/accesstransformer.cfg')
+    }
+
+    runs {
+        configureEach {
+            systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
+            systemProperty 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        register('client') {
+            workingDir = layout.projectDirectory.dir('runs/client')
+        }
+
+        register('server') {
+            workingDir = layout.projectDirectory.dir('runs/server')
+            args '--nogui'
+        }
+
+        register('data') {
+            workingDir = layout.projectDirectory.dir('runs/data')
+            args '--mod', mod_id, '--all',
+                    '--output', layout.projectDirectory.dir('src/generated/resources'),
+                    '--existing', layout.projectDirectory.dir('src/main/resources')
+        }
+    }
+}
+
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    mavenCentral()
+}
+
+dependencies {
+    implementation minecraft.dependency("net.minecraftforge:forge:${forge_version}")
+    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.1'
+}
+
+// Implement mcgradleconventions loader attribute
+def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
+['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
+    configurations.named(variant) {
+        attributes {
+            attribute(loaderAttribute, 'forge')
+        }
+    }
+}
+sourceSets.configureEach {
+    [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName].each { variant ->
+        configurations.named(variant) {
+            attributes {
+                attribute(loaderAttribute, 'forge')
+            }
+        }
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs '../../_GlobalRsc/forge/'
+        }
+    }
+}

@@ -2,8 +2,7 @@ package fr.samlegamer.addonslib.client;
 
 import fr.addonslib.api.client.ObjectColor;
 import fr.samlegamer.addonslib.Finder;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.world.level.FoliageColor;
+import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import java.util.List;
@@ -26,9 +25,9 @@ public class ColorRegistry
 
 			if(ColorUtils.isValidBlock(block)) {
 				if (color == ObjectColor.DEFAULT_COLOR) {
-					event.register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getAverageFoliageColor(view, pos) : FoliageColor.get(0.5D, 1.0D), block);
+					event.register(List.of(BlockTintSources.foliage()), block);
 				} else {
-					event.register((state, view, pos, tintIndex) -> color, block);
+					event.register(List.of(BlockTintSources.constant(color)), block);
 				}
 			}
 		}
