@@ -17,7 +17,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import static fr.addonslib.api.registry.ConditionalsRegistry.*;
 
 /*
@@ -27,21 +26,9 @@ public final class McwRegistry
 {
     private McwRegistry() {}
 
-    public static Map<String, SoundType> makeDefaultFromList(List<String> list, SoundType soundType)
-    {
-        Map<String, SoundType> map = new LinkedHashMap<>();
-
-        for(String str : list)
-        {
-            map.put(str, soundType);
-        }
-
-        return map;
-    }
-
     public static void setRegistriesWood(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab, ModType... type)
     {
-        setRegistriesWood(makeDefaultFromList(list, SoundType.WOOD), block, item, tab, type);
+        setRegistriesWood(RegistryUtils.makeDefaultFromList(list, SoundType.WOOD), block, item, tab, type);
     }
 
     public static void setRegistriesWood(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab, ModType... type)
@@ -51,7 +38,7 @@ public final class McwRegistry
 
     public static void setRegistriesWood(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab, ModType... type)
     {
-        setRegistriesWood(makeDefaultFromList(list, SoundType.WOOD), block, item, modLoadedTab, tab, type);
+        setRegistriesWood(RegistryUtils.makeDefaultFromList(list, SoundType.WOOD), block, item, modLoadedTab, tab, type);
     }
 
     public static void setRegistriesWood(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab, ModType... type)
@@ -120,12 +107,12 @@ public final class McwRegistry
 
     public static void setRegistriesLeave(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab)
     {
-        setRegistriesLeave(makeDefaultFromList(list, SoundType.GRASS), block, item, AddonsLib.MODID, tab);
+        setRegistriesLeave(RegistryUtils.makeDefaultFromList(list, SoundType.GRASS), block, item, AddonsLib.MODID, tab);
     }
 
     public static void setRegistriesLeave(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab)
     {
-        setRegistriesLeave(makeDefaultFromList(list, SoundType.GRASS), block, item, modLoadedTab, tab);
+        setRegistriesLeave(RegistryUtils.makeDefaultFromList(list, SoundType.GRASS), block, item, modLoadedTab, tab);
     }
 
     public static void setRegistriesLeave(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab)
@@ -166,12 +153,12 @@ public final class McwRegistry
 
     public static void setRegistriesStone(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab, ModType... type)
     {
-        setRegistriesStone(makeDefaultFromList(list, SoundType.STONE), block, item, modLoadedTab, tab, type);
+        setRegistriesStone(RegistryUtils.makeDefaultFromList(list, SoundType.STONE), block, item, modLoadedTab, tab, type);
     }
 
     public static void setRegistriesStone(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, CreativeModeTab tab, ModType... type)
     {
-        setRegistriesStone(makeDefaultFromList(list, SoundType.STONE), block, item, AddonsLib.MODID, tab, type);
+        setRegistriesStone(RegistryUtils.makeDefaultFromList(list, SoundType.STONE), block, item, AddonsLib.MODID, tab, type);
     }
 
     public static void setRegistriesStone(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, CreativeModeTab tab, ModType... type)

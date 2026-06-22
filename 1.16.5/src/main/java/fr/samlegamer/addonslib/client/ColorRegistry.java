@@ -1,6 +1,6 @@
 package fr.samlegamer.addonslib.client;
 
-import fr.addonslib.api.client.McwColors;
+import fr.addonslib.api.client.ObjectColor;
 import fr.samlegamer.addonslib.Finder;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -9,42 +9,47 @@ import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
-import java.util.Map;
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class ColorRegistry
 {
-    private final McwColors mcwColors;
+    private final List<ObjectColor> objectColors;
 
-    public ColorRegistry(McwColors mcwColors)
+    public ColorRegistry(List<ObjectColor> objectColors)
     {
-        this.mcwColors = mcwColors;
+        this.objectColors = objectColors;
     }
 
     public void registryBlockColors(ColorHandlerEvent.Block event) {
-        for(Map.Entry<String, Integer> entry : mcwColors.getNoColorLeaves().entrySet()) {
-            String value = entry.getKey();
-            Block block = Finder.findBlock(value);
-            event.getBlockColors().register((state, view, pos, tintIndex) -> entry.getValue(), block);
+        for(ObjectColor objectColor : objectColors) {
+            String MODID = objectColor.getMODID();
+            String name = objectColor.getName();
+            int color = objectColor.getColor();
+            Block block = Finder.findBlock(MODID, name + "_hedge");
+
+            if(ColorUtils.isValidBlock(block)) {
+                if (color == ObjectColor.DEFAULT_COLOR) {
+                    event.getBlockColors().register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getAverageFoliageColor(view, pos) : FoliageColors.get(0.5D, 1.0D), block);
+                } else {
+                    event.getBlockColors().register((state, view, pos, tintIndex) -> color, block);
+                }
+            }
         }
     }
 
     public void registryItemColors(ColorHandlerEvent.Item event) {
-        for(Map.Entry<String, Integer> entry : mcwColors.getNoColorLeaves().entrySet()) {
-            String value = entry.getKey();
-            Block hedges = Finder.findBlock(value);
-            event.getItemColors().register((stack, tintIndex) -> {
-                Block block = ((BlockItem) stack.getItem()).getBlock();
-                return event.getBlockColors().getColor(block.defaultBlockState(), null, null, tintIndex);
-            }, hedges);
-        }
-    }
+        for(ObjectColor objectColor : objectColors) {
+            String MODID = objectColor.getMODID();
+            String name = objectColor.getName();
+            Block hedges = Finder.findBlock(MODID, name + "_hedge");
 
-    public void registryBlockColorsAverage(ColorHandlerEvent.Block event) {
-        for(Map.Entry<String, Integer> entry : mcwColors.getNoColorLeaves().entrySet()) {
-            String value = entry.getKey();
-            Block block = Finder.findBlock(value);
-            event.getBlockColors().register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getAverageFoliageColor(view, pos) : FoliageColors.get(0.5D, 1.0D), block);
+            if(ColorUtils.isValidBlock(hedges)) {
+                event.getItemColors().register((stack, tintIndex) -> {
+                    Block block = ((BlockItem) stack.getItem()).getBlock();
+                    return event.getBlockColors().getColor(block.defaultBlockState(), null, null, tintIndex);
+                }, hedges);
+            }
         }
     }
 }

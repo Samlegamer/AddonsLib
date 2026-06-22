@@ -1,14 +1,13 @@
 modLoader="javafml"
 loaderVersion="[37,)"
 license="${mod_license}"
-issueTrackerURL="https://github.com/Samlegamer/AddonsLib"
+issueTrackerURL="${issues_link}"
 
 [[mods]]
-
 modId="${mod_id}"
 version="${mod_version}"
 displayName="${mod_name}"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/addonslib"
+displayURL="${website_link}"
 logoFile="logo.png"
 #credits=""
 authors="${mod_authors}"

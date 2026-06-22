@@ -2,21 +2,22 @@ package fr.samlegamer.addonslib.tab;
 
 import java.util.EnumSet;
 import java.util.Random;
-
 import fr.addonslib.api.data.ModType;
+import fr.samlegamer.addonslib.util.IModList;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraftforge.fml.ModList;
+import net.minecraft.item.ItemStack;
 
-public class NewIconRandom
+public class IconRandom
 {
-	public static class NewProperties {
+	public static class Properties {
         private final EnumSet<ModType> activeTypes = EnumSet.noneOf(ModType.class);
         private final Block roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon, stairsIcon;
         private int dependencies = 0;
         public Block defaultIcon = Blocks.CRAFTING_TABLE;
+        private final IModList modList;
 
-        public NewProperties(Block roofsIcon, Block fencesIcon, Block furnituresIcon, Block bridgesIcon, Block windowsIcon, Block doorsIcon, Block trapdoorsIcon, Block pathsIcon, Block stairsIcon) {
+        public Properties(IModList modList, Block roofsIcon, Block fencesIcon, Block furnituresIcon, Block bridgesIcon, Block windowsIcon, Block doorsIcon, Block trapdoorsIcon, Block pathsIcon, Block stairsIcon) {
             this.bridgesIcon = bridgesIcon;
             this.roofsIcon = roofsIcon;
             this.fencesIcon = fencesIcon;
@@ -26,11 +27,11 @@ public class NewIconRandom
             this.trapdoorsIcon = trapdoorsIcon;
             this.pathsIcon = pathsIcon;
             this.stairsIcon = stairsIcon;
+            this.modList = modList;
         }
 
-        public NewProperties addType(ModType type) {
+        public void addType(ModType type) {
             activeTypes.add(type);
-            return this;
         }
 
         public Block buildIcon(ModType... types) {
@@ -66,7 +67,7 @@ public class NewIconRandom
 
         private boolean isTypeLoaded(ModType type) {
             String modId = getModIdForType(type);
-            return ModList.get().isLoaded(modId);
+            return modList.isLoaded(modId);
         }
 
         private boolean allTypesLoaded(ModType... types) {
@@ -114,5 +115,14 @@ public class NewIconRandom
                 default: return defaultIcon;
             }
         }
+    }
+
+    public static ItemStack buildIcon(IModList iModList, Block roofsIcon, Block fencesIcon, Block furnituresIcon, Block bridgesIcon, Block windowsIcon, Block doorsIcon,
+                                      Block trapdoorsIcon, Block pathsIcon, Block stairsIcon, ModType... types) {
+        Properties properties = new Properties(iModList, roofsIcon, fencesIcon, furnituresIcon, bridgesIcon, windowsIcon, doorsIcon, trapdoorsIcon, pathsIcon, stairsIcon);
+        for (ModType type : types) {
+            properties.addType(type);
+        }
+        return new ItemStack(properties.buildIcon(types));
     }
 }

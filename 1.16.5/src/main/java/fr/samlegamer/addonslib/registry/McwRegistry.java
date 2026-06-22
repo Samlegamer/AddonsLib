@@ -16,7 +16,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import static fr.addonslib.api.registry.ConditionalsRegistry.*;
 
 /*
@@ -26,21 +25,9 @@ public final class McwRegistry
 {
     private McwRegistry() {}
 
-    public static Map<String, SoundType> makeDefaultFromList(List<String> list, SoundType soundType)
-    {
-        Map<String, SoundType> map = new LinkedHashMap<>();
-
-        for(String str : list)
-        {
-            map.put(str, soundType);
-        }
-
-        return map;
-    }
-
     public static void setRegistriesWood(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, ModType... type)
     {
-        setRegistriesWood(makeDefaultFromList(list, SoundType.WOOD), block, item, tab, type);
+        setRegistriesWood(RegistryUtils.makeDefaultFromList(list, SoundType.WOOD), block, item, tab, type);
     }
 
     public static void setRegistriesWood(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, ModType... type)
@@ -50,7 +37,7 @@ public final class McwRegistry
 
     public static void setRegistriesWood(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, ItemGroup tab, ModType... type)
     {
-        setRegistriesWood(makeDefaultFromList(list, SoundType.WOOD), block, item, modLoadedTab, tab, type);
+        setRegistriesWood(RegistryUtils.makeDefaultFromList(list, SoundType.WOOD), block, item, modLoadedTab, tab, type);
     }
 
     public static void setRegistriesWood(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, ItemGroup tab, ModType... type)
@@ -84,7 +71,7 @@ public final class McwRegistry
 
                     if(isModLoaded)
                     {
-                        if(isBlockDefaultState("1.16.5", reflectedLocation)) {
+                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
                             CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.OAK_PLANKS.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
                         }
                         else if(isBlockSetType(reflectedLocation)) {
@@ -119,12 +106,12 @@ public final class McwRegistry
 
     public static void setRegistriesLeave(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab)
     {
-        setRegistriesLeave(makeDefaultFromList(list, SoundType.GRASS), block, item, AddonsLib.MODID, tab);
+        setRegistriesLeave(RegistryUtils.makeDefaultFromList(list, SoundType.GRASS), block, item, AddonsLib.MODID, tab);
     }
 
     public static void setRegistriesLeave(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, ItemGroup tab)
     {
-        setRegistriesLeave(makeDefaultFromList(list, SoundType.GRASS), block, item, modLoadedTab, tab);
+        setRegistriesLeave(RegistryUtils.makeDefaultFromList(list, SoundType.GRASS), block, item, modLoadedTab, tab);
     }
 
     public static void setRegistriesLeave(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, ItemGroup tab)
@@ -165,12 +152,12 @@ public final class McwRegistry
 
     public static void setRegistriesStone(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, ItemGroup tab, ModType... type)
     {
-        setRegistriesStone(makeDefaultFromList(list, SoundType.STONE), block, item, modLoadedTab, tab, type);
+        setRegistriesStone(RegistryUtils.makeDefaultFromList(list, SoundType.STONE), block, item, modLoadedTab, tab, type);
     }
 
     public static void setRegistriesStone(List<String> list, DeferredRegister<Block> block, DeferredRegister<Item> item, ItemGroup tab, ModType... type)
     {
-        setRegistriesStone(makeDefaultFromList(list, SoundType.STONE), block, item, AddonsLib.MODID, tab, type);
+        setRegistriesStone(RegistryUtils.makeDefaultFromList(list, SoundType.STONE), block, item, AddonsLib.MODID, tab, type);
     }
 
     public static void setRegistriesStone(Map<String, SoundType> stringSoundTypeMap, DeferredRegister<Block> block, DeferredRegister<Item> item, String modLoadedTab, ItemGroup tab, ModType... type)
@@ -198,7 +185,7 @@ public final class McwRegistry
 
                     if(isModLoaded)
                     {
-                        if(isBlockDefaultState("1.16.5", reflectedLocation)) {
+                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
                             CreateBlockReferences.createBlockStone(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.STONE.defaultBlockState()), block, item, tab, true, isModBaseLoaded);
                         }
                         else {
@@ -241,7 +228,7 @@ public final class McwRegistry
 
                     if(isModLoaded)
                     {
-                        if(isBlockDefaultState("1.16.5", reflectedLocation)) {
+                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
                             CreateBlockReferences.createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.OAK_PLANKS.defaultBlockState()), tab, true);
                         }
                         else if(isBlockSetType(reflectedLocation)) {
@@ -319,7 +306,7 @@ public final class McwRegistry
 
                     if(isModLoaded)
                     {
-                        if(isBlockDefaultState("1.16.5", reflectedLocation)) {
+                        if(isBlockDefaultState("1.17.1", reflectedLocation)) {
                             CreateBlockReferences.createBlockStoneOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop, Blocks.STONE.defaultBlockState()), tab, true);
                         }
                         else {

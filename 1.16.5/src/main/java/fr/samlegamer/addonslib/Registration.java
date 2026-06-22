@@ -3,15 +3,12 @@ package fr.samlegamer.addonslib;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import fr.addonslib.api.data.ModType;
+import fr.samlegamer.addonslib.item.McwBlockItem;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.item.ItemGroup;
 
 /**
  * Used for easy registries
@@ -20,42 +17,53 @@ public final class Registration
 {
 	private Registration() {}
 
-	@Deprecated
-	public static ModType[] getAllModTypeWood()
+	public static McwBlockItem createBlockItemWood(String name, Block block, ItemGroup tab, boolean isModMcwLoaded, boolean isModBaseLoaded)
 	{
-		return ModType.getAllModTypeWood();
+		Item.Properties properties = new Item.Properties();
+		if(isModMcwLoaded && isModBaseLoaded)
+		{
+			properties.tab(tab);
+			if (name.contains("log_bridge_middle") || name.startsWith("rope_")) {
+				return new McwBlockItem(block, properties, "mcwbridges.bridges.desc");
+			} else if (name.endsWith("planks_path")) {
+				return new McwBlockItem(block, properties, 50);
+			} else if (name.contains("railing")) {
+				return new McwBlockItem(block, properties, "mcwstairs.railing.desc");
+			} else if (name.contains("balcony")) {
+				return new McwBlockItem(block, properties, "mcwstairs.balcony.desc");
+			} else if (name.contains("platform")) {
+				return new McwBlockItem(block, properties, "mcwstairs.platform.desc");
+			} else {
+				return new McwBlockItem(block, properties, true);
+			}
+		}
+		else {
+			return new McwBlockItem(block, properties, true);
+		}
 	}
 
-	@Deprecated
-	public static ModType[] getAllModTypeStone()
+	public static McwBlockItem createBlockItemStone(String name, Block block, ItemGroup tab, boolean isModMcwLoaded, boolean isModBaseLoaded)
 	{
-		return ModType.getAllModTypeStone();
-	}
-
-	/**
-	 * Block
-	 */
-	public static DeferredRegister<Block> blocks(String MODID)
-	{
-		return DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-	}
-	
-	/**
-	 * Item
-	 */
-	public static DeferredRegister<Item> items(String MODID)
-	{
-		return DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-	}
-	
-	/**
-	 * register
-	 */
-	public static void init(DeferredRegister<Block> b, DeferredRegister<Item> i)
-	{
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		b.register(bus);
-		i.register(bus);
+		Item.Properties properties = new Item.Properties();
+		if(isModMcwLoaded && isModBaseLoaded)
+		{
+			properties.tab(tab);
+			if(name.contains("railing") && !name.contains("wall")) {
+				return new McwBlockItem(block, properties, "mcwstairs.railing.desc", 0);
+			}
+			else if(name.contains("balcony")) {
+				return new McwBlockItem(block, properties, "mcwstairs.balcony.desc", 0);
+			}
+			else if(name.contains("platform")) {
+				return new McwBlockItem(block, properties, "mcwstairs.platform.desc", 0);
+			}
+			else {
+				return new McwBlockItem(block, properties, 0);
+			}
+		}
+		else {
+			return new McwBlockItem(block, properties, 0);
+		}
 	}
 
 	public static Block getField(String path, AbstractBlock.Properties prop, Class<?>[] params, Object... values)
@@ -74,12 +82,12 @@ public final class Registration
 		}
 		return block;
 	}
-	
+
 	public static Block getBlocksField(String path, AbstractBlock.Properties WOOD)
 	{
 		return getField(path, WOOD, new Class<?>[] {AbstractBlock.Properties.class}, WOOD);
 	}
-	
+
 	public static Block getBlocksField(String path, AbstractBlock.Properties WOOD, BlockState state)
 	{
 		return getField(path, WOOD, new Class<?>[] {BlockState.class, AbstractBlock.Properties.class}, state, WOOD);

@@ -1,69 +1,70 @@
 package fr.samlegamer.addonslib.generation.tags;
 
-import fr.addonslib.api.data.BlockId;
 import fr.addonslib.api.data.McwBlockIdBase;
-import fr.addonslib.api.data.McwBlocksIdBase;
 import fr.addonslib.api.data.ModType;
+import fr.addonslib.api.obj.DoubleObject;
 import fr.samlegamer.addonslib.Finder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import javax.annotation.Nullable;
 import java.util.*;
 
-public abstract class McwItemTags extends ItemTagsProvider
+/**
+ * Provider Forge pour la génération des tags d'items MCW
+ * Utilise TagsUtils (classe commune multiloader) pour la logique
+ */
+public abstract class McwItemTags extends ItemTagsProvider implements ITag
 {
     public McwItemTags(DataGenerator p_i232552_1_, BlockTagsProvider p_i232552_2_, String modId, @Nullable ExistingFileHelper existingFileHelper) {
         super(p_i232552_1_, p_i232552_2_, modId, existingFileHelper);
     }
 
-    private void makeTags(McwBlockIdBase mcwBlockIdBase, String modid, List<String> MAT)
+    @Override
+    public void buildToTagSystem(McwBlockIdBase mcwBlockIdBase, String modid, List<String> MAT)
     {
-        for(BlockId blockId : mcwBlockIdBase.blocks())
-        {
-            for(String tagBlock : blockId.tags().getTagsItem())
-            {
-                for (String mat : MAT)
-                {
-                    Item result = Finder.findItem(modid, McwBlocksIdBase.replacement(blockId.id(), mat));
+        Map<DoubleObject<String, String>, String> tags = TagsUtils.makeTags(mcwBlockIdBase, modid, MAT, false);
 
-                    this.tag(getTag(tagBlock)).add(result);
-                }
+        for(Map.Entry<DoubleObject<String, String>, String> entry : tags.entrySet())
+        {
+            Block block = Finder.findBlock(entry.getKey().getFirst(), entry.getKey().getSecond());
+            String tagName = entry.getValue();
+
+            if(tagName != null && !tagName.isEmpty() && block != Blocks.AIR)
+            {
+                this.tag(getTag(tagName)).add(block.asItem());
             }
         }
     }
 
-    public void addAllMcwTagsWood(String modid, List<String> WOOD, ModType... types)
-    {
-        for(ModType type : types)
-        {
-            McwBlockIdBase mcwWoodMat = McwBlocksIdBase.getBlocksWithModidWood(type);
-            makeTags(mcwWoodMat, modid, WOOD);
-        }
+    @Override
+    public void addAllMcwTagsWood(String modid, List<String> WOOD, ModType... types) {
+        ITag.super.addAllMcwTagsWood(modid, WOOD, types);
     }
 
-    public void addAllMcwTagsLeave(String modid, List<String> WOOD)
-    {
-        McwBlockIdBase mcwWoodMat = McwBlocksIdBase.getBlocksWithModidLeave(ModType.FENCES);
-        makeTags(mcwWoodMat, modid, WOOD);
+    @Override
+    public void addAllMcwTagsLeave(String modid, List<String> WOOD) {
+        ITag.super.addAllMcwTagsLeave(modid, WOOD);
     }
 
-    public void addAllMcwTagsStone(String modid, List<String> STONE, ModType... types)
-    {
-        for(ModType type : types)
-        {
-            McwBlockIdBase mcwWoodMat = McwBlocksIdBase.getBlocksWithModidStone(type);
-            makeTags(mcwWoodMat, modid, STONE);
-        }
+    @Override
+    public void addAllMcwTagsStone(String modid, List<String> STONE, ModType... types) {
+        ITag.super.addAllMcwTagsStone(modid, STONE, types);
     }
 
+    /**
+     * Crée une TagKey pour un item à partir d'un nom de tag
+     * @param modidTagName Nom du tag au format "namespace:path" (ex: "minecraft:wooden_doors")
+     * @return TagKey pour l'item
+     */
     public static Tag.Named<Item> getTag(String modidTagName)
     {
-        return ItemTags.createOptional(new ResourceLocation(modidTagName));
+        return ItemTags.bind(modidTagName);
     }
 }

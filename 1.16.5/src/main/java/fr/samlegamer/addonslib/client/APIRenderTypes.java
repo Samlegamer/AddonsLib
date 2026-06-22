@@ -6,8 +6,8 @@ import fr.addonslib.api.data.McwBlocksIdBase;
 import fr.addonslib.api.data.ModType;
 import fr.samlegamer.addonslib.Finder;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.List;
