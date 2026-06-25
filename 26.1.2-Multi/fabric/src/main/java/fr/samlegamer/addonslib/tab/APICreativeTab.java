@@ -1,6 +1,7 @@
 package fr.samlegamer.addonslib.tab;
 
 import fr.addonslib.api.data.ModType;
+import fr.samlegamer.addonslib.AddonsLib;
 import fr.samlegamer.addonslib.util.ModListFabric;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
@@ -12,6 +13,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -39,10 +42,10 @@ public class APICreativeTab
 
     public static void initAllWood(String MODID, List<String> WOOD, CreativeModeTab tab, String modLoaded, ModType... type)
     {
-        Set<ItemStack> blockSet = CreativeTabUtils.getWoodItemForCreativeTab(new ModListFabric(), MODID, WOOD, modLoaded, type);
         ResourceKey<CreativeModeTab> key = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Objects.requireNonNull(BuiltInRegistries.CREATIVE_MODE_TAB.getKey(tab)));
 
         CreativeModeTabEvents.modifyOutputEvent(key).register(content -> {
+            Set<ItemStack> blockSet = CreativeTabUtils.getWoodItemForCreativeTab(new ModListFabric(), MODID, WOOD, modLoaded, type);
             for(ItemStack block : blockSet) {
                 content.accept(block);
             }
@@ -56,10 +59,10 @@ public class APICreativeTab
 
     public static void initAllLeave(String MODID, List<String> LEAVE, CreativeModeTab tab, String modLoaded)
     {
-        Set<ItemStack> blockSet = CreativeTabUtils.getHedgeItemForCreativeTab(new ModListFabric(), MODID, LEAVE, modLoaded);
         ResourceKey<CreativeModeTab> key = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Objects.requireNonNull(BuiltInRegistries.CREATIVE_MODE_TAB.getKey(tab)));
 
         CreativeModeTabEvents.modifyOutputEvent(key).register(content -> {
+            Set<ItemStack> blockSet = CreativeTabUtils.getHedgeItemForCreativeTab(new ModListFabric(), MODID, LEAVE, modLoaded);
             for(ItemStack block : blockSet) {
                 content.accept(block);
             }
@@ -73,10 +76,10 @@ public class APICreativeTab
 
     public static void initAllStone(String MODID, List<String> STONE, CreativeModeTab tab, String modLoaded, ModType... type)
     {
-        Set<ItemStack> blockSet = CreativeTabUtils.getStoneItemForCreativeTab(new ModListFabric(), MODID, STONE, modLoaded, type);
         ResourceKey<CreativeModeTab> key = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Objects.requireNonNull(BuiltInRegistries.CREATIVE_MODE_TAB.getKey(tab)));
 
         CreativeModeTabEvents.modifyOutputEvent(key).register(content -> {
+            Set<ItemStack> blockSet = CreativeTabUtils.getStoneItemForCreativeTab(new ModListFabric(), MODID, STONE, modLoaded, type);
             for(ItemStack block : blockSet) {
                 content.accept(block);
             }
