@@ -4,12 +4,9 @@ import fr.addonslib.api.client.ObjectColor;
 import fr.samlegamer.addonslib.Finder;
 import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import java.util.List;
 
-@OnlyIn(value = Dist.CLIENT)
 public class ColorRegistry
 {
 	private final List<ObjectColor> objectColors;
