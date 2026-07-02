@@ -64,7 +64,7 @@ public final class McwRegistry
                                 RegistryEntryReferences.registryEntryWood(MODID, id, new FenceGateBlock(prop, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN));
                             } else if (isTrapdoor(id)) {
                                 RegistryEntryReferences.registryEntryWood(MODID, id, new TrapDoorBlock(prop, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN));
-                            } else if (isDoor(id)) {
+                            } else if (isDoor(id, reflectedLocation)) {
                                 RegistryEntryReferences.registryEntryWood(MODID, id, new DoorBlock(prop, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN));
                             } else {
                                 RegistryEntryReferences.registryEntryWood(MODID, id, Registration.getBlocksField(blockId.reflectedLocation().getFabric(), prop));

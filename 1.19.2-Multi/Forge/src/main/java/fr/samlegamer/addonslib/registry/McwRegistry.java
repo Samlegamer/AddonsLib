@@ -84,7 +84,7 @@ public final class McwRegistry
                                 CreateBlockReferences.createBlock(id, () -> new FenceGateBlock(prop), block, item, tab, true, isModBaseLoaded);
                             } else if (isTrapdoor(id)) {
                                 CreateBlockReferences.createBlock(id, () -> new TrapDoorBlock(prop), block, item, tab, true, isModBaseLoaded);
-                            } else if (isDoor(id)) {
+                            } else if (isDoor(id, reflectedLocation)) {
                                 CreateBlockReferences.createBlock(id, () -> new DoorBlock(prop), block, item, tab, true, isModBaseLoaded);
                             } else {
                                 CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), block, item, tab, true, isModBaseLoaded);

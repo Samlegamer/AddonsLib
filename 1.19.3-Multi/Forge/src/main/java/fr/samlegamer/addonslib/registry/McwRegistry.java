@@ -74,7 +74,7 @@ public final class McwRegistry
                                 CreateBlockReferences.createBlock(id, () -> new FenceGateBlock(prop, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN), block, item);
                             } else if (isTrapdoor(id)) {
                                 CreateBlockReferences.createBlock(id, () -> new TrapDoorBlock(prop, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN), block, item);
-                            } else if (isDoor(id)) {
+                            } else if (isDoor(id, reflectedLocation)) {
                                 CreateBlockReferences.createBlock(id, () -> new DoorBlock(prop, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN), block, item);
                             } else {
                                 CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), block, item);

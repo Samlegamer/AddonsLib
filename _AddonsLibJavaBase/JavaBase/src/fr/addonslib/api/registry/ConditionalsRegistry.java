@@ -37,7 +37,7 @@ public final class ConditionalsRegistry
 
     public static boolean isBlockSetType(String reflectedLocation)
     {
-        return reflectedLocation.contains("StableDoor") && reflectedLocation.contains("JapaneseDoors");
+        return reflectedLocation.contains("StableDoor") || reflectedLocation.contains("JapaneseDoors");
     }
 
     public static boolean isFence(String reflectedLocation)
@@ -55,8 +55,8 @@ public final class ConditionalsRegistry
         return id.contains("trapdoor");
     }
 
-    public static boolean isDoor(String id)
+    public static boolean isDoor(String id, String reflectedLocation)
     {
-        return !id.contains("trapdoor") && id.contains("door");
+        return !id.contains("trapdoor") && id.contains("door") && reflectedLocation.startsWith("net.minecraft") && reflectedLocation.endsWith("DoorBlock");
     }
 }

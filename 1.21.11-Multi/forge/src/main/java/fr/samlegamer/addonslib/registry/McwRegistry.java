@@ -77,7 +77,7 @@ public final class McwRegistry
                                 CreateBlockReferences.createBlock(id, () -> new FenceGateBlock(woodType, prop), block, item);
                             } else if (isTrapdoor(id)) {
                                 CreateBlockReferences.createBlock(id, () -> new TrapDoorBlock(blockSetType, prop), block, item);
-                            } else if (isDoor(id)) {
+                            } else if (isDoor(id, reflectedLocation)) {
                                 CreateBlockReferences.createBlock(id, () -> new DoorBlock(blockSetType, prop), block, item);
                             } else {
                                 CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), block, item);

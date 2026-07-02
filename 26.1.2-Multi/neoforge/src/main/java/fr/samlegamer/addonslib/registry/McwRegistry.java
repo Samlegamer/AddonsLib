@@ -78,7 +78,7 @@ public final class McwRegistry
                                 CreateBlockReferences.createBlock(id, registryName -> new FenceGateBlock(woodType, prop.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
                             } else if (isTrapdoor(id)) {
                                 CreateBlockReferences.createBlock(id, registryName -> new TrapDoorBlock(blockSetType, prop.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
-                            } else if (isDoor(id)) {
+                            } else if (isDoor(id, reflectedLocation)) {
                                 CreateBlockReferences.createBlock(id, registryName -> new DoorBlock(blockSetType, prop.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);
                             } else {
                                 CreateBlockReferences.createBlock(id, registryName -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop.setId(ResourceKey.create(Registries.BLOCK, registryName))), block, item);

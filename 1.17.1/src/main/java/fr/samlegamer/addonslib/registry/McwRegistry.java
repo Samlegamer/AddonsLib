@@ -85,7 +85,7 @@ public final class McwRegistry
                                 CreateBlockReferences.createBlock(id, () -> new FenceGateBlock(prop), block, item, tab, true, isModBaseLoaded);
                             } else if (isTrapdoor(id)) {
                                 CreateBlockReferences.createBlock(id, () -> new TrapDoorBlock(prop), block, item, tab, true, isModBaseLoaded);
-                            } else if (isDoor(id)) {
+                            } else if (isDoor(id, reflectedLocation)) {
                                 CreateBlockReferences.createBlock(id, () -> new DoorBlock(prop), block, item, tab, true, isModBaseLoaded);
                             } else {
                                 CreateBlockReferences.createBlock(id, () -> Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), block, item, tab, true, isModBaseLoaded);
@@ -242,7 +242,7 @@ public final class McwRegistry
                                 CreateBlockReferences.createBlockWoodOpti(Modid, id, new FenceGateBlock(prop), tab, true);
                             } else if (isTrapdoor(id)) {
                                 CreateBlockReferences.createBlockWoodOpti(Modid, id, new TrapDoorBlock(prop), tab, true);
-                            } else if (isDoor(id)) {
+                            } else if (isDoor(id, reflectedLocation)) {
                                 CreateBlockReferences.createBlockWoodOpti(Modid, id, new DoorBlock(prop), tab, true);
                             } else {
                                 CreateBlockReferences.createBlockWoodOpti(Modid, id, Registration.getBlocksField(blockId.reflectedLocation().getForge(), prop), tab, true);

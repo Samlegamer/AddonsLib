@@ -75,7 +75,7 @@ public final class McwRegistry
                                 RegistryEntryReferences.registryEntryWood(MODID, id, new FenceGateBlock(prop), tab, true, isModBaseLoaded);
                             } else if (isTrapdoor(id)) {
                                 RegistryEntryReferences.registryEntryWood(MODID, id, new TrapDoorBlock(prop), tab, true, isModBaseLoaded);
-                            } else if (isDoor(id)) {
+                            } else if (isDoor(id, reflectedLocation)) {
                                 RegistryEntryReferences.registryEntryWood(MODID, id, new DoorBlock(prop), tab, true, isModBaseLoaded);
                             } else {
                                 RegistryEntryReferences.registryEntryWood(MODID, id, Registration.getBlocksField(blockId.reflectedLocation().getFabric(), prop), tab, true, isModBaseLoaded);
