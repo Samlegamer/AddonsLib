@@ -1,0 +1,39 @@
+package fr.samlegamer.addonslib.generation.loot_tables;
+
+import com.google.common.base.Suppliers;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.common.loot.LootModifier;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Supplier;
+
+public class McwLootTables extends LootModifier
+{
+    public static final Supplier<MapCodec<McwLootTables>> CODEC = Suppliers.memoize(() -> MapCodec.assumeMapUnsafe(RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, McwLootTables::new))));
+    public static final LootTableUtils LOOT_TABLE_UTILS = new LootTableUtils();
+
+    protected McwLootTables(LootItemCondition[] conditions, int priority) {
+        super(conditions, priority);
+    }
+
+
+    public LootItemCondition[] conditions() {
+        return this.conditions;
+    }
+
+    @Override
+    protected @NotNull ObjectArrayList<ItemStack> doApply(@NotNull ObjectArrayList<ItemStack> generatedLoot, @NotNull LootContext context) {
+        return LOOT_TABLE_UTILS.doApply(null, generatedLoot, context);
+    }
+
+    @Override
+    public @NotNull MapCodec<? extends IGlobalLootModifier> codec() {
+        return CODEC.get();
+    }
+}
